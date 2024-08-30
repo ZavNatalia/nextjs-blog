@@ -2,22 +2,24 @@ import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 export default function PostContent({post}: { post: IPost }) {
     const {title, date, slug, image, content} = post;
     const imagePath = `/images/posts/${slug}/${image}`;
 
     const customRenderers = {
-        img(image) {
-            return (
-                <Image
-                    src={`/images/posts/${slug}/${image.src}`}
-                    alt={image.alt}
-                    width={300}
-                    height={300}
-                />
-            )
-        },
+        // img(image) {
+        //     return (
+        //         <Image
+        //             src={`/images/posts/${slug}/${image.src}`}
+        //             alt={image.alt}
+        //             width={300}
+        //             height={300}
+        //         />
+        //     )
+        // },
         p(paragraph) {
             const {node} = paragraph;
             const img = node.children[0];
@@ -30,13 +32,21 @@ export default function PostContent({post}: { post: IPost }) {
                             alt={img.properties.alt}
                             width={500}
                             height={500}
-                            layout='responsive'
                         />
                     </div>
                 )
             }
             return (
                 <p>{paragraph.children}</p>
+            )
+        },
+        code(code) {
+            const { className, children } = code;
+            const language = className?.split('-')[1];
+            return (
+                <SyntaxHighlighter style={darcula} language={language}>
+                    {children}
+                </SyntaxHighlighter>
             )
         }
     };

@@ -33,7 +33,6 @@ export default function PostCard({post}: { post: IPost }) {
                         alt={title}
                         width={250}
                         height={250}
-                        layout='responsive'
                     />
                 </div>
                 <h3 className="text-lg font-bold">{title}</h3>

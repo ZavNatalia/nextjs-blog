@@ -6,10 +6,11 @@ export default function Hero() {
         items-center rounded-3xl bg-gray-600 pb-4 p-4 sm:pt-0">
             <Image
                 src="/images/site/hero-desktop.webp"
-                width={380}
-                height={240}
-                className="hidden sm:block rounded-b-3xl"
+                width={326}
+                height={181}
+                className="hidden sm:block w-auto rounded-b-3xl"
                 alt="Hero"
+                priority
             />
             <h1 className="text-2xl md:text-3xl font-bold text-blue-100 text-center">Building with Next.js</h1>
             <p className="text-lg md:text-xl text-gray-300 text-center">Go from beginner to expert by learning the foundations of

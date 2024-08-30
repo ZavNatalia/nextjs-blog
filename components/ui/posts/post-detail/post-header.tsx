@@ -13,7 +13,7 @@ export default function PostHeader({title, date, imagePath}: { title: string, da
                 <span className='text-gray-400 text-lg'>{formattedDate}</span>
             </div>
             <Image
-                className='object-contain'
+                className='object-contain rounded-3xl'
                 src={imagePath}
                 alt={title}
                 width={280}
