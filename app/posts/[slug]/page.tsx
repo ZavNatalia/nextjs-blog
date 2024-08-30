@@ -1,5 +1,24 @@
-export default function Page() {
+import PostContent from '@/components/ui/posts/post-detail/post-content';
+import { getPostData, getPostsFiles } from '@/lib/posts-util';
+
+export default async function Page({ params }) {
+    const post = await getPost(params);
+    if (!post) {
+        return <div>NO POST</div>
+    }
     return (
-        <div>slug</div>
+        <main className="flex min-h-full flex-col items-center justify-between p-24 w-full">
+            <PostContent post={post}/>
+        </main>
     )
+}
+
+export async function generateStaticParams() {
+    const postsFileNames = getPostsFiles();
+    const slugs = postsFileNames.map(slug => slug.replace(/\.md$/, ''));
+    return slugs.map((slug) => ({params: {slug: slug}}));
+}
+
+async function getPost(params) {
+    return getPostData(params?.slug);
 }

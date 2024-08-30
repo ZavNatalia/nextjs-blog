@@ -3,7 +3,7 @@ import Image from 'next/image';
 export default function Hero() {
     return (
         <section className="flex gap-4 md:gap-4 flex-col max-w-md md:max-w-lg
-        items-center rounded-3xl bg-gray-600 shadow-lg pb-4 p-4 sm:pt-0">
+        items-center rounded-3xl bg-gray-600 pb-4 p-4 sm:pt-0">
             <Image
                 src="/images/site/hero-desktop.webp"
                 width={380}
