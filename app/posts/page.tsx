@@ -1,5 +1,11 @@
 import AllPosts from '@/components/ui/posts/all-posts';
 import { getAllPosts } from '@/lib/posts-util';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "All Posts",
+    description: "A list of all programming-related tutorials and posts!",
+};
 
 const DUMMY_ALL_DATA = [
     {

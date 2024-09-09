@@ -1,6 +1,14 @@
 import PostContent from '@/components/ui/posts/post-detail/post-content';
 import { getPostData, getPostsFiles } from '@/lib/posts-util';
 
+export async function generateMetadata({ params }) {
+    const post = await getPost(params);
+    return {
+        title: post?.title,
+        description: post?.excerpt,
+    }
+}
+
 export default async function Page({ params }) {
     const post = await getPost(params);
     if (!post) {
