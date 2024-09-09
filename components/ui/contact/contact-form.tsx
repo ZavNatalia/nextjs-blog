@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Notification, { NotificationDetails } from '@/components/ui/notification';
 
 interface ContactDetails {
@@ -64,6 +64,16 @@ export default function ContactForm() {
     });
     const [requestStatus, setRequestStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
     const [requestError, setRequestError] = useState();
+
+    useEffect(() => {
+        if (requestStatus === 'success' || requestStatus === 'error') {
+            const timer = setTimeout(() => {
+                setRequestStatus(null);
+                setRequestError(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [requestStatus]);
     const handleInputChange = (field: keyof ContactDetails) => (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -152,7 +162,7 @@ export default function ContactForm() {
                     {requestStatus === 'pending' ? 'Sending...' : 'Send message'}
                 </button>
             </form>
-            {notificationData
+            {notificationData && requestStatus !== 'pending'
                 ? <Notification {...notificationData} />
                 : null
             }
