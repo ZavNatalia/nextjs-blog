@@ -34,6 +34,7 @@ export default function RootLayout({
             <MainNavigation/>
             {children}
         </div>
+        <div id='notifications'></div>
         </body>
         </html>
     );

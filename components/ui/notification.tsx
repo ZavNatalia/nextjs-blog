@@ -1,3 +1,5 @@
+import { createPortal } from 'react-dom';
+
 export type NotificationStatus = 'idle' | 'pending' | 'success' | 'error';
 
 export interface NotificationDetails {
@@ -18,10 +20,13 @@ const getBg = (status: NotificationStatus) => {
 }
 export default function Notification({status, title, message}: NotificationDetails) {
     return (
-        <div
-            className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 px-6 py-4 rounded-3xl ${getBg(status)}`}>
-            <p className='font-bold text-lg'>{title}</p>
-            <p>{message}</p>
-        </div>
+        createPortal(
+            <div
+                className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 px-6 py-4 rounded-3xl ${getBg(status)}`}>
+                <p className='font-bold text-lg'>{title}</p>
+                <p>{message}</p>
+            </div>,
+            document.getElementById('notifications')
+        )
     );
 }
