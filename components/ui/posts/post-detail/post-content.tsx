@@ -25,9 +25,9 @@ export default function PostContent({post}: { post: IPost }) {
             const img = node.children[0];
             if (node.children[0].tagName === 'img') {
                 return (
-                    <div className='w-full max-w-[600px] mx-auto'>
+                    <div className='w-full'>
                         <Image
-                            className='rounded-3xl'
+                            className='rounded-3xl mx-auto'
                             src={`/images/posts/${slug}/${img.properties.src}`}
                             alt={img.properties.alt}
                             width={500}
