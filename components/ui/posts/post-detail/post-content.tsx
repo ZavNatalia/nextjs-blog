@@ -30,8 +30,8 @@ export default function PostContent({post}: { post: IPost }) {
                             className='rounded-3xl mx-auto'
                             src={`/images/posts/${slug}/${img.properties.src}`}
                             alt={img.properties.alt}
-                            width={500}
-                            height={500}
+                            width={450}
+                            height={450}
                         />
                     </div>
                 )

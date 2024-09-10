@@ -9,19 +9,20 @@ isFeatured: true
 The Next.js 15 Release Candidate (RC) is now available. This early version allows you to test the latest features before
 the upcoming stable release.
 
-* React: Support for the React 19 RC, React Compiler (Experimental), and hydration error improvements
-* Caching: fetch requests, GET Route Handlers, and client navigations are no longer cached by default
-* Partial Prerendering (Experimental): New Layout and Page config option for incremental adoption
-* next/after (Experimental): New API to execute code after a response has finished streaming
-* create-next-app: Updated design and a new flag to enable Turbopack in local development
-* Bundling external packages (Stable): New config options for App and Pages Router
+* **React:** Support for the React 19 RC, React Compiler (Experimental), and hydration error improvements
+* **Caching:** fetch requests, GET Route Handlers, and client navigations are no longer cached by default
+* **Partial Prerendering (Experimental):** New Layout and Page config option for incremental adoption
+* **next/after (Experimental):** New API to execute code after a response has finished streaming
+* **create-next-app:** Updated design and a new flag to enable Turbopack in local development
+* **Bundling external packages (Stable):** New config options for App and Pages Router
 
 Try the Next.js 15 RC today:
+
 ```
 npm install next@rc react@rc react-dom@rc
 ```
 
-## React 19 RC
+### React 19 RC
 
 The Next.js App Router is built on the React canary channel for frameworks, which has allowed developers to use and
 provide feedback on these new React APIs before the v19 release.
@@ -30,60 +31,60 @@ Next.js 15 RC now supports React 19 RC, which includes new features for both the
 
 Read the Next.js 15 upgrade guide, the React 19 upgrade guide, and watch the React Conf Keynote to learn more.
 
-![Caching updates](caching-updates.webp)
+> Note: Some third party libraries may not be compatible with React 19 yet.
 
-Making streaming-friendly framework APIs for data fetching, asset loading, and page metadata, as well as taking
-advantage of React's newer primitives required large changes to the core architecture of Next.js.
+![A photo of a chalkboard with the text "React 19 RC"](chalkboard.webp)
 
-![A Next.js application with a dynamic post](dynamic-post.webp)
 
-Incremental adoption of Partial Prerendering (Experimental)
-In Next.js 14, we introduced Partial Prerendering (PPR) - an optimization that combines static and dynamic rendering on
-the same page.
+### React Compiler (Experimental)
+The React Compiler is a new experimental compiler created by the React team at Meta. The compiler understands your code
+at a deep level through its understanding of plain JavaScript semantics and the Rules of React, which allows it to add
+automatic optimizations to your code. The compiler reduces the amount of manual memoization developers have to do
+through APIs such as useMemo and useCallback - making code simpler, easier to maintain, and less error prone.
 
-Next.js currently defaults to static rendering unless you use dynamic functions such as cookies(), headers(), and
-uncached data requests. These APIs opt an entire route into dynamic rendering. With PPR, you can wrap any dynamic UI in
-a Suspense boundary. When a new request comes in, Next.js will immediately serve a static HTML shell, then render and
-stream the dynamic parts in the same HTTP request.
+With Next.js 15, we've added support for the React Compiler.
 
-To allow for incremental adoption, we’ve added an experimental_ppr route config option for opting specific Layouts and
-Pages into PPR:
+Install babel-plugin-react-compiler:
 
-*app/page.jsx*
-
-```js 
-import {Suspense} from "react"
-import {StaticComponent, DynamicComponent} from "@/app/ui"
-
-export const experimental_ppr = true
-
-export default function Page() {
-    return (
-        <>
-            <StaticComponent/>
-            <Suspense fallback={...}>
-                <DynamicComponent/>
-            </Suspense>
-        </>
-    );
-}
+```
+npm install babel-plugin-react-compiler
 ```
 
-To use the new option, you’ll need to set the experimental.ppr config in your next.config.js file to 'incremental':
+Then, add experimental.reactCompiler option in next.config.js:
 
 *next.config.ts*
 
 ```js 
 const nextConfig = {
     experimental: {
-        ppr: 'incremental',
+        reactCompiler: true,
     },
 };
 
 module.exports = nextConfig;
 ```
 
-Once all the segments have PPR enabled, it’ll be considered safe for you to set the ppr value to true, and enable it for
-the entire app and all future routes.
+Optionally, you can configure the compiler to run in "opt-in" mode as follows:
 
-We will share more about our PPR roadmap in our Next.js 15 GA blog post.
+*next.config.ts*
+
+```js 
+const nextConfig = {
+    experimental: {
+        reactCompiler: {
+            compilationMode: 'annotation',
+        },
+    },
+};
+
+module.exports = nextConfig;
+```
+
+> Note: The React Compiler is currently only possible to use in Next.js through a Babel plugin, which could result in
+> slower build times.
+
+![A photo of a React 19 RC conference](conference.webp)
+
+Learn more about the React Compiler, and the available Next.js config options.
+
+*Posted by @delba_oliveira & @zt1072*

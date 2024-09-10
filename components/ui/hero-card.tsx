@@ -6,8 +6,8 @@ export default function Hero() {
         items-center rounded-3xl bg-gray-600 pb-4 p-4 sm:pt-0">
             <Image
                 src="/images/site/hero-desktop.webp"
-                width={326}
-                height={181}
+                width={384}
+                height={215}
                 className="hidden sm:block w-auto rounded-b-3xl"
                 alt="Hero"
                 priority
