@@ -6,7 +6,7 @@ export interface IPost {
     title: string;
     date: string;
     image?: any;
-    excerpt?: string;
+    excerpt: string;
     content?: string;
     isFeatured: boolean;
 }
@@ -20,11 +20,11 @@ export default function PostCard({post}: { post: IPost }) {
     });
 
     const imagePath = `/images/posts/${slug}/${image}`;
-    const linkPath = `posts/${slug}`
+    const linkPath = `posts/${slug}`;
 
     return (
         <li>
-            <Link href={linkPath} className='flex flex-col gap-1 w-[290px]  p-5 bg-gray-700
+            <Link href={linkPath} className='flex flex-col gap-1 w-[290px] p-5 bg-gray-700
             rounded-3xl'>
                 <div className='overflow-hidden w-[250px] h-[250] rounded-xl'>
                     <Image
@@ -35,9 +35,9 @@ export default function PostCard({post}: { post: IPost }) {
                         height={250}
                     />
                 </div>
-                <h3 className="text-lg font-bold">{title}</h3>
+                <h3 className="text-lg font-bold max-h-[4rem] line-clamp-2 text-ellipsis">{title}</h3>
                 <time className="text-xs text-gray-400 whitespace-nowrap mb-3">{formattedDate}</time>
-                <p className='text-sm'>{excerpt}</p>
+                <p className='text-sm max-h-[7rem] line-clamp-5 text-ellipsis'>{excerpt}</p>
             </Link>
         </li>
     )

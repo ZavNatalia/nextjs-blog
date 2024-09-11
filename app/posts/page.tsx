@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Posts() {
     const posts = getAllPosts();
     return (
-        <main className="flex min-h-full flex-col items-center justify-between p-24 w-full">
+        <main className="flex min-h-full flex-col items-center justify-between p-20 w-full">
             <AllPosts posts={posts}/>
         </main>
     )

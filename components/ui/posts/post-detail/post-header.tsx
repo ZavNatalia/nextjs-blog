@@ -16,8 +16,8 @@ export default function PostHeader({title, date, imagePath}: { title: string, da
                 className='object-contain rounded-3xl'
                 src={imagePath}
                 alt={title}
-                width={280}
-                height={280}
+                width={300}
+                height={300}
                 priority
             />
         </header>
