@@ -1,6 +1,7 @@
 import AllPosts from '@/components/ui/posts/all-posts';
 import { getAllPosts } from '@/lib/posts-util';
 import type { Metadata } from 'next';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
 
 export const metadata: Metadata = {
     title: "All Posts",
@@ -9,8 +10,15 @@ export const metadata: Metadata = {
 
 export default function Posts() {
     const posts = getAllPosts();
+
+    const breadcrumbs: Breadcrumb[] = [
+        { title: 'main', link: '/' },
+        { title: 'all posts', link: '/posts' },
+    ];
+
     return (
-        <main className="flex min-h-full flex-col items-center justify-between p-20 w-full">
+        <main className="flex min-h-full flex-col items-center justify-between px-32 py-8 w-full gap-8">
+            <Breadcrumbs breadcrumbs={breadcrumbs}/>
             <AllPosts posts={posts}/>
         </main>
     )
