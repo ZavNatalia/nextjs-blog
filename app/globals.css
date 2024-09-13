@@ -32,3 +32,21 @@ body {
     hyphens: auto;
   }
 }
+
+@layer components {
+  .page {
+    @apply flex min-h-full flex-col items-center justify-between md:px-16 sm:px-12 py-8 w-full gap-8;
+  }
+  .label {
+    @apply block font-medium;
+  }
+  .input {
+    @apply mt-1 p-2 w-full border border-primary-light rounded-lg
+    focus:outline-none focus:ring-accent focus:border-accent-hover
+     text-primary bg-primary;
+  }
+  .button {
+    @apply bg-primary-light/60 max-w-fit hover:bg-accent-hover text-primary font-bold py-4 px-8 rounded-lg transition-all
+    duration-200;
+  }
+}

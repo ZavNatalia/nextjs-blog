@@ -1,21 +1,7 @@
-import plugin from 'tailwindcss';
+import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
-const config: {
-  plugins: (plugin | ((options?: Partial<{ className: string; target: "modern" | "legacy" }>) => {
-    handler: () => void
-  }))[];
-  theme: {
-    extend: {
-      typography: (theme) => { DEFAULT: { css: { color: any } } };
-      textColor: { secondary: string; muted: string; primary: string };
-      colors: (theme) => {
-        accent: { hover: string; DEFAULT: string };
-        primary: { light: string; dark: string; DEFAULT: string }
-      }
-    }
-  };
-  content: string[]
-} = {
+const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -23,25 +9,23 @@ const config: {
   ],
   theme: {
     extend: {
-      colors:() => {
-        return {
-          primary: {
-            DEFAULT: 'hsl(237,25%,15%)',
-            light: 'hsl(214,14%,30%)',
-            dark: 'hsl(224,71%,4%)',
-          },
-          accent: {
-            DEFAULT: 'hsl(38,92%,50%)',
-            hover: 'hsl(26,90%,37%)',
-          },
-        }
+      colors: {
+        primary: {
+          DEFAULT: 'rgb(30 41 59)', // slate-800
+          light: 'rgb(71 85 105)', // slate-600
+          dark: 'rgb(9, 11, 17)', // slate-900
+        },
+        accent: {
+          DEFAULT: 'rgb(245 158 11)', // amber-500
+          hover: 'rgb(180 83 9)', // amber-700
+        },
       },
       textColor: {
-        primary: 'hsl(216,9%,90%)',
-        secondary: 'hsl(205,17%,70%)',
-        muted: 'hsl(188,6%,49%)',
+        primary: 'rgb(229 231 235)', // gray-200
+        secondary: 'rgb(156 163 175)', // gray-400
+        muted: 'rgb(107 114 128)', // gray-500
       },
-      typography: (theme) => ({
+      typography: ({ theme }) => ({
         DEFAULT: {
           css: {
             color: theme('colors.gray.300'),
@@ -50,8 +34,7 @@ const config: {
       }),
     },
   },
-  plugins: [
-    require('@tailwindcss/typography')
-  ],
-};
+  plugins: [typography],
+}
+
 export default config;

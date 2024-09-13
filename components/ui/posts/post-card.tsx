@@ -24,9 +24,9 @@ export default function PostCard({post}: { post: IPost }) {
 
     return (
         <li>
-            <Link href={linkPath} className='flex flex-col gap-1 w-[290px] p-5 bg-primary-light/60
+            <Link href={linkPath} className='flex flex-col gap-1 lg:w-[250px] 2xl:w-[290px] p-5 bg-primary-light/60
             rounded-3xl'>
-                <div className='overflow-hidden w-[250px] h-[250px] rounded-xl mb-2'>
+                <div className='overflow-hidden lg:w-[210px] 2xl:w-[250px] lg:h-[210px] 2xl:h-[250px] rounded-xl mb-2'>
                     <Image
                         className='rounded-xl hover:scale-110 transition-transform duration-500'
                         src={imagePath}

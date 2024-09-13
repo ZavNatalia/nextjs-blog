@@ -37,15 +37,13 @@ function InputField({id, label, type, value, onChange, placeholder, required = f
     const InputComponent = rows ? 'textarea' : 'input';
     return (
         <div>
-            <label htmlFor={id} className="block text-md font-medium">
+            <label htmlFor={id} className="label">
                 {label}
             </label>
             <InputComponent
                 id={id}
                 type={type}
-                className="mt-1 p-2 w-full border border-primary-light rounded-lg
-                   focus:outline-none focus:ring-accent focus:border-accent-hover
-                   sm:text-md text-primary bg-primary"
+                className="input sm:text-md"
                 placeholder={placeholder}
                 required={required}
                 value={value}
@@ -157,8 +155,7 @@ export default function ContactForm() {
                 <button
                     disabled={requestStatus === 'pending'}
                     type='submit'
-                    className="bg-primary-light/60 hover:bg-accent-hover text-primary font-bold py-4 px-8 rounded-lg transition-all
-                duration-200"
+                    className="button self-end"
                 >
                     {requestStatus === 'pending' ? 'Sending...' : 'Send message'}
                 </button>

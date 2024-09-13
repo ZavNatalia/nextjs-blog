@@ -17,7 +17,7 @@ export default function Posts() {
     ];
 
     return (
-        <main className="flex min-h-full flex-col items-center justify-between px-32 py-8 w-full gap-8">
+        <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs}/>
             <AllPosts posts={posts}/>
         </main>
