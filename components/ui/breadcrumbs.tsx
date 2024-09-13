@@ -20,17 +20,17 @@ const BreadcrumbItem: FC<BreadcrumbItemProps> = ({ breadcrumb, isActive, isLast 
             href={breadcrumb.link}
             className={`
                 cursor-pointer 
-                hover:text-amber-500 
+                hover:text-accent 
                 px-3 
                 py-1 
                 transition-all 
                 duration-300
-                ${isActive ? 'font-bold text-amber-500' : 'font-normal'}
+                ${isActive ? 'font-bold text-accent' : 'font-normal'}
             `}
         >
             {breadcrumb.title}
         </Link>
-        {!isLast && <span className="text-gray-300 ml-1">/</span>}
+        {!isLast && <span className="text-primary ml-1">/</span>}
     </span>
 );
 

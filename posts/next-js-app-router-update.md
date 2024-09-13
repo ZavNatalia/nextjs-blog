@@ -33,3 +33,4 @@ Making streaming-friendly framework APIs for data fetching, asset loading, and p
 
 We took the opportunity to build on top of the latest React concurrent features, like Server Components, Suspense, and more, which have been designed for streaming architectures.
 
+*Posted by @delba_oliveira & @leeerob*

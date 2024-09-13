@@ -30,7 +30,7 @@ Previously, we were rewriting next dev and other parts of Next.js to support thi
 
 5,000 integration tests for next dev are now passing with Turbopack, our underlying Rust engine. These tests include 7 years of bug fixes and reproductions.
 
-While testing on vercel.com, a large Next.js application, we've seen:
+While testing on [Vercel](https://vercel.com "Vercel provides the developer tools and cloud infrastructure to build, scale, and secure a faster, more personalized web."), a large Next.js application, we've seen:
 
 * Up to **53.3%** faster local server startup
 * Up to **94.7%** faster code updates with Fast Refresh
@@ -40,8 +40,5 @@ This benchmark is a practical result of performance improvements you should expe
 Once we hit 100% of tests passing, we'll move Turbopack to stable in an upcoming minor release. We'll also continue to support using webpack for custom configurations and ecosystem plugins.
 
 ![A Next.js application with a dynamic post.](dynamic-post.webp)
-
-
-You can follow the percentage of tests passing at areweturboyet.com.
 
 *Posted by @leeerob & @timneutkens*

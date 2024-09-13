@@ -43,9 +43,9 @@ function InputField({id, label, type, value, onChange, placeholder, required = f
             <InputComponent
                 id={id}
                 type={type}
-                className="mt-1 p-2 w-full border border-gray-300 rounded-lg
-                   focus:outline-none focus:ring-amber-500 focus:border-amber-500
-                   sm:text-sm text-gray-100 bg-gray-800"
+                className="mt-1 p-2 w-full border border-primary-light rounded-lg
+                   focus:outline-none focus:ring-accent focus:border-accent-hover
+                   sm:text-md text-primary bg-primary"
                 placeholder={placeholder}
                 required={required}
                 value={value}
@@ -157,7 +157,8 @@ export default function ContactForm() {
                 <button
                     disabled={requestStatus === 'pending'}
                     type='submit'
-                    className="bg-gray-700 hover:bg-amber-700 text-white font-bold py-4 px-8 rounded-lg"
+                    className="bg-primary-light/60 hover:bg-accent-hover text-primary font-bold py-4 px-8 rounded-lg transition-all
+                duration-200"
                 >
                     {requestStatus === 'pending' ? 'Sending...' : 'Send message'}
                 </button>
