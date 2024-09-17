@@ -3,6 +3,7 @@ import { getPostData, getPostsFiles } from '@/lib/posts-util';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
 import { notFound } from 'next/navigation';
 import { IPost } from '@/components/ui/posts/post-card';
+import Link from 'next/link';
 
 interface PageProps {
     params: { slug: string };
@@ -42,6 +43,9 @@ export default async function Page({ params }: PageProps) {
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} />
+            <Link href="/posts" className="button">
+                Back to Blog
+            </Link>
         </main>
     );
 }

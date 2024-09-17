@@ -3,50 +3,54 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 27, 28, 42;
-    --background-end-rgb: 14, 14, 22;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 27, 28, 42;
+        --background-end-rgb: 14, 14, 22;
+    }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+    ) rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
-  .text-balance {
-    text-align: justify;
-    hyphens: auto;
-  }
+    .text-balance {
+        text-align: justify;
+        hyphens: auto;
+    }
 }
 
 @layer components {
-  .page {
-    @apply flex min-h-full flex-col items-center justify-between md:px-16 sm:px-12 py-8 w-full gap-8;
-  }
-  .label {
-    @apply block font-medium;
-  }
-  .input {
-    @apply mt-1 p-2 w-full border border-primary-light rounded-lg
-    focus:outline-none focus:ring-accent focus:border-accent-hover
-     text-primary bg-primary;
-  }
-  .button {
-    @apply bg-primary-light/60 max-w-fit hover:bg-accent-hover text-primary font-bold py-4 px-8 rounded-lg transition-all
-    duration-200;
-  }
+    .page {
+        @apply
+        flex flex-col items-center px-8 sm:px-12 md:px-16 py-8 w-full gap-8
+        min-h-[calc(100vh-76px)];
+    }
+
+    .label {
+        @apply block font-medium;
+    }
+
+    .input {
+        @apply mt-1 p-2 w-full border border-primary-light rounded-lg
+        focus:outline-none focus:ring-accent focus:border-accent-hover
+        text-primary bg-primary;
+    }
+
+    .button {
+        @apply bg-primary-light/60 max-w-fit hover:bg-accent-hover text-primary font-bold py-4 px-8 rounded-lg transition-all
+        duration-200;
+    }
 }

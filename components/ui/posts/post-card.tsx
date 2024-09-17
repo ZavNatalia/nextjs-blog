@@ -24,19 +24,20 @@ export default function PostCard({post}: { post: IPost }) {
 
     return (
         <li>
-            <Link href={linkPath} className='flex flex-col gap-1 lg:w-[250px] 2xl:w-[290px] p-5 bg-primary-light/60
+            <Link href={linkPath} className='flex flex-col gap-2 p-4 md:p-5 bg-primary-light/60
             rounded-3xl'>
-                <div className='overflow-hidden lg:w-[210px] 2xl:w-[250px] lg:h-[210px] 2xl:h-[250px] rounded-xl mb-2'>
+                <div className='overflow-hidden w-fit h-fit rounded-xl mb-2'>
                     <Image
                         className='rounded-xl hover:scale-110 transition-transform duration-500'
                         src={imagePath}
                         alt={title}
                         width={250}
                         height={250}
+                        layout='responsive'
                     />
                 </div>
-                <h3 className="text-lg font-bold max-h-[4rem] line-clamp-2 leading-6 text-ellipsis">{title}</h3>
-                <time className="text-xs text-secondary whitespace-nowrap mb-3">{formattedDate}</time>
+                <h3 className="text-xl font-bold max-h-[4rem] line-clamp-2 text-ellipsis">{title}</h3>
+                <time className="text-xs text-secondary whitespace-nowrap mb-2">{formattedDate}</time>
                 <p className='text-sm max-h-[7rem] line-clamp-5 text-ellipsis'>{excerpt}</p>
             </Link>
         </li>
