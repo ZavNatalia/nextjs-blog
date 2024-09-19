@@ -53,4 +53,8 @@ body {
         @apply bg-primary-light/60 max-w-fit hover:bg-accent-hover text-primary font-bold py-4 px-8 rounded-lg transition-all
         duration-200;
     }
+    .icon-button {
+        @apply max-w-fit hover:text-accent text-primary font-bold p-1 rounded-lg transition-all
+        duration-200;
+    }
 }

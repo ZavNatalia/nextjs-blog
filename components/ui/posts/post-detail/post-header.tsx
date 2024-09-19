@@ -12,15 +12,13 @@ export default function PostHeader({title, date, imagePath}: { title: string, da
                 <h1 className='font-bold text-5xl mb-4 leading-snug'>{title}</h1>
                 <span className='text-secondary text-lg'>{formattedDate}</span>
             </div>
-            <div className='h-[300px] w-[300px]'>
+            <div className="w-[200px] md:w-[300px] h-[200px] md:h-[300px] flex-shrink-0 relative">
                 <Image
-                    className='object-contain rounded-3xl'
+                    className="rounded-3xl object-cover"
                     src={imagePath}
                     alt={title}
-                    width={400}
-                    height={400}
-                    layout='responsive'
-                    priority
+                    fill
+                    sizes="300px"
                 />
             </div>
         </header>

@@ -3,9 +3,9 @@ import NotFoundCard from '@/components/ui/not-found-card';
 
 const NotFoundPage: FC = () => {
     return (
-        <div className="page">
+        <main className="page">
             <NotFoundCard/>
-        </div>
+        </main>
     )
 }
 
