@@ -11,7 +11,7 @@ function PostCardSkeleton() {
         <li className="flex w-full flex-col gap-2 p-4 md:p-5 bg-primary-light/60 rounded-3xl">
             <SquareSkeletonElement/>
             <SkeletonElement className="h-6 mb-1 w-full" />
-            <SkeletonElement className="h-4 mb-2 max-w-24 bg-primary/70" />
+            <SkeletonElement className="h-3 mb-2 max-w-24 bg-primary/80" />
             <SkeletonElement className="h-4 w-full" />
             <SkeletonElement className="h-4 w-2/3" />
         </li>

@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
-import { IPost } from '@/components/ui/posts/post-card';
+import { IPost } from '@/components/ui/posts/post-card/post-card';
 import Notification, { NotificationDetails } from '@/components/ui/notification';
 
 export default function PostContent({ post }: { post: IPost }) {

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { IPost } from '@/components/ui/posts/post-card';
+import { IPost } from '@/components/ui/posts/post-card/post-card';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 

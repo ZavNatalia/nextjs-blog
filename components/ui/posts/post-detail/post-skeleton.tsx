@@ -8,7 +8,6 @@ export default function PostSkeleton() {
                 </div>
                 <div className="flex-shrink-0 h-[200px] md:h-[300px] w-[200px] md:w-[300px] bg-primary-light rounded-3xl"></div>
             </header>
-
             <div className="h-4 bg-primary-light rounded-lg"></div>
             <div className="h-4 bg-primary-light rounded-lg w-3/4"></div>
             <div className="h-4 bg-primary-light rounded-lg w-5/6"></div>
