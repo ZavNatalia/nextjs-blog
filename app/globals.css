@@ -22,7 +22,8 @@ body {
             to bottom,
             transparent,
             rgb(var(--background-end-rgb))
-    ) rgb(var(--background-start-rgb));
+        )
+        rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
@@ -34,9 +35,7 @@ body {
 
 @layer components {
     .page {
-        @apply
-        flex flex-col items-center w-full px-8 sm:px-12 md:px-16 py-8 gap-8
-        min-h-[calc(100vh-76px)];
+        @apply flex min-h-[calc(100vh-76px)] w-full flex-col items-center gap-8 px-8 py-8 sm:px-12 md:px-16;
     }
 
     .label {
@@ -44,17 +43,13 @@ body {
     }
 
     .input {
-        @apply mt-1 p-2 w-full border border-primary-light rounded-lg
-        focus:outline-none focus:ring-accent focus:border-accent-hover
-        text-primary bg-primary;
+        @apply mt-1 w-full rounded-lg border border-primary-light bg-primary p-2 text-primary focus:border-accent-hover focus:outline-none focus:ring-accent;
     }
 
     .button {
-        @apply bg-primary-light/60 max-w-fit hover:bg-accent-hover text-primary font-bold py-4 px-8 rounded-lg transition-all
-        duration-200;
+        @apply max-w-fit rounded-lg bg-primary-light/60 px-8 py-4 font-bold text-primary transition-all duration-200 hover:bg-accent-hover;
     }
     .icon-button {
-        @apply max-w-fit hover:text-accent text-primary font-bold p-1 rounded-lg transition-all
-        duration-200;
+        @apply max-w-fit rounded-lg p-1 font-bold text-primary transition-all duration-200 hover:text-accent;
     }
 }

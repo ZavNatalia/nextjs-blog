@@ -10,16 +10,18 @@ The App Router represents a new foundation for the future of Next.js, but we rec
 
 For the upcoming releases of Next.js, we are focusing on the following areas:
 
-* Improving Performance
-* Improving Stability
-* Improving Developer Education
+-   Improving Performance
+-   Improving Stability
+-   Improving Developer Education
 
 ![The main App component is using server components to render a list of posts.](react-server-components.webp)
 
 ## The App Router
-  First, it's helpful to provide some context on how the App Router has been designed.
+
+First, it's helpful to provide some context on how the App Router has been designed.
 
 ### Growing Beyond the Pages Router by Aligning with React
+
 As we saw increased adoption and larger scale applications being built with Next.js, we received feedback from the community and identified areas where we started to reach the limits of the Pages Router.
 
 Most notably, the Next.js Pages Router was not designed for streaming, a cornerstone primitive in modern React, that helps us address the limitations we were facing and realize our long-term vision for Next.js.
@@ -30,7 +32,6 @@ Making streaming-friendly framework APIs for data fetching, asset loading, and p
 
 ![A developer is sitting at a desk with multiple monitors.](developer-is-sitting-at-a-desk.webp)
 
-
 We took the opportunity to build on top of the latest React concurrent features, like Server Components, Suspense, and more, which have been designed for streaming architectures.
 
-*Posted by @delba_oliveira & @leeerob*
+_Posted by @delba_oliveira & @leeerob_

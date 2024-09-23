@@ -2,19 +2,19 @@
 title: 'Next.js 15 RC'
 date: '2024-05-23'
 image: 'next-js-15-rc.webp'
-excerpt: "The Next.js 15 Release Candidate (RC) is now available. This early version allows you to test the latest features before the upcoming stable release."
+excerpt: 'The Next.js 15 Release Candidate (RC) is now available. This early version allows you to test the latest features before the upcoming stable release.'
 isFeatured: true
 ---
 
 The Next.js 15 Release Candidate (RC) is now available. This early version allows you to test the latest features before
 the upcoming stable release.
 
-* **React:** Support for the React 19 RC, React Compiler (Experimental), and hydration error improvements
-* **Caching:** fetch requests, GET Route Handlers, and client navigations are no longer cached by default
-* **Partial Prerendering (Experimental):** New Layout and Page config option for incremental adoption
-* **next/after (Experimental):** New API to execute code after a response has finished streaming
-* **create-next-app:** Updated design and a new flag to enable Turbopack in local development
-* **Bundling external packages (Stable):** New config options for App and Pages Router
+-   **React:** Support for the React 19 RC, React Compiler (Experimental), and hydration error improvements
+-   **Caching:** fetch requests, GET Route Handlers, and client navigations are no longer cached by default
+-   **Partial Prerendering (Experimental):** New Layout and Page config option for incremental adoption
+-   **next/after (Experimental):** New API to execute code after a response has finished streaming
+-   **create-next-app:** Updated design and a new flag to enable Turbopack in local development
+-   **Bundling external packages (Stable):** New config options for App and Pages Router
 
 Try the Next.js 15 RC today:
 
@@ -35,8 +35,8 @@ Read the Next.js 15 upgrade guide, the React 19 upgrade guide, and watch the Rea
 
 ![A photo of a chalkboard with the text "React 19 RC"](chalkboard.webp)
 
-
 ### React Compiler (Experimental)
+
 The React Compiler is a new experimental compiler created by the React team at Meta. The compiler understands your code
 at a deep level through its understanding of plain JavaScript semantics and the Rules of React, which allows it to add
 automatic optimizations to your code. The compiler reduces the amount of manual memoization developers have to do
@@ -52,9 +52,9 @@ npm install babel-plugin-react-compiler
 
 Then, add experimental.reactCompiler option in next.config.js:
 
-*next.config.ts*
+_next.config.ts_
 
-```js 
+```js
 const nextConfig = {
     experimental: {
         reactCompiler: true,
@@ -66,9 +66,9 @@ module.exports = nextConfig;
 
 Optionally, you can configure the compiler to run in "opt-in" mode as follows:
 
-*next.config.ts*
+_next.config.ts_
 
-```js 
+```js
 const nextConfig = {
     experimental: {
         reactCompiler: {
@@ -87,4 +87,4 @@ module.exports = nextConfig;
 
 Learn more about the React Compiler, and the available Next.js config options.
 
-*Posted by @delba_oliveira & @zt1072*
+_Posted by @delba_oliveira & @zt1072_

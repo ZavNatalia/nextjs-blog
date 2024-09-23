@@ -1,10 +1,10 @@
 import { Db, MongoClient } from 'mongodb';
 
 export interface IMessage {
-    email: string,
-    name: string,
-    message: string,
-    id?: string
+    email: string;
+    name: string;
+    message: string;
+    id?: string;
 }
 
 const uri = process.env.MONGODB_URI;
@@ -31,14 +31,14 @@ function validateMessage(message: Partial<IMessage>): string | null {
 async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
     const collection = db.collection('messages');
     const result = await collection.insertOne(message);
-    return {...message, id: result.insertedId.toString()};
+    return { ...message, id: result.insertedId.toString() };
 }
 
 export async function POST(req) {
     if (req.method !== 'POST') {
-        return new Response(JSON.stringify({error: 'Method not allowed'}), {
+        return new Response(JSON.stringify({ error: 'Method not allowed' }), {
             status: 405,
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
         });
     }
 
@@ -49,9 +49,9 @@ export async function POST(req) {
 
         const validationError = validateMessage(body);
         if (validationError) {
-            return new Response(JSON.stringify({error: validationError}), {
+            return new Response(JSON.stringify({ error: validationError }), {
                 status: 400,
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
             });
         }
 
@@ -60,19 +60,25 @@ export async function POST(req) {
 
         const newMessage = await insertMessage(db, body);
 
-        return new Response(JSON.stringify({
-            message: 'Successfully stored message!',
-            newMessage: newMessage,
-        }), {
-            status: 201,
-            headers: {'Content-Type': 'application/json'},
-        });
+        return new Response(
+            JSON.stringify({
+                message: 'Successfully stored message!',
+                newMessage: newMessage,
+            }),
+            {
+                status: 201,
+                headers: { 'Content-Type': 'application/json' },
+            },
+        );
     } catch (error) {
         console.error('Error in POST handler:', error);
-        return new Response(JSON.stringify({error: 'An internal server error occurred.'}), {
-            status: 500,
-            headers: {'Content-Type': 'application/json'},
-        });
+        return new Response(
+            JSON.stringify({ error: 'An internal server error occurred.' }),
+            {
+                status: 500,
+                headers: { 'Content-Type': 'application/json' },
+            },
+        );
     } finally {
         if (client) {
             await client.close();

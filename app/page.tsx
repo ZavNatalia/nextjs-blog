@@ -4,8 +4,8 @@ import FeaturedPosts from '@/components/ui/posts/featured-posts';
 import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skeleton';
 
 const FeaturedPostsFallback = () => (
-    <div className="w-full bg-primary-dark p-8 rounded-3xl">
-        <PostsGridSkeleton title='Featured Posts' />
+    <div className="w-full rounded-3xl bg-primary-dark p-8">
+        <PostsGridSkeleton title="Featured Posts" />
     </div>
 );
 

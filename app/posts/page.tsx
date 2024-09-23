@@ -4,8 +4,8 @@ import type { Metadata } from 'next';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
 
 export const metadata: Metadata = {
-    title: "All Posts",
-    description: "A list of all programming-related tutorials and posts!",
+    title: 'All Posts',
+    description: 'A list of all programming-related tutorials and posts!',
 };
 
 export default function Posts() {
@@ -18,8 +18,8 @@ export default function Posts() {
 
     return (
         <main className="page">
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
-            <AllPosts posts={posts}/>
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <AllPosts posts={posts} />
         </main>
-    )
+    );
 }

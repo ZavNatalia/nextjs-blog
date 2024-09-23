@@ -6,7 +6,7 @@ import { IPost } from '@/components/ui/posts/post-card/post-card';
 const postsDirectory = path.join(process.cwd(), 'posts');
 
 export function getPostsFiles() {
-    return fs.readdirSync(postsDirectory)
+    return fs.readdirSync(postsDirectory);
 }
 
 export function getPostData(postIdentifier: string): IPost | null {
@@ -20,7 +20,7 @@ export function getPostData(postIdentifier: string): IPost | null {
 
     try {
         const fileContent = fs.readFileSync(filePath, 'utf-8');
-        const {data, content} = matter(fileContent);
+        const { data, content } = matter(fileContent);
         return {
             slug: postSlug,
             ...data,
@@ -33,12 +33,13 @@ export function getPostData(postIdentifier: string): IPost | null {
 }
 export function getAllPosts(): IPost[] {
     const postFiles = getPostsFiles();
-    const allPosts = postFiles.map(postFile => getPostData(postFile))
+    const allPosts = postFiles
+        .map((postFile) => getPostData(postFile))
         .filter((post): post is IPost => post !== null);
-    return allPosts.sort((postA, postB) => postA.date > postB.date ? -1 : 1);
+    return allPosts.sort((postA, postB) => (postA.date > postB.date ? -1 : 1));
 }
 
 export function getFeaturedPosts() {
     const allPosts = getAllPosts();
-    return allPosts.filter(post => post.isFeatured);
+    return allPosts.filter((post) => post.isFeatured);
 }

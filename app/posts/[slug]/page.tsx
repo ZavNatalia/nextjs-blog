@@ -36,7 +36,10 @@ export default async function Page({ params }: PageProps) {
     const breadcrumbs: Breadcrumb[] = [
         { title: 'main', link: '/' },
         { title: 'all posts', link: '/posts' },
-        { title: substringText(post.title).toLowerCase(), link: `/posts/${post.slug}` },
+        {
+            title: substringText(post.title).toLowerCase(),
+            link: `/posts/${post.slug}`,
+        },
     ];
 
     return (
@@ -53,6 +56,6 @@ export default async function Page({ params }: PageProps) {
 export async function generateStaticParams() {
     const postsFileNames = getPostsFiles();
     return postsFileNames
-        .map(fileName => fileName.replace(/\.md$/, ''))
-        .map(slug => ({ slug }));
+        .map((fileName) => fileName.replace(/\.md$/, ''))
+        .map((slug) => ({ slug }));
 }

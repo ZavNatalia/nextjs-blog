@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
 
 export const metadata: Metadata = {
-    title: "Contact me",
-    description: "Send me your messages!",
+    title: 'Contact me',
+    description: 'Send me your messages!',
 };
 export default function Contact() {
     const breadcrumbs: Breadcrumb[] = [
@@ -13,8 +13,8 @@ export default function Contact() {
     ];
     return (
         <main className="page">
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
-            <ContactForm/>
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <ContactForm />
         </main>
-    )
+    );
 }

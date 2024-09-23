@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
@@ -14,31 +14,31 @@ interface BreadcrumbItemProps {
     isLast: boolean;
 }
 
-const BreadcrumbItem: FC<BreadcrumbItemProps> = ({ breadcrumb, isActive, isLast }) => (
+const BreadcrumbItem: FC<BreadcrumbItemProps> = ({
+    breadcrumb,
+    isActive,
+    isLast,
+}) => (
     <span>
         <Link
             href={breadcrumb.link}
-            className={`
-                cursor-pointer 
-                hover:text-accent 
-                px-3 
-                py-1 
-                transition-all 
-                duration-300
-                ${isActive ? 'font-bold text-accent' : 'font-normal'}
-            `}
+            className={`cursor-pointer px-3 py-1 transition-all duration-300 hover:text-accent ${isActive ? 'font-bold text-accent' : 'font-normal'} `}
         >
             {breadcrumb.title}
         </Link>
-        {!isLast && <span className="text-primary ml-1">/</span>}
+        {!isLast && <span className="ml-1 text-primary">/</span>}
     </span>
 );
 
-export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
+export default function Breadcrumbs({
+    breadcrumbs,
+}: {
+    breadcrumbs: Breadcrumb[];
+}) {
     const pathname = usePathname();
 
     return (
-        <nav className='flex gap-1 p-2 self-baseline text-lg'>
+        <nav className="flex gap-1 self-baseline p-2 text-lg">
             {breadcrumbs.map((breadcrumb, index) => (
                 <BreadcrumbItem
                     key={breadcrumb.title}
@@ -48,5 +48,5 @@ export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[]
                 />
             ))}
         </nav>
-    )
+    );
 }

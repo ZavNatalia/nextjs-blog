@@ -1,16 +1,16 @@
 export default function PostSkeleton() {
     return (
-        <div className="animate-pulse space-y-4 w-full md:max-w-[750px] lg:max-w-[812px] mt-[76px]">
-            <header className='flex justify-between gap-10 w-full pb-8 mb-10 border-b-accent-hover border-b-8'>
-                <div className='w-full'>
-                    <div className="mb-4 h-16 max-w-96 bg-primary-light rounded-lg"></div>
-                    <div className="h-5 max-w-44 bg-primary rounded-lg"></div>
+        <div className="mt-[76px] w-full animate-pulse space-y-4 md:max-w-[750px] lg:max-w-[812px]">
+            <header className="mb-10 flex w-full justify-between gap-10 border-b-8 border-b-accent-hover pb-8">
+                <div className="w-full">
+                    <div className="mb-4 h-16 max-w-96 rounded-lg bg-primary-light"></div>
+                    <div className="h-5 max-w-44 rounded-lg bg-primary"></div>
                 </div>
-                <div className="flex-shrink-0 h-[200px] md:h-[300px] w-[200px] md:w-[300px] bg-primary-light rounded-3xl"></div>
+                <div className="h-[200px] w-[200px] flex-shrink-0 rounded-3xl bg-primary-light md:h-[300px] md:w-[300px]"></div>
             </header>
-            <div className="h-4 bg-primary-light rounded-lg"></div>
-            <div className="h-4 bg-primary-light rounded-lg w-3/4"></div>
-            <div className="h-4 bg-primary-light rounded-lg w-5/6"></div>
+            <div className="h-4 rounded-lg bg-primary-light"></div>
+            <div className="h-4 w-3/4 rounded-lg bg-primary-light"></div>
+            <div className="h-4 w-5/6 rounded-lg bg-primary-light"></div>
         </div>
-    )
+    );
 }

@@ -2,7 +2,7 @@
 title: 'How to Think About Security in Next.js'
 date: '2024-10-23'
 image: 'how-to-think-about-security-in-next-js.webp'
-excerpt: "React Server Components (RSC) in App Router is a novel paradigm that eliminates much of the redundancy and potential risks linked with conventional methods. Given the newness, developers and subsequently security teams may find it challenging to align their existing security protocols with this model."
+excerpt: 'React Server Components (RSC) in App Router is a novel paradigm that eliminates much of the redundancy and potential risks linked with conventional methods. Given the newness, developers and subsequently security teams may find it challenging to align their existing security protocols with this model.'
 isFeatured: true
 ---
 
@@ -20,11 +20,11 @@ information is processed and subsequently made available.
 
 The first thing we need to do is pick what data handling approach is appropriate for our project.
 
-* HTTP APIs (recommended for existing large projects / orgs)
-* Data Access Layer (recommended for new projects)
-* Component Level Data Access (recommended for prototyping and learning)
-* We recommend that you stick to one approach and don't mix and match too much. This makes it clear for both developers
-  working in your code base and security auditors for what to expect. Exceptions pop out as suspicious.
+-   HTTP APIs (recommended for existing large projects / orgs)
+-   Data Access Layer (recommended for new projects)
+-   Component Level Data Access (recommended for prototyping and learning)
+-   We recommend that you stick to one approach and don't mix and match too much. This makes it clear for both developers
+    working in your code base and security auditors for what to expect. Exceptions pop out as suspicious.
 
 ### HTTP APIs
 
@@ -62,11 +62,11 @@ current user issuing the request is authorized to have access to.
 
 From this point, normal security practices for implementing APIs take over.
 
-*data/auth.tsx*
+_data/auth.tsx_
 
 ```js
-import {cache} from 'react';
-import {cookies} from 'next/headers';
+import { cache } from 'react';
+import { cookies } from 'next/headers';
 
 // Cached helper methods makes it easy to get the same value in many places
 // without manually passing it around. This discourages passing it from Server
@@ -75,13 +75,13 @@ import {cookies} from 'next/headers';
 export const getCurrentUser = cache(async () => {
     const token = cookies().get('AUTH_TOKEN');
     const decodedToken = await decryptAndValidate(token);
-// Don't include secret tokens or private information as public fields.
-// Use classes to avoid accidentally passing the whole object to the client.
+    // Don't include secret tokens or private information as public fields.
+    // Use classes to avoid accidentally passing the whole object to the client.
     return new User(decodedToken.id);
 });
 ```
 
-*data/user-dto.tsx*
+_data/user-dto.tsx_
 
 ```js
 import 'server-only';
@@ -140,4 +140,4 @@ export async function Page({params: {slug}}) {
 Secret keys can be stored in environment variables but only the data access layer should access process.env in this
 approach.
 
-*Posted by @sebmarkbage*
+_Posted by @sebmarkbage_
