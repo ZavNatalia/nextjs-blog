@@ -23,6 +23,9 @@ interface InputFieldProps {
     rows?: number;
 }
 
+type RequestStatus = 'pending' | 'success' | 'error' | null;
+type RequestError = string | null;
+
 async function sendContactDetails(
     contactDetails: ContactDetails,
 ): Promise<void> {
@@ -69,16 +72,42 @@ function InputField({
     );
 }
 
+const getNotificationData = (
+    status: RequestStatus,
+    error: RequestError,
+): NotificationDetails | null => {
+    switch (status) {
+        case 'pending':
+            return {
+                status: 'pending',
+                title: 'Sending message...',
+                message: 'Your message is on its way',
+            };
+        case 'success':
+            return {
+                status: 'success',
+                title: 'Success!',
+                message: 'Message sent successfully',
+            };
+        case 'error':
+            return {
+                status: 'error',
+                title: 'Error!',
+                message: error || 'An error occurred',
+            };
+        default:
+            return null;
+    }
+};
+
 export default function ContactForm() {
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: '',
         name: '',
         message: '',
     });
-    const [requestStatus, setRequestStatus] = useState<
-        'idle' | 'pending' | 'success' | 'error'
-    >('idle');
-    const [requestError, setRequestError] = useState();
+    const [requestStatus, setRequestStatus] = useState<RequestStatus>(null);
+    const [requestError, setRequestError] = useState<RequestError>(null);
 
     useEffect(() => {
         if (requestStatus === 'success' || requestStatus === 'error') {
@@ -106,35 +135,17 @@ export default function ContactForm() {
             setRequestStatus('success');
             setMessageDetails({ email: '', name: '', message: '' });
         } catch (error) {
-            setRequestError(error.message);
+            setRequestError(
+                error instanceof Error
+                    ? error.message
+                    : 'An unknown error occurred',
+            );
             setRequestStatus('error');
             console.error(error);
         }
     };
 
-    let notificationData: NotificationDetails;
-
-    if (requestStatus === 'pending') {
-        notificationData = {
-            status: 'pending',
-            title: 'Sending message...',
-            message: 'Your message is on its way',
-        };
-    }
-    if (requestStatus === 'success') {
-        notificationData = {
-            status: 'success',
-            title: 'Success!',
-            message: 'Message sent successfully',
-        };
-    }
-    if (requestStatus === 'error') {
-        notificationData = {
-            status: 'error',
-            title: 'Error!',
-            message: requestError,
-        };
-    }
+    const notificationData = getNotificationData(requestStatus, requestError);
 
     return (
         <section>

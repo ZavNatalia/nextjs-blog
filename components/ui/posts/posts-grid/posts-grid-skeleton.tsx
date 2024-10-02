@@ -1,4 +1,4 @@
-const SkeletonElement = ({ className }) => (
+const SkeletonElement = (className: { className: string }) => (
     <div className={`rounded-lg bg-primary-light ${className}`} />
 );
 
@@ -18,7 +18,13 @@ function PostCardSkeleton() {
     );
 }
 
-export default function PostsGridSkeleton({ count = 4, title }) {
+export default function PostsGridSkeleton({
+    title,
+    count = 4,
+}: {
+    title: string;
+    count?: number;
+}) {
     return (
         <div>
             <h2 className="mb-10 text-center text-4xl font-bold">{title}</h2>

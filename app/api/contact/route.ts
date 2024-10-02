@@ -1,4 +1,5 @@
 import { Db, MongoClient } from 'mongodb';
+import { NextRequest } from 'next/server';
 
 export interface IMessage {
     email: string;
@@ -34,7 +35,7 @@ async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
     return { ...message, id: result.insertedId.toString() };
 }
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
     if (req.method !== 'POST') {
         return new Response(JSON.stringify({ error: 'Method not allowed' }), {
             status: 405,

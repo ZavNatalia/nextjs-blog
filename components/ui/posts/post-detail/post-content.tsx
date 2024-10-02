@@ -2,9 +2,9 @@
 
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism'; // Updated import path
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { Components } from 'react-markdown';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { ComponentPropsWithoutRef, useEffect, useState } from 'react';
 
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
@@ -12,11 +12,31 @@ import Notification, {
     NotificationDetails,
 } from '@/components/ui/notification';
 
+type CopyStatus = 'success' | 'error' | null;
+
+const getNotificationData = (
+    status: CopyStatus,
+): NotificationDetails | null => {
+    switch (status) {
+        case 'success':
+            return {
+                status: 'success',
+                title: 'Success!',
+                message: 'Code copied successfully.',
+            };
+        case 'error':
+            return {
+                status: 'error',
+                title: 'Error!',
+                message: 'The code was not copied. Please try again.',
+            };
+        default:
+            return null;
+    }
+};
 export default function PostContent({ post }: { post: IPost }) {
     const { title, date, slug, image, content } = post;
-    const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>(
-        null,
-    );
+    const [copyStatus, setCopyStatus] = useState<CopyStatus>(null);
     const imagePath = `/images/posts/${slug}/${image}`;
 
     useEffect(() => {
@@ -28,24 +48,9 @@ export default function PostContent({ post }: { post: IPost }) {
         }
     }, [copyStatus]);
 
-    let notificationData: NotificationDetails;
-    if (copyStatus === 'success') {
-        notificationData = {
-            status: 'success',
-            title: 'Success!',
-            message: 'Code copied successfully.',
-        };
-    }
-    if (copyStatus === 'error') {
-        notificationData = {
-            status: 'error',
-            title: 'Error!',
-            message: 'The code was not copied. Please try again.',
-        };
-    }
+    const notificationData = getNotificationData(copyStatus);
 
     const copyCodeToClipboard = async (code: string) => {
-        console.log('code', code);
         try {
             await navigator.clipboard.writeText(code);
             setCopyStatus('success');
@@ -55,9 +60,11 @@ export default function PostContent({ post }: { post: IPost }) {
         }
     };
 
-    const customRenderers = {
-        p(paragraph) {
-            const { node } = paragraph;
+    const customRenderers: Components = {
+        p: ({
+            node,
+            ...props
+        }: ComponentPropsWithoutRef<'p'> & { node: any }) => {
             if (node.children[0]?.tagName === 'img') {
                 const img = node.children[0];
                 return (
@@ -73,10 +80,15 @@ export default function PostContent({ post }: { post: IPost }) {
                     </div>
                 );
             }
-            return <p>{paragraph.children}</p>;
+            return <p {...props} />;
         },
-        code(code) {
-            const { className, children } = code;
+        code: ({
+            className,
+            children,
+        }: {
+            className?: string;
+            children: any;
+        }) => {
             const language = className?.split('-')[1];
             return (
                 <div className="relative">
@@ -85,7 +97,7 @@ export default function PostContent({ post }: { post: IPost }) {
                         language={language}
                         PreTag="div"
                     >
-                        {children}
+                        {children as string}
                     </SyntaxHighlighter>
                     <button
                         className={`${
@@ -117,19 +129,14 @@ export default function PostContent({ post }: { post: IPost }) {
 
     return (
         <article>
-            <PostHeader
-                title={title}
-                date={date}
-                imagePath={imagePath}
-                slug={slug}
-            />
+            <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={customRenderers}
                 className="prose lg:prose-xl dark:prose-invert"
             >
                 {content as string}
             </ReactMarkdown>
-            {copyStatus && <Notification {...notificationData} />}
+            {notificationData && <Notification {...notificationData} />}
         </article>
     );
 }

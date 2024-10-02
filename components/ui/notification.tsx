@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 
-export type NotificationStatus = 'idle' | 'pending' | 'success' | 'error';
+export type NotificationStatus = 'pending' | 'success' | 'error' | null;
 
 export interface NotificationDetails {
     status: NotificationStatus;
@@ -23,6 +23,10 @@ export default function Notification({
     title,
     message,
 }: NotificationDetails) {
+    const notificationsRoot = document.getElementById('notifications');
+
+    if (!notificationsRoot) return null;
+
     return createPortal(
         <div
             className={`fixed bottom-10 left-1/2 -translate-x-1/2 transform rounded-3xl px-6 py-4 ${getBg(status)} shadow-lg backdrop-blur-sm`}
@@ -30,6 +34,6 @@ export default function Notification({
             <p className="text-lg font-bold">{title}</p>
             <p>{message}</p>
         </div>,
-        document.getElementById('notifications'),
+        notificationsRoot,
     );
 }
