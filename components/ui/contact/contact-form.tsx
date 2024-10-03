@@ -1,7 +1,7 @@
 'use client';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Notification, {
-    NotificationDetails,
+    NotificationDetails, NotificationStatus,
 } from '@/components/ui/notification';
 
 interface ContactDetails {
@@ -23,7 +23,6 @@ interface InputFieldProps {
     rows?: number;
 }
 
-type RequestStatus = 'pending' | 'success' | 'error' | null;
 type RequestError = string | null;
 
 async function sendContactDetails(
@@ -72,33 +71,42 @@ function InputField({
     );
 }
 
+const notificationMap: {
+    [key in NotificationStatus]: NotificationDetails
+} = {
+    pending: {
+        status: 'pending',
+        title: 'Sending message...',
+        message: 'Your message is on its way',
+    },
+    success: {
+        status: 'success',
+        title: 'Success!',
+        message: 'Message sent successfully',
+    },
+    error: {
+        status: 'error',
+        title: 'Error!',
+        message: '',
+    },
+};
+
 const getNotificationData = (
-    status: RequestStatus,
+    status: NotificationStatus,
     error: RequestError,
 ): NotificationDetails | null => {
-    switch (status) {
-        case 'pending':
-            return {
-                status: 'pending',
-                title: 'Sending message...',
-                message: 'Your message is on its way',
-            };
-        case 'success':
-            return {
-                status: 'success',
-                title: 'Success!',
-                message: 'Message sent successfully',
-            };
-        case 'error':
-            return {
-                status: 'error',
-                title: 'Error!',
-                message: error || 'An error occurred',
-            };
-        default:
-            return null;
+    const notification = notificationMap[status];
+
+    if (status === 'error' && notification) {
+        return {
+            ...notification,
+            message: error || 'An error occurred',
+        };
     }
+
+    return notification || null;
 };
+
 
 export default function ContactForm() {
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
@@ -106,7 +114,7 @@ export default function ContactForm() {
         name: '',
         message: '',
     });
-    const [requestStatus, setRequestStatus] = useState<RequestStatus>(null);
+    const [requestStatus, setRequestStatus] = useState<NotificationStatus>(null);
     const [requestError, setRequestError] = useState<RequestError>(null);
 
     useEffect(() => {

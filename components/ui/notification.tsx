@@ -8,16 +8,16 @@ export interface NotificationDetails {
     message: string;
 }
 
-const getBg = (status: NotificationStatus) => {
-    switch (status) {
-        case 'pending':
-            return 'bg-cyan-800/60 border-3 border-cyan-900/30';
-        case 'success':
-            return 'bg-emerald-800/60 border-3 border-emerald-900/30';
-        case 'error':
-            return 'bg-red-800/60 border-3 border-red-900/30';
-    }
+const bgMap: { [key in NotificationStatus]: string } = {
+    pending: 'bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900',
+    success: 'bg-gradient-to-r from-green-700 via-green-800 to-green-900',
+    error: 'bg-gradient-to-r from-red-700 via-red-800 to-red-900',
 };
+
+const getBg = (status: NotificationStatus) => {
+    return bgMap[status] || 'bg-gradient-to-r from-indigo-700 via-purple-800 to-pink-900'; // по умолчанию
+};
+
 export default function Notification({
     status,
     title,
@@ -29,10 +29,13 @@ export default function Notification({
 
     return createPortal(
         <div
-            className={`fixed bottom-10 left-1/2 -translate-x-1/2 transform rounded-3xl px-6 py-4 ${getBg(status)} shadow-lg backdrop-blur-sm`}
+            className={`z-50 fixed bottom-10 left-1/2 -translate-x-1/2 transform `}
         >
-            <p className="text-lg font-bold">{title}</p>
-            <p>{message}</p>
+            <div
+                className={`relative p-4 text-white shadow-lg overflow-hidden animate-slide-in rounded-3xl px-6 py-4 ${getBg(status)}`}>
+                <p className="text-lg font-bold">{title}</p>
+                <p>{message}</p>
+            </div>
         </div>,
         notificationsRoot,
     );

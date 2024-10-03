@@ -8,35 +8,32 @@ import { ComponentPropsWithoutRef, useEffect, useState } from 'react';
 
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
-import Notification, {
-    NotificationDetails,
-} from '@/components/ui/notification';
+import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/notification';
 
-type CopyStatus = 'success' | 'error' | null;
-
-const getNotificationData = (
-    status: CopyStatus,
-): NotificationDetails | null => {
-    switch (status) {
-        case 'success':
-            return {
-                status: 'success',
-                title: 'Success!',
-                message: 'Code copied successfully.',
-            };
-        case 'error':
-            return {
-                status: 'error',
-                title: 'Error!',
-                message: 'The code was not copied. Please try again.',
-            };
-        default:
-            return null;
-    }
+const notificationMap: {
+    [key in Exclude<NotificationStatus, 'pending' | null>]: NotificationDetails;
+} = {
+    success: {
+        status: 'success',
+        title: 'Success!',
+        message: 'Code copied successfully.',
+    },
+    error: {
+        status: 'error',
+        title: 'Error!',
+        message: 'The code was not copied. Please try again.',
+    },
 };
+
+export const getNotificationData = (
+    status: NotificationStatus
+): NotificationDetails | undefined => {
+    return notificationMap[status as Exclude<NotificationStatus, 'pending' | null>];
+};
+
 export default function PostContent({ post }: { post: IPost }) {
     const { title, date, slug, image, content } = post;
-    const [copyStatus, setCopyStatus] = useState<CopyStatus>(null);
+    const [copyStatus, setCopyStatus] = useState<NotificationStatus>(null);
     const imagePath = `/images/posts/${slug}/${image}`;
 
     useEffect(() => {
@@ -62,9 +59,9 @@ export default function PostContent({ post }: { post: IPost }) {
 
     const customRenderers: Components = {
         p: ({
-            node,
-            ...props
-        }: ComponentPropsWithoutRef<'p'> & { node: any }) => {
+                node,
+                ...props
+            }: ComponentPropsWithoutRef<'p'> & { node: any }) => {
             if (node.children[0]?.tagName === 'img') {
                 const img = node.children[0];
                 return (
@@ -83,9 +80,9 @@ export default function PostContent({ post }: { post: IPost }) {
             return <p {...props} />;
         },
         code: ({
-            className,
-            children,
-        }: {
+                   className,
+                   children,
+               }: {
             className?: string;
             children: any;
         }) => {
@@ -105,7 +102,7 @@ export default function PostContent({ post }: { post: IPost }) {
                                 ? 'hover:text-primary'
                                 : 'hover:currentColor'
                         } icon-button absolute right-1 top-1 lg:right-3 lg:top-3`}
-                        onClick={() => copyCodeToClipboard(children[0])} // Pass children[0] directly
+                        onClick={() => copyCodeToClipboard(children[0])}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
