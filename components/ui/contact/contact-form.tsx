@@ -1,7 +1,8 @@
 'use client';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Notification, {
-    NotificationDetails, NotificationStatus,
+    NotificationDetails,
+    NotificationStatus,
 } from '@/components/ui/notification';
 
 interface ContactDetails {
@@ -72,7 +73,7 @@ function InputField({
 }
 
 const notificationMap: {
-    [key in NotificationStatus]: NotificationDetails
+    [key in NotificationStatus]: NotificationDetails;
 } = {
     pending: {
         status: 'pending',
@@ -107,14 +108,14 @@ const getNotificationData = (
     return notification || null;
 };
 
-
 export default function ContactForm() {
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: '',
         name: '',
         message: '',
     });
-    const [requestStatus, setRequestStatus] = useState<NotificationStatus>(null);
+    const [requestStatus, setRequestStatus] =
+        useState<NotificationStatus>(null);
     const [requestError, setRequestError] = useState<RequestError>(null);
 
     useEffect(() => {

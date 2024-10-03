@@ -1,6 +1,6 @@
 'use client';
 
-import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism'; // Updated import path
+import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ReactMarkdown, { Components } from 'react-markdown';
 import Image from 'next/image';
@@ -8,7 +8,10 @@ import { ComponentPropsWithoutRef, useEffect, useState } from 'react';
 
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
-import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/notification';
+import Notification, {
+    NotificationDetails,
+    NotificationStatus,
+} from '@/components/ui/notification';
 
 const notificationMap: {
     [key in Exclude<NotificationStatus, 'pending' | null>]: NotificationDetails;
@@ -26,9 +29,11 @@ const notificationMap: {
 };
 
 export const getNotificationData = (
-    status: NotificationStatus
+    status: NotificationStatus,
 ): NotificationDetails | undefined => {
-    return notificationMap[status as Exclude<NotificationStatus, 'pending' | null>];
+    return notificationMap[
+        status as Exclude<NotificationStatus, 'pending' | null>
+    ];
 };
 
 export default function PostContent({ post }: { post: IPost }) {
@@ -59,9 +64,9 @@ export default function PostContent({ post }: { post: IPost }) {
 
     const customRenderers: Components = {
         p: ({
-                node,
-                ...props
-            }: ComponentPropsWithoutRef<'p'> & { node: any }) => {
+            node,
+            ...props
+        }: ComponentPropsWithoutRef<'p'> & { node: any }) => {
             if (node.children[0]?.tagName === 'img') {
                 const img = node.children[0];
                 return (
@@ -80,9 +85,9 @@ export default function PostContent({ post }: { post: IPost }) {
             return <p {...props} />;
         },
         code: ({
-                   className,
-                   children,
-               }: {
+            className,
+            children,
+        }: {
             className?: string;
             children: any;
         }) => {

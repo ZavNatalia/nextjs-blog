@@ -15,7 +15,10 @@ const bgMap: { [key in NotificationStatus]: string } = {
 };
 
 const getBg = (status: NotificationStatus) => {
-    return bgMap[status] || 'bg-gradient-to-r from-indigo-700 via-purple-800 to-pink-900'; // по умолчанию
+    return (
+        bgMap[status] ||
+        'bg-gradient-to-r from-indigo-700 via-purple-800 to-pink-900'
+    );
 };
 
 export default function Notification({
@@ -29,10 +32,11 @@ export default function Notification({
 
     return createPortal(
         <div
-            className={`z-50 fixed bottom-10 left-1/2 -translate-x-1/2 transform `}
+            className={`fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform`}
         >
             <div
-                className={`relative p-4 text-white shadow-lg overflow-hidden animate-slide-in rounded-3xl px-6 py-4 ${getBg(status)}`}>
+                className={`relative animate-slide-in overflow-hidden rounded-3xl p-4 px-6 py-4 text-white shadow-lg ${getBg(status)}`}
+            >
                 <p className="text-lg font-bold">{title}</p>
                 <p>{message}</p>
             </div>
