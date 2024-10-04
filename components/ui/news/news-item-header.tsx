@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function PostHeader({
+export default function NewsItemHeader({
     title,
     date,
     imagePath,

@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import Hero from '@/components/ui/hero-card';
 import FeaturedPosts from '@/components/ui/posts/featured-posts';
 import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skeleton';
+import LatestNews from '@/components/ui/news/latest-news';
 
 const FeaturedPostsFallback = () => (
     <div className="w-full rounded-3xl bg-primary-dark p-8">
@@ -16,6 +17,7 @@ export default function Home() {
             <Suspense fallback={<FeaturedPostsFallback />}>
                 <FeaturedPosts />
             </Suspense>
+            <LatestNews />
         </main>
     );
 }
