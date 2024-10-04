@@ -15,8 +15,7 @@ export default function NewsItemHeader({
         year: 'numeric',
     });
     return (
-        <header
-            className="mb-10 relative flex max-w-[820px] justify-between gap-10 pb-8 after:block after:w-full after:h-2 after:bg-accent-hover after:absolute after:bottom-0">
+        <header className="relative mb-10 flex max-w-[820px] justify-between gap-10 pb-8 after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent-hover">
             <div>
                 <h1 className="mb-4 text-5xl font-bold leading-snug">
                     {title}
