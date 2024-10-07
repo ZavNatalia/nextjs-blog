@@ -72,7 +72,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 return (
                     <div className="flex justify-center">
                         <Image
-                            className="rounded-3xl object-contain"
+                            className="rounded-xl object-contain"
                             src={`/images/posts/${slug}/${img.properties.src}`}
                             alt={img.properties.alt}
                             width={600}
@@ -107,7 +107,7 @@ export default function PostContent({ post }: { post: IPost }) {
                                 ? 'hover:text-primary'
                                 : 'hover:currentColor'
                         } icon-button absolute right-1 top-1 lg:right-3 lg:top-3`}
-                        onClick={() => copyCodeToClipboard(children[0])}
+                        onClick={() => copyCodeToClipboard(children)}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ export default function PostContent({ post }: { post: IPost }) {
     };
 
     return (
-        <article>
+        <article className="rounded-3xl bg-primary-light/30 p-20">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={customRenderers}

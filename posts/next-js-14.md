@@ -4,7 +4,7 @@ date: '2023-10-26'
 image: 'next-js-14.webp'
 excerpt: "As we announced at Next.js Conf, Next.js 14 is our most focused release with:
 Turbopack, Server Actions (Stable), Partial Prerendering (Preview), Next.js Learn (New)"
-isFeatured: true
+isFeatured: false
 ---
 
 As we announced at Next.js Conf, Next.js 14 is our most focused release with:

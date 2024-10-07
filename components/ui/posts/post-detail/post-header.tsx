@@ -24,7 +24,7 @@ export default function PostHeader({
             </div>
             <div className="relative h-[200px] w-[200px] flex-shrink-0 md:h-[300px] md:w-[300px]">
                 <Image
-                    className="rounded-3xl object-cover"
+                    className="rounded-xl object-cover"
                     src={imagePath}
                     alt={title}
                     fill
