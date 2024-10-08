@@ -1,17 +1,21 @@
 'use client';
 
-import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import darcula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
+import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
 import ReactMarkdown, { Components } from 'react-markdown';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import Notification, {
     NotificationDetails,
     NotificationStatus,
 } from '@/components/ui/notification';
+
+SyntaxHighlighter.registerLanguage('javascript', js);
+SyntaxHighlighter.registerLanguage('css', css);
 
 const notificationMap: {
     [key in Exclude<NotificationStatus, 'pending' | null>]: NotificationDetails;
@@ -83,7 +87,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 />
             );
         },
-        code({ node, className, children, ...props }) {
+        code({ className, children }) {
             const language = className
                 ? className.replace('language-', '')
                 : '';
@@ -101,7 +105,7 @@ export default function PostContent({ post }: { post: IPost }) {
                             copyStatus
                                 ? 'hover:text-primary'
                                 : 'hover:currentColor'
-                        } icon-button absolute right-1 top-1 lg:right-3 lg:top-3`}
+                        } icon-button absolute right-1 top-1 lg:right-3 lg:top-4`}
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
                         <svg
