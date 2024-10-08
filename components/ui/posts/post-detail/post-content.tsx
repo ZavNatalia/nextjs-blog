@@ -4,7 +4,7 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ReactMarkdown, { Components } from 'react-markdown';
 import Image from 'next/image';
-import { ComponentPropsWithoutRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
@@ -30,15 +30,20 @@ const notificationMap: {
 
 export const getNotificationData = (
     status: NotificationStatus,
-): NotificationDetails | undefined => {
-    return notificationMap[
-        status as Exclude<NotificationStatus, 'pending' | null>
-    ];
+): NotificationDetails | null => {
+    if (status) {
+        return notificationMap[
+            status as Exclude<NotificationStatus, 'pending' | null>
+        ];
+    }
+    return null;
 };
 
 export default function PostContent({ post }: { post: IPost }) {
     const { title, date, slug, image, content } = post;
-    const [copyStatus, setCopyStatus] = useState<NotificationStatus>(null);
+    const [copyStatus, setCopyStatus] = useState<NotificationStatus | null>(
+        null,
+    );
     const imagePath = `/images/posts/${slug}/${image}`;
 
     useEffect(() => {
@@ -50,7 +55,8 @@ export default function PostContent({ post }: { post: IPost }) {
         }
     }, [copyStatus]);
 
-    const notificationData = getNotificationData(copyStatus);
+    const notificationData =
+        copyStatus !== null ? getNotificationData(copyStatus) : null;
 
     const copyCodeToClipboard = async (code: string) => {
         try {
@@ -63,35 +69,24 @@ export default function PostContent({ post }: { post: IPost }) {
     };
 
     const customRenderers: Components = {
-        p: ({
-            node,
-            ...props
-        }: ComponentPropsWithoutRef<'p'> & { node: any }) => {
-            if (node.children[0]?.tagName === 'img') {
-                const img = node.children[0];
-                return (
-                    <div className="flex justify-center">
-                        <Image
-                            className="rounded-xl object-contain"
-                            src={`/images/posts/${slug}/${img.properties.src}`}
-                            alt={img.properties.alt}
-                            width={600}
-                            height={600}
-                            sizes="(max-width: 600px) 100vw, 600px"
-                        />
-                    </div>
-                );
-            }
-            return <p {...props} />;
+        img({ src, alt }: { src?: string; alt?: string }) {
+            if (!src) return null;
+
+            return (
+                <Image
+                    src={`/images/posts/${slug}/${src}`}
+                    alt={alt || 'News Image'}
+                    width={600}
+                    height={600}
+                    sizes="(max-width: 600px) 100vw, 600px"
+                    className="mx-auto rounded-xl object-contain"
+                />
+            );
         },
-        code: ({
-            className,
-            children,
-        }: {
-            className?: string;
-            children: any;
-        }) => {
-            const language = className?.split('-')[1];
+        code({ node, className, children, ...props }) {
+            const language = className
+                ? className.replace('language-', '')
+                : '';
             return (
                 <div className="relative">
                     <SyntaxHighlighter
@@ -107,7 +102,7 @@ export default function PostContent({ post }: { post: IPost }) {
                                 ? 'hover:text-primary'
                                 : 'hover:currentColor'
                         } icon-button absolute right-1 top-1 lg:right-3 lg:top-3`}
-                        onClick={() => copyCodeToClipboard(children)}
+                        onClick={() => copyCodeToClipboard(children as string)}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -133,10 +128,13 @@ export default function PostContent({ post }: { post: IPost }) {
         <article className="rounded-3xl bg-primary-light/30 p-20">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
-                components={customRenderers}
+                components={{
+                    img: customRenderers.img,
+                    code: customRenderers.code,
+                }}
                 className="prose lg:prose-xl dark:prose-invert"
             >
-                {content as string}
+                {content}
             </ReactMarkdown>
             {notificationData && <Notification {...notificationData} />}
         </article>

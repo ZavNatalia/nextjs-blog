@@ -5,13 +5,13 @@ import Notification, {
     NotificationStatus,
 } from '@/components/ui/notification';
 
-interface ContactDetails {
+type ContactDetails = {
     email: string;
     name: string;
     message: string;
-}
+};
 
-interface InputFieldProps {
+type InputFieldProps = {
     id: string;
     label: string;
     type: string;
@@ -22,9 +22,7 @@ interface InputFieldProps {
     placeholder: string;
     required?: boolean;
     rows?: number;
-}
-
-type RequestError = string | null;
+};
 
 async function sendContactDetails(
     contactDetails: ContactDetails,
@@ -94,18 +92,19 @@ const notificationMap: {
 
 const getNotificationData = (
     status: NotificationStatus,
-    error: RequestError,
+    error: string | null,
 ): NotificationDetails | null => {
-    const notification = notificationMap[status];
-
-    if (status === 'error' && notification) {
-        return {
-            ...notification,
-            message: error || 'An error occurred',
-        };
+    if (status) {
+        const notification = notificationMap[status];
+        if (status === 'error' && notification) {
+            return {
+                ...notification,
+                message: error || 'An error occurred',
+            };
+        }
+        return notification;
     }
-
-    return notification || null;
+    return null;
 };
 
 export default function ContactForm() {
@@ -115,8 +114,8 @@ export default function ContactForm() {
         message: '',
     });
     const [requestStatus, setRequestStatus] =
-        useState<NotificationStatus>(null);
-    const [requestError, setRequestError] = useState<RequestError>(null);
+        useState<NotificationStatus | null>(null);
+    const [requestError, setRequestError] = useState<string | null>(null);
 
     useEffect(() => {
         if (requestStatus === 'success' || requestStatus === 'error') {
@@ -154,7 +153,10 @@ export default function ContactForm() {
         }
     };
 
-    const notificationData = getNotificationData(requestStatus, requestError);
+    const notificationData =
+        requestStatus !== null
+            ? getNotificationData(requestStatus, requestError)
+            : null;
 
     return (
         <section>

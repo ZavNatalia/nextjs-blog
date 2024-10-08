@@ -1,6 +1,6 @@
 export default function PostSkeleton() {
     return (
-        <div className="mt-[76px] w-full animate-pulse space-y-4 md:max-w-[750px] lg:max-w-[812px]">
+        <div className="mt-[76px] w-full animate-pulse space-y-4 rounded-3xl bg-primary-light/30 p-20 lg:max-w-[980px]">
             <header className="mb-10 flex w-full justify-between gap-10 border-b-8 border-b-accent-hover pb-8">
                 <div className="w-full">
                     <div className="mb-4 h-16 max-w-96 rounded-lg bg-primary-light"></div>

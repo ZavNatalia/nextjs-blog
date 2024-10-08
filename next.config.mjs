@@ -10,8 +10,8 @@ const nextConfig = (phase) => {
                 mongodb_password: 'rXDyQwsSMBrgUH9I',
                 mongodb_clustername: 'Cluster0',
                 mongodb_database: 'blog-dev',
-            }
-        }
+            },
+        };
     }
 
     return {

@@ -13,7 +13,7 @@ const config: Config = {
                 primary: {
                     DEFAULT: 'rgb(30 41 59)', // slate-800
                     light: 'rgb(71 85 105)', // slate-600
-                    dark: 'rgb(9, 11, 17)', // slate-900
+                    dark: 'rgb(9 11 17)', // slate-900
                 },
                 accent: {
                     DEFAULT: 'rgb(245 158 11)', // amber-500
@@ -25,7 +25,7 @@ const config: Config = {
                 secondary: 'rgb(156 163 175)', // gray-400
                 muted: 'rgb(107 114 128)', // gray-500
             },
-            typography: ({ theme }) => ({
+            typography: (theme: (path: string) => string) => ({
                 DEFAULT: {
                     css: {
                         color: theme('colors.gray.300'),
@@ -48,7 +48,7 @@ const config: Config = {
             },
         },
     },
-    plugins: [typography],
+    plugins: [typography()],
 };
 
 export default config;

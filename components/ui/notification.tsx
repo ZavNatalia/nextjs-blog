@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 
-export type NotificationStatus = 'pending' | 'success' | 'error' | null;
+export type NotificationStatus = 'pending' | 'success' | 'error';
 
 export interface NotificationDetails {
     status: NotificationStatus;
