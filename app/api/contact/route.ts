@@ -8,10 +8,14 @@ export interface IMessage {
     id?: string;
 }
 
-const uri = process.env.MONGODB_URI;
+const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.1wiukyn.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`;
+
+if (!connectionString) {
+    throw new Error('MONGODB_URI is not defined in the environment variables');
+}
 
 async function connectToDatabase(): Promise<MongoClient> {
-    const client = new MongoClient(uri);
+    const client = new MongoClient(connectionString);
     await client.connect();
     return client;
 }
@@ -57,7 +61,7 @@ export async function POST(req: NextRequest) {
         }
 
         client = await connectToDatabase();
-        const db = client.db('blog');
+        const db = client.db();
 
         const newMessage = await insertMessage(db, body);
 

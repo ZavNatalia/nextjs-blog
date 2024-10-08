@@ -8,7 +8,7 @@ export default function NewsList({ latestNews }: { latestNews: INews[] }) {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 1600) {
+            if (window.scrollY > 1000) {
                 setShowButton(true);
             } else {
                 setShowButton(false);
@@ -22,7 +22,7 @@ export default function NewsList({ latestNews }: { latestNews: INews[] }) {
 
     const scrollToTop = () => {
         window.scrollTo({
-            top: 1160,
+            top: 0,
             behavior: 'smooth',
         });
     };
