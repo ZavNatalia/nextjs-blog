@@ -41,10 +41,16 @@ const config: Config = {
                     '0%': { width: '100%' },
                     '100%': { width: '0%' },
                 },
+                gradientShift: {
+                    '0%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' },
+                    '100%': { backgroundPosition: '0% 50%' },
+                },
             },
             animation: {
                 'slide-in': 'slide-in 0.2s ease-out',
                 'slide-out': 'slide-out 2s linear forwards',
+                gradientShift: 'gradientShift 15s ease infinite',
             },
         },
     },

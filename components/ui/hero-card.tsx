@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Hero() {
     return (
-        <section className="flex max-w-md flex-col items-center gap-2 rounded-3xl bg-primary-light/80 px-6 pb-6 sm:px-8 md:gap-3 md:px-12 lg:max-w-md xl:max-w-lg">
+        <section className="flex max-w-md animate-gradientShift flex-col items-center gap-2 rounded-3xl bg-gradient-to-r from-purple-950/60 via-pink-800/70 to-yellow-700 bg-[length:200%_200%] px-6 pb-6 transition-all sm:px-8 md:gap-3 md:px-12 lg:max-w-md xl:max-w-lg">
             <div className="relative aspect-[7/4] w-full">
                 <Image
                     src="/images/site/hero-desktop.webp"
@@ -13,10 +13,10 @@ export default function Hero() {
                     priority
                 />
             </div>
-            <h1 className="text-center text-xl font-bold text-primary sm:text-2xl md:text-3xl">
+            <h1 className="text-center text-xl font-bold text-white sm:text-2xl md:text-3xl">
                 Building with Next.js
             </h1>
-            <p className="text-center text-base text-primary/70 sm:text-lg md:text-xl">
+            <p className="text-center text-base text-white/90 sm:text-lg md:text-xl">
                 Go from beginner to expert <br className="sm:hidden" /> by
                 learning the foundations of Next.js
             </p>
