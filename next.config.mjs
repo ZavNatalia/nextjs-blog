@@ -3,7 +3,7 @@ import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 /** @type {import('next').NextConfig} */
 const nextConfig = (phase) => {
     if (phase === PHASE_DEVELOPMENT_SERVER) {
-        console.log('Работаю в режиме разработки!');
+        console.log('DEV MODE!');
         return {
             env: {
                 mongodb_username: 'natalia',

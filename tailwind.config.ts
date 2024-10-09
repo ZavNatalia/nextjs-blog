@@ -50,7 +50,7 @@ const config: Config = {
             animation: {
                 'slide-in': 'slide-in 0.2s ease-out',
                 'slide-out': 'slide-out 2s linear forwards',
-                gradientShift: 'gradientShift 15s ease infinite',
+                gradientShift: 'gradientShift 5s ease 1',
             },
         },
     },

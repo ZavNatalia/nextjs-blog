@@ -8,9 +8,9 @@ export default function FeaturedPosts() {
         <div className="flex flex-col items-center gap-6 rounded-3xl bg-primary-dark/30 px-8 py-12">
             <h1 className="text-4xl font-bold text-accent">Featured Posts</h1>
             <PostsGrid posts={featuredPosts} />
-            <button className="button">
-                <Link href="/posts">All posts</Link>
-            </button>
+            <Link href="/posts">
+                <button className="button">All posts</button>
+            </Link>
         </div>
     );
 }
