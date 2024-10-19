@@ -35,7 +35,7 @@ body {
 
 @layer components {
     .page {
-        @apply flex min-h-[calc(100vh-76px)] w-full flex-col items-center gap-8 px-8 py-8 sm:px-12 md:px-16;
+        @apply flex min-h-[calc(100vh-76px)] w-full max-w-screen-2xl mx-auto flex-col items-center gap-8 px-8 py-8 sm:px-12 md:px-16;
     }
 
     .label {

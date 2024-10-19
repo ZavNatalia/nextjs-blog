@@ -4,15 +4,6 @@ import './globals.css';
 import MainNavigation from '@/components/ui/main-navigation';
 import { ReactNode } from 'react';
 
-// The viewport meta tag is automatically set,
-// and manual configuration is usually unnecessary as the default is sufficient.
-// export const viewport: Viewport = {
-//     width: 'device-width',
-//     initialScale: 1,
-//     maximumScale: 1,
-//     userScalable: false,
-// }
-
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
