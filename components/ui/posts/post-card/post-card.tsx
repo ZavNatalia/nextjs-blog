@@ -30,30 +30,32 @@ export default function PostCard({ post }: { post: IPost }) {
         <li className="w-full">
             <Link
                 href={linkPath}
-                className="flex flex-col gap-2 rounded-3xl bg-primary-light/60 p-4 transition-colors duration-500 hover:bg-primary-light/80 md:p-5"
+                className="grid grid-cols-[220px_1fr] gap-5 rounded-3xl bg-primary-light/60 p-3 transition-colors duration-500 hover:bg-primary-light/80 md:p-4"
             >
-                <div className="relative mb-2 aspect-square w-full overflow-hidden rounded-xl">
+                <div className="relative mb-2 h-[220px] w-[220px] overflow-hidden rounded-xl">
                     {!imageLoaded && (
-                        <div className="square-skeleton mb-2 aspect-square w-full animate-pulse rounded-xl bg-primary-light" />
+                        <div className="square-skeleton h-[220px] w-[220px] animate-pulse rounded-xl bg-primary-light" />
                     )}
                     <Image
-                        className={`rounded-xl object-cover transition-transform duration-500 hover:scale-110 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        className={`rounded-lg object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                         src={imagePath}
                         alt={title}
-                        fill
-                        sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                        width={220}
+                        height={220}
                         onLoad={() => setImageLoaded(true)}
                     />
                 </div>
-                <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis text-2xl font-bold">
-                    {title}
-                </h3>
-                <time className="mb-2 whitespace-nowrap text-sm text-secondary">
-                    {formattedDate}
-                </time>
-                <p className="text-md line-clamp-3 max-h-[7rem] text-ellipsis">
-                    {excerpt}
-                </p>
+                <div>
+                    <h3 className="line-clamp-3 max-h-[5rem] text-ellipsis text-2xl font-bold">
+                        {title}
+                    </h3>
+                    <time className="whitespace-nowrap text-xs text-secondary">
+                        {formattedDate}
+                    </time>
+                    <p className="text-md mt-2 line-clamp-5 max-h-[8rem] text-ellipsis hyphens-auto break-words">
+                        {excerpt}
+                    </p>
+                </div>
             </Link>
         </li>
     );

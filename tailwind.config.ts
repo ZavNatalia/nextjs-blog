@@ -49,6 +49,9 @@ const config: Config = {
         },
     },
     plugins: [typography()],
+    corePlugins: {
+        hyphens: true,
+    },
 };
 
 export default config;
