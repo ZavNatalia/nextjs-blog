@@ -9,10 +9,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
-import Notification, {
-    NotificationDetails,
-    NotificationStatus,
-} from '@/components/ui/notification';
+import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/notification';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);
@@ -38,7 +35,7 @@ export const getNotificationData = (
     if (status) {
         return notificationMap[
             status as Exclude<NotificationStatus, 'pending' | null>
-        ];
+            ];
     }
     return null;
 };
@@ -82,7 +79,7 @@ export default function PostContent({ post }: { post: IPost }) {
                     alt={alt || 'News Image'}
                     width={600}
                     height={600}
-                    sizes="(max-width: 600px) 100vw, 600px"
+                    sizes="(max-width: 869px) 100vw, 600px"
                     className="mx-auto rounded-xl object-contain"
                 />
             );
@@ -105,7 +102,7 @@ export default function PostContent({ post }: { post: IPost }) {
                             copyStatus
                                 ? 'hover:text-primary'
                                 : 'hover:currentColor'
-                        } icon-button absolute right-1 top-1 lg:right-3 lg:top-4`}
+                        } icon-button absolute right-1 top-2 lg:right-2 lg:top-3`}
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
                         <svg
@@ -129,14 +126,14 @@ export default function PostContent({ post }: { post: IPost }) {
     };
 
     return (
-        <article className="rounded-3xl bg-primary-light/30 p-20">
+        <article className="max-w-5xl rounded-3xl bg-primary-light/30 p-5 lg:p-10">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={{
                     img: customRenderers.img,
                     code: customRenderers.code,
                 }}
-                className="prose lg:prose-xl dark:prose-invert"
+                className="prose-sm lg:prose-lg dark:prose-invert lg:max-w-5xl"
             >
                 {content}
             </ReactMarkdown>

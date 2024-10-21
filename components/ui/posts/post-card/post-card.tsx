@@ -32,7 +32,7 @@ export default function PostCard({ post }: { post: IPost }) {
                 href={linkPath}
                 className="grid grid-cols-[220px_1fr] gap-5 rounded-3xl bg-primary-light/60 p-3 transition-colors duration-500 hover:bg-primary-light/80 md:p-4"
             >
-                <div className="relative mb-2 h-[220px] w-[220px] overflow-hidden rounded-xl">
+                <div className="relative h-[220px] w-[220px] overflow-hidden rounded-xl">
                     {!imageLoaded && (
                         <div className="square-skeleton h-[220px] w-[220px] animate-pulse rounded-xl bg-primary-light" />
                     )}
@@ -52,7 +52,7 @@ export default function PostCard({ post }: { post: IPost }) {
                     <time className="whitespace-nowrap text-xs text-secondary">
                         {formattedDate}
                     </time>
-                    <p className="text-md mt-2 line-clamp-5 max-h-[8rem] text-ellipsis hyphens-auto break-words">
+                    <p className="text-md mt-1 line-clamp-5 max-h-[8rem] text-ellipsis hyphens-auto break-words">
                         {excerpt}
                     </p>
                 </div>
