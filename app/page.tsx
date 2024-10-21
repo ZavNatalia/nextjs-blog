@@ -5,7 +5,7 @@ import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skele
 import LatestNews from '@/components/ui/news/latest-news';
 
 const FeaturedPostsFallback = () => (
-    <div className="w-full rounded-3xl bg-primary-dark p-8">
+    <div className="w-full rounded-3xl bg-primary-dark/30 px-4 py-6 lg:px-8 lg:py-12">
         <PostsGridSkeleton title="Featured Posts" />
     </div>
 );

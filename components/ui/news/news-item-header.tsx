@@ -17,18 +17,18 @@ export default function NewsItemHeader({
     return (
         <header className="relative mb-10 flex max-w-[820px] justify-between gap-10 pb-8 after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent-hover">
             <div>
-                <h1 className="mb-4 text-5xl font-bold leading-snug">
+                <h1 className="mb-4 text-4xl font-bold leading-snug">
                     {title}
                 </h1>
                 <span className="text-lg text-secondary">{formattedDate}</span>
             </div>
-            <div className="relative h-[200px] w-[200px] flex-shrink-0 md:h-[300px] md:w-[300px]">
+            <div className="relative h-[200px] w-[200px] flex-shrink-0 md:h-[280px] md:w-[280px]">
                 <Image
                     className="rounded-3xl object-cover"
                     src={imagePath}
                     alt={title}
                     fill
-                    sizes="300px"
+                    sizes="280px"
                 />
             </div>
         </header>

@@ -9,7 +9,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
-import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/notification';
+import Notification, {
+    NotificationDetails,
+    NotificationStatus,
+} from '@/components/ui/notification';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);
@@ -35,7 +38,7 @@ export const getNotificationData = (
     if (status) {
         return notificationMap[
             status as Exclude<NotificationStatus, 'pending' | null>
-            ];
+        ];
     }
     return null;
 };
@@ -77,9 +80,9 @@ export default function PostContent({ post }: { post: IPost }) {
                 <Image
                     src={`/images/posts/${slug}/${src}`}
                     alt={alt || 'News Image'}
-                    width={600}
-                    height={600}
-                    sizes="(max-width: 869px) 100vw, 600px"
+                    width={500}
+                    height={500}
+                    sizes="(max-width: 869px) 100vw, 500px"
                     className="mx-auto rounded-xl object-contain"
                 />
             );
@@ -89,7 +92,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 ? className.replace('language-', '')
                 : '';
             return (
-                <div className="relative">
+                <div className="relative overflow-x-auto">
                     <SyntaxHighlighter
                         style={darcula}
                         language={language}
@@ -126,7 +129,7 @@ export default function PostContent({ post }: { post: IPost }) {
     };
 
     return (
-        <article className="max-w-5xl rounded-3xl bg-primary-light/30 p-5 lg:p-10">
+        <article className="mx-auto w-full lg:max-w-5xl rounded-3xl bg-primary-light/50 p-4 lg:p-10">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={{
