@@ -92,7 +92,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 ? className.replace('language-', '')
                 : '';
             return (
-                <div className="flex flex-col overflow-x-auto rounded-2xl bg-primary-dark/70 p-3 text-lg sm:p-4 lg:p-6">
+                <div className="flex flex-col overflow-x-auto rounded-2xl bg-primary-dark/70 p-3 text-sm sm:p-4 md:text-lg lg:p-6">
                     <div className="flex items-center justify-between">
                         <span className="md:text-md text-xs lg:text-lg">
                             Terminal
@@ -144,7 +144,7 @@ export default function PostContent({ post }: { post: IPost }) {
                     img: customRenderers.img,
                     code: customRenderers.code,
                 }}
-                className="prose-sm lg:prose-lg dark:prose-invert lg:max-w-5xl"
+                className="prose-sm lg:prose-lg dark:prose-invert"
             >
                 {content}
             </ReactMarkdown>
