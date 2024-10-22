@@ -52,4 +52,4 @@ We will now be focusing on improving memory usage, implementing persistent cachi
 
 To see a list of supported and unsupported features in Turbopack, please refer to our documentation.
 
-**Authors of the post:** [Delba de Oliveira (@delba_oliveira)](https://twitter.com/delba_oliveira), @timneutkens_
+**Authors of the post:** [Delba de Oliveira (@delba_oliveira)](https://twitter.com/delba_oliveira), @timneutkens\_

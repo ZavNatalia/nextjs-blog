@@ -28,7 +28,7 @@ export default function PostCard({ post }: { post: IPost }) {
 
     return (
         <li className="w-full overflow-hidden">
-            <div className="rounded-t-3xl flex justify-between bg-primary-light/25 px-5 py-4 lg:px-6 lg:py-5 shadow-md">
+            <div className="flex justify-between rounded-t-3xl bg-primary-light/25 px-5 py-4 shadow-md lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-primary md:text-xl lg:text-2xl">
                     {title}
                 </h3>
@@ -36,8 +36,8 @@ export default function PostCard({ post }: { post: IPost }) {
                     {formattedDate}
                 </time>
             </div>
-            <div className="rounded-b-3xl grid grid-cols-1 gap-5 bg-primary-light/40 px-5 pb-5 pt-4 lg:px-6 lg:grid-cols-[200px_1fr] xl:grid-cols-[220px_1fr]">
-                <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[200px] lg:w-[200px]  xl:h-[220px]  xl:w-[220px]">
+            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 px-5 pb-5 pt-4 lg:grid-cols-[200px_1fr] lg:px-6 xl:grid-cols-[220px_1fr]">
+                <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[200px] lg:w-[200px] xl:h-[220px] xl:w-[220px]">
                     {!imageLoaded && (
                         <div className="square-skeleton animate-pulse rounded-xl bg-primary-light lg:h-[200px] lg:w-[200px] xl:h-[220px] xl:w-[220px]" />
                     )}

@@ -92,16 +92,20 @@ export default function PostContent({ post }: { post: IPost }) {
                 ? className.replace('language-', '')
                 : '';
             return (
-                <div className="overflow-x-auto rounded-2xl text-lg flex flex-col bg-primary-dark/70 p-3 sm:p-4 lg:p-6">
-                    <div className='flex justify-between items-center'>
-                        <span className='text-xs md:text-md lg:text-lg'>Terminal</span>
+                <div className="flex flex-col overflow-x-auto rounded-2xl bg-primary-dark/70 p-3 text-lg sm:p-4 lg:p-6">
+                    <div className="flex items-center justify-between">
+                        <span className="md:text-md text-xs lg:text-lg">
+                            Terminal
+                        </span>
                         <button
                             className={`${
                                 copyStatus
                                     ? 'hover:text-primary'
                                     : 'hover:currentColor'
-                            }  icon-button `}
-                            onClick={() => copyCodeToClipboard(children as string)}
+                            } icon-button`}
+                            onClick={() =>
+                                copyCodeToClipboard(children as string)
+                            }
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -127,8 +131,6 @@ export default function PostContent({ post }: { post: IPost }) {
                     >
                         {children as string}
                     </SyntaxHighlighter>
-
-
                 </div>
             );
         },

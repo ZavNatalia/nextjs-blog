@@ -16,13 +16,13 @@ React Server Components blur the line between server and client. Data handling i
 
 The first thing we need to do is pick what data handling approach is appropriate for our project.
 
-* HTTP APIs (recommended for existing large projects / orgs)
-* Data Access Layer (recommended for new projects)
-* Component Level Data Access (recommended for prototyping and learning)
+-   HTTP APIs (recommended for existing large projects / orgs)
+-   Data Access Layer (recommended for new projects)
+-   Component Level Data Access (recommended for prototyping and learning)
 
 We recommend that you stick to one approach and don't mix and match too much. This makes it clear for both developers working in your code base and security auditors for what to expect. Exceptions pop out as suspicious.
 
-###  HTTP APIs
+### HTTP APIs
 
 If you're adopting Server Components in an existing project, the recommended approach is to handle Server Components at runtime as unsafe/untrusted by default like SSR or within the client. So there is no assumption of an internal network or zones of trust and engineers can apply the concept of Zero Trust. Instead, you only call custom API endpoints such as REST or GraphQL using fetch() from Server Components just like if it was executing on the client. Passing along any cookies.
 
@@ -35,7 +35,6 @@ This approach lets you keep existing organizational structures where existing ba
 It still takes advantage of many of the benefits of Server Components by sending less code to the client and inherent data waterfalls can execute with low latency.
 
 ![Abstract 3D representations of the audit process for a Next.js App Router project](audit-of-a-Next-js-App-Router-project.webp)
-
 
 ### Data Access Layer
 
@@ -56,15 +55,13 @@ import { cookies } from 'next/headers';
 // Component to Server Component which minimizes risk of passing it to a Client
 // Component.
 export const getCurrentUser = cache(async () => {
-const token = cookies().get('AUTH_TOKEN');
-const decodedToken = await decryptAndValidate(token);
-// Don't include secret tokens or private information as public fields.
-// Use classes to avoid accidentally passing the whole object to the client.
-return new User(decodedToken.id);
+    const token = cookies().get('AUTH_TOKEN');
+    const decodedToken = await decryptAndValidate(token);
+    // Don't include secret tokens or private information as public fields.
+    // Use classes to avoid accidentally passing the whole object to the client.
+    return new User(decodedToken.id);
 });
-
 ```
-
 
 _data/user-dto.tsx_
 
@@ -121,6 +118,7 @@ Secret keys can be stored in environment variables but only the data access laye
 ![Illustration of HTTP APIs and Zero Trust for a Next.js project](http-apis-and-zero-trust-in-the-context-of-server-components.webp)
 
 ### Component Level Data Access
+
 Another approach is to just put your database queries directly in your Server Components. This approach is only appropriate for rapid iteration and prototyping. E.g. for a small product with a small team where everyone is aware of the risks and how to watch for them.
 
 In this approach you'll want to audit your "use client" files carefully. While auditing and reviewing PRs, look at all the exported functions and if the type signature accepts overly broad objects like User, or contains props like token or creditCard. Even privacy sensitive fields like phoneNumber need extra scrutiny. A Client Component should not accept more data than the minimal data it needs to perform its job.
@@ -129,12 +127,12 @@ In this approach you'll want to audit your "use client" files carefully. While a
 import Profile from './components/profile.tsx';
 
 export async function Page({ params: { slug } }) {
-const [rows] = await sql`SELECT * FROM user WHERE slug = ${slug}`;
-const userData = rows[0];
-// EXPOSED: This exposes all the fields in userData to the client because
-// we are passing the data from the Server Component to the Client.
-// This is similar to returning `userData` in `getServerSideProps`
-return <Profile user={userData} />;
+    const [rows] = await sql`SELECT * FROM user WHERE slug = ${slug}`;
+    const userData = rows[0];
+    // EXPOSED: This exposes all the fields in userData to the client because
+    // we are passing the data from the Server Component to the Client.
+    // This is similar to returning `userData` in `getServerSideProps`
+    return <Profile user={userData} />;
 }
 ```
 
@@ -155,6 +153,5 @@ return (
 ```
 
 Always use parameterized queries, or a db library that does it for you, to avoid SQL injection attacks.
-
 
 **Автор поста:** [Sebastian Markbåge (@sebmarkbage)](https://twitter.com/sebmarkbage)
