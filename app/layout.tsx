@@ -20,7 +20,7 @@ export default function RootLayout({
     children: ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="ru">
             <body className={inter.className}>
                 <div className="flex min-h-screen flex-col">
                     <MainNavigation />

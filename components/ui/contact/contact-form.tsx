@@ -52,7 +52,7 @@ function InputField({
 }: InputFieldProps) {
     const InputComponent = rows ? 'textarea' : 'input';
     return (
-        <div className='w-full'>
+        <div className="w-full">
             <label htmlFor={id} className="label">
                 {label}
             </label>
@@ -159,12 +159,12 @@ export default function ContactForm() {
             : null;
 
     return (
-        <section className='w-3/4 lg:w-[600px]'>
-            <h1 className="relative mb-6 text-center text-4xl font-bold">
+        <section className="w-3/4 lg:w-[600px]">
+            <h1 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl">
                 How can I help you?
             </h1>
             <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
-                <div className="flex gap-3 flex-col lg:flex-row">
+                <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField
                         id="email"
                         label="Your Email"

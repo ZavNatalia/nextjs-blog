@@ -26,6 +26,15 @@ body {
         rgb(var(--background-start-rgb));
 }
 
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
 @layer utilities {
     .text-balance {
         text-align: justify;
@@ -35,7 +44,7 @@ body {
 
 @layer components {
     .page {
-        @apply flex min-h-[calc(100vh-76px)] w-full max-w-screen-2xl mx-auto flex-col items-center gap-8 px-8 py-8 sm:px-12 md:px-16;
+        @apply mx-auto flex min-h-[calc(100vh-76px)] w-full max-w-screen-2xl flex-col items-center gap-3 px-3 py-4 md:px-8 lg:gap-4 lg:px-14 lg:py-5;
     }
 
     .label {
@@ -47,7 +56,7 @@ body {
     }
 
     .button {
-        @apply max-w-fit rounded-lg bg-primary-light/60 px-8 py-4 font-bold text-primary transition-all duration-200 hover:bg-accent-hover;
+        @apply max-w-fit rounded-lg bg-primary-light/60 px-5 py-3 font-bold text-primary transition-all duration-200 hover:bg-accent-hover;
     }
     .icon-button {
         @apply max-w-fit rounded-lg p-1 font-bold text-primary transition-all duration-200 hover:text-accent;
