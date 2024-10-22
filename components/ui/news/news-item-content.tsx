@@ -25,14 +25,14 @@ export default function NewsItemContent({ newsItem }: { newsItem: INews }) {
     };
 
     return (
-        <article>
+        <li className="lg:max-w-4xl">
             <NewsItemHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={{ img: customRenderers.img }}
-                className="prose lg:prose-xl dark:prose-invert"
+                className="prose-sm lg:prose-lg dark:prose-invert"
             >
                 {content}
             </ReactMarkdown>
-        </article>
+        </li>
     );
 }

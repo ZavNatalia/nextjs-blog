@@ -19,9 +19,7 @@ export default function Home() {
             <Suspense fallback={<FeaturedPostsFallback />}>
                 <FeaturedPosts />
             </Suspense>
-            <div className="hidden md:block">
-                <LatestNews />
-            </div>
+            <LatestNews />
         </main>
     );
 }

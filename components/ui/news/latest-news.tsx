@@ -4,7 +4,7 @@ import NewsList from '@/components/ui/news/news-list';
 export default function LatestNews() {
     const latestNews = getLatestNews();
     return (
-        <div className="rounded-3xl bg-primary-light/30 p-12">
+        <div className="px-4 md:rounded-3xl md:bg-primary-light/30 md:p-6 lg:p-10">
             <NewsList latestNews={latestNews} />
         </div>
     );
