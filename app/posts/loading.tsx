@@ -3,8 +3,11 @@ import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skele
 export default function Loading() {
     return (
         <main className="page">
-            <div className="mr-[14px] mt-[76px] w-full">
-                <PostsGridSkeleton title="All posts" />
+            <div className="mt-[48px] w-full lg:mt-[60px]">
+                <h2 className="mb-5 text-center text-2xl font-bold lg:mb-8 lg:text-4xl">
+                    All posts
+                </h2>
+                <PostsGridSkeleton />
             </div>
         </main>
     );

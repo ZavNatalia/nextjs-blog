@@ -38,7 +38,7 @@ export default function Breadcrumbs({
     const pathname = usePathname();
 
     return (
-        <nav className="flex gap-1 self-baseline p-2 text-lg">
+        <nav className="md:text-md flex gap-1 self-baseline p-2 text-sm lg:text-lg">
             {breadcrumbs.map((breadcrumb, index) => (
                 <BreadcrumbItem
                     key={breadcrumb.title}

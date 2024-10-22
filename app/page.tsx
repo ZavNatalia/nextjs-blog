@@ -5,11 +5,13 @@ import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skele
 import LatestNews from '@/components/ui/news/latest-news';
 
 const FeaturedPostsFallback = () => (
-    <div className="w-full rounded-3xl bg-primary-dark p-8">
-        <PostsGridSkeleton title="Featured Posts" />
+    <div className="flex w-full flex-col items-center gap-5 px-4 py-4 md:py-6 lg:gap-8 lg:rounded-3xl lg:bg-primary-dark/40 lg:px-8 lg:py-8">
+        <h2 className="text-2xl font-bold text-accent lg:text-4xl">
+            Featured Posts
+        </h2>
+        <PostsGridSkeleton />
     </div>
 );
-
 export default function Home() {
     return (
         <main className="page">
@@ -17,7 +19,9 @@ export default function Home() {
             <Suspense fallback={<FeaturedPostsFallback />}>
                 <FeaturedPosts />
             </Suspense>
-            <LatestNews />
+            <div className="hidden md:block">
+                <LatestNews />
+            </div>
         </main>
     );
 }
