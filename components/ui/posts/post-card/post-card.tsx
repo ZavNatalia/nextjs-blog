@@ -27,14 +27,19 @@ export default function PostCard({ post }: { post: IPost }) {
     const linkPath = `posts/${slug}`;
 
     return (
-        <li className="w-full">
-            <Link
-                href={linkPath}
-                className="grid grid-cols-1 gap-5 rounded-3xl bg-primary-light/60 p-4 transition-colors duration-500 hover:bg-primary-light/80 lg:grid-cols-[220px_1fr]"
-            >
-                <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[220px] lg:w-[220px]">
+        <li className="w-full overflow-hidden">
+            <div className="rounded-t-3xl flex justify-between bg-primary-light/25 px-5 py-4 lg:px-6 lg:py-5 shadow-md">
+                <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-primary md:text-xl lg:text-2xl">
+                    {title}
+                </h3>
+                <time className="whitespace-nowrap text-sm text-secondary">
+                    {formattedDate}
+                </time>
+            </div>
+            <div className="rounded-b-3xl grid grid-cols-1 gap-5 bg-primary-light/40 px-5 pb-5 pt-4 lg:px-6 lg:grid-cols-[200px_1fr] xl:grid-cols-[220px_1fr]">
+                <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[200px] lg:w-[200px]  xl:h-[220px]  xl:w-[220px]">
                     {!imageLoaded && (
-                        <div className="square-skeleton h-[160px] w-[160px] animate-pulse rounded-xl bg-primary-light lg:h-[220px] lg:w-[220px]" />
+                        <div className="square-skeleton animate-pulse rounded-xl bg-primary-light lg:h-[200px] lg:w-[200px] xl:h-[220px] xl:w-[220px]" />
                     )}
                     <Image
                         className={`rounded-lg object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -45,19 +50,15 @@ export default function PostCard({ post }: { post: IPost }) {
                         onLoad={() => setImageLoaded(true)}
                     />
                 </div>
-                <div>
-                    <h3 className="line-clamp-3 max-h-[5rem] text-ellipsis text-lg font-bold lg:text-2xl">
-                        {title}
-                    </h3>
-                    <time className="whitespace-nowrap text-xs text-secondary">
-                        {formattedDate}
-                    </time>
-                    <hr className="mx-[-16px] my-2 border-t border-primary-light lg:hidden" />
-                    <p className="text-md mt-1 line-clamp-3 max-h-[5rem] text-ellipsis hyphens-auto break-words lg:line-clamp-5 lg:max-h-[8rem]">
+                <div className="flex flex-col justify-between gap-3">
+                    <p className="text-md line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-primary lg:line-clamp-6 lg:max-h-[9rem]">
                         {excerpt}
                     </p>
+                    <Link href={linkPath} className="self-end">
+                        <button className="button mx-auto">Read more</button>
+                    </Link>
                 </div>
-            </Link>
+            </div>
         </li>
     );
 }

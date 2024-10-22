@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function FeaturedPosts() {
     const featuredPosts = getFeaturedPosts();
     return (
-        <div className="flex flex-col items-center gap-4 rounded-3xl bg-primary-dark/30 px-4 py-6 lg:gap-6 lg:px-8 lg:py-12">
+        <div className="flex flex-col items-center gap-5 lg:rounded-3xl lg:bg-primary-dark/40 px-4 py-4 md:py-6 lg:gap-8 lg:px-8 lg:py-8">
             <h1 className="text-2xl font-bold text-accent lg:text-4xl">
                 Featured Posts
             </h1>
