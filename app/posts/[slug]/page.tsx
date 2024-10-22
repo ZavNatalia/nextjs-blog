@@ -4,7 +4,6 @@ import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
 import { notFound } from 'next/navigation';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import Link from 'next/link';
-import PostSkeleton from '@/components/ui/posts/post-detail/post-skeleton';
 
 interface PageProps {
     params: { slug: string };
