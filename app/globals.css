@@ -63,13 +63,13 @@ body {
     }
 
     .markdown-content ul {
-        @apply list-disc ml-5;
+        @apply ml-5 list-disc;
     }
     .markdown-content ol {
-        @apply list-decimal ml-5;
+        @apply ml-5 list-decimal;
     }
     .markdown-content li {
-        @apply my-0.5;
+        @apply my-1;
     }
     .markdown-content li p {
         @apply my-0.5;
@@ -78,15 +78,15 @@ body {
         @apply italic;
     }
     .markdown-content h2 {
-        @apply text-accent text-center;
+        @apply text-center text-accent;
     }
     .markdown-content pre {
-        @apply p-0 my-0.5 mx-0;
+        @apply mx-0 my-0.5 p-0;
     }
     .markdown-content a {
-        @apply text-accent
+        @apply text-accent;
     }
     .markdown-content a:hover {
-        @apply text-accent-hover
+        @apply text-accent-hover;
     }
 }
