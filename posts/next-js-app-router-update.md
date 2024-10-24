@@ -3,35 +3,48 @@ title: 'Next.js App Router Update'
 date: '2023-06-22'
 image: 'next-js-app-router-update.webp'
 excerpt: "The App Router represents a new foundation for the future of Next.js, but we recognize there are opportunities to make the experience better. We'd like to give an update on what our current priorities are."
-isFeatured: true
+isFeatured: false
 ---
 
-The App Router represents a new foundation for the future of Next.js, but we recognize there are opportunities to make the experience better. We'd like to give an update on what our current priorities are.
-
-For the upcoming releases of Next.js, we are focusing on the following areas:
-
--   Improving Performance
--   Improving Stability
--   Improving Developer Education
-
-![The main App component is using server components to render a list of posts.](react-server-components.webp)
-
-## The App Router
-
-First, it's helpful to provide some context on how the App Router has been designed.
-
-### Growing Beyond the Pages Router by Aligning with React
-
-As we saw increased adoption and larger scale applications being built with Next.js, we received feedback from the community and identified areas where we started to reach the limits of the Pages Router.
-
-Most notably, the Next.js Pages Router was not designed for streaming, a cornerstone primitive in modern React, that helps us address the limitations we were facing and realize our long-term vision for Next.js.
-
-![A visual representation of React Server Components (RSC) in App Router](visual-representation.webp)
-
-Making streaming-friendly framework APIs for data fetching, asset loading, and page metadata, as well as taking advantage of React's newer primitives required large changes to the core architecture of Next.js.
+App Router представляет новую основу для будущего Next.js, но команда признаёт, что есть возможности для улучшения. В предстоящих релизах Next.js они сосредоточатся на следующих направлениях:
 
 ![A developer is sitting at a desk with multiple monitors.](developer-is-sitting-at-a-desk.webp)
 
-We took the opportunity to build on top of the latest React concurrent features, like Server Components, Suspense, and more, which have been designed for streaming architectures.
+- **Улучшение производительности**: повышение скорости локальной разработки, уменьшение времени сборки и оптимизация производительности серверлесс-функций.
+- **Повышение стабильности**: активное исправление ошибок и повышение надежности App Router.
+- **Улучшение обучения разработчиков**: обновление документации и предоставление новых учебных материалов.
 
-**Authors of the post:** [Delba de Oliveira (@delba_oliveira)](https://twitter.com/delba_oliveira), @leeerob\_
+**App Router** был разработан с целью преодоления ограничений Pages Router и для лучшей интеграции с современными возможностями React, такими как стриминг, Server Components и Suspense. Команда стремится обеспечить **инкрементальное внедрение**, позволяя разработчикам постепенно мигрировать свои приложения на App Router без полной переработки и с возможностью отката при необходимости.
+
+**Путь к стабильности** включал выпуск RFC, бета-версии и, наконец, стабильного API в версии 13.4. Однако команда признаёт, что еще не полностью удовлетворена текущим опытом использования App Router и делает его улучшение своим главным приоритетом.
+
+**Улучшение производительности** включает:
+
+![A visual representation of React Server Components (RSC) in App Router](visual-representation.webp)
+
+
+- **Локальная производительность**: замена webpack на Turbopack для более быстрой компиляции и обновления модулей. Turbopack доступен в бета-версии:
+
+```
+next dev --turbo
+```
+
+- **Производительность сборки**: работа над поддержкой Turbopack для продакшен-сборок:
+
+```
+next build --turbo
+```
+
+- **Производительность в продакшене**: оптимизация функций Vercel для уменьшения холодных стартов и улучшения использования памяти.
+
+**Повышение стабильности** достигается за счет активного исправления ошибок и тесного взаимодействия с сообществом. В последних обновлениях (например, в версии 13.4.7) уже исправлены значимые проблемы.
+
+**Улучшение обучения разработчиков** включает:
+
+- **Обновление документации**: полная переработка документации на [nextjs.org/docs](https://nextjs.org/docs) с улучшенной структурой и наглядными иллюстрациями. Добавлена возможность переключения между документацией для Pages Router и App Router.
+- **Дополнительные ресурсы**: планируется выпуск новых учебных материалов, включая обновленный курс и примеры реальных проектов, таких как переписанная версия Next.js Commerce.
+- **Обучение новым возможностям React**: предоставление разъяснений по Server Components, Client Components и другим современным концепциям React. Команда признаёт необходимость в дополнительном образовании по этим темам и работает над этим совместно с сообществом React.
+- **Развитие экосистемы**: поддержка и интеграция с внешними библиотеками, такими как Panda CSS, которые начинают поддерживать новые возможности React.
+- **Server Actions (Альфа)**: новая функция для серверных мутаций данных, которая пока не рекомендуется для использования в продакшене, но открыта для обратной связи от разработчиков.
+
+_Authors of the post: Delba de Oliveira, Lee Robinson_

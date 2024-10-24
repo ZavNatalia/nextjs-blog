@@ -67,4 +67,4 @@ HTTPS требует, чтобы вы получили и сохранили с�
 
 ![Certificate acquisition scheme.](certificates.png)
 
-_Posted by [Amazon Web Services](https://aws.amazon.com/ 'Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud, offering over 200 fully featured services from data centers globally.')_
+_Author of the post: [Amazon Web Services](https://aws.amazon.com/ 'Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud, offering over 200 fully featured services from data centers globally.')_
