@@ -29,7 +29,7 @@ export default function NewsItemContent({ newsItem }: { newsItem: INews }) {
             <NewsItemHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={{ img: customRenderers.img }}
-                className="prose-sm lg:prose-lg dark:prose-invert"
+                className="markdown-content prose-sm lg:prose-lg dark:prose-invert"
             >
                 {content}
             </ReactMarkdown>

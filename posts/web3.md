@@ -164,4 +164,6 @@ IPFS – это децентрализованная и распределенн
 -   С помощью AMB Query можно использовать удобные для разработчиков API для доступа к историческим данным из нескольких блокчейнов в режиме реального времени.
 -   Стандартизированные данные блокчейна можно интегрировать с сервисами AWS без необходимости в специализированной блокчейн-инфраструктуре или инструментах извлечения, преобразования и загрузки (ETL).
 
+---
+
 _Author of the original post: [Amazon Web Services](https://aws.amazon.com/ 'Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud, offering over 200 fully featured services from data centers globally.')_
