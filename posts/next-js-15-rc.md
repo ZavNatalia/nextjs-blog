@@ -87,4 +87,4 @@ module.exports = nextConfig;
 
 Learn more about the React Compiler, and the available Next.js config options.
 
-**Authors of the post:** [Delba de Oliveira (@delba_oliveira)](https://twitter.com/delba_oliveira), [Zack Tanner (@zt1072)](https://twitter.com/zt1072)
+_Authors of the post: Delba de Oliveira, Zack Tanner_

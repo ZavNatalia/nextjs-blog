@@ -92,9 +92,9 @@ export default function PostContent({ post }: { post: IPost }) {
                 ? className.replace('language-', '')
                 : '';
             return (
-                <div className="flex flex-col overflow-x-auto rounded-2xl bg-primary-dark/70 p-3 text-sm sm:p-4 md:text-lg lg:p-6">
+                <div className="flex flex-col overflow-x-auto rounded-xl bg-primary-dark/50 p-2 text-sm sm:p-3 md:text-lg lg:p-4">
                     <div className="flex items-center justify-between">
-                        <span className="md:text-md text-xs lg:text-lg">
+                        <span className="md:text-sm text-xs lg:text-lg text-secondary">
                             Terminal
                         </span>
                         <button
@@ -144,7 +144,7 @@ export default function PostContent({ post }: { post: IPost }) {
                     img: customRenderers.img,
                     code: customRenderers.code,
                 }}
-                className="prose-sm lg:prose-lg dark:prose-invert"
+                className="prose-sm lg:prose-lg dark:prose-invert markdown-content"
             >
                 {content}
             </ReactMarkdown>

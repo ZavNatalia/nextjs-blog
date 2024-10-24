@@ -154,4 +154,4 @@ return (
 
 Always use parameterized queries, or a db library that does it for you, to avoid SQL injection attacks.
 
-**Автор поста:** [Sebastian Markbåge (@sebmarkbage)](https://twitter.com/sebmarkbage)
+_Author of the post: Sebastian Markbåge_
