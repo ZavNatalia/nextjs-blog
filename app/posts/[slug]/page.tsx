@@ -47,7 +47,7 @@ export default async function Page({ params }: PageProps) {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} />
             <Link href="/posts" className="button">
-                Back to Blog
+                Go to all posts
             </Link>
         </main>
     );
