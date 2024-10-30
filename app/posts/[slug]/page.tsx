@@ -6,7 +6,7 @@ import { IPost } from '@/components/ui/posts/post-card/post-card';
 import Link from 'next/link';
 
 interface PageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 const substringText = (text: string, length = 50): string =>
@@ -16,7 +16,8 @@ async function getPost(slug: string): Promise<IPost | null> {
     return getPostData(slug);
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata(props: PageProps) {
+    const params = await props.params;
     const post = await getPost(params.slug);
     if (!post) return { title: 'Post Not Found' };
 
@@ -26,7 +27,8 @@ export async function generateMetadata({ params }: PageProps) {
     };
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page(props: PageProps) {
+    const params = await props.params;
     const post = await getPost(params.slug);
 
     if (!post) {
