@@ -52,12 +52,17 @@ body {
     }
 
     .input {
-        @apply mt-1 w-full rounded-lg border border-primary-light bg-primary p-2 text-primary focus:border-accent-hover focus:outline-none focus:ring-accent;
+        @apply mt-1 w-full rounded-lg border border-primary-light bg-primary p-2 text-primary focus:border-accent-hover focus:outline-none focus:ring-2 focus:ring-accent-hover ;
     }
 
     .button {
-        @apply max-w-fit rounded-lg bg-primary-light/60 px-5 py-3 font-bold text-primary transition-all duration-200 hover:bg-accent-hover;
+        @apply rounded-lg bg-primary-light/60 px-5 py-3 font-bold text-primary transition-all duration-200 hover:bg-accent-hover focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
     }
+
+    .button-accent {
+        @apply rounded-lg bg-accent-hover px-5 py-3 font-bold text-primary transition-all duration-200 hover:bg-accent-hover/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
+    }
+
     .icon-button {
         @apply max-w-fit rounded-lg p-1 font-bold text-primary transition-all duration-200 hover:text-accent;
     }

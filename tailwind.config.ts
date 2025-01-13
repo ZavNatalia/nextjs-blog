@@ -24,6 +24,7 @@ const config: Config = {
                 primary: 'rgb(229 231 235)', // gray-200
                 secondary: 'rgb(156 163 175)', // gray-400
                 muted: 'rgb(107 114 128)', // gray-500
+                error: 'rgb(239 68 68)', // red-500
             },
             typography: (theme: (path: string) => string) => ({
                 DEFAULT: {
