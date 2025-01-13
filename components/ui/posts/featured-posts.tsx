@@ -10,8 +10,8 @@ export default function FeaturedPosts() {
                 Featured Posts
             </h1>
             <PostsGrid posts={featuredPosts} />
-            <Link href="/posts">
-                <button className="button">All posts</button>
+            <Link href="/posts" className="button">
+                All posts
             </Link>
             <hr className="border-t-1 my-2 w-full border-y-primary-light md:hidden" />
         </div>

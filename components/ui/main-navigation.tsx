@@ -4,6 +4,8 @@ import Link from 'next/link';
 const NAVIGATION_ITEMS = [
     { href: '/posts', label: 'Posts' },
     { href: '/contact', label: 'Contact' },
+    { href: '/auth', label: 'Auth' },
+
 ];
 
 export default function MainNavigation() {
@@ -14,12 +16,12 @@ export default function MainNavigation() {
                     <Logo />
                 </Link>
                 <nav>
-                    <ul className="flex gap-4 text-base sm:gap-6 md:text-xl">
+                    <ul className="flex gap-4 text-base sm:gap-6 md:text-lg">
                         {NAVIGATION_ITEMS.map(({ href, label }) => (
                             <li key={href}>
                                 <Link
                                     href={href}
-                                    className="text-white transition-colors hover:text-gray-300"
+                                    className="text-white transition-colors hover:text-amber-500"
                                 >
                                     {label}
                                 </Link>

@@ -54,8 +54,8 @@ export default function PostCard({ post }: { post: IPost }) {
                     <p className="text-md line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-primary lg:line-clamp-6 lg:max-h-[9rem]">
                         {excerpt}
                     </p>
-                    <Link href={linkPath} className="self-end">
-                        <button className="button mx-auto">Read more</button>
+                    <Link href={linkPath} className="button self-end">
+                        Read more
                     </Link>
                 </div>
             </div>
