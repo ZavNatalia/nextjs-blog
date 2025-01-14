@@ -46,7 +46,9 @@ export default function RootLayout({
             <body className={inter.className}>
                 <div className="flex min-h-screen flex-col">
                     <MainNavigation />
-                    {children}
+                    <div className='md:mt-[76px]'>
+                        {children}
+                    </div>
                 </div>
                 <div id="notifications"></div>
             </body>

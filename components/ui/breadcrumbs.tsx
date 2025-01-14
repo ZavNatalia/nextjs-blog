@@ -14,11 +14,11 @@ interface BreadcrumbItemProps {
     isLast: boolean;
 }
 
-const BreadcrumbItem: FC<BreadcrumbItemProps> = ({
+const BreadcrumbItem = ({
     breadcrumb,
     isActive,
     isLast,
-}) => (
+}: BreadcrumbItemProps) => (
     <span>
         <Link
             href={breadcrumb.link}

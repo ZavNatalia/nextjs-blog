@@ -56,10 +56,10 @@ body {
     }
 
     .button {
-        @apply max-w-fit rounded-lg bg-primary-light/60 px-5 py-3 font-bold text-primary transition-all duration-200 hover:bg-accent-hover;
+        @apply max-w-fit rounded-lg bg-primary-light/60 px-5 py-3 font-bold text-primary transition-colors duration-300 hover:bg-accent-hover;
     }
     .icon-button {
-        @apply max-w-fit rounded-lg p-1 font-bold text-primary transition-all duration-200 hover:text-accent;
+        @apply max-w-fit rounded-lg p-1 font-bold text-primary transition-colors duration-300 hover:text-accent;
     }
 
     .markdown-content ul {
@@ -84,7 +84,7 @@ body {
         @apply mx-0 my-0.5 p-0;
     }
     .markdown-content a {
-        @apply text-accent;
+        @apply text-accent underline;
     }
     .markdown-content a:hover {
         @apply text-accent-hover;
