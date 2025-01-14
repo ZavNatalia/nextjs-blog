@@ -8,8 +8,8 @@ const NAVIGATION_ITEMS = [
 
 export default function MainNavigation() {
     return (
-        <header className="bg-primary-dark">
-            <div className="container mx-auto flex items-center justify-between px-4 py-6 sm:px-12 lg:px-20">
+        <header className="bg-primary-dark md:fixed w-full z-10 shadow-xl h-[76px]">
+            <div className="container mx-auto flex items-center justify-between px-4 py-6 sm:px-12 md:px-20">
                 <Link href="/" aria-label="Home">
                     <Logo />
                 </Link>
@@ -19,7 +19,7 @@ export default function MainNavigation() {
                             <li key={href}>
                                 <Link
                                     href={href}
-                                    className="text-white transition-colors hover:text-gray-300"
+                                    className="text-white transition-colors duration-300 hover:text-accent"
                                 >
                                     {label}
                                 </Link>
