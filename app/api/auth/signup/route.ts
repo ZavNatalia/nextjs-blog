@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
         const existingUser = await collection.findOne({ email });
         if (existingUser) {
-            return new Response(JSON.stringify({ error: "User already exists." }), {
+            return new Response(JSON.stringify({ error: "Unable to process your request. Please double-check your email and password or contact support if the issue persists." }), {
                 status: 422,
                 headers: { "Content-Type": "application/json" },
             });
