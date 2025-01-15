@@ -197,7 +197,7 @@ export default function ContactForm() {
                 <button
                     disabled={requestStatus === 'pending'}
                     type="submit"
-                    className="button self-end"
+                    className="button-accent self-end"
                 >
                     {requestStatus === 'pending'
                         ? 'Sending...'
