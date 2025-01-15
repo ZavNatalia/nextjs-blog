@@ -1,9 +1,9 @@
 
 ---
 
-# Frontend Trends and News Platform
+# nextjs-blog
 
-This project is a modern **Next.js** application designed for publishing posts and curating the latest trends and news in the frontend development ecosystem. Built with **TypeScript** and styled using **TailwindCSS**, this platform provides an elegant, fast, and responsive experience for developers and enthusiasts alike.
+`nextjs-blog` is a modern **Next.js** application designed for publishing posts and curating the latest trends and news in the frontend development ecosystem. Built with **TypeScript** and styled using **TailwindCSS**, this platform provides an elegant, fast, and responsive experience for developers and enthusiasts alike.
 
 ---
 
@@ -29,15 +29,17 @@ This project is a modern **Next.js** application designed for publishing posts a
 - **MongoDB 6.9.0**: A scalable NoSQL database for storing posts and news.
 
 ### Key Libraries:
-- **react-markdown**: For rendering Markdown posts dynamically.
-- **react-syntax-highlighter**: To add syntax highlighting for code snippets in blog posts.
-- **gray-matter**: To parse frontmatter metadata in Markdown files.
-- **@heroicons/react**: Beautiful and scalable icons for the UI.
+- **@heroicons/react 2.1.5**: Beautiful and scalable icons for the UI.
+- **@tailwindcss/typography 0.5.15**: Enhanced typography for content-rich pages.
+- **gray-matter 4.0.3**: To parse frontmatter metadata in Markdown files.
+- **react-markdown 9.0.1**: For rendering Markdown posts dynamically.
+- **react-syntax-highlighter 15.5.0**: To add syntax highlighting for code snippets in blog posts.
 
 ### Developer Tools:
 - **Turbopack**: A fast bundler for development builds, ensuring optimal performance.
-- **ESLint**: For maintaining a clean and consistent code style.
-- **Prettier + Tailwind Plugin**: For automatically formatting code, including Tailwind class sorting.
+- **ESLint 8.57.1**: For maintaining a clean and consistent code style.
+- **Prettier 3.3.3 + Prettier Plugin for TailwindCSS 0.6.8**: For automatically formatting code, including Tailwind class sorting.
+- **PostCSS 8.4.47**: Configured to work seamlessly with TailwindCSS.
 
 ---
 
@@ -53,8 +55,8 @@ Make sure you have the following installed:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/frontend-news-platform.git
-cd frontend-news-platform
+git clone https://github.com/ZavNatalia/nextjs-blog.git
+cd nextjs-blog
 ```
 
 ### Install Dependencies
@@ -78,6 +80,7 @@ Visit `http://localhost:3000` to view the application.
 ## Project Structure
 
 ```plaintext
+.
 ├── .next/             # Build output directory (generated automatically)
 ├── app/               # Next.js App Router (pages and layouts)
 ├── components/        # Reusable UI components
@@ -86,6 +89,7 @@ Visit `http://localhost:3000` to view the application.
 ├── posts/             # List of articles with posts
 ├── public/            # Static assets (images, favicons, etc.)
 ```
+
 ---
 
 ## Scripts
@@ -127,19 +131,6 @@ Example Tailwind utility for buttons:
 
 ---
 
-## Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-name`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add new feature'`).
-5. Push to the branch (`git push origin feature-name`).
-6. Open a pull request.
-
----
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -151,4 +142,4 @@ This project is licensed under the [MIT License](LICENSE).
 - Thanks to the **Next.js**, **React**, **TailwindCSS**, and **TypeScript** communities for their incredible tools and support.
 - Special thanks to contributors who help improve this project.
 
---- 
+---
