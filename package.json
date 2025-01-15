@@ -13,6 +13,7 @@
     "dependencies": {
         "@heroicons/react": "^2.1.5",
         "@tailwindcss/typography": "^0.5.15",
+        "@types/yup": "^0.32.0",
         "bcryptjs": "^2.4.3",
         "formik": "^2.4.6",
         "gray-matter": "^4.0.3",
