@@ -48,7 +48,7 @@ export default async function Page(props: PageProps) {
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} />
-            <Link href="/posts" className="button">
+            <Link href="/posts" className="button-accent">
                 Go to all posts
             </Link>
         </main>
