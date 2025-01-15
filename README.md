@@ -78,20 +78,14 @@ Visit `http://localhost:3000` to view the application.
 ## Project Structure
 
 ```plaintext
-.
-├── components/       # Reusable UI components
-│   ├── ui/           # UI-specific elements (buttons, cards, etc.)
-│   └── posts/        # Components related to blog posts
-├── pages/            # Next.js pages
-│   ├── index.tsx     # Homepage
-│   └── posts/        # Blog post pages
-├── styles/           # Global and custom styles
-├── public/           # Static assets (images, favicons, etc.)
-├── lib/              # Utility functions and helpers
-├── types/            # TypeScript type definitions
-└── README.md         # Project documentation
+├── .next/             # Build output directory (generated automatically)
+├── app/               # Next.js App Router (pages and layouts)
+├── components/        # Reusable UI components
+├── lib/               # Utility functions and helpers
+├── news/              # List of articles with news
+├── posts/             # List of articles with posts
+├── public/            # Static assets (images, favicons, etc.)
 ```
-
 ---
 
 ## Scripts
