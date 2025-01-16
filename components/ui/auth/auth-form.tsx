@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'; // Импорт иконок
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { createUser } from '@/app/actions/auth';
+import { signIn } from "next-auth/react";
 
 const validationSchema = Yup.object({
     email: Yup.string()
@@ -16,27 +18,11 @@ const validationSchema = Yup.object({
         .required('Please confirm your password'),
 });
 
-type FormData = {
+export type AuthFormData = {
     email: string;
     password: string;
     confirmPassword?: string;
 };
-
-async function createUser(email: string, password: string) {
-    const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-        throw new Error(data?.error || 'Something went wrong!');
-    }
-    return data;
-}
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -48,13 +34,23 @@ export default function AuthForm() {
     };
 
     const handleSubmit = async (
-        values: FormData,
-        { setSubmitting, setErrors }: FormikHelpers<FormData>,
+        values: AuthFormData,
+        { setSubmitting, setErrors }: FormikHelpers<AuthFormData>,
     ) => {
         setSubmitting(true);
         try {
             if (isLogin) {
-                console.log('Log user in:', values);
+                const result = await signIn("credentials", {
+                    redirect: false,
+                    email: values.email,
+                    password: values.password,
+                });
+
+                if (!result || !result.ok) {
+                    throw new Error(result?.error || "Failed to log in");
+                }
+                console.log("User logged in successfully", result);
+
             } else {
                 const result = await createUser(values.email, values.password);
                 console.log('User created:', result);
@@ -73,7 +69,7 @@ export default function AuthForm() {
                 {isLogin ? 'Login' : 'Sign Up'}
             </h1>
 
-            <Formik<FormData>
+            <Formik<AuthFormData>
                 initialValues={{ email: '', password: '', confirmPassword: '' }}
                 validationSchema={isLogin
                     ? validationSchema.pick(['email', 'password']) // Only validate email and password for login
@@ -81,7 +77,7 @@ export default function AuthForm() {
                 }
                 onSubmit={handleSubmit}
             >
-                {(formikProps: FormikProps<FormData>) => {
+                {(formikProps: FormikProps<AuthFormData>) => {
                     const { isSubmitting } = formikProps;
 
                     return (
@@ -180,7 +176,7 @@ export default function AuthForm() {
                                     onClick={switchAuthModeHandler}
                                     className="text-accent hover:text-accent-hover"
                                 >
-                                    {isLogin ? 'Switch to Sign Up' : 'Switch to Login'}
+                                    {isLogin ? 'Create new account' : 'Switch to Login'}
                                 </button>
                             </div>
                         </Form>

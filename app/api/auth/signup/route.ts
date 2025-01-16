@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
         });
 
         return new Response(
-            JSON.stringify({ message: `Created user with email ${result}` }),
+            JSON.stringify({ message: `Created user with email ${result.email}` }),
             {
                 status: 201,
                 headers: { "Content-Type": "application/json" },

@@ -1,20 +1,18 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC } from 'react';
+import { JSX } from 'react';
 
 export interface Breadcrumb {
     link: string;
     title: string;
 }
 
-interface BreadcrumbItemProps {
+const BreadcrumbItem: ({ breadcrumb, isActive, isLast }: {
     breadcrumb: Breadcrumb;
     isActive: boolean;
     isLast: boolean;
-}
-
-const BreadcrumbItem: FC<BreadcrumbItemProps> = ({
+}) => JSX.Element = ({
     breadcrumb,
     isActive,
     isLast,
