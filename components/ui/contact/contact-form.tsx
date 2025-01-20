@@ -160,9 +160,9 @@ export default function ContactForm() {
 
     return (
         <section className="w-3/4 lg:w-[600px]">
-            <h1 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl">
+            <h2 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl">
                 How can I help you?
-            </h1>
+            </h2>
             <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField

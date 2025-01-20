@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { createUser } from '@/app/actions/auth';
 import { signIn } from "next-auth/react";
+import { useRouter } from 'next/navigation';
+import { SignInResponse } from "next-auth/react";
 
 const validationSchema = Yup.object({
     email: Yup.string()
@@ -28,7 +30,7 @@ export default function AuthForm() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+    const router = useRouter();
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
     };
@@ -40,7 +42,7 @@ export default function AuthForm() {
         setSubmitting(true);
         try {
             if (isLogin) {
-                const result = await signIn("credentials", {
+                const result: SignInResponse | undefined = await signIn("credentials", {
                     redirect: false,
                     email: values.email,
                     password: values.password,
@@ -49,8 +51,9 @@ export default function AuthForm() {
                 if (!result || !result.ok) {
                     throw new Error(result?.error || "Failed to log in");
                 }
-                console.log("User logged in successfully", result);
 
+                console.log("User logged in successfully", result);
+                router.push('/', { scroll: false });
             } else {
                 const result = await createUser(values.email, values.password);
                 console.log('User created:', result);
