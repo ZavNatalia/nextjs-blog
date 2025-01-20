@@ -1,8 +1,22 @@
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDatabase } from "@/lib/db";
 import { verifyPassword } from "@/lib/auth";
 import { MongoClient } from "mongodb";
+
+declare module "next-auth/jwt" {
+    interface JWT {
+        email?: string;
+    }
+}
+
+declare module "next-auth" {
+    interface Session extends DefaultSession {
+        user: {
+            email?: string;
+        } & DefaultSession["user"];
+    }
+}
 
 export const authOptions: AuthOptions = {
     providers: [
@@ -12,7 +26,7 @@ export const authOptions: AuthOptions = {
                 email: { label: "Email", type: "text", placeholder: "example@email.com" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials): Promise<any> {
+            async authorize(credentials: Record<"email" | "password", string> | undefined): Promise<any> {
                 if (!credentials || !credentials.email || !credentials.password) {
                     throw new Error("Missing email or password");
                 }
@@ -32,6 +46,7 @@ export const authOptions: AuthOptions = {
 
                 const isValid = await verifyPassword(credentials.password, user.password);
                 if (!isValid) {
+                    await client.close();
                     throw new Error("Invalid email or password");
                 }
 
@@ -55,9 +70,10 @@ export const authOptions: AuthOptions = {
             }
             return token;
         },
+
         async session({ session, token }) {
-            if (token) {
-                session.user.email = token.email as string;
+            if (token.email) {
+                session.user.email = token.email;
             }
             return session;
         },

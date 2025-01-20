@@ -36,17 +36,17 @@ export default function PostCard({ post }: { post: IPost }) {
                     {formattedDate}
                 </time>
             </div>
-            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 px-5 pb-5 pt-4 lg:grid-cols-[200px_1fr] lg:px-6 xl:grid-cols-[220px_1fr]">
-                <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[200px] lg:w-[200px] xl:h-[220px] xl:w-[220px]">
+            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 px-5 pb-5 pt-4 lg:grid-cols-[200px_1fr] lg:px-6">
+                <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[180px] lg:w-[180px]">
                     {!imageLoaded && (
-                        <div className="square-skeleton animate-pulse rounded-xl bg-primary-light lg:h-[200px] lg:w-[200px] xl:h-[220px] xl:w-[220px]" />
+                        <div className="square-skeleton animate-pulse rounded-xl bg-primary-light lg:h-[180px] lg:w-[180px]" />
                     )}
                     <Image
                         className={`rounded-lg object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                         src={imagePath}
                         alt={title}
-                        width={220}
-                        height={220}
+                        width={200}
+                        height={200}
                         onLoad={() => setImageLoaded(true)}
                     />
                 </div>

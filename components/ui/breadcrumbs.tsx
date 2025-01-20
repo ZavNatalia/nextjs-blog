@@ -20,7 +20,7 @@ const BreadcrumbItem: ({ breadcrumb, isActive, isLast }: {
     <span>
         <Link
             href={breadcrumb.link}
-            className={`cursor-pointer px-3 py-1 transition-all duration-300 hover:text-accent ${isActive ? 'font-bold text-accent' : 'font-normal'} `}
+            className={`cursor-pointer px-1 py-1 transition-all duration-300 hover:text-accent ${isActive ? 'font-bold text-accent' : 'font-normal'} `}
         >
             {breadcrumb.title}
         </Link>
