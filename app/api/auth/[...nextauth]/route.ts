@@ -26,7 +26,7 @@ export const authOptions: AuthOptions = {
                 email: { label: "Email", type: "text", placeholder: "example@email.com" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials: Record<"email" | "password", string> | undefined): Promise<any> {
+            async authorize(credentials) {
                 if (!credentials || !credentials.email || !credentials.password) {
                     throw new Error("Missing email or password");
                 }
@@ -52,7 +52,7 @@ export const authOptions: AuthOptions = {
 
                 await client.close();
 
-                return { email: user.email };
+                return { id: user._id, email: user.email };
             },
         }),
     ],
@@ -66,6 +66,7 @@ export const authOptions: AuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
+                token.id = user.id;
                 token.email = user.email;
             }
             return token;
@@ -73,7 +74,10 @@ export const authOptions: AuthOptions = {
 
         async session({ session, token }) {
             if (token.email) {
-                session.user.email = token.email;
+                session.user = {
+                    id: token.id,
+                    email: token.email,
+                };
             }
             return session;
         },

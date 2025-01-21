@@ -22,7 +22,7 @@ export default function MainNavigation() {
             <li key={href}>
                 <Link
                     href={href}
-                    className='leading-normal transition-colors duration-200 px-2 py-2 hover:text-accent text-primary'
+                    className='leading-normal transition-colors duration-200 px-2 py-3 hover:text-accent text-primary'
                 >
                     {label}
                 </Link>
@@ -30,23 +30,11 @@ export default function MainNavigation() {
         );
     };
 
-    const renderLoginButton = () => (
-        <li key="login">
-            <Link
-                href='/auth'
-                className="button"
-                role="button"
-            >
-                Login
-            </Link>
-        </li>
-    );
-
     const renderLogoutButton = () => (
         <li key="logout">
             <button
                 onClick={() => signOut()}
-                className="button"
+                className="button button-sm"
             >
                 Log out
             </button>
@@ -63,7 +51,7 @@ export default function MainNavigation() {
                     <ul className="flex text-base items-center md:gap-3 md:text-md">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label))}
                         {status === 'loading' && <li>Loading...</li>}
-                        {!session && status !== 'loading' && renderLoginButton()}
+                        {!session && status !== 'loading' && renderListItem('/auth', 'Auth')}
                         {session && renderListItem('/profile', 'Profile')}
                         {session && renderLogoutButton()}
                     </ul>
