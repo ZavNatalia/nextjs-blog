@@ -53,7 +53,7 @@ export default function AuthForm() {
                 }
 
                 console.log("User logged in successfully", result);
-                router.push('/', { scroll: false });
+                router.replace('/profile', { scroll: false });
             } else {
                 const result = await createUser(values.email, values.password);
                 console.log('User created:', result);

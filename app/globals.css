@@ -60,16 +60,33 @@ body {
     }
 
     .button-accent {
-        @apply rounded-lg bg-accent-hover px-4 py-2 font-bold text-primary transition-colors duration-300 hover:bg-accent-hover/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
+        @apply button bg-accent-hover hover:bg-accent-hover/70;
     }
 
     .button-disabled {
-        @apply rounded-lg bg-primary-light/60 px-4 py-2 font-bold text-primary transition-colors duration-300 cursor-default;
+        @apply button bg-primary-light/60 cursor-default;
     }
 
     .icon-button {
-        @apply max-w-fit rounded-lg p-1 font-bold text-primary transition-colors duration-300 hover:text-accent;
+        @apply button max-w-fit p-1;
     }
+
+    .button-sm {
+        @apply px-3 py-1 text-sm;
+    }
+
+    .button-md {
+        @apply px-4 py-2 text-base;
+    }
+
+    .button-lg {
+        @apply px-6 py-3 text-lg;
+    }
+
+    .button:disabled {
+        @apply bg-primary-light/60 cursor-not-allowed text-gray-500;
+    }
+
 
     .markdown-content ul {
         @apply ml-5 list-disc;
