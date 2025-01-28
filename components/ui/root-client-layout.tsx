@@ -8,7 +8,9 @@ export default function RootClientLayout({ children }: { children: ReactNode }) 
         <SessionProvider>
             <div className="flex min-h-screen flex-col">
                 <MainNavigation />
-                {children}
+                <div className='md:mt-[76px]'>
+                    {children}
+                </div>
             </div>
         </SessionProvider>
     );
