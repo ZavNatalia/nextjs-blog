@@ -7,6 +7,7 @@ import { createUser } from '@/app/actions/auth';
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { SignInResponse } from "next-auth/react";
+import Notification, { NotificationDetails } from '@/components/ui/notification';
 
 const validationSchema = Yup.object({
     email: Yup.string()
@@ -30,7 +31,9 @@ export default function AuthForm() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [notificationData, setNotificationData] = useState<NotificationDetails | null>(null);
     const router = useRouter();
+
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
     };
@@ -51,15 +54,22 @@ export default function AuthForm() {
                 if (!result || !result.ok) {
                     throw new Error(result?.error || "Failed to log in");
                 }
-
-                console.log("User logged in successfully", result);
                 router.replace('/profile', { scroll: false });
+
             } else {
-                const result = await createUser(values.email, values.password);
-                console.log('User created:', result);
+                await createUser(values.email, values.password);
+
+                setNotificationData({
+                    title: 'Account Created!',
+                    message: 'Your account has been successfully created. You can now log in.',
+                    status: 'success',
+                });
+                switchAuthModeHandler();
+                setTimeout(() => {
+                    setNotificationData(null);
+                }, 5000);
             }
         } catch (error: any) {
-            console.log(error);
             setErrors({ password: error.message });
         } finally {
             setSubmitting(false);
@@ -75,8 +85,8 @@ export default function AuthForm() {
             <Formik<AuthFormData>
                 initialValues={{ email: '', password: '', confirmPassword: '' }}
                 validationSchema={isLogin
-                    ? validationSchema.pick(['email', 'password']) // Only validate email and password for login
-                    : validationSchema // Validate all fields for sign up
+                    ? validationSchema.pick(['email', 'password'])
+                    : validationSchema
                 }
                 onSubmit={handleSubmit}
             >
@@ -186,6 +196,8 @@ export default function AuthForm() {
                     );
                 }}
             </Formik>
+
+            {notificationData && <Notification {...notificationData} />}
         </div>
     );
 }

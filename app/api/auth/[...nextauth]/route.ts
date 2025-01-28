@@ -1,4 +1,4 @@
-import NextAuth, { AuthOptions, DefaultSession } from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDatabase } from "@/lib/db";
 import { verifyPassword } from "@/lib/auth";
@@ -6,6 +6,7 @@ import { MongoClient } from "mongodb";
 
 declare module "next-auth/jwt" {
     interface JWT {
+        id?: string;
         email?: string;
     }
 }
@@ -13,12 +14,13 @@ declare module "next-auth/jwt" {
 declare module "next-auth" {
     interface Session extends DefaultSession {
         user: {
+            id?: string;
             email?: string;
         } & DefaultSession["user"];
     }
 }
 
-export const authOptions: AuthOptions = {
+const handler = NextAuth({
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -36,23 +38,23 @@ export const authOptions: AuthOptions = {
                     throw new Error("Failed to connect to database");
                 }
 
-                const usersCollection = client.db().collection("users");
-                const user = await usersCollection.findOne({ email: credentials.email });
+                try {
+                    const usersCollection = client.db().collection("users");
+                    const user = await usersCollection.findOne({ email: credentials.email });
 
-                if (!user) {
+                    if (!user) {
+                        throw new Error("Invalid email or password");
+                    }
+
+                    const isValid = await verifyPassword(credentials.password, user.password);
+                    if (!isValid) {
+                        throw new Error("Invalid email or password");
+                    }
+
+                    return { id: user._id.toString(), email: user.email };
+                } finally {
                     await client.close();
-                    throw new Error("Invalid email or password");
                 }
-
-                const isValid = await verifyPassword(credentials.password, user.password);
-                if (!isValid) {
-                    await client.close();
-                    throw new Error("Invalid email or password");
-                }
-
-                await client.close();
-
-                return { id: user._id, email: user.email };
             },
         }),
     ],
@@ -62,7 +64,7 @@ export const authOptions: AuthOptions = {
     },
     pages: {
         signIn: "/auth/signin",
-        changePassword: "/user/change-password"
+        changePassword: "/user/change-password",
     },
     callbacks: {
         async jwt({ token, user }) {
@@ -74,16 +76,13 @@ export const authOptions: AuthOptions = {
         },
 
         async session({ session, token }) {
-            if (token.email) {
-                session.user = {
-                    id: token.id,
-                    email: token.email,
-                };
-            }
+            session.user = {
+                id: token.id,
+                email: token.email,
+            };
             return session;
         },
     },
-};
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
