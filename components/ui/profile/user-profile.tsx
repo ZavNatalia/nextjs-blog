@@ -1,12 +1,12 @@
-import { ProfileForm } from '@/components/ui/profile/profile-form';
+import ChangePasswordForm from '@/components/ui/profile/change-password-form';
 
 export const UserProfile = () => {
     return (
-        <div>
+        <div className='w-full'>
             <h2 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl">
-                User Profile
+                Your User Profile
             </h2>
-            <ProfileForm />
+            <ChangePasswordForm />
         </div>
     )
 }
