@@ -9,7 +9,7 @@ export function PostCardSkeleton() {
                 <div className="h-7 w-3/5 animate-pulse rounded-lg bg-primary-light/90 lg:h-8 lg:animate-none" />
                 <div className="h-4 w-20 rounded-lg bg-primary-light/60" />
             </div>
-            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 px-5 pb-5 pt-4 lg:grid-cols-[200px_1fr] lg:px-6 xl:grid-cols-[220px_1fr]">
+            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 px-5 pb-5 pt-4 lg:grid-cols-[180px_1fr] lg:px-6">
                 <SquareSkeletonElement />
                 <div className="flex flex-col justify-between gap-3">
                     <div className="mt-1 flex flex-col gap-3">

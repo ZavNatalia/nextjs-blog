@@ -1,28 +1,26 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC } from 'react';
+import { JSX } from 'react';
 
 export interface Breadcrumb {
     link: string;
     title: string;
 }
 
-interface BreadcrumbItemProps {
+const BreadcrumbItem: ({ breadcrumb, isActive, isLast }: {
     breadcrumb: Breadcrumb;
     isActive: boolean;
     isLast: boolean;
-}
-
-const BreadcrumbItem = ({
+}) => JSX.Element = ({
     breadcrumb,
     isActive,
     isLast,
-}: BreadcrumbItemProps) => (
+}) => (
     <span>
         <Link
             href={breadcrumb.link}
-            className={`cursor-pointer px-3 py-1 transition-all duration-300 hover:text-accent ${isActive ? 'font-bold text-accent' : 'font-normal'} `}
+            className={`cursor-pointer px-1 py-1 transition-all duration-300 hover:text-accent ${isActive ? 'font-bold text-accent' : 'font-normal'} `}
         >
             {breadcrumb.title}
         </Link>
