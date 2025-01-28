@@ -1,7 +1,7 @@
 import ChangePasswordForm from '@/components/ui/profile/change-password-form';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
-export const UserProfile = ({ userEmail }: { userEmail: string }) => {
+export const UserProfile = ({ userEmail }: { userEmail: string  }) => {
     return (
         <div className="w-full max-w-lg">
             <h2 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl flex items-center justify-center gap-2">

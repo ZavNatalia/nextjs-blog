@@ -24,7 +24,7 @@ export default async function Profile() {
     return (
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
-            <UserProfile userEmail={session.user.email} />
+            <UserProfile userEmail={session?.user?.email || "No email provided"} />
         </main>
     );
 }
