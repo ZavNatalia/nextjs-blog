@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
 import AuthForm from '@/components/ui/auth/auth-form';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
     description: 'Send me your messages!',
 };
 export default async function AuthPage() {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
 
     if (session) {
         redirect('/');

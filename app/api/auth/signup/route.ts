@@ -43,9 +43,10 @@ export async function POST(request: NextRequest) {
             email,
             password: hashedPassword,
         });
+        console.log('result', result);
 
         return new Response(
-            JSON.stringify({ message: `Created user with email ${result.email}` }),
+            JSON.stringify({ message: `Created user with email ${email}` }),
             {
                 status: 201,
                 headers: { "Content-Type": "application/json" },

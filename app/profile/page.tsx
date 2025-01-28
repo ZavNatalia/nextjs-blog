@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
 import { UserProfile } from '@/components/ui/profile/user-profile';
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Profile() {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
 
     if (!session) {
         redirect('/auth');
