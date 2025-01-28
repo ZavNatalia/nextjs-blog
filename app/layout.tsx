@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import MainNavigation from '@/components/ui/main-navigation';
+import RootClientLayout from '@/components/ui/root-client-layout';
 import { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -36,22 +36,15 @@ export const metadata: Metadata = {
     manifest: '/manifest.webmanifest',
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="ru">
-            <body className={inter.className}>
-                <div className="flex min-h-screen flex-col">
-                    <MainNavigation />
-                    <div className='md:mt-[76px]'>
-                        {children}
-                    </div>
-                </div>
-                <div id="notifications"></div>
-            </body>
+        <body className={inter.className}>
+        <RootClientLayout>
+            {children}
+        </RootClientLayout>
+        <div id="notifications"></div>
+        </body>
         </html>
     );
 }

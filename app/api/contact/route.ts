@@ -1,5 +1,6 @@
 import { Db, MongoClient } from 'mongodb';
 import { NextRequest } from 'next/server';
+import { connectToDatabase } from '@/lib/db';
 
 export interface IMessage {
     email: string;
@@ -7,19 +8,6 @@ export interface IMessage {
     message: string;
     id?: string;
 }
-
-const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.1wiukyn.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`;
-
-if (!connectionString) {
-    throw new Error('MONGODB_URI is not defined in the environment variables');
-}
-
-async function connectToDatabase(): Promise<MongoClient> {
-    const client = new MongoClient(connectionString);
-    await client.connect();
-    return client;
-}
-
 function validateMessage(message: Partial<IMessage>): string | null {
     if (!message.email || !message.email.includes('@')) {
         return 'Invalid email address.';
