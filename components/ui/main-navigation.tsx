@@ -42,7 +42,7 @@ export default function MainNavigation() {
     );
 
     return (
-        <header className="bg-primary-dark">
+        <header className="bg-primary-dark md:fixed w-full z-10 shadow-xl">
             <div className="container mx-auto h-[88px] flex items-center justify-between px-4 py-6 sm:px-12 lg:px-20">
                 <Link href="/" aria-label="Home">
                     <Logo />
