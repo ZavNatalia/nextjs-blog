@@ -22,7 +22,7 @@ export default function MainNavigation() {
             <li key={href}>
                 <Link
                     href={href}
-                    className='leading-normal transition-colors duration-200 px-2 py-3 hover:text-accent text-primary'
+                    className='text-lg transition-colors duration-200 px-2 py-3 hover:text-accent text-primary'
                 >
                     {label}
                 </Link>
@@ -34,7 +34,7 @@ export default function MainNavigation() {
         <li key="logout">
             <button
                 onClick={() => signOut()}
-                className="button button-sm"
+                className="button"
             >
                 Log out
             </button>
@@ -43,7 +43,7 @@ export default function MainNavigation() {
 
     return (
         <header className="bg-primary-dark">
-            <div className="container mx-auto flex items-center justify-between px-4 py-6 sm:px-12 lg:px-20">
+            <div className="container mx-auto h-[88px] flex items-center justify-between px-4 py-6 sm:px-12 lg:px-20">
                 <Link href="/" aria-label="Home">
                     <Logo />
                 </Link>

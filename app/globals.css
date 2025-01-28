@@ -56,7 +56,7 @@ body {
     }
 
     .button {
-        @apply leading-normal rounded-lg bg-primary-light/60 px-4 py-2 font-bold text-primary transition-colors duration-300 hover:bg-accent-hover focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
+        @apply rounded-lg bg-primary-light/60 px-4 py-2 font-bold text-primary transition-colors duration-300 hover:bg-accent-hover focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
     }
 
     .button-accent {

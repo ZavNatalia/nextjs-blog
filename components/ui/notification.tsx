@@ -1,4 +1,6 @@
 import { createPortal } from 'react-dom';
+import React, { useEffect, useState } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export type NotificationStatus = 'pending' | 'success' | 'error';
 
@@ -6,6 +8,7 @@ export interface NotificationDetails {
     status: NotificationStatus;
     title: string;
     message: string;
+    onClose?: () => void;
 }
 
 const bgMap: { [key in NotificationStatus]: string } = {
@@ -22,21 +25,43 @@ const getBg = (status: NotificationStatus) => {
 };
 
 export default function Notification({
-    status,
-    title,
-    message,
-}: NotificationDetails) {
+                                         status,
+                                         title,
+                                         message,
+                                         onClose,
+                                     }: NotificationDetails) {
     const notificationsRoot = document.getElementById('notifications');
+    const [visible, setVisible] = useState(true);
 
-    if (!notificationsRoot) return null;
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setVisible(false);
+            if (onClose) onClose();
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, [onClose]);
+
+    if (!notificationsRoot || !visible) return null;
 
     return createPortal(
         <div
-            className={`fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform`}
+            className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform"
         >
             <div
-                className={`relative animate-slide-in overflow-hidden rounded-3xl p-4 px-6 py-4 text-white shadow-lg ${getBg(status)}`}
+                className={`relative animate-slide-in overflow-hidden 
+                rounded-3xl p-4 px-6 py-4 text-white shadow-lg 
+                ${getBg(status)}`}
             >
+                <button
+                    className="absolute right-4 top-3 text-white transition-opacity hover:opacity-75"
+                    onClick={() => {
+                        setVisible(false);
+                        if (onClose) onClose();
+                    }}
+                >
+                    <XMarkIcon className="h-5 w-5" />
+                </button>
                 <p className="text-lg font-bold">{title}</p>
                 <p>{message}</p>
             </div>
