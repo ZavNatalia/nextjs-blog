@@ -187,7 +187,7 @@ export default function AuthForm() {
                                 <button
                                     type="button"
                                     onClick={switchAuthModeHandler}
-                                    className="text-accent hover:text-accent-hover"
+                                    className="text-accent hover:text-accent-dark"
                                 >
                                     {isLogin ? 'Create new account' : 'Switch to Login'}
                                 </button>
