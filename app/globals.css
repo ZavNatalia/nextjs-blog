@@ -26,6 +26,11 @@ body {
         rgb(var(--background-start-rgb));
 }
 
+html {
+    scrollbar-color: rgb(71 85 105) rgb(30 41 59);
+
+}
+
 html,
 body {
     width: 100%;
