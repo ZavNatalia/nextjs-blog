@@ -54,7 +54,7 @@ export default function MainNavigation() {
 
     return (
         <header className="bg-primary-dark md:fixed w-full z-10 shadow-xl">
-            <div className="container mx-auto h-[88px] flex items-center justify-between px-4 py-6 sm:px-12 lg:px-20">
+            <div className="container mx-auto h-[88px] flex items-center justify-between p-4">
                 <Link href="/" aria-label="Home">
                     <Logo />
                 </Link>
@@ -62,7 +62,7 @@ export default function MainNavigation() {
                 {/* Menu button for mobile devices */}
                 <button
                     onClick={toggleMenu}
-                    className="block md:hidden p-2 text-white transition hover:text-accent"
+                    className="block md:hidden p-2 text-primary transition hover:text-accent"
                 >
                     {isOpen ? <XMarkIcon className="w-8 h-8" /> : <Bars4Icon className="w-8 h-8" />}
                 </button>

@@ -13,10 +13,10 @@ export default function Hero() {
                     priority
                 />
             </div>
-            <h1 className="text-center text-xl font-bold text-white sm:text-xl md:text-2xl">
+            <h1 className="text-center text-xl font-bold text-primary sm:text-xl md:text-2xl">
                 Building with Next.js
             </h1>
-            <p className="sm:text-md text-center text-base text-white/90 md:text-lg">
+            <p className="sm:text-md text-center text-base text-primary/90 md:text-lg">
                 Go from beginner to expert <br className="sm:hidden" /> by
                 learning the foundations of Next.js
             </p>
