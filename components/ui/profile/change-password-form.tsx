@@ -64,14 +64,14 @@ export default function ChangePasswordForm() {
     };
 
     return (
-        <div className="max-w-sm mx-auto">
+        <div>
             <Formik<ChangePasswordFormData>
                 initialValues={{ oldPassword: '', newPassword: '' }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="flex flex-col gap-4 w-full">
+                    <Form className="flex flex-col gap-4 w-full max-w-xs bg-primary-dark/40 px-4 py-5 rounded-xl">
                         <div className="relative">
                             <label htmlFor="oldPassword" className="block font-bold text-primary mb-2">
                                 Old Password
