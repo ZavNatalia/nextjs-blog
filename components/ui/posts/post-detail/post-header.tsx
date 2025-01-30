@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function PostHeader({
     title,
@@ -9,6 +10,8 @@ export default function PostHeader({
     date: string;
     imagePath: string;
 }) {
+    const [imageLoaded, setImageLoaded] = useState(false);
+
     const formattedDate = new Date(date).toLocaleDateString('en-US', {
         day: 'numeric',
         month: 'long',
@@ -24,13 +27,19 @@ export default function PostHeader({
                     {formattedDate}
                 </span>
             </div>
-            <div className="relative h-[200px] w-[200px] flex-shrink-0 self-center md:h-[300px] md:w-[300px]">
+            <div className="relative h-[200px] w-[200px] flex-shrink-0 self-center md:h-[260px] md:w-[260px]">
+                {!imageLoaded && (
+                    <div
+                        className="square-skeleton animate-pulse rounded-xl bg-primary-light h-[200px] w-[200px] md:h-[260px] md:w-[260px]" />
+                )}
                 <Image
-                    className="rounded-xl object-cover"
+                    className={`rounded-xl object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                     src={imagePath}
                     alt={title}
                     fill
-                    sizes="300px"
+                    priority
+                    sizes="260px"
+                    onLoad={() => setImageLoaded(true)}
                 />
             </div>
         </header>
