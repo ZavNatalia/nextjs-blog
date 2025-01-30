@@ -115,7 +115,7 @@ Example Tailwind utility for buttons:
 
 ```css
 .button {
-    @apply max-w-fit rounded-lg bg-primary-light/60 px-5 py-3 font-bold text-primary transition-colors duration-300 hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent cursor-pointer;
+    @apply rounded-lg bg-primary-light/60 px-4 py-2 font-bold text-primary transition-colors duration-300 hover:bg-primary-light focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
 }
 ```
 

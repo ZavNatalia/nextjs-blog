@@ -14,10 +14,11 @@ const config: Config = {
                     DEFAULT: 'rgb(30 41 59)', // slate-800
                     light: 'rgb(71 85 105)', // slate-600
                     dark: 'rgb(9 11 17)', // slate-900
+                    error: 'rgb(185 28 28)', // red-700
                 },
                 accent: {
                     DEFAULT: 'rgb(245 158 11)', // amber-500
-                    hover: 'rgb(180 83 9)', // amber-700
+                    dark: 'rgb(180 83 9)', // amber-700
                 },
             },
             textColor: {

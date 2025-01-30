@@ -41,7 +41,7 @@ export default function NewsList({ latestNews }: { latestNews: INews[] }) {
             {showButton && (
                 <button
                     onClick={scrollToTop}
-                    className="button fixed bottom-8 right-8 rounded-full bg-primary text-secondary shadow-lg hover:bg-accent-hover hover:text-primary"
+                    className="button fixed bottom-8 right-8 rounded-full bg-primary text-secondary shadow-lg hover:bg-accent/70 hover:text-primary"
                 >
                     Back to Top
                 </button>
