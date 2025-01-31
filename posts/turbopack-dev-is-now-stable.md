@@ -204,4 +204,4 @@ next dev --turbo
 
 ---
 
-_Authors of the original post: Maia Teegarden, Tim Neutkens, Tobias Koppers_
+_Authors of [the original post](https://nextjs.org/blog/turbopack-for-development-stable): Maia Teegarden, Tim Neutkens, Tobias Koppers_
