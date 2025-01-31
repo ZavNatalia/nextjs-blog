@@ -9,66 +9,31 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
-import Notification, {
-    NotificationDetails,
-    NotificationStatus,
-} from '@/components/ui/notification';
+import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/24/outline';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);
 
-const notificationMap: {
-    [key in Exclude<NotificationStatus, 'pending' | null>]: NotificationDetails;
-} = {
-    success: {
-        status: 'success',
-        title: 'Success!',
-        message: 'Code copied successfully.',
-    },
-    error: {
-        status: 'error',
-        title: 'Error!',
-        message: 'The code was not copied. Please try again.',
-    },
-};
-
-export const getNotificationData = (
-    status: NotificationStatus,
-): NotificationDetails | null => {
-    if (status) {
-        return notificationMap[
-            status as Exclude<NotificationStatus, 'pending' | null>
-        ];
-    }
-    return null;
-};
-
 export default function PostContent({ post }: { post: IPost }) {
     const { title, date, slug, image, content } = post;
-    const [copyStatus, setCopyStatus] = useState<NotificationStatus | null>(
-        null,
-    );
+    const [copiedCode, setCopiedCode] = useState<string | null>(null);
     const imagePath = `/images/posts/${slug}/${image}`;
 
     useEffect(() => {
-        if (copyStatus === 'success' || copyStatus === 'error') {
+        if (copiedCode) {
             const timer = setTimeout(() => {
-                setCopyStatus(null);
+                setCopiedCode(null);
             }, 2000);
             return () => clearTimeout(timer);
         }
-    }, [copyStatus]);
-
-    const notificationData =
-        copyStatus !== null ? getNotificationData(copyStatus) : null;
+    }, [copiedCode]);
 
     const copyCodeToClipboard = async (code: string) => {
         try {
             await navigator.clipboard.writeText(code);
-            setCopyStatus('success');
+            setCopiedCode(code);
         } catch (err) {
             console.error('Failed to copy text: ', err);
-            setCopyStatus('error');
         }
     };
 
@@ -79,7 +44,7 @@ export default function PostContent({ post }: { post: IPost }) {
             return (
                 <Image
                     src={`/images/posts/${slug}/${src}`}
-                    alt={alt || 'News Image'}
+                    alt={alt || 'Post Image'}
                     width={500}
                     height={500}
                     sizes="(max-width: 869px) 100vw, 500px"
@@ -91,30 +56,20 @@ export default function PostContent({ post }: { post: IPost }) {
             const language = className
                 ? className.replace('language-', '')
                 : '';
+
+            const isCopied = copiedCode === children;
+
             return (
                 <div className="flex flex-col overflow-x-auto rounded-xl bg-primary-dark/50 p-2 text-sm md:text-lg lg:p-3">
                     <button
-                        className={`${
-                            copyStatus
-                                ? 'hover:text-primary'
-                                : 'hover:currentColor'
-                        } icon-button self-end`}
+                        className="icon-button self-end"
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="size-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
-                            />
-                        </svg>
+                        {isCopied ? (
+                            <ClipboardDocumentCheckIcon className="w-6 h-6 text-green-500" />
+                        ) : (
+                            <DocumentDuplicateIcon className="w-6 h-6 text-primary hover:text-accent" />
+                        )}
                     </button>
                     <SyntaxHighlighter
                         style={darcula}
@@ -140,7 +95,6 @@ export default function PostContent({ post }: { post: IPost }) {
             >
                 {content}
             </ReactMarkdown>
-            {notificationData && <Notification {...notificationData} />}
         </article>
     );
 }

@@ -3,7 +3,7 @@ title: 'Next.js 15'
 date: '2024-10-21'
 image: 'next-js-15.webp'
 excerpt: 'Next.js 15 официально стабилен и готов для использования в продакшене. Этот релиз основывается на обновлениях из RC1 и RC2.'
-isFeatured: true
+isFeatured: false
 ---
 
 ## Next.js 15 Выпущен: Стабильная Версия для Продакшена
@@ -100,4 +100,4 @@ npx @next/codemod@canary next-async-request-api .
 
 ---
 
-_Authors of the original post: Delba de Oliveira, Jimmy Lai, Rich Haines_
+_Authors of [the original post](https://nextjs.org/blog/next-15): Delba de Oliveira, Jimmy Lai, Rich Haines_

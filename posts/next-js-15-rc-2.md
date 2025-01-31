@@ -44,4 +44,4 @@ npx @next/codemod@canary upgrade rc
 
 ---
 
-_Authors of the original post: Delba de Oliveira, Zack Tanner_
+_Authors of [the original post](https://nextjs.org/blog/next-15-rc2): Delba de Oliveira, Zack Tanner_

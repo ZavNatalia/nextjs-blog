@@ -70,7 +70,7 @@ export function DangerZoneSection({userEmail}: {userEmail: string}) {
 
             {isConfirmOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-primary-dark/80 p-4">
-                    <div className="bg-primary rounded-xl p-6 text-center shadow-lg max-w-sm">
+                    <div className="bg-primary rounded-3xl p-6 text-center shadow-lg max-w-sm">
                         <h3 className="text-lg font-semibold text-error">Confirm Deletion</h3>
                         <p className="text-md text-secondary mt-2">
                             Are you sure you want to delete your account&nbsp;
