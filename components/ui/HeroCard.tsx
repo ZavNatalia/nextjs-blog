@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function Hero() {
+export default function HeroCard() {
     return (
         <section className="mt-4 flex max-w-md flex-col items-center gap-1 overflow-hidden rounded-3xl bg-gradient-to-br from-purple-950/60 via-pink-800/70 to-yellow-700 px-8 pb-4 sm:px-8 md:gap-2 md:px-10 lg:max-w-xs xl:max-w-md">
             <div className="relative aspect-[7/4] w-full">

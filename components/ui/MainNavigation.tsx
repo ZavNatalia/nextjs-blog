@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Logo from '@/components/ui/logo';
+import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { Bars4Icon, XMarkIcon } from '@heroicons/react/24/outline';

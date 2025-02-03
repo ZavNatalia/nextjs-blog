@@ -1,5 +1,5 @@
 'use client';
-import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/notification';
+import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/Notification';
 import React, { useState, useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 

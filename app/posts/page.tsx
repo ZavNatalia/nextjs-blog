@@ -1,7 +1,7 @@
 import AllPosts from '@/components/ui/posts/all-posts';
 import { getAllPosts } from '@/lib/posts-util';
 import type { Metadata } from 'next';
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 
 export const metadata: Metadata = {
     title: 'All Posts',
