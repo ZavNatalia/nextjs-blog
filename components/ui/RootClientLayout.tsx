@@ -1,7 +1,7 @@
 'use client';
 import { ReactNode } from 'react';
 import { SessionProvider } from "next-auth/react";
-import MainNavigation from '@/components/ui/main-navigation';
+import MainNavigation from '@/components/ui/MainNavigation';
 
 export default function RootClientLayout({ children }: { children: ReactNode }) {
     return (
