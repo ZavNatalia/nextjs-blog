@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import NotFoundCard from '@/components/ui/not-found-card';
+import { JSX } from 'react';
+import NotFoundCard from '@/components/ui/NotFoundCard';
 
-const NotFoundPage: FC = () => {
+const NotFoundPage: () => JSX.Element = () => {
     return (
         <main className="page">
             <NotFoundCard />

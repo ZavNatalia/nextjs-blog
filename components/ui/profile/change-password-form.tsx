@@ -1,7 +1,7 @@
 'use client';
 import Notification, {
     NotificationDetails,
-} from '@/components/ui/notification';
+} from '@/components/ui/Notification';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';

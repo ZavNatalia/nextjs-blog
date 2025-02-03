@@ -1,6 +1,6 @@
 import ContactForm from '@/components/ui/contact/contact-form';
 import type { Metadata } from 'next';
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 
 export const metadata: Metadata = {
     title: 'Contact me',

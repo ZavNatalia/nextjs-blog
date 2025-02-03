@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Hero from '@/components/ui/hero-card';
+import HeroCard from '@/components/ui/HeroCard';
 import FeaturedPosts from '@/components/ui/posts/featured-posts';
 import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skeleton';
 import LatestNews from '@/components/ui/news/latest-news';
@@ -16,7 +16,7 @@ const FeaturedPostsFallback: React.FC = () => (
 export default function Home() {
     return (
         <main className="page">
-            <Hero />
+            <HeroCard />
             <LatestNews />
             <Suspense fallback={<FeaturedPostsFallback />}>
                 <FeaturedPosts />

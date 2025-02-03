@@ -7,7 +7,7 @@ import { createUser } from '@/app/actions/auth';
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { SignInResponse } from "next-auth/react";
-import Notification, { NotificationDetails } from '@/components/ui/notification';
+import Notification, { NotificationDetails } from '@/components/ui/Notification';
 
 const validationSchema = Yup.object({
     email: Yup.string()
