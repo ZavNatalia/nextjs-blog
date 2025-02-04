@@ -3,41 +3,37 @@
 @tailwind utilities;
 
 :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 20, 21, 0;
+    --background-rgb: 255, 255, 255;
+    --accent-rgb: 223, 126, 7;
+    --muted-rgb: 107, 114, 128;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 27, 28, 42;
-        --background-end-rgb: 14, 14, 22;
-    }
+
+.dark {
+    --foreground-rgb: 226, 232, 240;
+    --background-rgb: 33, 35, 52;
+    --accent-rgb: 180, 83, 9;
+    --muted-rgb: 156, 163, 175;
 }
 
 body {
+    @apply text-foreground bg-primary transition-colors duration-300;
     color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-            to bottom,
-            transparent,
-            rgb(var(--background-end-rgb))
-        )
-        rgb(var(--background-start-rgb));
+    background-color: rgb(var(--background-rgb));
+}
+
+@layer utilities {
+    .text-foreground {
+        color: rgb(var(--foreground-rgb));
+    }
+    .bg-primary {
+        background-color: rgb(var(--background-rgb));
+    }
 }
 
 html {
     scrollbar-color: rgb(71 85 105) rgb(30 41 59);
-
-}
-
-html,
-body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
 }
 
 @layer utilities {
@@ -57,26 +53,34 @@ body {
     }
 
     .input {
-        @apply mt-1 w-full rounded-lg border border-primary-light bg-primary p-2 text-primary focus:border-accent-dark focus:outline-none focus:ring-2 focus:ring-accent-dark ;
+        @apply mt-1 w-full rounded-lg border border-border dark:border-border-dark bg-primary-contrast/40 dark:bg-dark-soft/20 p-2 text-foreground focus:border-accent dark:focus:border-accent-dark focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-dark;
     }
 
     .button {
-        @apply rounded-lg bg-primary-light/60 px-4 py-2 font-bold text-primary transition-colors duration-300 hover:bg-primary-light focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
+        @apply px-4 py-2 rounded-lg font-semibold transition-colors duration-300 hover:bg-primary focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent;
+    }
+
+    .button-primary {
+        @apply button bg-primary-contrast text-foreground hover:bg-accent hover:text-foreground-contrast dark:bg-dark-soft dark:hover:bg-accent-dark;
+    }
+
+    .button-secondary {
+        @apply button bg-muted text-white hover:bg-muted/80 dark:bg-muted dark:hover:bg-muted-dark;
     }
 
     .button-accent {
-        @apply button bg-accent-dark hover:bg-accent-dark/70;
+        @apply button text-foreground-contrast bg-accent dark:bg-accent-dark hover:bg-accent-dark dark:hover:bg-accent-darker;
     }
     .button-danger {
-        @apply button bg-primary-error hover:bg-primary-error/70;
+        @apply button bg-error-light dark:bg-error/80 hover:bg-error dark:hover:bg-error-dark text-foreground-contrast;
     }
 
     .button-disabled {
-        @apply button bg-primary-light/60 cursor-default;
+        @apply bg-primary/20 cursor-default;
     }
 
     .icon-button {
-        @apply button max-w-fit p-1;
+        @apply p-0 rounded-lg button max-w-fit transition-colors duration-300 bg-transparent hover:bg-transparent hover:text-accent dark:hover:text-accent;
     }
 
     .button-sm {
@@ -92,7 +96,7 @@ body {
     }
 
     .button:disabled {
-        @apply bg-primary-light/60 cursor-not-allowed text-gray-500;
+        @apply bg-primary/20 cursor-not-allowed text-gray-500;
     }
 
 

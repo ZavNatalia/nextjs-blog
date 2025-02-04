@@ -24,7 +24,7 @@ const BreadcrumbItem: ({ breadcrumb, isActive, isLast }: {
         >
             {breadcrumb.title}
         </Link>
-        {!isLast && <span className="ml-1 text-primary">/</span>}
+        {!isLast && <span className="ml-1 text-foreground">/</span>}
     </span>
 );
 

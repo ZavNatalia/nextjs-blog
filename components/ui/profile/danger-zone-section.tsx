@@ -51,9 +51,9 @@ export function DangerZoneSection({userEmail}: {userEmail: string}) {
     };
 
     return (
-        <div className="border border-primary-error/90 bg-primary-error/10 p-4 rounded-xl shadow-md">
+        <div className="border border-error bg-error-light/10 dark:bg-error/10 p-4 rounded-xl shadow-md">
             <h3 className="mb-3 text-xl font-semibold text-error">Danger Zone</h3>
-            <p className="text-sm text-error">
+            <p className="text-md text-error">
                 Deleting your account is <b>irreversible</b>. Proceed with caution.
             </p>
             <button
@@ -69,17 +69,17 @@ export function DangerZoneSection({userEmail}: {userEmail: string}) {
             </button>
 
             {isConfirmOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-primary-dark/80 p-4">
-                    <div className="bg-primary rounded-3xl p-6 text-center shadow-lg max-w-sm">
+                <div className="fixed inset-0 flex items-center justify-center bg-primary-contrast/80 dark:bg-dark-strong/90 p-4">
+                    <div className="bg-primary dark:bg-dark rounded-3xl p-6 text-center shadow-lg max-w-sm">
                         <h3 className="text-lg font-semibold text-error">Confirm Deletion</h3>
                         <p className="text-md text-secondary mt-2">
                             Are you sure you want to delete your account&nbsp;
-                            <span className='font-bold font-mono text-primary/80'>{userEmail}</span>
+                            <span className='font-bold font-mono text-foreground'>{userEmail}</span>
                             ? This action cannot be undone.
                         </p>
                         <div className="mt-4 flex justify-center gap-4">
                             <button
-                                className="button"
+                                className="button-primary"
                                 onClick={() => setIsConfirmOpen(false)}
                             >
                                 Cancel

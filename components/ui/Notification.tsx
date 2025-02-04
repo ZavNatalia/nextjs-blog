@@ -50,11 +50,11 @@ export default function Notification({
         >
             <div
                 className={`relative animate-slide-in overflow-hidden 
-                rounded-3xl p-4 px-6 py-4 text-primary shadow-lg 
+                rounded-3xl p-4 px-6 py-4 text-foreground shadow-lg 
                 ${getBg(status)}`}
             >
                 <button
-                    className="absolute right-4 top-3 text-primary transition-opacity hover:opacity-75"
+                    className="absolute right-4 top-3 text-foreground transition-opacity hover:opacity-75"
                     onClick={() => {
                         setVisible(false);
                         if (onClose) onClose();
