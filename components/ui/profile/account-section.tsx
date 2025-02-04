@@ -7,7 +7,7 @@ export function AccountSection({userEmail}: {userEmail: string}) {
                 <Image src="/images/site/default-avatar.png" alt="User avatar" width={96} height={96}
                        className="rounded-full" />
             </div>
-            <h2 className="mt-4 text-xl font-semibold text-primary">Your Account</h2>
+            <h2 className="mt-4 text-xl font-semibold text-foreground">Your Account</h2>
             <p className="text-md text-secondary">{userEmail}</p>
         </div>
     );

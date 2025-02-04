@@ -77,7 +77,7 @@ export default function AuthForm() {
     };
 
     return (
-        <div className="bg-primary/60 shadow-lg rounded-3xl p-8 max-w-sm lg:max-w-md w-full ">
+        <div className="bg-background/60 shadow-lg rounded-3xl p-8 max-w-sm lg:max-w-md w-full ">
             <h1 className="text-2xl font-bold text-accent text-center mb-6">
                 {isLogin ? 'Login' : 'Sign Up'}
             </h1>
