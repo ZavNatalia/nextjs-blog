@@ -1,27 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export function useTheme() {
-    const [theme, setTheme] = useState(
-        () => (typeof window !== 'undefined' && localStorage.getItem('theme')) || 'dark'
-    );
+    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
-    useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
+    useLayoutEffect(() => {
+        const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+        if (storedTheme) {
+            setTheme(storedTheme);
+            document.documentElement.classList.toggle('dark', storedTheme === 'dark');
         } else {
-            document.documentElement.classList.remove('dark');
-        }
-        localStorage.setItem('theme', theme);
-    }, [theme]);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            document.documentElement.classList.add(localStorage.getItem('theme') || 'dark');
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
         }
     }, []);
 
     const toggleTheme = () => {
-        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+        setTheme((prev) => {
+            const newTheme = prev === 'light' ? 'dark' : 'light';
+            document.documentElement.classList.toggle('dark', newTheme === 'dark');
+            localStorage.setItem('theme', newTheme);
+            return newTheme;
+        });
     };
 
     return { theme, toggleTheme };
