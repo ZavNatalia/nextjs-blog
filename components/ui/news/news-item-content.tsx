@@ -15,9 +15,9 @@ export default function NewsItemContent({ newsItem }: { newsItem: INews }) {
                 <Image
                     src={`/images/news/${slug}/${src}`}
                     alt={alt || 'News Image'}
-                    width={600}
-                    height={600}
-                    sizes="(max-width: 600px) 100vw, 600px"
+                    width={500}
+                    height={500}
+                    sizes="(max-width: 400px) 100vw, (max-width: 500px) 50vw, 500px"
                     className="mx-auto rounded-3xl object-contain"
                 />
             );
