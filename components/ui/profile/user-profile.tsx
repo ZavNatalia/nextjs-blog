@@ -19,19 +19,19 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
         <div className="mx-auto w-full max-w-5xl flex flex-col gap-5">
 
             {/* Mobile Navigation */}
-            <nav className="flex md:hidden justify-around bg-primary-light/40 mx-[-25px] p-2 shadow-md">
+            <nav className="flex md:hidden justify-around bg-primary-contrast dark:bg-dark/70 mx-[-25px] p-2 shadow-md">
                 {SECTIONS.map(({ key, label, icon: Icon }) => (
                     <button
                         key={key}
                         className={clsx(
                             "flex flex-col items-center p-2 rounded-xl transition-all duration-300",
                             activeSection === key
-                                ? "bg-primary-light text-primary shadow-lg"
-                                : "text-secondary hover:text-primary hover:bg-primary-light/50"
+                                ? "bg-primary text-foreground shadow-lg"
+                                : "text-secondary hover:text-foreground hover:bg-primary/10"
                         )}
                         onClick={() => setActiveSection(key)}
                     >
-                        <Icon className={`w-6 h-6 mb-2 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-primary'}`} />
+                        <Icon className={`w-6 h-6 mb-2 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`} />
                         <span className="text-md">{label}</span>
                     </button>
                 ))}
@@ -39,7 +39,7 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
 
             <div className="flex flex-col md:flex-row gap-6">
                 {/* Sidebar for Desktop */}
-                <aside className="hidden md:block w-1/4 bg-primary-light/50 h-fit p-3 lg:p-5 rounded-2xl shadow-lg backdrop-blur-md">
+                <aside className="hidden md:block w-1/4 bg-primary-contrast dark:bg-dark-soft/20 h-fit p-3 lg:p-5 rounded-2xl shadow-lg backdrop-blur-md">
                     <nav className="flex flex-col gap-3">
                         {SECTIONS.map(({ key, label, icon: Icon }) => (
                             <button
@@ -47,12 +47,12 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
                                 className={clsx(
                                     "flex items-center text-start gap-3 px-2 lg:px-3 py-2 rounded-xl text-md transition-all duration-300 w-full",
                                     activeSection === key
-                                        ? "bg-primary-light text-primary shadow-lg"
-                                        : "text-secondary hover:text-primary hover:bg-primary-light/50"
+                                        ? "bg-primary/50 dark:bg-dark-soft/60 text-foreground shadow-lg"
+                                        : "text-foreground-muted dark:text-foreground-onDarkMuted hover:text-foreground dark:hover:text-foreground hover:bg-primary/70 dark:hover:bg-dark-soft/40"
                                 )}
                                 onClick={() => setActiveSection(key)}
                             >
-                                <Icon className={`w-6 h-6 ${activeSection === key ? 'text-accent' : 'text-primary'}`} />
+                                <Icon className={`w-6 h-6 ${activeSection === key ? 'text-accent' : 'text-foreground'}`} />
                                 {label}
                             </button>
                         ))}
@@ -60,7 +60,7 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
                 </aside>
 
                 {/* Content */}
-                <section className="flex-1 p-6 bg-primary-light/20 rounded-2xl shadow-lg transition-all duration-300">
+                <section className="flex-1 p-6 bg-primary-contrast/70 dark:bg-dark-soft/40 rounded-2xl shadow-lg transition-all duration-300">
                     {activeSection === "Account" && <AccountSection userEmail={userEmail} />}
                     {activeSection === "Security" && <SecuritySection />}
                     {activeSection === "DangerZone" && <DangerZoneSection userEmail={userEmail} />}

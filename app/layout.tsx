@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import RootClientLayout from '@/components/ui/root-client-layout';
+import RootClientLayout from '@/components/ui/RootClientLayout';
 import { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: {
-        template: "%s | Natalia's blog",
-        default: "Natalia's blog",
+        template: "%s | Natalia's Next blog",
+        default: "Natalia's Next blog",
     },
     description: 'I post about programming and web development.',
     icons: {

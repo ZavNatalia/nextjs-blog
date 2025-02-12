@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Notification, {
     NotificationDetails,
     NotificationStatus,
-} from '@/components/ui/notification';
+} from '@/components/ui/Notification';
 
 type ContactDetails = {
     email: string;

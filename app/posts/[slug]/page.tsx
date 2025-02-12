@@ -1,6 +1,6 @@
 import PostContent from '@/components/ui/posts/post-detail/post-content';
 import { getPostData, getPostsFiles } from '@/lib/posts-util';
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { notFound } from 'next/navigation';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import Link from 'next/link';

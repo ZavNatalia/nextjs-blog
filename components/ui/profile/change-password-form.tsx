@@ -1,7 +1,7 @@
 'use client';
 import Notification, {
     NotificationDetails,
-} from '@/components/ui/notification';
+} from '@/components/ui/Notification';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
@@ -71,9 +71,9 @@ export default function ChangePasswordForm() {
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="flex flex-col gap-4 w-full max-w-xs bg-primary-dark/40 px-4 py-5 rounded-xl">
+                    <Form className="flex flex-col gap-4 w-full max-w-xs bg-primary dark:bg-dark-strong/50 px-5 py-6 rounded-xl shadow-md">
                         <div className="relative">
-                            <label htmlFor="oldPassword" className="block font-bold text-primary mb-2">
+                            <label htmlFor="oldPassword" className="block font-bold text-foreground mb-2">
                                 Old Password
                             </label>
                             <Field
@@ -99,7 +99,7 @@ export default function ChangePasswordForm() {
                         </div>
 
                         <div className="relative">
-                            <label htmlFor="newPassword" className="block font-bold text-primary mb-2">
+                            <label htmlFor="newPassword" className="block font-bold text-foreground mb-2">
                                 New Password
                             </label>
                             <Field

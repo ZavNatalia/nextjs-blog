@@ -23,7 +23,7 @@ export default function PostContent({ post }: { post: IPost }) {
         if (copiedCode) {
             const timer = setTimeout(() => {
                 setCopiedCode(null);
-            }, 2000);
+            }, 1500);
             return () => clearTimeout(timer);
         }
     }, [copiedCode]);
@@ -60,15 +60,15 @@ export default function PostContent({ post }: { post: IPost }) {
             const isCopied = copiedCode === children;
 
             return (
-                <div className="flex flex-col overflow-x-auto rounded-xl bg-primary-dark/50 p-2 text-sm md:text-lg lg:p-3">
+                <div className="flex flex-col overflow-x-auto rounded-xl bg-primary-contrast dark:bg-dark/50 p-2 text-sm md:text-lg lg:py-3 lg:px-5">
                     <button
-                        className="icon-button self-end"
+                        className="self-end text-foreground hover:text-accent-dark dark:text-foreground-onDarkMuted dark:hover:text-accent"
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
                         {isCopied ? (
-                            <ClipboardDocumentCheckIcon className="w-6 h-6 text-green-500" />
+                            <ClipboardDocumentCheckIcon className="w-6 h-6 text-green-600 dark:text-green-500 cursor-default"/>
                         ) : (
-                            <DocumentDuplicateIcon className="w-6 h-6 text-primary hover:text-accent" />
+                            <DocumentDuplicateIcon className="w-6 h-6" />
                         )}
                     </button>
                     <SyntaxHighlighter
@@ -84,7 +84,7 @@ export default function PostContent({ post }: { post: IPost }) {
     };
 
     return (
-        <article className="mx-auto w-full rounded-3xl bg-primary-light/50 p-3 md:p-4 lg:max-w-5xl lg:p-10">
+        <article className="mx-auto w-full rounded-3xl bg-primary-contrast/40 dark:bg-dark-soft/50 p-3 md:p-4 lg:max-w-5xl lg:p-10">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={{

@@ -18,7 +18,7 @@ export default function PostHeader({
         year: 'numeric',
     });
     return (
-        <header className="relative mb-6 flex flex-col gap-3 pb-6 after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent-dark md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8">
+        <header className="relative mb-6 flex flex-col gap-3 pb-6 after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent dark:after:bg-accent-dark md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8">
             <div>
                 <h1 className="mb-1 text-xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-5xl">
                     {title}
@@ -30,7 +30,7 @@ export default function PostHeader({
             <div className="relative h-[200px] w-[200px] flex-shrink-0 self-center md:h-[260px] md:w-[260px]">
                 {!imageLoaded && (
                     <div
-                        className="square-skeleton animate-pulse rounded-xl bg-primary-light h-[200px] w-[200px] md:h-[260px] md:w-[260px]" />
+                        className="square-skeleton animate-pulse rounded-xl bg-primary/10 h-[200px] w-[200px] md:h-[260px] md:w-[260px]" />
                 )}
                 <Image
                     className={`rounded-xl object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}

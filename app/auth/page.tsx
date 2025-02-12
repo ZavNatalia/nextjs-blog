@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import AuthForm from '@/components/ui/auth/auth-form';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';

@@ -12,9 +12,9 @@ export interface NotificationDetails {
 }
 
 const bgMap: { [key in NotificationStatus]: string } = {
-    pending: 'bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900',
-    success: 'bg-gradient-to-r from-green-700 via-green-800 to-green-900',
-    error: 'bg-gradient-to-r from-red-700 via-red-800 to-red-900',
+    pending: 'bg-primary-contrast dark:bg-dark-soft',
+    success: 'bg-green-200 dark:bg-green-900',
+    error: 'bg-error-light/60 dark:bg-error-dark',
 };
 
 const getBg = (status: NotificationStatus) => {
@@ -50,11 +50,11 @@ export default function Notification({
         >
             <div
                 className={`relative animate-slide-in overflow-hidden 
-                rounded-3xl p-4 px-6 py-4 text-primary shadow-lg 
+                rounded-3xl p-4 px-6 py-4 text-foreground shadow-lg 
                 ${getBg(status)}`}
             >
                 <button
-                    className="absolute right-4 top-3 text-primary transition-opacity hover:opacity-75"
+                    className="absolute right-4 top-3 text-foreground transition-opacity hover:opacity-75"
                     onClick={() => {
                         setVisible(false);
                         if (onClose) onClose();
