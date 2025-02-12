@@ -87,14 +87,14 @@ body {
     }
 
     .button-accent {
-        @apply button text-foreground-contrast bg-accent dark:bg-accent-dark hover:bg-accent-dark dark:hover:bg-accent-darker;
+        @apply button text-foregrou nd-contrast bg-accent dark:bg-accent-dark hover:bg-accent-dark dark:hover:bg-accent-darker;
     }
     .button-danger {
         @apply button bg-error-light dark:bg-error/80 hover:bg-error dark:hover:bg-error-dark text-foreground-contrast;
     }
 
     .button-disabled {
-        @apply bg-primary/20 cursor-default;
+        @apply button bg-primary-contrast/70 hover:bg-primary-contrast dark:bg-dark-soft dark:hover:bg-dark-soft/80 cursor-not-allowed;
     }
 
     .icon-button {
