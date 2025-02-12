@@ -54,7 +54,7 @@ export default function MainNavigation() {
     );
 
     return (
-        <header className="bg-primary dark:bg-dark-strong md:fixed w-full z-10 shadow-lg">
+        <header className="bg-primary dark:bg-dark-strong md:sticky md:top-0 w-full z-10 shadow-lg">
             <div className="container mx-auto h-[88px] flex items-center justify-between p-4">
                 <Link href="/" aria-label="Home">
                     <Logo />
