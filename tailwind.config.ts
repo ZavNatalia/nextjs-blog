@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss';
 import typography from '@tailwindcss/typography';
 
 const config: Config = {
+    darkMode: 'class',
     content: [
         './pages/**/*.{js,ts,jsx,tsx,mdx}',
         './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,21 +12,46 @@ const config: Config = {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: 'rgb(30 41 59)', // slate-800
-                    light: 'rgb(71 85 105)', // slate-600
-                    dark: 'rgb(9 11 17)', // slate-900
-                    error: 'rgb(185 28 28)', // red-700
+                    DEFAULT: '#ffffff',
+                    light: '#eeeeee',
+                    contrast: '#dde1e6',
+                },
+                dark: {
+                    DEFAULT: '#212334',
+                    soft: '#394454',
+                    strong: '#131722',
+                },
+                foreground: {
+                    DEFAULT: '#1d1d1d',
+                    muted: '#4b5563',
+                    contrast: '#ffffff',
+                    subtle: '#6b7280',
+                    onDark: '#e2e8f0',
+                    onDarkMuted: '#9aa8bd',
                 },
                 accent: {
-                    DEFAULT: 'rgb(245 158 11)', // amber-500
-                    dark: 'rgb(180 83 9)', // amber-700
+                    DEFAULT: 'rgb(238,126,50)',
+                    light: 'rgb(252,158,95)',
+                    dark: '#bf590b',
+                    darker: '#9e4610',
                 },
-            },
-            textColor: {
-                primary: 'rgb(229 231 235)', // gray-200
-                secondary: 'rgb(156 163 175)', // gray-400
-                muted: 'rgb(107 114 128)', // gray-500
-                error: 'rgb(239 68 68)', // red-500
+                muted: {
+                    DEFAULT: '#6b7280',
+                    light: '#9ca3af',
+                    dark: '#4b5563',
+                    darker: '#374151',
+                },
+                error: {
+                    light: '#f86363',
+                    DEFAULT: '#dc2626',
+                    dark: '#a01d1d',
+                },
+                border: {
+                    DEFAULT: '#d1d5db',
+                    dark: '#374151',
+                    light: '#e5e7eb',
+                    error: '#dc2626',
+                },
             },
             typography: (theme: (path: string) => string) => ({
                 DEFAULT: {

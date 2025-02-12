@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/breadcrumbs';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import UserProfile from '@/components/ui/profile/user-profile';
 
 export const metadata: Metadata = {
