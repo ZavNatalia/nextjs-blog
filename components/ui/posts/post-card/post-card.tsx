@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
 
 export interface IPost {
     slug: string;
@@ -15,7 +14,6 @@ export interface IPost {
 
 export default function PostCard({ post }: { post: IPost }) {
     const { title, date, excerpt, image, slug } = post;
-    const [imageLoaded, setImageLoaded] = useState(false);
 
     const formattedDate = new Date(date).toLocaleDateString('en-US', {
         day: 'numeric',
@@ -39,18 +37,12 @@ export default function PostCard({ post }: { post: IPost }) {
             <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light dark:bg-dark-soft/40 px-5 pb-5 pt-4 lg:grid-cols-[180px_1fr] lg:px-6">
                 <div
                     className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[180px] lg:w-[180px]">
-                    {!imageLoaded && (
-                        <div
-                            className="square-skeleton animate-pulse rounded-xl bg-primary/10 lg:h-[180px] lg:w-[180px]" />
-                    )}
                     <Image
-                        className={`rounded-lg object-cover transition-all duration-1000 hover:scale-y-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                        className={`rounded-lg`}
                         src={imagePath}
                         alt={title}
                         width={180}
                         height={180}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 200px"
-                        onLoad={() => setImageLoaded(true)}
                     />
                 </div>
                 <div className="flex flex-col justify-between gap-3">

@@ -87,7 +87,7 @@ body {
     }
 
     .button-accent {
-        @apply button text-foregrou nd-contrast bg-accent dark:bg-accent-dark hover:bg-accent-dark dark:hover:bg-accent-darker;
+        @apply button text-foreground-contrast bg-accent dark:bg-accent-dark hover:bg-accent-dark dark:hover:bg-accent-darker;
     }
     .button-danger {
         @apply button bg-error-light dark:bg-error/80 hover:bg-error dark:hover:bg-error-dark text-foreground-contrast;
