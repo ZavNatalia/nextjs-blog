@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 
 export default function HeroCard() {
@@ -5,15 +6,23 @@ export default function HeroCard() {
         <section className="mt-4 flex max-w-md flex-col items-center gap-1 overflow-hidden rounded-3xl
         px-8 pb-4 sm:px-8 md:gap-2 md:px-10 lg:max-w-xs xl:max-w-md shadow-md
         bg-gradient-to-br
-        from-purple-300/40 dark:from-purple-950/60
-        via-pink-300/90 dark:via-pink-800/70
-        to-yellow-200 dark:to-yellow-700">
+        from-purple-100 dark:from-purple-950/60
+        via-pink-200 dark:via-pink-800/70
+        to-yellow-100 dark:to-yellow-700">
             <div className="relative aspect-[7/4] w-full rounded-b-xl overflow-hidden">
                 <Image
-                    src="/images/site/hero-desktop.webp"
+                    src="/images/site/hero-desktop-dark.webp"
                     fill
                     sizes="(max-width: 640px) 60vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 30vw"
-                    className="rounded-b-xl object-cover shadow-md"
+                    className="hidden dark:block rounded-b-xl object-cover shadow-md "
+                    alt="Hero"
+                    priority
+                />
+                <Image
+                    src="/images/site/hero-desktop-light.webp"
+                    fill
+                    sizes="(max-width: 640px) 60vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 30vw"
+                    className="block dark:hidden rounded-b-xl object-cover opacity-85"
                     alt="Hero"
                     priority
                 />
