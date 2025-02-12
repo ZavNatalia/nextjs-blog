@@ -77,7 +77,7 @@ export default function AuthForm() {
     };
 
     return (
-        <div className="bg-background/60 shadow-lg rounded-3xl p-8 max-w-sm lg:max-w-md w-full ">
+        <div className="bg-primary-light/60 dark:bg-dark-soft/30 shadow-lg rounded-3xl p-8 max-w-sm lg:max-w-md w-full ">
             <h1 className="text-2xl font-bold text-accent text-center mb-6">
                 {isLogin ? 'Login' : 'Sign Up'}
             </h1>
@@ -175,7 +175,7 @@ export default function AuthForm() {
 
                             <button
                                 type="submit"
-                                disabled={isSubmitting || !formikProps.isValid}
+                                disabled={isSubmitting}
                                 className={`w-full max-w-full ${
                                     isSubmitting || !formikProps.isValid ? 'button-disabled' : 'button-accent'
                                 }`}
