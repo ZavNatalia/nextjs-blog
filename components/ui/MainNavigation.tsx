@@ -47,14 +47,23 @@ export default function MainNavigation() {
 
     const renderLogoutButton = () => (
         <li key="logout">
-            <button onClick={() => signOut()} className="button-primary md:w-full">
+            <button onClick={() => signOut()} className="button-secondary md:w-full">
                 Log out
             </button>
         </li>
     );
 
+    const renderThemeSwitcher = (
+    <button onClick={toggleTheme} className="p-2 mr-4">
+        {theme === 'light' ? <MoonIcon
+                className="icon-button w-6 h-6 text-foreground dark:text-foreground-onDark " /> :
+            <SunIcon
+                className="icon-button w-6 h-6 text-foreground dark:text-foreground-onDark " />}
+    </button>
+    )
+
     return (
-        <header className="bg-primary dark:bg-dark-strong md:sticky md:top-0 w-full z-10 shadow-lg">
+        <header className="bg-primary px-4 dark:bg-dark-strong md:sticky md:top-0 w-full z-10 shadow-lg">
             <div className="container mx-auto h-[88px] flex items-center justify-between p-4">
                 <Link href="/" aria-label="Home">
                     <Logo />
@@ -63,7 +72,7 @@ export default function MainNavigation() {
                 {/* Menu button for mobile devices */}
                 <button
                     onClick={toggleMenu}
-                    className="block md:hidden p-2 text-foreground dark:text-foreground-onDark transition"
+                    className="block md:hidden p-2 text-foreground transition"
                 >
                     {isOpen ? <XMarkIcon className="w-8 h-8" /> : <Bars4Icon className="w-8 h-8 " />}
                 </button>
@@ -75,15 +84,7 @@ export default function MainNavigation() {
                         {status === 'loading' && <li>Loading...</li>}
                         {!session && status !== 'loading' && renderListItem('/auth', 'Auth')}
                         {session && renderListItem('/profile', 'Profile')}
-
-                        {/* Theme Switcher */}
-                        <button onClick={toggleTheme} className="p-2 mr-4">
-                            {theme === 'light' ? <MoonIcon
-                                    className="icon-button w-6 h-6 text-foreground dark:text-foreground-onDark " /> :
-                                <SunIcon
-                                    className="icon-button w-6 h-6 text-foreground dark:text-foreground-onDark " />}
-                        </button>
-
+                        {renderThemeSwitcher}
                         {session && renderLogoutButton()}
                     </ul>
                 </nav>
@@ -91,11 +92,12 @@ export default function MainNavigation() {
 
             {/* Mobile menu */}
             {isOpen && (
-                <nav className="absolute top-20 left-0 w-full bg-primary-contrast p-6 shadow-lg md:hidden">
+                <nav className="absolute top-20 left-0 w-full bg-primary-contrast dark:bg-dark-soft p-6 shadow-lg md:hidden">
                     <ul className="flex flex-col gap-4 text-lg">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label, toggleMenu))}
                         {!session && status !== 'loading' && renderListItem('/auth', 'Auth', toggleMenu)}
                         {session && renderListItem('/profile', 'Profile', toggleMenu)}
+                        {renderThemeSwitcher}
                         {session && renderLogoutButton()}
                     </ul>
                 </nav>

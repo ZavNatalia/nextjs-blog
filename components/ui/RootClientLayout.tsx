@@ -2,6 +2,7 @@
 import { ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import MainNavigation from '@/components/ui/MainNavigation';
+import CookieConsent from '@/components/ui/CookieConsent';
 
 export default function RootClientLayout({ children }: { children: ReactNode }) {
     return (
@@ -9,6 +10,7 @@ export default function RootClientLayout({ children }: { children: ReactNode }) 
             <div className="flex min-h-screen flex-col">
                 <MainNavigation />
                 {children}
+                <CookieConsent />
             </div>
         </SessionProvider>
     );

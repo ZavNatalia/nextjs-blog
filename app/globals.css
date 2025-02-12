@@ -23,6 +23,11 @@ body {
     background-color: rgb(var(--background-rgb));
 }
 
+body {
+    overflow: hidden;
+    max-width: 100vw;
+}
+
 @layer utilities {
     .text-foreground {
         color: rgb(var(--foreground-rgb));
@@ -83,12 +88,13 @@ body {
     }
 
     .button-secondary {
-        @apply button bg-muted text-white hover:bg-muted/80 dark:bg-muted dark:hover:bg-muted-dark;
+        @apply button bg-primary-contrast/60 text-foreground hover:bg-primary-contrast dark:bg-dark/80 dark:hover:bg-dark-soft;
     }
 
     .button-accent {
         @apply button text-foreground-contrast bg-accent dark:bg-accent-dark hover:bg-accent-dark dark:hover:bg-accent-darker;
     }
+
     .button-danger {
         @apply button bg-error-light dark:bg-error/80 hover:bg-error dark:hover:bg-error-dark text-foreground-contrast;
     }
