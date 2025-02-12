@@ -23,11 +23,6 @@ body {
     background-color: rgb(var(--background-rgb));
 }
 
-body {
-    overflow: hidden;
-    max-width: 100vw;
-}
-
 @layer utilities {
     .text-foreground {
         color: rgb(var(--foreground-rgb));
