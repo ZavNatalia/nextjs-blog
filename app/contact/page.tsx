@@ -16,7 +16,7 @@ export default function Contact() {
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <ContactForm />
-            <div className="flex fixed bottom-5 text-sm max-w-xl p-2">
+            <div className="flex text-sm max-w-xl mt-6">
                 <p className="text-muted-dark dark:text-muted-light">
                     By submitting a message through the contact form, you confirm that you have read our&nbsp;
                     <Link href="/privacy-policy" className="text-blue-700 dark:text-blue-400">

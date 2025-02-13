@@ -34,8 +34,8 @@ export default function MainNavigation() {
             <li key={href}>
                 <Link
                     href={href}
-                    className={`block text-lg transition-colors duration-200 
-                    px-2 py-3 hover:text-accent dark:hover:text-accent
+                    className={`block text-md xl:text-lg transition-colors duration-200 
+                    px-2 py-2 rounded-xl hover:text-accent dark:hover:text-accent
                     ${isActive ? 'text-accent' : 'text-foreground dark:text-foreground-onDark'}`}
                     onClick={onClick}
                 >
@@ -47,18 +47,18 @@ export default function MainNavigation() {
 
     const renderLogoutButton = () => (
         <li key="logout">
-            <button onClick={() => signOut()} className="button-secondary md:w-full">
+            <button onClick={() => signOut()} className="button-secondary font-normal bg-primary-light md:ml-3 md:w-full">
                 Log out
             </button>
         </li>
     );
 
     const renderThemeSwitcher = (
-    <button onClick={toggleTheme} className="p-2 mr-4">
+    <button onClick={toggleTheme} className="p-2 mr-4 rounded-xl">
         {theme === 'light' ? <MoonIcon
-                className="icon-button w-6 h-6 text-foreground dark:text-foreground-onDark " /> :
+                className="icon-button w-6 h-6" /> :
             <SunIcon
-                className="icon-button w-6 h-6 text-foreground dark:text-foreground-onDark " />}
+                className="icon-button w-6 h-6" />}
     </button>
     )
 
@@ -79,7 +79,7 @@ export default function MainNavigation() {
 
                 {/* Desktop menu */}
                 <nav className="hidden md:block">
-                    <ul className="flex items-center md:gap-3 text-md">
+                    <ul className="flex items-center gap-1 lg:gap-3 text-md">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label))}
                         {status === 'loading' && <li>Loading...</li>}
                         {!session && status !== 'loading' && renderListItem('/auth', 'Auth')}

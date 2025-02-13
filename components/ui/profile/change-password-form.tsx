@@ -71,7 +71,7 @@ export default function ChangePasswordForm() {
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="flex flex-col gap-4 w-full max-w-xs bg-primary dark:bg-dark-strong/50 px-5 py-6 rounded-xl shadow-md">
+                    <Form className="flex flex-col gap-4 w-full max-w-md bg-primary dark:bg-dark-strong/50 px-5 py-6 rounded-xl shadow-md">
                         <div className="relative">
                             <label htmlFor="oldPassword" className="block font-bold text-foreground mb-2">
                                 Old Password
