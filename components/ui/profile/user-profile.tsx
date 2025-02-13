@@ -19,7 +19,8 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
         <div className="mx-auto w-full max-w-5xl flex flex-col gap-5">
 
             {/* Mobile Navigation */}
-            <nav className="flex md:hidden justify-around bg-primary-contrast dark:bg-dark/70 mx-[-25px] p-2 shadow-md">
+            <nav className="min-w-fit flex md:hidden justify-around py-2 px-1 shadow-md rounded-xl
+            bg-primary-contrast dark:bg-dark-soft/40 ">
                 {SECTIONS.map(({ key, label, icon: Icon }) => (
                     <button
                         key={key}
@@ -32,7 +33,7 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
                         onClick={() => setActiveSection(key)}
                     >
                         <Icon className={`w-6 h-6 mb-2 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`} />
-                        <span className="text-md">{label}</span>
+                        <span className="text-sm md:text-lg">{label}</span>
                     </button>
                 ))}
             </nav>
@@ -45,7 +46,7 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
                             <button
                                 key={key}
                                 className={clsx(
-                                    "flex items-center text-start gap-3 px-2 lg:px-3 py-2 rounded-xl text-md transition-all duration-300 w-full",
+                                    "flex items-center text-start gap-3 px-3 py-2 rounded-xl text-md transition-all duration-300 w-full",
                                     activeSection === key
                                         ? "bg-primary/50 dark:bg-dark-soft/60 text-foreground shadow-lg"
                                         : "text-foreground-muted dark:text-foreground-onDarkMuted hover:text-foreground dark:hover:text-foreground hover:bg-primary/70 dark:hover:bg-dark-soft/40"
