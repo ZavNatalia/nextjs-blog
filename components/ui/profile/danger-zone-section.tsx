@@ -3,7 +3,7 @@ import Notification, { NotificationDetails, NotificationStatus } from '@/compone
 import React, { useState, useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 
-export function DangerZoneSection({userEmail}: {userEmail: string}) {
+export function DangerZoneSection({userEmail, dictionary}: {userEmail: string, dictionary: Record<string, any> }) {
     const [notificationData, setNotificationData] = useState<NotificationDetails | null>(null);
     const [requestStatus, setRequestStatus] = useState<NotificationStatus | null>(null);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -29,20 +29,20 @@ export function DangerZoneSection({userEmail}: {userEmail: string}) {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Something went wrong!');
+                throw new Error(data.error || dictionary.somethingWentWrong);
             }
             setRequestStatus('success');
             setNotificationData({
-                title: 'Success!',
-                message: 'Account deleted successfully.',
+                title: dictionary.success,
+                message: dictionary.accountDeletedSuccessfully,
                 status: 'success',
             });
 
         } catch (error: any) {
             setRequestStatus('error');
             setNotificationData({
-                title: 'Error!',
-                message: error.message || 'Failed to delete account.',
+                title: dictionary.error,
+                message: error.message || dictionary.failedDeleteAccount,
                 status: 'error',
             });
         } finally {
@@ -52,9 +52,9 @@ export function DangerZoneSection({userEmail}: {userEmail: string}) {
 
     return (
         <div className="border border-error bg-error-light/10 dark:bg-error/10 p-4 rounded-xl shadow-md">
-            <h3 className="mb-3 text-xl font-semibold text-error">Danger Zone</h3>
+            <h3 className="mb-3 text-xl font-semibold text-error">{dictionary.dangerZone}</h3>
             <p className="text-md text-error">
-                Deleting your account is <b>irreversible</b>. Proceed with caution.
+                {dictionary.deletingIsIrreversible}
             </p>
             <button
                 disabled={requestStatus === 'pending' || requestStatus === 'success'}
@@ -65,30 +65,30 @@ export function DangerZoneSection({userEmail}: {userEmail: string}) {
                 }`}
                 onClick={() => setIsConfirmOpen(true)}
             >
-                {requestStatus === 'pending' ? 'Deleting Account...' : 'Delete Account'}
+                {requestStatus === 'pending' ? dictionary.deletingAccount : dictionary.deleteAccount}
             </button>
 
             {isConfirmOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-primary-contrast/80 dark:bg-dark-strong/90 p-4">
                     <div className="bg-primary dark:bg-dark rounded-3xl p-6 text-center shadow-lg max-w-sm">
-                        <h3 className="text-lg font-semibold text-error">Confirm Deletion</h3>
+                        <h3 className="text-lg font-semibold text-error">{dictionary.confirmAccountDeletion}</h3>
                         <p className="text-md text-secondary mt-2">
-                            Are you sure you want to delete your account&nbsp;
+                            {dictionary.areYouSureYouWantToDelete}&nbsp;
                             <span className='font-bold font-mono text-foreground'>{userEmail}</span>
-                            ? This action cannot be undone.
+                            ? {dictionary.thisActionCannotBeUndone}
                         </p>
                         <div className="mt-4 flex justify-center gap-4">
                             <button
                                 className="button-primary"
                                 onClick={() => setIsConfirmOpen(false)}
                             >
-                                Cancel
+                                {dictionary.cancel}
                             </button>
                             <button
                                 className={`${requestStatus === 'pending' ? 'button-disabled' : 'button-danger'}`}
                                 onClick={deleteAccount}
                             >
-                                {requestStatus === 'pending' ? 'Deleting...' : 'Yes, Delete'}
+                                {requestStatus === 'pending' ? dictionary.deletingAccount : dictionary.confirmDelete}
                             </button>
                         </div>
                     </div>
