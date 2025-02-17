@@ -1,0 +1,63 @@
+{
+  "server-component": {
+    "greetings": "Создаём с Next.js",
+    "greetingsDescription": "Всё о Next.js и современной веб-разработке"
+  },
+  "navigation": {
+    "home": "Главная",
+    "posts": "Посты",
+    "contact": "Контакты",
+    "auth": "Войти",
+    "profile": "Профиль",
+    "logout": "Выйти",
+    "loading": "Загрузка..."
+  },
+  "profile": {
+    "main": "Главная",
+    "profile": "Профиль",
+    "yourAccount": "Ваш профиль",
+    "security": "Безопасность",
+    "dangerZone": "Опасная зона",
+    "accountSection": {
+      "yourAccount": "Ваш профиль"
+    },
+    "securitySection": {
+      "security": "Безопасность",
+      "changeYourPassword": "Хотите изменить пароль?",
+      "enterYourNewOne": "Введите ваш новый пароль ниже",
+      "oldPassword": "Старый пароль",
+      "newPassword": "Новый пароль",
+      "changePassword": "Изменить пароль",
+      "sending": "Отправка...",
+      "reviewPrivacyPolicy": "Вы можете ознакомиться с нашей политикой конфиденциальности",
+      "here": "здесь",
+      "oldPasswordRequired": "Старый пароль обязателен.",
+      "newPasswordRequired": "Новый пароль обязателен.",
+      "atLeast7Characters": "Новый пароль должен содержать как минимум 7 символов.",
+      "oldPasswordIncorrect": "Старый пароль введён неверно.",
+      "somethingWentWrong": "Что-то пошло не так!",
+      "passwordChangedSuccessfully": "Пароль успешно изменён!",
+      "failedChangePassword": "При изменении пароля произошла ошибка.",
+      "success": "Успех!",
+      "error": "Ошибка!"
+    },
+    "dangerZoneSection": {
+      "dangerZone": "Опасная зона",
+      "deletingIsIrreversible": "Удаление вашего аккаунта необратимо. Действуйте с осторожностью.",
+      "deletingAccount": "Удаление аккаунта...",
+      "deleteAccount": "Удалить аккаунт",
+      "confirmAccountDeletion": "Подтвердите удаление аккаунта",
+      "areYouSureYouWantToDelete": "Вы уверены, что хотите удалить свой аккаунт",
+      "thisActionCannotBeUndone": "Это действие нельзя будет отменить.",
+      "confirmDelete": "Да, удалить",
+      "noEmailProvided": "Email отсутствует",
+      "somethingWentWrong": "Что-то пошло не так!",
+      "accountDeletedSuccessfully": "Аккаунт успешно удален.",
+      "failedDeleteAccount": "Не удалось удалить аккаунт.",
+      "success": "Успех!",
+      "error": "Ошибка!",
+      "cancel": "Отмена"
+    }
+  }
+
+}

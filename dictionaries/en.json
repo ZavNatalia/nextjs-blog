@@ -1,0 +1,64 @@
+{
+  "cancel": "Cancel",
+  "server-component": {
+    "welcome": "Welcome",
+    "greetings": "Building with Next.js",
+    "greetingsDescription": "All About Next.js and Modern Web Development"
+  },
+  "navigation": {
+    "home": "Home",
+    "posts": "Posts",
+    "contact": "Contact",
+    "auth": "Auth",
+    "profile": "Profile",
+    "logout": "Log out",
+    "loading": "Loading..."
+  },
+  "profile": {
+    "main": "Main",
+    "profile": "Profile",
+    "yourAccount": "Your Account",
+    "security": "Security",
+    "dangerZone": "Danger Zone",
+    "accountSection": {
+      "yourAccount": "Your Account"
+    },
+    "securitySection": {
+      "security": "Security",
+      "changeYourPassword": "Want to change your password?",
+      "enterYourNewOne": "Enter your new one below.",
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "changePassword": "Change Password",
+      "sending": "Sending...",
+      "reviewPrivacyPolicy": "You can review the Privacy Policy",
+      "here": "here",
+      "oldPasswordRequired": "Old password is required.",
+      "newPasswordRequired": "New password is required.",
+      "atLeast7Characters": "New password must be at least 7 characters.",
+      "oldPasswordIncorrect": "Old password is incorrect.",
+      "somethingWentWrong": "Something went wrong!",
+      "passwordChangedSuccessfully": "Password changed successfully!",
+      "failedChangePassword.": "Failed to change password.",
+      "success": "Success!",
+      "error": "Error!"
+    },
+    "dangerZoneSection": {
+      "dangerZone": "Danger Zone",
+      "deletingIsIrreversible": "Deleting your account is irreversible. Proceed with caution.",
+      "deletingAccount": "Deleting Account...",
+      "deleteAccount": "Delete Account",
+      "confirmAccountDeletion": "Confirm Account Deletion",
+      "areYouSureYouWantToDelete": "Are you sure you want to delete your account",
+      "thisActionCannotBeUndone": "This action cannot be undone.",
+      "confirmDelete": "Yes, Delete",
+      "noEmailProvided": "No email provided",
+      "somethingWentWrong": "Something went wrong!",
+      "accountDeletedSuccessfully": "Account deleted successfully.",
+      "failedDeleteAccount": "Failed to delete account.",
+      "success": "Success!",
+      "error": "Error!",
+      "cancel": "Cancel"
+    }
+  }
+}
