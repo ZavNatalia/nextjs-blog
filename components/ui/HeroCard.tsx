@@ -1,7 +1,11 @@
 "use client"
 import Image from 'next/image';
-
-export default function HeroCard() {
+import { type getDictionary } from '@/get-dictionary';
+export default function HeroCard({
+                                     dictionary,
+                                 }: {
+    dictionary: Awaited<ReturnType<typeof getDictionary>>["server-component"];
+}) {
     return (
         <section className="flex max-w-xs flex-col items-center gap-1 overflow-hidden rounded-3xl
         px-8 pb-4 sm:px-8 md:gap-2 md:px-10 lg:max-w-lg xl:max-w-xl shadow-md
@@ -27,11 +31,10 @@ export default function HeroCard() {
                 />
             </div>
             <h1 className="text-center text-xl tracking-wider font-extrabold text-foreground/90 dark:text-foreground sm:text-xl md:text-2xl">
-                Building with Next.js
+                {dictionary.greetings}
             </h1>
             <p className="sm:text-md text-center text-base text-foreground-muted dark:text-foreground-onDark md:text-lg">
-                Go from beginner to expert <br />
-                by learning the foundations of Next.js
+                {dictionary.greetingsDescription}
             </p>
         </section>
     );

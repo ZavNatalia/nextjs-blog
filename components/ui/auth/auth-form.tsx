@@ -4,22 +4,10 @@ import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps } from 'f
 import * as Yup from 'yup';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { createUser } from '@/app/actions/auth';
-import { signIn } from "next-auth/react";
+import { signIn, SignInResponse } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { SignInResponse } from "next-auth/react";
 import Notification, { NotificationDetails } from '@/components/ui/Notification';
 
-const validationSchema = Yup.object({
-    email: Yup.string()
-        .email('Invalid email address')
-        .required('Email is required'),
-    password: Yup.string()
-        .min(7, 'Password must be at least 7 characters')
-        .required('Password is required'),
-    confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
-        .required('Please confirm your password'),
-});
 
 export type AuthFormData = {
     email: string;
@@ -27,12 +15,24 @@ export type AuthFormData = {
     confirmPassword?: string;
 };
 
-export default function AuthForm() {
+export default function AuthForm({ dictionary }: { dictionary: Record<string, any> }) {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [notificationData, setNotificationData] = useState<NotificationDetails | null>(null);
     const router = useRouter();
+
+    const validationSchema = Yup.object({
+        email: Yup.string()
+            .email(dictionary.invalidEmailAddress)
+            .required(dictionary.emailRequired),
+        password: Yup.string()
+            .min(7, dictionary.atLeast7Characters)
+            .required(dictionary.passwordRequired),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password'), undefined], dictionary.passwordsMustMatch)
+            .required(dictionary.pleaseConfirmPassword),
+    });
 
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
@@ -45,14 +45,14 @@ export default function AuthForm() {
         setSubmitting(true);
         try {
             if (isLogin) {
-                const result: SignInResponse | undefined = await signIn("credentials", {
+                const result: SignInResponse | undefined = await signIn('credentials', {
                     redirect: false,
                     email: values.email,
                     password: values.password,
                 });
 
                 if (!result || !result.ok) {
-                    throw new Error(result?.error || "Failed to log in");
+                    throw new Error(result?.error || dictionary.failedToLogIn);
                 }
                 router.replace('/profile', { scroll: false });
 
@@ -60,8 +60,8 @@ export default function AuthForm() {
                 await createUser(values.email, values.password);
 
                 setNotificationData({
-                    title: 'Account Created!',
-                    message: 'Your account has been successfully created. You can now log in.',
+                    title: dictionary.accountCreated,
+                    message: dictionary.accountCreatedYouCanLogin,
                     status: 'success',
                 });
                 switchAuthModeHandler();
@@ -77,9 +77,10 @@ export default function AuthForm() {
     };
 
     return (
-        <div className="bg-primary-light/60 dark:bg-dark-soft/30 shadow-lg rounded-3xl p-8 max-w-sm lg:max-w-md w-full ">
+        <div
+            className="bg-primary-light/60 dark:bg-dark-soft/30 shadow-lg rounded-3xl p-8 max-w-sm lg:max-w-md w-full ">
             <h1 className="text-2xl font-bold text-accent text-center mb-6">
-                {isLogin ? 'Login' : 'Sign Up'}
+                {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
 
             <Formik<AuthFormData>
@@ -104,7 +105,7 @@ export default function AuthForm() {
                                     name="email"
                                     type="email"
                                     className="mt-1 input sm:text-md"
-                                    placeholder="Your email"
+                                    placeholder={dictionary.yourEmail}
                                 />
                                 <ErrorMessage
                                     name="email"
@@ -115,14 +116,14 @@ export default function AuthForm() {
 
                             <div className="relative">
                                 <label htmlFor="password" className="label">
-                                    Password
+                                    {dictionary.password}
                                 </label>
                                 <Field
                                     id="password"
                                     name="password"
                                     type={showPassword ? 'text' : 'password'}
                                     className="mt-1 input sm:text-md"
-                                    placeholder="Your password"
+                                    placeholder={dictionary.yourPassword}
                                 />
                                 <button
                                     type="button"
@@ -145,14 +146,14 @@ export default function AuthForm() {
                             {!isLogin && (
                                 <div className="relative">
                                     <label htmlFor="confirmPassword" className="label">
-                                        Confirm Password
+                                        {dictionary.confirmPassword}
                                     </label>
                                     <Field
                                         id="confirmPassword"
                                         name="confirmPassword"
                                         type={showConfirmPassword ? 'text' : 'password'}
                                         className="mt-1 input sm:text-md"
-                                        placeholder="Confirm your password"
+                                        placeholder={dictionary.confirmPassword}
                                     />
                                     <button
                                         type="button"
@@ -180,16 +181,20 @@ export default function AuthForm() {
                                     isSubmitting || !formikProps.isValid ? 'button-disabled' : 'button-accent'
                                 }`}
                             >
-                                {isSubmitting ? 'Sending...' : isLogin ? 'Login' : 'Sign Up'}
+                                {isSubmitting ? dictionary.sending : isLogin ? dictionary.login : dictionary.submitSignUp}
                             </button>
 
                             <div className="text-center">
+                                {!isLogin && <span>{dictionary.haveAccount} </span>}
+                                {isLogin && <span>{dictionary.doNotHaveAccount} </span>}
                                 <button
                                     type="button"
                                     onClick={switchAuthModeHandler}
                                     className="text-accent hover:text-accent-dark"
                                 >
-                                    {isLogin ? 'Create new account' : 'Switch to Login'}
+                                    {isLogin
+                                        ? dictionary.createAccount
+                                        : dictionary.login}
                                 </button>
                             </div>
                         </Form>
