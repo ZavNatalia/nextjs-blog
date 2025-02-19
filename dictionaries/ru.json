@@ -3,6 +3,11 @@
     "greetings": "Создаём с Next.js",
     "greetingsDescription": "Всё о Next.js и современной веб-разработке"
   },
+  "privacy-policy-page": {
+    "weUseCookies": "Мы используем файлы cookie для улучшения функциональности сайта. Продолжая использовать этот сайт, вы соглашаетесь с нашей",
+    "privacyPolicy": "Политикой конфиденциальности",
+    "ok": "Хорошо"
+  },
   "navigation": {
     "home": "Главная",
     "posts": "Посты",
@@ -12,7 +17,7 @@
     "logout": "Выйти",
     "loading": "Загрузка..."
   },
-  "profile": {
+  "profile-page": {
     "main": "Главная",
     "profile": "Профиль",
     "yourAccount": "Ваш профиль",
@@ -58,6 +63,31 @@
       "error": "Ошибка!",
       "cancel": "Отмена"
     }
-  }
+  },
+  "auth-page": {
+    "main": "Главная",
+    "auth": "Аутентификация",
+    "login": "Войти",
+    "email": "Email",
+    "password": "Пароль",
+    "yourPassword": "Ваш пароль",
+    "passwordRequired": "Пароль обязателен",
+    "yourEmail": "Ваш Email",
+    "emailRequired": "Email обязателен",
+    "invalidEmailAddress": "Некорректный адрес электронной почты",
+    "atLeast7Characters": "Пароль должен содержать не менее 7 символов",
+    "confirmPassword": "Подтвердите пароль",
+    "pleaseConfirmPassword": "Пожалуйста, подтвердите пароль",
+    "passwordsMustMatch": "Пароли должны совпадать",
+    "createAccount": "Создать новый аккаунт",
+    "haveAccount": "Уже есть аккаунт?",
+    "doNotHaveAccount": "Нет аккаунта?",
+    "signUp": "Регистрация",
+    "submitSignUp": "Зарегистрироваться",
+    "accountCreated": "Аккаунт создан!",
+    "accountCreatedYouCanLogin": "Ваш аккаунт успешно создан. Теперь вы можете войти в систему.",
+    "failedToLogIn": "Не удалось войти",
+    "sending": "Отправка..."
 
+  }
 }

@@ -4,7 +4,7 @@ import { createContext, ReactNode, useContext } from 'react';
 
 export type Dictionary = Record<string, any>;
 
-const TranslationContext = createContext<Dictionary | null>(null);
+const UseDictionary = createContext<Dictionary | null>(null);
 
 export const TranslationProvider = ({
                                         children,
@@ -14,14 +14,14 @@ export const TranslationProvider = ({
     dictionary: Dictionary;
 }) => {
     return (
-        <TranslationContext.Provider value={dictionary}>
+        <UseDictionary.Provider value={dictionary}>
             {children}
-        </TranslationContext.Provider>
+        </UseDictionary.Provider>
     );
 };
 
 export const useDictionary = () => {
-    const context = useContext(TranslationContext);
+    const context = useContext(UseDictionary);
     if (!context) {
         throw new Error('useDictionary must be used within a TranslationProvider');
     }

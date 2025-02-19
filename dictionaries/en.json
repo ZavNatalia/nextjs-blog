@@ -1,9 +1,13 @@
 {
   "cancel": "Cancel",
   "server-component": {
-    "welcome": "Welcome",
     "greetings": "Building with Next.js",
     "greetingsDescription": "All About Next.js and Modern Web Development"
+  },
+  "privacy-policy-page": {
+    "weUseCookies": "We use cookies to improve the website's functionality. By continuing to use this site, you agree to our",
+    "privacyPolicy": "Privacy Policy",
+    "ok": "Ok"
   },
   "navigation": {
     "home": "Home",
@@ -14,7 +18,7 @@
     "logout": "Log out",
     "loading": "Loading..."
   },
-  "profile": {
+  "profile-page": {
     "main": "Main",
     "profile": "Profile",
     "yourAccount": "Your Account",
@@ -60,5 +64,29 @@
       "error": "Error!",
       "cancel": "Cancel"
     }
+  },
+  "auth-page": {
+    "main": "Main",
+    "auth": "Auth",
+    "login": "Login",
+    "email": "Email",
+    "yourEmail": "Your Email",
+    "emailRequired": "Email is required",
+    "invalidEmailAddress": "Invalid email address",
+    "password": "Password",
+    "yourPassword": "Your password",
+    "atLeast7Characters": "Password must be at least 7 characters",
+    "confirmPassword": "Confirm Password",
+    "pleaseConfirmPassword": "Please confirm your password",
+    "passwordsMustMatch": "Passwords must match",
+    "createAccount": "Create new account",
+    "doNotHaveAccount": "Don’t have an account?",
+    "haveAccount": "Already have an account?",
+    "signUp": "Sign Up",
+    "submitSignUp": "Sign Up",
+    "accountCreated": "Account Created!",
+    "accountCreatedYouCanLogin": "Your account has been successfully created. You can now log in.",
+    "failedToLogIn": "Failed to log in",
+    "sending": "Sending..."
   }
 }

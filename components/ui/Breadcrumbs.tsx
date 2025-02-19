@@ -39,7 +39,7 @@ export default function Breadcrumbs({
         <nav className="md:text-md flex flex-row flex-wrap gap-2 self-baseline text-lg">
             {breadcrumbs.map((breadcrumb, index) => (
                 <BreadcrumbItem
-                    key={breadcrumb.title}
+                    key={index}
                     breadcrumb={breadcrumb}
                     isActive={pathname === breadcrumb.link}
                     isLast={index === breadcrumbs.length - 1}
