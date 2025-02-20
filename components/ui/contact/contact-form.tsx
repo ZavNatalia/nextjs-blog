@@ -26,6 +26,7 @@ type InputFieldProps = {
 
 async function sendContactDetails(
     contactDetails: ContactDetails,
+    dictionary: Record<string, any>
 ): Promise<void> {
     const response = await fetch('/api/contact', {
         method: 'POST',
@@ -36,7 +37,7 @@ async function sendContactDetails(
     });
     const data = await response.json();
     if (!response.ok) {
-        throw new Error(data?.message || 'Something went wrong!');
+        throw new Error(data?.message || dictionary.somethingWentWrong);
     }
 }
 
@@ -70,36 +71,38 @@ function InputField({
     );
 }
 
-const notificationMap: {
-    [key in NotificationStatus]: NotificationDetails;
-} = {
-    pending: {
-        status: 'pending',
-        title: 'Sending message...',
-        message: 'Your message is on its way',
-    },
-    success: {
-        status: 'success',
-        title: 'Success!',
-        message: 'Message sent successfully',
-    },
-    error: {
-        status: 'error',
-        title: 'Error!',
-        message: '',
-    },
-};
-
 const getNotificationData = (
     status: NotificationStatus,
     error: string | null,
-): NotificationDetails | null => {
+    dictionary: Record<string, any>
+) => {
+
+    const notificationMap: {
+        [key in NotificationStatus]: NotificationDetails;
+    } = {
+        pending: {
+            status: 'pending',
+            title: dictionary.sendingMessage,
+            message: dictionary.messageOnItsWay,
+        },
+        success: {
+            status: 'success',
+            title: dictionary.success,
+            message: dictionary.messageSentSuccessfully,
+        },
+        error: {
+            status: 'error',
+            title: dictionary.error,
+            message: dictionary.errorOccurred,
+        },
+    };
+
     if (status) {
         const notification = notificationMap[status];
         if (status === 'error' && notification) {
             return {
                 ...notification,
-                message: error || 'An error occurred',
+                message: error || dictionary.errorOccurred,
             };
         }
         return notification;
@@ -107,7 +110,7 @@ const getNotificationData = (
     return null;
 };
 
-export default function ContactForm() {
+export default function ContactForm({dictionary}: {dictionary: Record<string, any>}) {
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: '',
         name: '',
@@ -139,35 +142,35 @@ export default function ContactForm() {
         event.preventDefault();
         setRequestStatus('pending');
         try {
-            await sendContactDetails(messageDetails);
+            await sendContactDetails(messageDetails, dictionary);
             setRequestStatus('success');
             setMessageDetails({ email: '', name: '', message: '' });
         } catch (error) {
             setRequestError(
                 error instanceof Error
                     ? error.message
-                    : 'An unknown error occurred',
+                    : dictionary.unknownError,
             );
             setRequestStatus('error');
-            console.error(error);
+            console.log('Error! ', error);
         }
     };
 
     const notificationData =
         requestStatus !== null
-            ? getNotificationData(requestStatus, requestError)
+            ? getNotificationData(requestStatus, requestError, dictionary)
             : null;
 
     return (
         <section className="w-3/4 lg:w-[600px]">
             <h2 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl">
-                How can I help you?
+                {dictionary.howCanIHelp}
             </h2>
             <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField
                         id="email"
-                        label="Your Email"
+                        label={dictionary.yourEmail}
                         type="email"
                         value={messageDetails.email}
                         onChange={handleInputChange('email')}
@@ -176,21 +179,21 @@ export default function ContactForm() {
                     />
                     <InputField
                         id="name"
-                        label="Your name"
+                        label={dictionary.yourName}
                         type="text"
                         value={messageDetails.name}
                         onChange={handleInputChange('name')}
-                        placeholder="enter your name"
+                        placeholder={dictionary.enterYourName}
                         required
                     />
                 </div>
                 <InputField
                     id="message"
-                    label="Your message"
+                    label={dictionary.yourMessage}
                     type="text"
                     value={messageDetails.message}
                     onChange={handleInputChange('message')}
-                    placeholder="enter your message"
+                    placeholder={dictionary.enterYourMessage}
                     required
                     rows={5}
                 />
@@ -200,8 +203,8 @@ export default function ContactForm() {
                     className="button-accent self-end"
                 >
                     {requestStatus === 'pending'
-                        ? 'Sending...'
-                        : 'Send message'}
+                        ? dictionary.sending
+                        : dictionary.sendMessage}
                 </button>
             </form>
             {notificationData && requestStatus !== 'pending' ? (

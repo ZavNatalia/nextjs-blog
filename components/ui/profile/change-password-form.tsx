@@ -66,7 +66,7 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
     };
 
     return (
-        <div>
+        <>
             <Formik<ChangePasswordFormData>
                 initialValues={{ oldPassword: '', newPassword: '' }}
                 validationSchema={validationSchema}
@@ -140,6 +140,6 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
             </Formik>
 
             {notificationData ? <Notification {...notificationData} /> : null}
-        </div>
+        </>
     );
 }
