@@ -29,8 +29,7 @@
     },
     "securitySection": {
       "security": "Security",
-      "changeYourPassword": "Want to change your password?",
-      "enterYourNewOne": "Enter your new one below.",
+      "wantToChangeYourPassword": "Want to change your password? Enter your new one below.",
       "oldPassword": "Old Password",
       "newPassword": "New Password",
       "changePassword": "Change Password",
@@ -88,5 +87,27 @@
     "accountCreatedYouCanLogin": "Your account has been successfully created. You can now log in.",
     "failedToLogIn": "Failed to log in",
     "sending": "Sending..."
+  },
+  "contact-page": {
+    "main": "main",
+    "contact": "contact",
+    "howCanIHelp": "How can I help you?",
+    "yourEmail": "Your Email",
+    "yourName": "Your name",
+    "enterYourName": "Enter your name",
+    "yourMessage": "Your message",
+    "enterYourMessage": "Enter your message",
+    "sending": "Sending...",
+    "sendMessage": "Send message",
+    "sendingMessage": "Sending message...",
+    "messageOnItsWay": "Your message is on its way",
+    "success": "Success!",
+    "messageSentSuccessfully": "Message sent successfully",
+    "error": "Error!",
+    "errorOccurred": "An error occurred",
+    "bySubmittingMessage": "By submitting a message through the contact form, you confirm that you have read our",
+    "privacyPolicy": "Privacy Policy",
+    "consentProcessingPersonalData": "and consent to the processing of your personal data in accordance with the stated terms.",
+    "somethingWentWrong": "Something went wrong!"
   }
 }

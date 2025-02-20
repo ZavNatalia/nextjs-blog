@@ -114,7 +114,7 @@ body {
     }
 
     .button:disabled {
-        @apply bg-primary-contrast/80 cursor-not-allowed text-gray-500;
+        @apply bg-primary-contrast/80 cursor-not-allowed text-gray-400;
     }
 
 

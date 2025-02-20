@@ -28,8 +28,7 @@
     },
     "securitySection": {
       "security": "Безопасность",
-      "changeYourPassword": "Хотите изменить пароль?",
-      "enterYourNewOne": "Введите ваш новый пароль ниже",
+      "wantToChangeYourPassword": "Хотите изменить пароль? Введите ваш новый пароль ниже",
       "oldPassword": "Старый пароль",
       "newPassword": "Новый пароль",
       "changePassword": "Изменить пароль",
@@ -43,7 +42,7 @@
       "somethingWentWrong": "Что-то пошло не так!",
       "passwordChangedSuccessfully": "Пароль успешно изменён!",
       "failedChangePassword": "При изменении пароля произошла ошибка.",
-      "success": "Успех!",
+      "success": "Готово!",
       "error": "Ошибка!"
     },
     "dangerZoneSection": {
@@ -59,7 +58,7 @@
       "somethingWentWrong": "Что-то пошло не так!",
       "accountDeletedSuccessfully": "Аккаунт успешно удален.",
       "failedDeleteAccount": "Не удалось удалить аккаунт.",
-      "success": "Успех!",
+      "success": "Готово!",
       "error": "Ошибка!",
       "cancel": "Отмена"
     }
@@ -89,5 +88,27 @@
     "failedToLogIn": "Не удалось войти",
     "sending": "Отправка..."
 
+  },
+  "contact-page": {
+    "main": "главная",
+    "contact": "контакты",
+    "howCanIHelp": "Как я могу вам помочь?",
+    "yourEmail": "Ваш email",
+    "yourName": "Ваше имя",
+    "enterYourName": "Введите ваше имя",
+    "yourMessage": "Ваше сообщение",
+    "enterYourMessage": "Введите ваше сообщение",
+    "sending": "Отправка...",
+    "sendMessage": "Отправить сообщение",
+    "sendingMessage": "Отправка сообщения...",
+    "messageOnItsWay": "Ваше сообщение в пути",
+    "success": "Готово!",
+    "messageSentSuccessfully": "Сообщение успешно отправлено",
+    "error": "Ошибка!",
+    "errorOccurred": "Произошла ошибка",
+    "bySubmittingMessage": "Отправляя сообщение через форму обратной связи, вы подтверждаете, что ознакомились с нашей",
+    "privacyPolicy": "Политикой конфиденциальности",
+    "consentProcessingPersonalData": "и даете согласие на обработку ваших персональных данных в соответствии с указанными условиями.",
+    "somethingWentWrong": "Что-то пошло не так!"
   }
 }
