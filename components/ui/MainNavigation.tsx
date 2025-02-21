@@ -52,7 +52,7 @@ export default function MainNavigation() {
 
     const renderLogoutButton = () => (
         <li key="logout">
-            <button onClick={() => signOut()} className="button-secondary font-normal bg-primary-light md:ml-3 md:w-full">
+            <button onClick={() => signOut()} className="button-secondary font-normal bg-primary-light lg:ml-3">
                 {navDict.logout}
             </button>
         </li>
@@ -77,13 +77,13 @@ export default function MainNavigation() {
                 {/* Menu button for mobile devices */}
                 <button
                     onClick={toggleMenu}
-                    className="block md:hidden p-2 text-foreground transition"
+                    className="block lg:hidden p-2 text-foreground transition"
                 >
                     {isOpen ? <XMarkIcon className="w-8 h-8" /> : <Bars4Icon className="w-8 h-8 " />}
                 </button>
 
                 {/* Desktop menu */}
-                <nav className="hidden md:flex">
+                <nav className="hidden lg:flex">
                     <ul className="flex items-center gap-1 lg:gap-2 text-md">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label))}
                         {status === 'loading' && <li>{navDict.loading}...</li>}
@@ -102,7 +102,7 @@ export default function MainNavigation() {
             {/* Mobile menu */}
             {isOpen && (
                 <nav
-                    className="absolute top-20 left-0 w-full bg-primary-contrast dark:bg-dark-soft p-6 shadow-lg md:hidden">
+                    className="absolute top-20 left-0 w-full bg-primary-contrast dark:bg-dark-soft p-6 shadow-lg lg:hidden">
                     <ul className="flex flex-col gap-4 text-lg">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label, toggleMenu))}
                         {!session && status !== 'loading' && renderListItem('/auth', 'auth', toggleMenu)}

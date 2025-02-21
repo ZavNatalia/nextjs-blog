@@ -4,7 +4,7 @@ import Link from "next/link";
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { useState } from 'react';
 
-export default function PrivacyPolicy() {
+export default function PrivacyPolicyPage() {
     const [lang, setLang] = useState<'en' | 'ru'>('en');
     const breadcrumbs: Breadcrumb[] = [
         { title: 'main', link: '/' },

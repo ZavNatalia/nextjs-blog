@@ -14,7 +14,7 @@ const FeaturedPostsFallback: React.FC = () => (
     </div>
 );
 
-export default async function Home(props: {
+export default async function HomePage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
@@ -25,7 +25,7 @@ export default async function Home(props: {
             <HeroCard dictionary={dictionary["server-component"]} />
             <LatestNews />
             <Suspense fallback={<FeaturedPostsFallback />}>
-                <FeaturedPosts />
+                <FeaturedPosts dictionary={dictionary["server-component"]}/>
             </Suspense>
         </main>
     );
