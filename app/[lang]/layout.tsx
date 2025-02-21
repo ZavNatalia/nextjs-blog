@@ -5,10 +5,13 @@ import { ReactNode } from 'react';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import { TranslationProvider } from '@/hooks/useDictionary';
+
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = ({ params }: { params: any }) => {
-    const lang = params?.lang || "en";
+export async function generateMetadata(props: {
+    params: Promise<{ lang: Locale }>
+}) {
+    const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
 
     return {
@@ -42,7 +45,7 @@ export const metadata = ({ params }: { params: any }) => {
         },
         manifest: manifestPath,
     };
-};
+}
 
 
 export async function generateStaticParams() {

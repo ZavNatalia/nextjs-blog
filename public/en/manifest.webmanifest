@@ -1,7 +1,13 @@
 {
+    "id": "/en/",
     "name": "Natalia's Next Blog",
     "short_name": "N's Blog",
     "description": "I post about programming and web development.",
+    "lang": "en",
+    "start_url": "/en/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1d1d1d",
     "icons": [
         {
             "src": "/icons/android-icon-36x36.png",
@@ -51,9 +57,6 @@
             "sizes": "720x1280",
             "type": "image/png"
         }
-    ],
-    "start_url": "/",
-    "theme_color": "#121212",
-    "background_color": "#121212",
-    "display": "standalone"
+    ]
 }
+
