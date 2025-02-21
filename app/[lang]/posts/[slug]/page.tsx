@@ -4,9 +4,11 @@ import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { notFound } from 'next/navigation';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import Link from 'next/link';
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
 interface PageProps {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string, lang: Locale }>
 }
 
 const substringText = (text: string, length = 50): string =>
@@ -28,16 +30,19 @@ export async function generateMetadata(props: PageProps) {
 }
 
 export default async function Page(props: PageProps) {
-    const params = await props.params;
-    const post = await getPost(params.slug);
+    const {slug, lang} = await props.params;
+    const post = await getPost(slug);
+
+    const dictionary = await getDictionary(lang);
+    const serverComponentDict = dictionary['server-component'] ?? {};
 
     if (!post) {
         notFound();
     }
 
     const breadcrumbs: Breadcrumb[] = [
-        { title: 'main', link: '/' },
-        { title: 'all posts', link: '/posts' },
+        { title: serverComponentDict.main, link: '/' },
+        { title: serverComponentDict.allPosts, link: '/posts' },
         {
             title: substringText(post.title).toLowerCase(),
             link: `/posts/${post.slug}`,
@@ -49,7 +54,7 @@ export default async function Page(props: PageProps) {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} />
             <Link href="/posts" className="button-accent">
-                Go to all posts
+                {serverComponentDict.goToAllPosts}
             </Link>
         </main>
     );

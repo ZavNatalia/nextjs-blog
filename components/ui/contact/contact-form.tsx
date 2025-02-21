@@ -1,9 +1,7 @@
 'use client';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import Notification, {
-    NotificationDetails,
-    NotificationStatus,
-} from '@/components/ui/Notification';
+import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/Notification';
+import { getDictionary } from '@/get-dictionary';
 
 type ContactDetails = {
     email: string;
@@ -26,7 +24,7 @@ type InputFieldProps = {
 
 async function sendContactDetails(
     contactDetails: ContactDetails,
-    dictionary: Record<string, any>
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
 ): Promise<void> {
     const response = await fetch('/api/contact', {
         method: 'POST',
@@ -42,15 +40,15 @@ async function sendContactDetails(
 }
 
 function InputField({
-    id,
-    label,
-    type,
-    value,
-    onChange,
-    placeholder,
-    required = false,
-    rows,
-}: InputFieldProps) {
+                        id,
+                        label,
+                        type,
+                        value,
+                        onChange,
+                        placeholder,
+                        required = false,
+                        rows,
+                    }: InputFieldProps) {
     const InputComponent = rows ? 'textarea' : 'input';
     return (
         <div className="w-full">
@@ -74,7 +72,7 @@ function InputField({
 const getNotificationData = (
     status: NotificationStatus,
     error: string | null,
-    dictionary: Record<string, any>
+    dictionary: Record<string, any>,
 ) => {
 
     const notificationMap: {
@@ -110,7 +108,11 @@ const getNotificationData = (
     return null;
 };
 
-export default function ContactForm({dictionary}: {dictionary: Record<string, any>}) {
+export default function ContactForm({
+                                        dictionary,
+                                    }: {
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page']
+}) {
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: '',
         name: '',
@@ -131,12 +133,12 @@ export default function ContactForm({dictionary}: {dictionary: Record<string, an
     }, [requestStatus]);
     const handleInputChange =
         (field: keyof ContactDetails) =>
-        (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            setMessageDetails((prev) => ({
-                ...prev,
-                [field]: event.target.value,
-            }));
-        };
+            (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+                setMessageDetails((prev) => ({
+                    ...prev,
+                    [field]: event.target.value,
+                }));
+            };
 
     const sendMessageHandler = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();

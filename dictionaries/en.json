@@ -1,8 +1,17 @@
 {
-  "cancel": "Cancel",
   "server-component": {
     "greetings": "Building with Next.js",
-    "greetingsDescription": "All About Next.js and Modern Web Development"
+    "greetingsDescription": "All about Next.js and modern web development",
+    "blogTitle": "Natalia's Next blog",
+    "blogDescription": "I post about programming and web development.",
+    "main": "Main",
+    "allPosts": "All posts",
+    "noPosts": "No posts available yet",
+    "readMore": "Read more",
+    "backToTop": "Back to Top",
+    "featuredPosts": "Featured Posts",
+    "goToAllPosts": "Go to all posts",
+    "cancel": "Cancel"
   },
   "privacy-policy-page": {
     "weUseCookies": "We use cookies to improve the website's functionality. By continuing to use this site, you agree to our",

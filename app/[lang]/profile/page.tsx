@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'Profile page',
 };
 
-export default async function Profile(props: {
+export default async function ProfilePage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const session = await getServerSession();

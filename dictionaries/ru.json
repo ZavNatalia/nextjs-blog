@@ -1,7 +1,17 @@
 {
   "server-component": {
     "greetings": "Создаём с Next.js",
-    "greetingsDescription": "Всё о Next.js и современной веб-разработке"
+    "greetingsDescription": "Всё о Next.js и современной веб-разработке",
+    "blogTitle": "Natalia's Next blog",
+    "blogDescription": "Я пишу о программировании и веб-разработке.",
+    "main": "Главная",
+    "allPosts": "Все посты",
+    "noPosts": "Постов пока нет",
+    "readMore": "Читать далее",
+    "backToTop": "Наверх",
+    "featuredPosts": "Актуальные посты",
+    "goToAllPosts": "Перейти ко всем постам",
+    "cancel": "Отмена"
   },
   "privacy-policy-page": {
     "weUseCookies": "Мы используем файлы cookie для улучшения функциональности сайта. Продолжая использовать этот сайт, вы соглашаетесь с нашей",
