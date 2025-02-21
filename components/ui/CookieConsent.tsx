@@ -19,7 +19,7 @@ export default function CookieConsent() {
         if (consent && isVisible) {
             setIsVisible(false);
         }
-    }, [session]);
+    }, [isVisible, session, status, userId]);
 
     const handleAccept = () => {
         localStorage.setItem(`cookieConsent-${userId}`, "accepted");

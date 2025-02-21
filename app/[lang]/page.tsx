@@ -15,7 +15,7 @@ const FeaturedPostsFallback: React.FC = () => (
 );
 
 export default async function HomePage(props: {
-    params: Promise<{ lang: Locale }>;
+    params: Promise<{ lang: Locale }>
 }) {
     const { lang } = await props.params;
 

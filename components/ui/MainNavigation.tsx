@@ -86,7 +86,7 @@ export default function MainNavigation() {
                 <nav className="hidden lg:flex">
                     <ul className="flex items-center gap-1 lg:gap-2 text-md">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label))}
-                        {status === 'loading' && <li>{navDict.loading}...</li>}
+                        {status === 'loading' && <li>{navDict.loading}</li>}
                         {!session && status !== 'loading' && renderListItem('/auth', 'auth')}
                         {session && renderListItem('/profile', 'profile')}
                         {session && renderLogoutButton()}

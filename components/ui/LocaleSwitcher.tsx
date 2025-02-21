@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { i18n } from '@/i18n-config';
 
-const locales: string[] = i18n.locales;
+const locales: string[] = [...i18n.locales];
 
 export default function LocaleSwitcher() {
     const router = useRouter();

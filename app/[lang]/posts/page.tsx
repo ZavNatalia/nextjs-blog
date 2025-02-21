@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Posts(props: {
-    params: Promise<{ lang: Locale }>;
+    params: Promise<{ lang: Locale }>
 }) {
     const { lang } = await props.params;
     const dictionary = await getDictionary(lang);

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Contact me',
     description: 'Send me your messages!',
 };
-export default async function Contact(props: {
+export default async function ContactPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
