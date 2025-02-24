@@ -20,12 +20,14 @@ export default async function HomePage(props: {
     const { lang } = await props.params;
 
     const dictionary = await getDictionary(lang);
+    const serverComponentDict = dictionary['server-component'] ?? {};
+
     return (
         <main className="page">
-            <HeroCard dictionary={dictionary["server-component"]} />
+            <HeroCard dictionary={serverComponentDict} />
             <LatestNews />
             <Suspense fallback={<FeaturedPostsFallback />}>
-                <FeaturedPosts dictionary={dictionary["server-component"]}/>
+                <FeaturedPosts dictionary={serverComponentDict} lang={lang}/>
             </Suspense>
         </main>
     );
