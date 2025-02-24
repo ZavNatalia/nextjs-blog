@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 
 export interface IPost {
@@ -15,14 +16,21 @@ export interface IPost {
 
 export default function PostCard({
                                      post,
-    dictionary
-}: {
-    post: IPost ,
-    dictionary: Awaited<ReturnType<typeof getDictionary>>["server-component"]
+                                     dictionary,
+                                     lang,
+                                 }: {
+    post: IPost,
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'],
+    lang: Locale
 }) {
     const { title, date, excerpt, image, slug } = post;
 
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+    const getLocale = (value: 'en' | 'ru') => ({
+        en: 'en-US',
+        ru: 'ru-RU',
+    }[value] || 'en-US');
+
+    const formattedDate = new Date(date).toLocaleDateString(getLocale(lang), {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
@@ -33,7 +41,8 @@ export default function PostCard({
 
     return (
         <li className="w-full overflow-hidden rounded-3xl shadow-md">
-            <div className="flex justify-between rounded-t-3xl bg-primary-contrast/80 dark:bg-dark-soft/60 px-5 py-4 shadow-md lg:px-6 lg:py-5">
+            <div
+                className="flex justify-between rounded-t-3xl bg-primary-contrast/80 dark:bg-dark-soft/60 px-5 py-4 shadow-md lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
@@ -41,7 +50,8 @@ export default function PostCard({
                     {formattedDate}
                 </time>
             </div>
-            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 dark:bg-dark-soft/40 px-5 pb-5 pt-4 lg:grid-cols-[180px_1fr] lg:px-6">
+            <div
+                className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 dark:bg-dark-soft/40 px-5 pb-5 pt-4 lg:grid-cols-[180px_1fr] lg:px-6">
                 <div
                     className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[180px] lg:w-[180px]">
                     <Image

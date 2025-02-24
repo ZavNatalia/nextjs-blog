@@ -2,11 +2,14 @@ import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 import { getFeaturedPosts } from '@/lib/posts-util';
 import Link from 'next/link';
 import type { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
 export default function FeaturedPosts({
                                           dictionary,
+                                          lang,
                                       }: {
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'];
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'],
+    lang: Locale
 }) {
     const featuredPosts = getFeaturedPosts();
 
@@ -19,7 +22,7 @@ export default function FeaturedPosts({
             <h2 className="text-2xl font-bold text-accent lg:text-4xl">
                 {dictionary.featuredPosts}
             </h2>
-            <PostsGrid posts={featuredPosts} dictionary={dictionary} />
+            <PostsGrid posts={featuredPosts} dictionary={dictionary} lang={lang} />
             <Link href="/posts" className="button-accent">
                 {dictionary.allPosts}
             </Link>
