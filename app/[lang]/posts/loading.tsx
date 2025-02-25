@@ -4,7 +4,7 @@ export default function Loading() {
     return (
         <main className="page">
             <div className="mt-[38px] w-full lg:mt-[50px]">
-                <div className="h-8 w-3/5 animate-pulse rounded-lg bg-primary/10/90 lg:h-8 lg:animate-none" />
+                <div className="h-12 w-44 mx-auto mb-6 lg:mb-8 animate-pulse rounded-lg bg-primary-contrast lg:h-[50px] " />
                 <PostsGridSkeleton />
             </div>
         </main>

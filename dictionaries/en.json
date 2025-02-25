@@ -24,8 +24,9 @@
     "contact": "Contact",
     "auth": "Auth",
     "profile": "Profile",
-    "logout": "Log out",
-    "loading": "Loading..."
+    "userProfile": "User profile",
+    "switchToLightTheme": "Switch to Light theme",
+    "switchToDarkTheme": "Switch to Dark theme"
   },
   "profile-page": {
     "main": "Main",
@@ -34,7 +35,8 @@
     "security": "Security",
     "dangerZone": "Danger Zone",
     "accountSection": {
-      "yourAccount": "Your Account"
+      "yourAccount": "Your Account",
+      "logout": "Log out"
     },
     "securitySection": {
       "security": "Security",

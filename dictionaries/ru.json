@@ -24,8 +24,9 @@
     "contact": "Контакты",
     "auth": "Войти",
     "profile": "Профиль",
-    "logout": "Выйти",
-    "loading": "Загрузка..."
+    "userProfile": "Профиль пользователя",
+    "switchToLightTheme": "Переключиться на светлую тему",
+    "switchToDarkTheme": "Переключиться на тёмную тему"
   },
   "profile-page": {
     "main": "Главная",
@@ -34,7 +35,8 @@
     "security": "Безопасность",
     "dangerZone": "Опасная зона",
     "accountSection": {
-      "yourAccount": "Ваш профиль"
+      "yourAccount": "Ваш профиль",
+      "logout": "Выйти"
     },
     "securitySection": {
       "security": "Безопасность",
