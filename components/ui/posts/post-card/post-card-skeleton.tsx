@@ -15,7 +15,7 @@ export function PostCardSkeleton() {
                     <div className="mt-1 flex flex-col gap-3">
                         <div className="h-4 w-full rounded-lg bg-primary-contrast/80 dark:bg-dark-soft" />
                         <div className="h-4 w-5/6 rounded-lg bg-primary-contrast/80 dark:bg-dark-soft" />
-                        <div className="h-4 w-3/4 rounded-lg bg-primary-contrast/80 dark:bg-dark-soft" />
+                        <div className="hidden lg:block h-4 w-3/4 rounded-lg bg-primary-contrast/80 dark:bg-dark-soft" />
                     </div>
                     <div className="h-12 w-[140px] self-end rounded-lg bg-primary-contrast dark:bg-dark-soft" />
                 </div>

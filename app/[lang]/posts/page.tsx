@@ -30,7 +30,7 @@ export default async function Posts(props: {
                 {serverComponentDict.allPosts}
             </h2>
             {!posts && <div>No posts</div>}
-            <PostsGrid posts={posts} dictionary={serverComponentDict} locale={lang}/>
+            <PostsGrid posts={posts} dictionary={serverComponentDict} lang={lang} />
         </main>
     );
 }
