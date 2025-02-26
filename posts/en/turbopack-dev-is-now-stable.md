@@ -95,23 +95,23 @@ next internal turbo-trace-server .next/trace-turbopack
 ## **Current Status and Support**
 
 ### **Stable Features:**
-- `next dev --turbo` command.
+- *next dev --turbo* command.
 - Full support for **App Router** and **Pages Router**.
 - Works with all **stable Next.js features**.
 
 ### **Supported Webpack Loaders:**
-- `@svgr/webpack`
-- `babel-loader`
-- `url-loader`
-- `file-loader`
-- `raw-loader`
-- `tsconfig-paths-webpack-plugin`
+  - @svgr/webpack
+  - babel-loader
+  - url-loader
+  - file-loader
+  - raw-loader
+  - tsconfig-paths-webpack-plugin
 
 ### **CSS and CSS-in-JS Support**
 
 #### **Supported:**
 - Tailwind CSS
-- `@emotion/react`
+- *@emotion/react*
 - Sass
 - styled-components
 - Bootstrap
@@ -124,7 +124,7 @@ next internal turbo-trace-server .next/trace-turbopack
 
 #### **Not Yet Supported:**
 - Less
-- `@vanilla-extract/css`
+- *@vanilla-extract/css*
 - StyleX
 
 ---
@@ -141,20 +141,23 @@ next internal turbo-trace-server .next/trace-turbopack
 The **reason Turbopack was created** was to maintain **maximum compatibility** with Webpack while removing its **limitations**.
 
 ### **Key Removals:**
-1. **No support for `webpack()` configuration.**
+1. **No support for *webpack()* configuration.**
+
    - Turbopack **is not Webpack** and has a different configuration structure.
    - Many features remain the same, including **loaders and aliases**.
 
-2. **`.babelrc` no longer automatically transforms code.**
+2. **.babelrc no longer automatically transforms code.**
+   
    - Turbopack uses **SWC** by default.
-   - You can still add `babel-loader`, but **SWC will always run first** for optimizations.
+   - You can still add *babel-loader*, but **SWC will always run first** for optimizations.
 
 3. **Certain rarely used CSS Modules features are not supported.**
+   
    - Processing has been switched to **Lightning CSS**, which is much faster.
    - **The following are not supported:**
-      - `:global` and `:local` pseudo-selectors.
-      - `@value` directive.
-      - `:import` and `:export` rules.
+      - *:global* and *:local* pseudo-selectors.
+      - *@value* directive.
+      - *:import* and *:export* rules.
 
 Turbopack **enhanced Lightning CSS**, adding **better error messages and CSS Modules support**.
 
@@ -171,16 +174,16 @@ Turbopack **enhanced Lightning CSS**, adding **better error messages and CSS Mod
 
 2. **Production Builds (96% of tests passed):**
    - Optimized CSS chunking.
-   - Enhanced **tree shaking**.
-   - **Module ID hashing**.
+   - Enhanced tree shaking.
+   - Module ID hashing.
    - Export optimizations.
-   - **Content-based hashing for filenames**.
+   - Content-based hashing for filenames.
 
 ### **Long-Term Plans:**
-- **Recommended in `create-next-app`**.
-- **Become the default bundler** in Next.js.
-- **Support for popular Webpack plugins**.
-- **Standalone version outside of Next.js**.
+- Recommended in *create-next-app*.
+- Become the default bundler in Next.js.
+- Support for popular Webpack plugins.
+- Standalone version outside of Next.js.
 
 ---
 
