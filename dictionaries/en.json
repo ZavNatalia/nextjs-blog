@@ -101,7 +101,9 @@
     "accountCreated": "Account Created!",
     "accountCreatedYouCanLogin": "Your account has been successfully created. You can now log in.",
     "failedToLogIn": "Failed to log in",
-    "sending": "Sending..."
+    "sending": "Sending...",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "posts-page": {
     "main": "main",
