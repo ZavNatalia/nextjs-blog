@@ -33,16 +33,15 @@ export default async function Page(props: PageProps) {
     const {slug, lang} = await props.params;
     const post = await getPost(slug);
 
-    const dictionary = await getDictionary(lang);
-    const serverComponentDict = dictionary['server-component'] ?? {};
+    const dictionary = await getDictionary(lang)?.['posts-page'];
 
     if (!post) {
         notFound();
     }
 
     const breadcrumbs: Breadcrumb[] = [
-        { title: serverComponentDict.main, link: '/' },
-        { title: serverComponentDict.allPosts, link: '/posts' },
+        { title: dictionary.main, link: '/' },
+        { title: dictionary.allPosts, link: '/posts' },
         {
             title: substringText(post.title).toLowerCase(),
             link: `/posts/${post.slug}`,
@@ -54,7 +53,7 @@ export default async function Page(props: PageProps) {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} />
             <Link href="/posts" className="button-accent">
-                {serverComponentDict.goToAllPosts}
+                {dictionary.goToAllPosts}
             </Link>
         </main>
     );

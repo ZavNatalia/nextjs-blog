@@ -14,8 +14,9 @@
     "cancel": "Cancel"
   },
   "privacy-policy-page": {
-    "weUseCookies": "We use cookies to improve the website's functionality. By continuing to use this site, you agree to our",
+    "pageDescription": "pageDescription",
     "privacyPolicy": "Privacy Policy",
+    "weUseCookies": "We use cookies to improve the website's functionality. By continuing to use this site, you agree to our",
     "ok": "Ok"
   },
   "navigation": {
@@ -29,6 +30,7 @@
     "switchToDarkTheme": "Switch to Dark theme"
   },
   "profile-page": {
+    "pageDescription": "Manage your account settings, update your password, or delete your account permanently.",
     "main": "Main",
     "profile": "Profile",
     "yourAccount": "Your Account",
@@ -76,6 +78,8 @@
     }
   },
   "auth-page": {
+    "signIn": "Sign In",
+    "pageDescription": "Sign in to access your account or create a new one",
     "main": "Main",
     "auth": "Auth",
     "login": "Login",
@@ -98,6 +102,12 @@
     "accountCreatedYouCanLogin": "Your account has been successfully created. You can now log in.",
     "failedToLogIn": "Failed to log in",
     "sending": "Sending..."
+  },
+  "posts-page": {
+    "main": "main",
+    "allPosts": "All posts",
+    "pageDescription": "A list of all programming-related tutorials and posts",
+    "goToAllPosts": "Go to all posts"
   },
   "contact-page": {
     "main": "main",

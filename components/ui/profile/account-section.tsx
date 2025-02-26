@@ -10,7 +10,7 @@ export function AccountSection({userEmail, dictionary}: {userEmail: string, dict
             </div>
             <h2 className="text-xl font-semibold text-foreground">{dictionary.yourAccount}</h2>
             <p className="text-md text-secondary mb-4">{userEmail}</p>
-            <button onClick={() => signOut()} className="button-secondary flex items-center gap-2">
+            <button onClick={() => signOut()} className="button-secondary flex items-center gap-2 group">
                 {dictionary.logout}
                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                      stroke="currentColor" className="size-5 transition-transform duration-200 group-hover:translate-x-1">

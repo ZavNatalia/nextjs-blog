@@ -7,23 +7,26 @@ export default function HeroCard({
     dictionary: Awaited<ReturnType<typeof getDictionary>>["server-component"];
 }) {
     return (
-        <section className="flex max-w-xs flex-col items-center gap-1 overflow-hidden rounded-3xl
-        px-8 pb-4 sm:px-8 md:gap-2 md:px-10 lg:max-w-lg xl:max-w-xl shadow-md
+        <section className="flex max-w-md flex-col items-center gap-1 overflow-hidden rounded-3xl
+        px-6 pb-4 sm:px-10 md:gap-2 md:max-w-lg xl:max-w-xl shadow-md
         bg-gradient-to-b dark:bg-gradient-to-br
         from-orange-300 dark:from-purple-950/60
         via-orange-100 dark:via-pink-800/70
         to-white dark:to-yellow-700">
-            <div className="relative aspect-[7/4] w-full rounded-b-xl overflow-hidden">
+            <div className="relative aspect-[16/9] w-full max-w-sm rounded-b-xl overflow-hidden">
                 <Image
                     src="/images/site/hero-desktop-dark.webp"
-                    fill
+                    width={600}
+                    height={336}
                     sizes="(max-width: 640px) 60vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 30vw"
                     className="hidden dark:block rounded-b-xl object-cover shadow-md "
                     alt="Hero"
+                    priority
                 />
                 <Image
                     src="/images/site/hero-desktop-light.webp"
-                    fill
+                    width={600}
+                    height={342}
                     sizes="(max-width: 640px) 60vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 30vw"
                     className="block dark:hidden rounded-b-xl object-cover"
                     alt="Hero"

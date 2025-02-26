@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
@@ -6,10 +5,16 @@ import UserProfile from '@/components/ui/profile/user-profile';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 
-export const metadata: Metadata = {
-    title: 'Profile',
-    description: 'Profile page',
-};
+export async function generateMetadata(props: {
+    params: Promise<{ lang: Locale }>
+}) {
+    const { lang } = await props.params;
+    const dictionary = await getDictionary(lang)?.['profile-page'];
+    return {
+        title: dictionary.profile,
+        description: dictionary.pageDescription,
+    }
+}
 
 export default async function ProfilePage(props: {
     params: Promise<{ lang: Locale }>;
