@@ -2,8 +2,15 @@
 import NewsItemContent from '@/components/ui/news/news-item-content';
 import { useEffect, useState } from 'react';
 import { INews } from '@/lib/news-util';
+import type { getDictionary } from '@/get-dictionary';
 
-export default function NewsList({ latestNews }: { latestNews: INews[] }) {
+export default function NewsList({
+                                     latestNews,
+                                     dictionary
+}: {
+    latestNews: INews[],
+    dictionary: Awaited<ReturnType<typeof getDictionary>>["server-component"]
+}) {
     const [showButton, setShowButton] = useState(false);
 
     useEffect(() => {
@@ -41,9 +48,9 @@ export default function NewsList({ latestNews }: { latestNews: INews[] }) {
             {showButton && (
                 <button
                     onClick={scrollToTop}
-                    className="button fixed bottom-8 right-8 rounded-full bg-primary-contrast/80 dark:bg-dark-soft text-secondary shadow-md hover:bg-accent dark:hover:bg-accent-dark hover:text-foreground-contrast"
+                    className="button fixed bottom-8 right-8 rounded-full bg-primary-contrast/80 dark:bg-dark-soft text-secondary shadow-md hover:bg-accent dark:hover:bg-accent-dark hover:text-foreground-contrast group"
                 >
-                    Back to Top
+                    {dictionary.backToTop}
                 </button>
             )}
         </>

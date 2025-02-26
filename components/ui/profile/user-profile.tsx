@@ -7,16 +7,16 @@ import { SecuritySection } from '@/components/ui/profile/security-section';
 import { DangerZoneSection } from '@/components/ui/profile/danger-zone-section';
 
 const SECTIONS = [
-    { key: "Account", label: "Your Account", icon: UserIcon },
-    { key: "Security", label: "Security", icon: LockClosedIcon },
-    { key: "DangerZone", label: "Danger Zone", icon: ExclamationTriangleIcon },
+    { key: "Account", label: "yourAccount", icon: UserIcon },
+    { key: "Security", label: "security", icon: LockClosedIcon },
+    { key: "DangerZone", label: "dangerZone", icon: ExclamationTriangleIcon },
 ];
 
-export default function UserProfile({ userEmail }: { userEmail: string }) {
+export default function UserProfile({ userEmail, dictionary }: { userEmail: string, dictionary: Record<string, any>  }) {
     const [activeSection, setActiveSection] = useState("Account");
 
     return (
-        <div className="mx-auto w-full max-w-5xl flex flex-col gap-5">
+        <div className="mx-auto w-full flex flex-col gap-5">
 
             {/* Mobile Navigation */}
             <nav className="min-w-fit flex md:hidden justify-around py-2 px-1 shadow-md rounded-xl
@@ -33,14 +33,14 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
                         onClick={() => setActiveSection(key)}
                     >
                         <Icon className={`w-6 h-6 mb-2 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`} />
-                        <span className="text-sm md:text-lg">{label}</span>
+                        <span className="text-sm md:text-lg">{dictionary[label]}</span>
                     </button>
                 ))}
             </nav>
 
             <div className="flex flex-col md:flex-row gap-6">
                 {/* Sidebar for Desktop */}
-                <aside className="hidden md:block w-1/4 bg-primary-contrast dark:bg-dark-soft/20 h-fit p-3 lg:p-5 rounded-2xl shadow-lg backdrop-blur-md">
+                <aside className="hidden md:block w-1/4 bg-primary-contrast/70 dark:bg-dark-soft/20 h-fit p-3 lg:p-5 rounded-2xl shadow-lg backdrop-blur-md">
                     <nav className="flex flex-col gap-3">
                         {SECTIONS.map(({ key, label, icon: Icon }) => (
                             <button
@@ -54,17 +54,17 @@ export default function UserProfile({ userEmail }: { userEmail: string }) {
                                 onClick={() => setActiveSection(key)}
                             >
                                 <Icon className={`w-6 h-6 ${activeSection === key ? 'text-accent' : 'text-foreground'}`} />
-                                {label}
+                                {dictionary[label]}
                             </button>
                         ))}
                     </nav>
                 </aside>
 
                 {/* Content */}
-                <section className="flex-1 p-6 bg-primary-contrast/70 dark:bg-dark-soft/40 rounded-2xl shadow-lg transition-all duration-300">
-                    {activeSection === "Account" && <AccountSection userEmail={userEmail} />}
-                    {activeSection === "Security" && <SecuritySection />}
-                    {activeSection === "DangerZone" && <DangerZoneSection userEmail={userEmail} />}
+                <section className="flex-1 p-6 bg-primary-contrast/40 dark:bg-dark-soft/40 rounded-2xl shadow-lg transition-all duration-300">
+                    {activeSection === "Account" && <AccountSection userEmail={userEmail} dictionary={dictionary.accountSection} />}
+                    {activeSection === "Security" && <SecuritySection dictionary={dictionary.securitySection} />}
+                    {activeSection === "DangerZone" && <DangerZoneSection userEmail={userEmail} dictionary={dictionary.dangerZoneSection} />}
                 </section>
             </div>
         </div>
