@@ -1,14 +1,19 @@
 import { getAllPosts } from '@/lib/posts-util';
-import type { Metadata } from 'next';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 
-export const metadata: Metadata = {
-    title: 'All Posts',
-    description: 'A list of all programming-related tutorials and posts!',
-};
+export async function generateMetadata(props: {
+    params: Promise<{ lang: Locale }>
+}) {
+    const { lang } = await props.params;
+    const dictionary = await getDictionary(lang)?.['posts-page'];
+    return {
+        title: dictionary.allPosts,
+        description: dictionary.pageDescription,
+    }
+}
 
 export default async function Posts(props: {
     params: Promise<{ lang: Locale }>

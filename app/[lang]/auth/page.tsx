@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import AuthForm from '@/components/ui/auth/auth-form';
 import { getServerSession } from 'next-auth';
@@ -6,10 +5,18 @@ import { redirect } from 'next/navigation';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 
-export const metadata: Metadata = {
-    title: 'Contact me',
-    description: 'Send me your messages!',
-};
+
+export async function generateMetadata(props: {
+    params: Promise<{ lang: Locale }>
+}) {
+    const { lang } = await props.params;
+    const dictionary = await getDictionary(lang)?.['auth-page'];
+    return {
+        title: dictionary.signIn,
+        description: dictionary.pageDescription,
+    }
+}
+
 export default async function AuthPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {

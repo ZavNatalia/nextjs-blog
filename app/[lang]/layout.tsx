@@ -4,7 +4,6 @@ import RootClientLayout from '@/components/ui/RootClientLayout';
 import { ReactNode } from 'react';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
-import { TranslationProvider } from '@/hooks/useDictionary';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,15 +12,13 @@ export async function generateMetadata(props: {
 }) {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
-
+    const dictionary = await getDictionary(lang)?.['server-component'];
     return {
         title: {
-            template: "%s | Natalia's Next blog",
-            default: "Natalia's Next blog",
+            template: `%s | ${dictionary.blogTitle}`,
+            default: dictionary.blogTitle,
         },
-        description: lang === 'ru'
-            ? 'Я пишу о программировании и веб-разработке.'
-            : 'I post about programming and web development.',
+        description: dictionary.blogDescription,
         icons: {
             icon: [
                 '/favicon.ico',
@@ -63,12 +60,9 @@ export default async function RootLayout(props: {
     return (
         <html lang={params.lang}>
         <body className={inter.className}>
-        <TranslationProvider dictionary={dictionary}>
-            <RootClientLayout>
-                {children}
-            </RootClientLayout>
-            <div id="notifications" />
-        </TranslationProvider>
+        <RootClientLayout dictionary={dictionary}>
+            {children}
+        </RootClientLayout>
         </body>
         </html>
     );

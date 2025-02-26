@@ -5,10 +5,17 @@ import Link from 'next/link';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 
-export const metadata: Metadata = {
-    title: 'Contact me',
-    description: 'Send me your messages!',
-};
+export async function generateMetadata(props: {
+    params: Promise<{ lang: Locale }>
+}) {
+    const { lang } = await props.params;
+    const dictionary = await getDictionary(lang)?.['contact-page'];
+    return {
+        title: dictionary.contactMe,
+        description: dictionary.pageDescription,
+    }
+}
+
 export default async function ContactPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
