@@ -56,4 +56,4 @@ Next.js использует ту же модель кэширования дл�
 
 ---
 
-_Author of [the original post](https://nextjs.org/blog/composable-caching): Lee Robinson_
+_Автор [оригинального поста](https://nextjs.org/blog/composable-caching): Lee Robinson_

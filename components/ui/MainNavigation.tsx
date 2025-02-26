@@ -61,7 +61,7 @@ export default function MainNavigation() {
     const renderProfileButton = (onClick?: () => void) => {
         return (
             <li key="profile">
-                <Link href="/profile" title={dictionary.userProfile} onClick={onClick}>
+                <Link href="/profile" title={dictionary.userProfile} className='rounded-full' onClick={onClick}>
                     <div className="relative h-12 lg:h-10 w-12 lg:w-10 mx-2 overflow-hidden rounded-full shadow-md
                         transition-colors duration-300
                         bg-primary

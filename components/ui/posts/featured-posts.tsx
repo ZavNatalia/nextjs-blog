@@ -11,7 +11,7 @@ export default function FeaturedPosts({
     dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'],
     lang: Locale
 }) {
-    const featuredPosts = getFeaturedPosts();
+    const featuredPosts = getFeaturedPosts(lang);
 
     if (!featuredPosts) {
         return;
