@@ -40,7 +40,7 @@ export default function PostCard({
     const linkPath = `posts/${slug}`;
 
     return (
-        <li className="w-full overflow-hidden rounded-3xl shadow-md">
+        <li className="w-full">
             <div
                 className="flex justify-between rounded-t-3xl bg-primary-contrast/80 dark:bg-dark-soft/60 px-5 py-4 shadow-md lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
@@ -51,7 +51,7 @@ export default function PostCard({
                 </time>
             </div>
             <div
-                className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 dark:bg-dark-soft/40 px-5 pb-5 pt-4 lg:grid-cols-[180px_1fr] lg:px-6">
+                className="grid grid-cols-1 gap-5 shadow-md rounded-b-3xl bg-primary-light/40 dark:bg-dark-soft/40 px-5 pb-5 pt-4 lg:grid-cols-[180px_1fr] lg:px-6">
                 <div
                     className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[180px] lg:w-[180px]">
                     <Image

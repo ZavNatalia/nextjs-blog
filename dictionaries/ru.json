@@ -108,6 +108,7 @@
   "posts-page": {
     "main": "Главная",
     "allPosts": "Все посты",
+    "readMore": "Читать далее",
     "pageDescription": "Список статей по программированию",
     "goToAllPosts": "Перейти ко всем постам"
   },

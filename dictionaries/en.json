@@ -108,6 +108,7 @@
   "posts-page": {
     "main": "main",
     "allPosts": "All posts",
+    "readMore": "Read more",
     "pageDescription": "A list of all programming-related tutorials and posts",
     "goToAllPosts": "Go to all posts"
   },
