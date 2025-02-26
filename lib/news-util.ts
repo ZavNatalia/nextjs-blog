@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
+import { Locale } from '@/i18n-config';
 
 export interface INews {
     slug: string;
@@ -12,14 +13,14 @@ export interface INews {
     isLatest: boolean;
 }
 
-const newsDirectory = path.join(process.cwd(), 'news');
-export function getNewsFiles() {
-    return fs.readdirSync(newsDirectory);
+const newsDirectory = (lang: Locale) => path.join(process.cwd(), `news/${lang}`);
+export function getNewsFiles(lang: Locale) {
+    return fs.readdirSync(newsDirectory(lang));
 }
 
-export function getNewsData(newsIdentifier: string): INews | null {
+export function getNewsData(newsIdentifier: string, lang: Locale): INews | null {
     const newsSlug: string = newsIdentifier.replace(/\.md$/, '');
-    const filePath = path.join(newsDirectory, `${newsSlug}.md`);
+    const filePath = path.join(newsDirectory(lang), `${newsSlug}.md`);
 
     if (!fs.existsSync(filePath)) {
         console.error(`File not found: ${filePath}`);
@@ -39,15 +40,15 @@ export function getNewsData(newsIdentifier: string): INews | null {
         return null;
     }
 }
-export function getAllNews(): INews[] {
-    const newsFiles = getNewsFiles();
+export function getAllNews(lang: Locale): INews[] {
+    const newsFiles = getNewsFiles(lang);
     const allNews = newsFiles
-        .map((newsFile) => getNewsData(newsFile))
+        .map((newsFile) => getNewsData(newsFile, lang))
         .filter((news): news is INews => news !== null);
     return allNews.sort((newsA, newsB) => (newsA.date > newsB.date ? -1 : 1));
 }
 
-export function getLatestNews() {
-    const allNews = getAllNews();
+export function getLatestNews(lang: Locale) {
+    const allNews = getAllNews(lang);
     return allNews.filter((news) => news.isLatest);
 }

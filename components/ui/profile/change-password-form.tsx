@@ -12,17 +12,17 @@ export type ChangePasswordFormData = {
     newPassword: string;
 };
 
-const validationSchema = Yup.object({
-    oldPassword: Yup.string().required('Old password is required'),
-    newPassword: Yup.string()
-        .min(7, 'New password must be at least 7 characters')
-        .required('New password is required'),
-});
-
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({ dictionary }: { dictionary: Record<string, any> }) {
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [notificationData, setNotificationData] = useState<NotificationDetails | null>(null);
+
+    const validationSchema = Yup.object({
+        oldPassword: Yup.string().required(dictionary.oldPasswordRequired),
+        newPassword: Yup.string()
+            .min(7, dictionary.atLeast7Characters)
+            .required(dictionary.newPasswordRequired),
+    });
 
     const handleSubmit = async (
         values: ChangePasswordFormData,
@@ -39,23 +39,25 @@ export default function ChangePasswordForm() {
             });
 
             const data = await response.json();
+            const errorMessage = data.error === 'Old password is incorrect.' ? dictionary.oldPasswordIncorrect : data.error;
 
             if (!response.ok) {
-                setErrors({ oldPassword: data.error || 'Something went wrong!' });
-                throw new Error(data.error || 'Something went wrong!');
+                setErrors({ oldPassword: errorMessage || dictionary.somethingWentWrong });
+                throw new Error(errorMessage || dictionary.somethingWentWrong);
             }
 
             setNotificationData({
-                title: 'Success!',
-                message: 'Password changed successfully.',
+                title: dictionary.success,
+                message: dictionary.passwordChangedSuccessfully,
                 status: 'success',
             });
 
             resetForm();
         } catch (error: any) {
+            const errorMessage = error.message === 'Old password is incorrect.' ? dictionary.oldPasswordIncorrect : error.message;
             setNotificationData({
-                title: 'Error!',
-                message: error.message || 'Failed to change password.',
+                title: dictionary.error,
+                message: errorMessage || dictionary.failedChangePassword,
                 status: 'error',
             });
         } finally {
@@ -64,7 +66,7 @@ export default function ChangePasswordForm() {
     };
 
     return (
-        <div>
+        <>
             <Formik<ChangePasswordFormData>
                 initialValues={{ oldPassword: '', newPassword: '' }}
                 validationSchema={validationSchema}
@@ -74,7 +76,7 @@ export default function ChangePasswordForm() {
                     <Form className="flex flex-col gap-4 w-full max-w-md bg-primary dark:bg-dark-strong/50 px-5 py-6 rounded-xl shadow-md">
                         <div className="relative">
                             <label htmlFor="oldPassword" className="block font-bold text-foreground mb-2">
-                                Old Password
+                                {dictionary.oldPassword}
                             </label>
                             <Field
                                 type={showOldPassword ? 'text' : 'password'}
@@ -100,7 +102,7 @@ export default function ChangePasswordForm() {
 
                         <div className="relative">
                             <label htmlFor="newPassword" className="block font-bold text-foreground mb-2">
-                                New Password
+                                {dictionary.newPassword}
                             </label>
                             <Field
                                 type={showNewPassword ? 'text' : 'password'}
@@ -131,13 +133,13 @@ export default function ChangePasswordForm() {
                                 isSubmitting ? 'cursor-wait' : ''
                             }`}
                         >
-                            {isSubmitting ? 'Sending...' : 'Change Password'}
+                            {isSubmitting ? dictionary.sending : dictionary.changePassword}
                         </button>
                     </Form>
                 )}
             </Formik>
 
             {notificationData ? <Notification {...notificationData} /> : null}
-        </div>
+        </>
     );
 }
