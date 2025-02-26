@@ -1,6 +1,14 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 
-export default function ThemeSwitcher({ theme, dictionary, toggleTheme }) {
+interface ThemeSwitcherProps {
+    theme: 'light' | 'dark';
+    dictionary: {
+        switchToDarkTheme: string;
+        switchToLightTheme: string;
+    };
+    toggleTheme: () => void;
+}
+export default function ThemeSwitcher({ theme, dictionary, toggleTheme }: ThemeSwitcherProps) {
     return (
         <button
             className="p-0 lg:p-1 rounded-xl"
