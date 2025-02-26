@@ -164,7 +164,7 @@ export default function ContactForm({
             : null;
 
     return (
-        <section className="w-3/4 lg:w-[600px]">
+        <section className="w-full max-w-xl">
             <h2 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl">
                 {dictionary.howCanIHelp}
             </h2>
