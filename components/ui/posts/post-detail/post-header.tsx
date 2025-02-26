@@ -30,7 +30,7 @@ export default function PostHeader({
             <div className="relative h-[200px] w-[200px] flex-shrink-0 self-center md:h-[260px] md:w-[260px]">
                 {!imageLoaded && (
                     <div
-                        className="square-skeleton animate-pulse rounded-xl bg-primary/10 h-[200px] w-[200px] md:h-[260px] md:w-[260px]" />
+                        className="square-skeleton animate-pulse rounded-xl bg-primary-contrast dark:bg-dark h-[200px] w-[200px] md:h-[260px] md:w-[260px]" />
                 )}
                 <Image
                     className={`rounded-xl object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
