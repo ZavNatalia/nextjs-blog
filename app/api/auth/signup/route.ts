@@ -39,11 +39,10 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        const result = await collection.insertOne({
+        await collection.insertOne({
             email,
             password: hashedPassword,
         });
-        console.log('result', result);
 
         return new Response(
             JSON.stringify({ message: `Created user with email ${email}` }),

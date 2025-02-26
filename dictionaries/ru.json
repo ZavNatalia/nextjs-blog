@@ -101,7 +101,9 @@
     "accountCreated": "Аккаунт создан!",
     "accountCreatedYouCanLogin": "Ваш аккаунт успешно создан. Теперь вы можете войти в систему.",
     "failedToLogIn": "Не удалось войти",
-    "sending": "Отправка..."
+    "sending": "Отправка...",
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль"
   },
   "posts-page": {
     "main": "Главная",

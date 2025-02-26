@@ -131,9 +131,9 @@ export default function AuthForm({ dictionary }: { dictionary: Record<string, an
                                     className="absolute right-3 top-10 text-accent"
                                 >
                                     {showPassword ? (
-                                        <EyeSlashIcon className="w-5 h-5 mr-1" />
+                                        <EyeSlashIcon className="w-5 h-5 mr-1" title={dictionary.hidePassword} />
                                     ) : (
-                                        <EyeIcon className="w-5 h-5 mr-1" />
+                                        <EyeIcon className="w-5 h-5 mr-1" title={dictionary.showPassword}/>
                                     )}
                                 </button>
                                 <ErrorMessage
@@ -161,9 +161,9 @@ export default function AuthForm({ dictionary }: { dictionary: Record<string, an
                                         className="absolute right-3 top-10 text-accent"
                                     >
                                         {showConfirmPassword ? (
-                                            <EyeSlashIcon className="w-5 h-5 mr-1" />
+                                            <EyeSlashIcon className="w-5 h-5 mr-1" title={dictionary.hidePassword}/>
                                         ) : (
-                                            <EyeIcon className="w-5 h-5 mr-1" />
+                                            <EyeIcon className="w-5 h-5 mr-1" title={dictionary.showPassword}/>
                                         )}
                                     </button>
                                     <ErrorMessage

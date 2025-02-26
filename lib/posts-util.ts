@@ -7,7 +7,6 @@ import { Locale } from '@/i18n-config';
 const postsDirectory = (lang: Locale) => path.join(process.cwd(), `posts/${lang}`);
 
 export function getPostsFiles(lang: Locale) {
-    console.log('lang', lang);
     return fs.readdirSync(postsDirectory(lang));
 }
 

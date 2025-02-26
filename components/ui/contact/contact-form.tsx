@@ -154,7 +154,6 @@ export default function ContactForm({
                     : dictionary.unknownError,
             );
             setRequestStatus('error');
-            console.log('Error! ', error);
         }
     };
 
