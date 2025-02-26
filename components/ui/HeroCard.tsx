@@ -8,12 +8,12 @@ export default function HeroCard({
 }) {
     return (
         <section className="flex max-w-md flex-col items-center gap-1 overflow-hidden rounded-3xl
-        px-6 pb-4 sm:px-10 md:gap-2 md:max-w-lg xl:max-w-xl shadow-md
+        px-6 pb-4 lg:pb-6 sm:px-10 md:gap-2 md:max-w-lg xl:max-w-xl shadow-md
         bg-gradient-to-b dark:bg-gradient-to-br
         from-orange-300 dark:from-purple-950/60
         via-orange-100 dark:via-pink-800/70
         to-white dark:to-yellow-700">
-            <div className="relative aspect-[16/9] w-full max-w-sm rounded-b-xl overflow-hidden">
+            <div className="relative w-full max-w-sm rounded-b-xl overflow-hidden">
                 <Image
                     src="/images/site/hero-desktop-dark.webp"
                     width={600}

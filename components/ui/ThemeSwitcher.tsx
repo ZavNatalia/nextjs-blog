@@ -16,9 +16,9 @@ export default function ThemeSwitcher({ theme, dictionary, toggleTheme }: ThemeS
             onClick={toggleTheme}
         >
             {theme === 'light' ? <MoonIcon
-                    className="icon-button w-7 lg:w-5 h-7 lg:h-5 " /> :
+                    className="icon-button w-8 lg:w-5 h-8 lg:h-5 " /> :
                 <SunIcon
-                    className="icon-button w-7 lg:w-5 h-7 lg:h-5 " />}
+                    className="icon-button w-8 lg:w-5 h-8 lg:h-5 " />}
         </button>
     )
 }
