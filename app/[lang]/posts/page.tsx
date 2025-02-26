@@ -21,7 +21,7 @@ export default async function Posts(props: {
     const { lang } = await props.params;
     const dictionary = await getDictionary(lang);
     const serverComponentDict = dictionary['server-component'] ?? {};
-    const posts = getAllPosts();
+    const posts = getAllPosts(lang);
 
     const breadcrumbs: Breadcrumb[] = [
         { title: serverComponentDict.main, link: '/' },

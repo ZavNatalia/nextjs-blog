@@ -100,4 +100,4 @@ npx @next/codemod@canary next-async-request-api .
 
 ---
 
-_Authors of [the original post](https://nextjs.org/blog/next-15): Delba de Oliveira, Jimmy Lai, Rich Haines_
+_Автор [оригинального поста](https://nextjs.org/blog/next-15): Delba de Oliveira, Jimmy Lai, Rich Haines_

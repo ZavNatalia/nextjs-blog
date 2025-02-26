@@ -48,4 +48,4 @@ next build --turbo
 
 ---
 
-_Authors of the original post: Delba de Oliveira, Lee Robinson_
+_Автор [оригинального поста](https://nextjs.org/blog/june-2023-update): Delba de Oliveira, Lee Robinson_

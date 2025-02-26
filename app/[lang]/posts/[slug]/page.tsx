@@ -14,13 +14,13 @@ interface PageProps {
 const substringText = (text: string, length = 50): string =>
     text.length > length ? `${text.substring(0, length)}...` : text;
 
-async function getPost(slug: string): Promise<IPost | null> {
-    return getPostData(slug);
+async function getPost(slug: string, lang: Locale): Promise<IPost | null> {
+    return getPostData(slug, lang);
 }
 
 export async function generateMetadata(props: PageProps) {
-    const params = await props.params;
-    const post = await getPost(params.slug);
+    const {lang, slug} = await props.params;
+    const post = await getPost(slug, lang);
     if (!post) return { title: 'Post Not Found' };
 
     return {
@@ -31,7 +31,7 @@ export async function generateMetadata(props: PageProps) {
 
 export default async function Page(props: PageProps) {
     const {slug, lang} = await props.params;
-    const post = await getPost(slug);
+    const post = await getPost(slug, lang);
 
     const dictionary = await getDictionary(lang)?.['posts-page'];
 
@@ -59,8 +59,9 @@ export default async function Page(props: PageProps) {
     );
 }
 
-export async function generateStaticParams() {
-    const postsFileNames = getPostsFiles();
+export async function generateStaticParams(props: PageProps) {
+    const {lang} = await props.params;
+    const postsFileNames = getPostsFiles(lang);
     return postsFileNames
         .map((fileName) => fileName.replace(/\.md$/, ''))
         .map((slug) => ({ slug }));

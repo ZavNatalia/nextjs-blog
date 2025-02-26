@@ -25,7 +25,7 @@ export default async function HomePage(props: {
     return (
         <main className="page">
             <HeroCard dictionary={serverComponentDict} />
-            <LatestNews />
+            <LatestNews lang={lang} />
             <Suspense fallback={<FeaturedPostsFallback />}>
                 <FeaturedPosts dictionary={serverComponentDict} lang={lang}/>
             </Suspense>
