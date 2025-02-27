@@ -12,6 +12,7 @@ export default function LocaleSwitcher() {
     const switchLocale = (locale: string) => {
         const newPath = pathname.replace(/^\/(en|ru)/, `/${locale}`);
         router.push(newPath);
+        router.refresh();
     };
 
     const renderSwitchButton = (locale: string) => {
