@@ -15,7 +15,7 @@ export function getPostData(postIdentifier: string, lang: Locale): IPost | null 
     const filePath = path.join(postsDirectory(lang), `${postSlug}.md`);
 
     if (!fs.existsSync(filePath)) {
-        console.error(`File not found: ${filePath}`);
+        console.log(`File not found: ${filePath}`);
         return null;
     }
 

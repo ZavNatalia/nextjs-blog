@@ -33,15 +33,15 @@ export default function UserProfile({ userEmail, dictionary }: { userEmail: stri
                         onClick={() => setActiveSection(key)}
                     >
                         <Icon className={`w-6 h-6 mb-2 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`} />
-                        <span className="text-sm md:text-lg">{dictionary[label]}</span>
+                        <span className="text-sm">{dictionary[label]}</span>
                     </button>
                 ))}
             </nav>
 
             <div className="flex flex-col md:flex-row gap-6">
                 {/* Sidebar for Desktop */}
-                <aside className="hidden md:block w-1/4 bg-primary-contrast/70 dark:bg-dark-soft/20 h-fit p-3 lg:p-5 rounded-2xl shadow-lg backdrop-blur-md">
-                    <nav className="flex flex-col gap-3">
+                <aside className="hidden md:block w-1/4 min-w-fit bg-primary-contrast/70 dark:bg-dark-soft/20 h-fit p-3 lg:p-5 rounded-2xl shadow-lg backdrop-blur-md">
+                    <nav className="flex flex-col gap-2 lg:gap-3">
                         {SECTIONS.map(({ key, label, icon: Icon }) => (
                             <button
                                 key={key}
