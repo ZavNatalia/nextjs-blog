@@ -164,9 +164,6 @@ export default function ContactForm({
 
     return (
         <section className="w-full max-w-xl flex-1">
-            <h2 className="relative mb-6 text-center text-2xl font-bold lg:text-4xl">
-                {dictionary.howCanIHelp}
-            </h2>
             <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField
