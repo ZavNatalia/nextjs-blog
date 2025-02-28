@@ -35,7 +35,7 @@ export default function CookieConsent() {
             <p className="text-sm">
                 {privacyDict.weUseCookies}&nbsp;
                 <Link href="/privacy-policy" className="text-blue-500 dark:text-blue-400 underline">
-                    {privacyDict.privacyPolicy}
+                    {privacyDict.ourPrivacyPolicy}
                 </Link>.
             </p>
             <div className="flex justify-end">
