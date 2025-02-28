@@ -8,8 +8,10 @@ export function SecuritySection({ dictionary }: { dictionary: Record<string, any
             <p className="mb-3 text-center md:text-start">{dictionary.wantToChangeYourPassword}</p>
             <ChangePasswordForm dictionary={dictionary} />
             <div className="flex mt-3 text-sm text-foreground-muted dark:text-foreground-onDarkMuted ">
-                <p>{dictionary.reviewPrivacyPolicy}&nbsp;</p>
-                <Link href="/privacy-policy" className="text-blue-700 dark:text-blue-400">{dictionary.here}</Link>.
+                <p>
+                    {dictionary.reviewPrivacyPolicy}&nbsp;
+                    <Link href="/privacy-policy" className="text-blue-700 dark:text-blue-400">{dictionary.here}</Link>.
+                </p>
             </div>
         </div>
     );

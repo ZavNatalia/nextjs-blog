@@ -62,12 +62,12 @@ export default function MainNavigation() {
         return (
             <li key="profile">
                 <Link href="/profile" title={dictionary.userProfile} className='rounded-full' onClick={onClick}>
-                    <div className="relative h-12 lg:h-10 w-12 lg:w-10 mx-2 overflow-hidden rounded-full shadow-md
+                    <div className="relative h-12 md:h-10 w-12 md:w-10 mx-2 overflow-hidden rounded-full shadow-md
                         transition-colors duration-300
                         bg-primary
                         hover:bg-accent hover:dark:bg-accent-dark
                         border-2 border-border-dark/70 hover:border-accent
-                        dark:border-border-light lg:dark:border-border-dark hover:dark:border-accent-dark">
+                        dark:border-border-light md:dark:border-border-dark hover:dark:border-accent-dark">
                         <Image src="/images/site/default-avatar.png" alt="User avatar" width={96} height={96}
                                className="rounded-full" priority />
                     </div>
@@ -78,7 +78,7 @@ export default function MainNavigation() {
 
     return (
         <header className="bg-primary px-4 dark:bg-dark-strong md:sticky md:top-0 w-full z-10 shadow-lg">
-            <div className="container mx-auto h-[88px] flex items-center justify-between p-4">
+            <div className="max-w-[90rem] mx-auto h-[88px] flex items-center justify-between p-4">
                 <Link href="/" aria-label="Home" className="mr-3">
                     <Logo />
                 </Link>
@@ -86,21 +86,21 @@ export default function MainNavigation() {
                 {/* Menu button for mobile devices */}
                 <button
                     onClick={toggleMenu}
-                    className="block lg:hidden p-2 text-foreground transition"
+                    className="block md:hidden p-2 text-foreground transition"
                 >
                     {isOpen ? <XMarkIcon className="w-8 h-8" /> : <Bars4Icon className="w-8 h-8 " />}
                 </button>
 
                 {/* Desktop menu */}
-                <nav className="hidden lg:flex">
-                    <ul className="flex items-center gap-1 lg:gap-2 text-md">
+                <nav className="hidden md:flex">
+                    <ul className="flex items-center gap-1 md:gap-2 text-md">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label))}
                         {status === 'loading' && <ProfileLoadingSpinner/>}
                         {!session && status !== 'loading' && renderListItem('/auth', 'auth')}
 
                         {status === 'authenticated' && renderProfileButton()}
                     </ul>
-                    <div className="flex items-center gap-1 lg:gap-2 ml-4 text-muted-dark dark:text-muted-light">
+                    <div className="flex items-center gap-1 md:gap-2 ml-4 text-muted-dark dark:text-muted-light">
                         <span>|</span>
                         <LocaleSwitcher />
                         <span>|</span>
@@ -112,7 +112,7 @@ export default function MainNavigation() {
             {/* Mobile menu */}
             {isOpen && (
                 <nav
-                    className="absolute top-20 left-0 w-full bg-primary-contrast dark:bg-dark-soft p-6 shadow-lg lg:hidden">
+                    className="absolute top-20 left-0 w-full bg-primary-contrast dark:bg-dark-soft p-6 shadow-lg md:hidden">
                     <ul className="flex flex-col gap-4 text-lg">
                         {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label, toggleMenu))}
                         {!session && renderListItem('/auth', 'auth', toggleMenu)}
