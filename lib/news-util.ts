@@ -23,7 +23,7 @@ export function getNewsData(newsIdentifier: string, lang: Locale): INews | null 
     const filePath = path.join(newsDirectory(lang), `${newsSlug}.md`);
 
     if (!fs.existsSync(filePath)) {
-        console.error(`File not found: ${filePath}`);
+        console.log(`File not found: ${filePath}`);
         return null;
     }
 

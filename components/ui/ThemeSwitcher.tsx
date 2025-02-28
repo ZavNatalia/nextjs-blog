@@ -11,14 +11,14 @@ interface ThemeSwitcherProps {
 export default function ThemeSwitcher({ theme, dictionary, toggleTheme }: ThemeSwitcherProps) {
     return (
         <button
-            className="p-0 lg:p-1 rounded-xl"
+            className="p-0 md:p-1 rounded-xl"
             title={theme === 'light' ? dictionary.switchToDarkTheme : dictionary.switchToLightTheme}
             onClick={toggleTheme}
         >
             {theme === 'light' ? <MoonIcon
-                    className="icon-button w-8 lg:w-5 h-8 lg:h-5 " /> :
+                    className="icon-button w-8 md:w-5 h-8 md:h-5 " /> :
                 <SunIcon
-                    className="icon-button w-8 lg:w-5 h-8 lg:h-5 " />}
+                    className="icon-button w-8 md:w-5 h-8 md:h-5 " />}
         </button>
     )
 }

@@ -14,9 +14,11 @@
     "cancel": "Cancel"
   },
   "privacy-policy-page": {
-    "pageDescription": "pageDescription",
+    "main": "Main",
     "privacyPolicy": "Privacy Policy",
-    "weUseCookies": "We use cookies to improve the website's functionality. By continuing to use this site, you agree to our",
+    "pageDescription": "Our Privacy Policy explains what data we collect, how we use it, and your rights regarding personal information. Learn about our approach to security, data retention, and cookie usage.",
+    "weUseCookies": "We use cookies to improve the website's functionality. By continuing to use this site, you agree to",
+    "ourPrivacyPolicy": "our Privacy Policy",
     "ok": "Ok"
   },
   "navigation": {
@@ -133,5 +135,10 @@
     "privacyPolicy": "Privacy Policy",
     "consentProcessingPersonalData": "and consent to the processing of your personal data in accordance with the stated terms.",
     "somethingWentWrong": "Something went wrong!"
+  },
+  "not-found": {
+    "notFound": "Oops! Page Not Found.",
+    "weCouldNotFindPage": "Sorry, we couldn't find the page or post you were looking for.",
+    "returnHome": "Return Home"
   }
 }
