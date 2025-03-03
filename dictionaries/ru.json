@@ -113,7 +113,8 @@
         "allPosts": "Все посты",
         "readMore": "Читать далее",
         "pageDescription": "Список статей по программированию",
-        "goToAllPosts": "Перейти ко всем постам"
+        "goToAllPosts": "Перейти ко всем постам",
+        "noPosts": "Постов пока нет"
     },
     "contact-page": {
         "contactMe": "Обратная связь",

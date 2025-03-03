@@ -9,7 +9,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = getDictionary(lang)?.['auth-page'];
+    const dictionary = await getDictionary(lang)?.['auth-page'];
     return {
         title: dictionary.signIn,
         description: dictionary.pageDescription,
@@ -26,16 +26,17 @@ export default async function AuthPage(props: {
     }
 
     const { lang } = await props.params;
-    const dictionary = getDictionary(lang)?.dictionary['auth-page'];
+    const dictionary = await getDictionary(lang);
+    const authDict = dictionary['auth-page'];
 
     const breadcrumbs: Breadcrumb[] = [
-        { title: dictionary.main, link: '/' },
-        { title: dictionary.auth, link: '/auth' },
+        { title: authDict.main, link: '/' },
+        { title: authDict.auth, link: '/auth' },
     ];
     return (
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
-            <AuthForm dictionary={dictionary} />
+            <AuthForm dictionary={authDict} />
         </main>
     );
 }

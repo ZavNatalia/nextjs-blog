@@ -112,7 +112,8 @@
         "allPosts": "All posts",
         "readMore": "Read more",
         "pageDescription": "A list of all programming-related tutorials and posts",
-        "goToAllPosts": "Go to all posts"
+        "goToAllPosts": "Go to all posts",
+        "noPosts": "No posts available yet"
     },
     "contact-page": {
         "main": "main",
