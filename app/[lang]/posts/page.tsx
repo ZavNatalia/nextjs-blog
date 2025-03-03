@@ -5,21 +5,21 @@ import { getDictionary } from '@/get-dictionary';
 import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 
 export async function generateMetadata(props: {
-    params: Promise<{ lang: Locale }>
+    params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['posts-page'];
+    const dictionary = getDictionary(lang)?.['posts-page'];
     return {
         title: dictionary.allPosts,
         description: dictionary.pageDescription,
-    }
+    };
 }
 
 export default async function Posts(props: {
-    params: Promise<{ lang: Locale }>
+    params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['posts-page'];
+    const dictionary = getDictionary(lang)?.['posts-page'];
     const posts = getAllPosts(lang);
 
     const breadcrumbs: Breadcrumb[] = [

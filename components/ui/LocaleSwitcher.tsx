@@ -22,20 +22,16 @@ export default function LocaleSwitcher() {
                 title={locale}
                 key={locale}
                 onClick={() => switchLocale(locale)}
-                className={`icon-button border-2 border-transparent rounded-2xl md:rounded-xl px-2 py-1 md:p-1 text-md md:text-xs transition-colors duration-300
-                    ${isActive 
-                    ? 'border-muted md:border-muted-light dark:border-muted-dark/80 bg-primary-light/80 dark:bg-dark/80 text-foreground' 
-                    : ''}
-                    `}
+                className={`icon-button text-md rounded-2xl border-2 border-transparent px-2 py-1 transition-colors duration-300 md:rounded-xl md:p-1 md:text-xs ${
+                    isActive
+                        ? 'border-muted bg-primary-light/80 text-foreground dark:border-muted-dark/80 dark:bg-dark/80 md:border-muted-light'
+                        : ''
+                } `}
             >
                 {locale.toUpperCase()}
             </button>
         );
     };
 
-    return (
-        <div className="flex gap-2">
-            {locales.map(renderSwitchButton)}
-        </div>
-    );
+    return <div className="flex gap-2">{locales.map(renderSwitchButton)}</div>;
 }

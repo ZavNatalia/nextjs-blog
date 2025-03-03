@@ -9,7 +9,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
-import { DocumentDuplicateIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/24/outline';
+import {
+    DocumentDuplicateIcon,
+    ClipboardDocumentCheckIcon,
+} from '@heroicons/react/24/outline';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);
@@ -60,15 +63,15 @@ export default function PostContent({ post }: { post: IPost }) {
             const isCopied = copiedCode === children;
 
             return (
-                <div className="flex flex-col overflow-x-auto rounded-xl bg-primary-contrast dark:bg-dark/50 p-2 text-sm md:text-lg lg:py-3 lg:px-5">
+                <div className="flex flex-col overflow-x-auto rounded-xl bg-primary-contrast p-2 text-sm dark:bg-dark/50 md:text-lg lg:px-5 lg:py-3">
                     <button
                         className="self-end text-foreground hover:text-accent-dark dark:text-foreground-onDarkMuted dark:hover:text-accent"
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
                         {isCopied ? (
-                            <ClipboardDocumentCheckIcon className="w-6 h-6 text-green-600 dark:text-green-500 cursor-default"/>
+                            <ClipboardDocumentCheckIcon className="h-6 w-6 cursor-default text-green-600 dark:text-green-500" />
                         ) : (
-                            <DocumentDuplicateIcon className="w-6 h-6" />
+                            <DocumentDuplicateIcon className="h-6 w-6" />
                         )}
                     </button>
                     <SyntaxHighlighter
@@ -84,14 +87,14 @@ export default function PostContent({ post }: { post: IPost }) {
     };
 
     return (
-        <article className="mx-auto w-full rounded-3xl bg-primary-contrast/40 dark:bg-dark-soft/50 p-3 md:p-4 lg:max-w-5xl lg:p-10">
+        <article className="mx-auto w-full rounded-3xl bg-primary-contrast/40 p-3 dark:bg-dark-soft/50 md:p-4 lg:max-w-5xl lg:p-10">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 components={{
                     img: customRenderers.img,
                     code: customRenderers.code,
                 }}
-                className="markdown-content prose-sm lg:prose-lg dark:prose-invert"
+                className="markdown-content prose-sm dark:prose-invert lg:prose-lg"
             >
                 {content}
             </ReactMarkdown>

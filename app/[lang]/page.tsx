@@ -15,17 +15,17 @@ const FeaturedPostsFallback: React.FC = () => (
 );
 
 export default async function HomePage(props: {
-    params: Promise<{ lang: Locale }>
+    params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['server-component'];
+    const dictionary = getDictionary(lang)?.['server-component'];
 
     return (
         <main className="page">
             <HeroCard dictionary={dictionary} />
             <LatestNews lang={lang} dictionary={dictionary} />
             <Suspense fallback={<FeaturedPostsFallback />}>
-                <FeaturedPosts dictionary={dictionary} lang={lang}/>
+                <FeaturedPosts dictionary={dictionary} lang={lang} />
             </Suspense>
         </main>
     );

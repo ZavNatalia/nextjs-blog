@@ -12,10 +12,15 @@ export type ChangePasswordFormData = {
     newPassword: string;
 };
 
-export default function ChangePasswordForm({ dictionary }: { dictionary: Record<string, any> }) {
+export default function ChangePasswordForm({
+    dictionary,
+}: {
+    dictionary: Record<string, any>;
+}) {
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
-    const [notificationData, setNotificationData] = useState<NotificationDetails | null>(null);
+    const [notificationData, setNotificationData] =
+        useState<NotificationDetails | null>(null);
 
     const validationSchema = Yup.object({
         oldPassword: Yup.string().required(dictionary.oldPasswordRequired),
@@ -26,7 +31,11 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
 
     const handleSubmit = async (
         values: ChangePasswordFormData,
-        { resetForm, setSubmitting, setErrors }: FormikHelpers<ChangePasswordFormData>
+        {
+            resetForm,
+            setSubmitting,
+            setErrors,
+        }: FormikHelpers<ChangePasswordFormData>,
     ) => {
         setNotificationData(null);
         setSubmitting(true);
@@ -39,10 +48,15 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
             });
 
             const data = await response.json();
-            const errorMessage = data.error === 'Old password is incorrect.' ? dictionary.oldPasswordIncorrect : data.error;
+            const errorMessage =
+                data.error === 'Old password is incorrect.'
+                    ? dictionary.oldPasswordIncorrect
+                    : data.error;
 
             if (!response.ok) {
-                setErrors({ oldPassword: errorMessage || dictionary.somethingWentWrong });
+                setErrors({
+                    oldPassword: errorMessage || dictionary.somethingWentWrong,
+                });
                 throw new Error(errorMessage || dictionary.somethingWentWrong);
             }
 
@@ -54,7 +68,10 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
 
             resetForm();
         } catch (error: any) {
-            const errorMessage = error.message === 'Old password is incorrect.' ? dictionary.oldPasswordIncorrect : error.message;
+            const errorMessage =
+                error.message === 'Old password is incorrect.'
+                    ? dictionary.oldPasswordIncorrect
+                    : error.message;
             setNotificationData({
                 title: dictionary.error,
                 message: errorMessage || dictionary.failedChangePassword,
@@ -73,9 +90,12 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="flex flex-col gap-4 w-full max-w-md bg-primary dark:bg-dark-strong/50 px-5 py-6 rounded-xl shadow-md">
+                    <Form className="flex w-full max-w-md flex-col gap-4 rounded-xl bg-primary px-5 py-6 shadow-md dark:bg-dark-strong/50">
                         <div className="relative">
-                            <label htmlFor="oldPassword" className="block font-bold text-foreground mb-2">
+                            <label
+                                htmlFor="oldPassword"
+                                className="mb-2 block font-bold text-foreground"
+                            >
                                 {dictionary.oldPassword}
                             </label>
                             <Field
@@ -86,22 +106,33 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
                             />
                             <button
                                 type="button"
-                                onClick={() => setShowOldPassword((prev) => !prev)}
+                                onClick={() =>
+                                    setShowOldPassword((prev) => !prev)
+                                }
                                 className={`absolute right-2 top-12 text-accent ${
-                                    values.oldPassword.length > 0 ? 'block' : 'hidden'
+                                    values.oldPassword.length > 0
+                                        ? 'block'
+                                        : 'hidden'
                                 }`}
                             >
                                 {showOldPassword ? (
-                                    <EyeSlashIcon className="w-5 h-5 mr-1" />
+                                    <EyeSlashIcon className="mr-1 h-5 w-5" />
                                 ) : (
-                                    <EyeIcon className="w-5 h-5 mr-1" />
+                                    <EyeIcon className="mr-1 h-5 w-5" />
                                 )}
                             </button>
-                            <ErrorMessage name="oldPassword" component="p" className="mt-2 text-sm text-error" />
+                            <ErrorMessage
+                                name="oldPassword"
+                                component="p"
+                                className="mt-2 text-sm text-error"
+                            />
                         </div>
 
                         <div className="relative">
-                            <label htmlFor="newPassword" className="block font-bold text-foreground mb-2">
+                            <label
+                                htmlFor="newPassword"
+                                className="mb-2 block font-bold text-foreground"
+                            >
                                 {dictionary.newPassword}
                             </label>
                             <Field
@@ -112,18 +143,26 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
                             />
                             <button
                                 type="button"
-                                onClick={() => setShowNewPassword((prev) => !prev)}
+                                onClick={() =>
+                                    setShowNewPassword((prev) => !prev)
+                                }
                                 className={`absolute right-2 top-12 text-accent ${
-                                    values.newPassword.length > 0 ? 'block' : 'hidden'
+                                    values.newPassword.length > 0
+                                        ? 'block'
+                                        : 'hidden'
                                 }`}
                             >
                                 {showNewPassword ? (
-                                    <EyeSlashIcon className="w-5 h-5 mr-1" />
+                                    <EyeSlashIcon className="mr-1 h-5 w-5" />
                                 ) : (
-                                    <EyeIcon className="w-5 h-5 mr-1" />
+                                    <EyeIcon className="mr-1 h-5 w-5" />
                                 )}
                             </button>
-                            <ErrorMessage name="newPassword" component="p" className="mt-2 text-sm text-error" />
+                            <ErrorMessage
+                                name="newPassword"
+                                component="p"
+                                className="mt-2 text-sm text-error"
+                            />
                         </div>
 
                         <button
@@ -133,7 +172,9 @@ export default function ChangePasswordForm({ dictionary }: { dictionary: Record<
                                 isSubmitting ? 'cursor-wait' : ''
                             }`}
                         >
-                            {isSubmitting ? dictionary.sending : dictionary.changePassword}
+                            {isSubmitting
+                                ? dictionary.sending
+                                : dictionary.changePassword}
                         </button>
                     </Form>
                 )}

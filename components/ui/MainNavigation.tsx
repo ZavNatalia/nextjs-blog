@@ -17,9 +17,9 @@ interface NavigationItem {
 }
 
 function ProfileLoadingSpinner() {
-    return <div className="animate-spin h-10 mx-2 w-10 rounded-full border-2
-    border-border-dark/70 border-t-border-dark/40
-    dark:border-border-dark dark:border-t-border-dark/40"/>;
+    return (
+        <div className="mx-2 h-10 w-10 animate-spin rounded-full border-2 border-border-dark/70 border-t-border-dark/40 dark:border-border-dark dark:border-t-border-dark/40" />
+    );
 }
 
 const NAVIGATION_ITEMS: NavigationItem[] = [
@@ -37,9 +37,13 @@ export default function MainNavigation() {
 
     const toggleMenu = () => setIsOpen((prev) => !prev);
 
-    const renderListItem = (href: string, label: string, onClick?: () => void) => {
-
-        const normalizedPathname = pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
+    const renderListItem = (
+        href: string,
+        label: string,
+        onClick?: () => void,
+    ) => {
+        const normalizedPathname =
+            pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
         const isActive = normalizedPathname === href;
 
         return (
@@ -47,9 +51,7 @@ export default function MainNavigation() {
                 <Link
                     href={href}
                     title={dictionary[label]}
-                    className={`block text-md xl:text-lg transition-colors duration-200 
-                    px-2 py-2 rounded-xl hover:text-accent dark:hover:text-accent
-                    ${isActive ? 'text-accent' : 'text-foreground dark:text-foreground-onDark'}`}
+                    className={`text-md block rounded-xl px-2 py-2 transition-colors duration-200 hover:text-accent dark:hover:text-accent xl:text-lg ${isActive ? 'text-accent' : 'text-foreground dark:text-foreground-onDark'}`}
                     onClick={onClick}
                 >
                     {dictionary[label]}
@@ -61,15 +63,21 @@ export default function MainNavigation() {
     const renderProfileButton = (onClick?: () => void) => {
         return (
             <li key="profile">
-                <Link href="/profile" title={dictionary.userProfile} className='rounded-full' onClick={onClick}>
-                    <div className="relative h-12 md:h-10 w-12 md:w-10 mx-2 overflow-hidden rounded-full shadow-md
-                        transition-colors duration-300
-                        bg-primary
-                        hover:bg-accent hover:dark:bg-accent-dark
-                        border-2 border-border-dark/70 hover:border-accent
-                        dark:border-border-light md:dark:border-border-dark hover:dark:border-accent-dark">
-                        <Image src="/images/site/default-avatar.png" alt="User avatar" width={96} height={96}
-                               className="rounded-full" priority />
+                <Link
+                    href="/profile"
+                    title={dictionary.userProfile}
+                    className="rounded-full"
+                    onClick={onClick}
+                >
+                    <div className="relative mx-2 h-12 w-12 overflow-hidden rounded-full border-2 border-border-dark/70 bg-primary shadow-md transition-colors duration-300 hover:border-accent hover:bg-accent dark:border-border-light hover:dark:border-accent-dark hover:dark:bg-accent-dark md:h-10 md:w-10 md:dark:border-border-dark">
+                        <Image
+                            src="/images/site/default-avatar.png"
+                            alt="User avatar"
+                            width={96}
+                            height={96}
+                            className="rounded-full"
+                            priority
+                        />
                     </div>
                 </Link>
             </li>
@@ -77,8 +85,8 @@ export default function MainNavigation() {
     };
 
     return (
-        <header className="bg-primary px-4 dark:bg-dark-strong md:sticky md:top-0 w-full z-10 shadow-lg">
-            <div className="max-w-[90rem] mx-auto h-[88px] flex items-center justify-between p-4">
+        <header className="z-10 w-full bg-primary px-4 shadow-lg dark:bg-dark-strong md:sticky md:top-0">
+            <div className="mx-auto flex h-[88px] max-w-[90rem] items-center justify-between p-4">
                 <Link href="/" aria-label="Home" className="mr-3">
                     <Logo />
                 </Link>
@@ -86,39 +94,58 @@ export default function MainNavigation() {
                 {/* Menu button for mobile devices */}
                 <button
                     onClick={toggleMenu}
-                    className="block md:hidden p-2 text-foreground transition"
+                    className="block p-2 text-foreground transition md:hidden"
                 >
-                    {isOpen ? <XMarkIcon className="w-8 h-8" /> : <Bars4Icon className="w-8 h-8 " />}
+                    {isOpen ? (
+                        <XMarkIcon className="h-8 w-8" />
+                    ) : (
+                        <Bars4Icon className="h-8 w-8" />
+                    )}
                 </button>
 
                 {/* Desktop menu */}
                 <nav className="hidden md:flex">
-                    <ul className="flex items-center gap-1 md:gap-2 text-md">
-                        {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label))}
-                        {status === 'loading' && <ProfileLoadingSpinner/>}
-                        {!session && status !== 'loading' && renderListItem('/auth', 'auth')}
+                    <ul className="text-md flex items-center gap-1 md:gap-2">
+                        {NAVIGATION_ITEMS.map(({ href, label }) =>
+                            renderListItem(href, label),
+                        )}
+                        {status === 'loading' && <ProfileLoadingSpinner />}
+                        {!session &&
+                            status !== 'loading' &&
+                            renderListItem('/auth', 'auth')}
 
                         {status === 'authenticated' && renderProfileButton()}
                     </ul>
-                    <div className="flex items-center gap-1 md:gap-2 ml-4 text-muted-dark dark:text-muted-light">
+                    <div className="ml-4 flex items-center gap-1 text-muted-dark dark:text-muted-light md:gap-2">
                         <span>|</span>
                         <LocaleSwitcher />
                         <span>|</span>
-                        <ThemeSwitcher theme={theme} dictionary={dictionary} toggleTheme={toggleTheme}/>
+                        <ThemeSwitcher
+                            theme={theme}
+                            dictionary={dictionary}
+                            toggleTheme={toggleTheme}
+                        />
                     </div>
                 </nav>
             </div>
 
             {/* Mobile menu */}
             {isOpen && (
-                <nav
-                    className="absolute top-20 left-0 w-full bg-primary-contrast dark:bg-dark-soft p-6 shadow-lg md:hidden">
+                <nav className="absolute left-0 top-20 w-full bg-primary-contrast p-6 shadow-lg dark:bg-dark-soft md:hidden">
                     <ul className="flex flex-col gap-4 text-lg">
-                        {NAVIGATION_ITEMS.map(({ href, label }) => renderListItem(href, label, toggleMenu))}
-                        {!session && renderListItem('/auth', 'auth', toggleMenu)}
-                        {status === 'authenticated' && renderProfileButton(toggleMenu)}
-                        <hr className="border-t border-border dark:border-border my-2" />
-                        <ThemeSwitcher theme={theme} dictionary={dictionary} toggleTheme={toggleTheme}/>
+                        {NAVIGATION_ITEMS.map(({ href, label }) =>
+                            renderListItem(href, label, toggleMenu),
+                        )}
+                        {!session &&
+                            renderListItem('/auth', 'auth', toggleMenu)}
+                        {status === 'authenticated' &&
+                            renderProfileButton(toggleMenu)}
+                        <hr className="my-2 border-t border-border dark:border-border" />
+                        <ThemeSwitcher
+                            theme={theme}
+                            dictionary={dictionary}
+                            toggleTheme={toggleTheme}
+                        />
                         <LocaleSwitcher />
                     </ul>
                 </nav>

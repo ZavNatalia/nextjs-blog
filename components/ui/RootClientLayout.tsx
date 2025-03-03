@@ -7,16 +7,18 @@ import Footer from '@/components/ui/Footer';
 import { TranslationProvider } from '@/hooks/useDictionary';
 
 export default function RootClientLayout({
-                                             dictionary,
-                                             children,
-                                         }: {
-    dictionary: Record<string, any>,
-    children: ReactNode
+    dictionary,
+    children,
+}: {
+    dictionary: Record<string, any>;
+    children: ReactNode;
 }) {
     return (
-        <SessionProvider refetchOnWindowFocus={false}
-                         refetchInterval={0}
-                         refetchWhenOffline={false}>
+        <SessionProvider
+            refetchOnWindowFocus={false}
+            refetchInterval={0}
+            refetchWhenOffline={false}
+        >
             <TranslationProvider dictionary={dictionary}>
                 <div className="flex min-h-screen flex-col">
                     <MainNavigation />

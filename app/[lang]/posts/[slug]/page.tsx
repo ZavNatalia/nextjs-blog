@@ -8,7 +8,7 @@ import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 
 interface PageProps {
-    params: Promise<{ slug: string, lang: Locale }>
+    params: Promise<{ slug: string; lang: Locale }>;
 }
 
 const substringText = (text: string, length = 50): string =>
@@ -19,7 +19,7 @@ async function getPost(slug: string, lang: Locale): Promise<IPost | null> {
 }
 
 export async function generateMetadata(props: PageProps) {
-    const {lang, slug} = await props.params;
+    const { lang, slug } = await props.params;
     const post = await getPost(slug, lang);
     if (!post) return { title: 'Post Not Found' };
 
@@ -30,10 +30,10 @@ export async function generateMetadata(props: PageProps) {
 }
 
 export default async function Page(props: PageProps) {
-    const {slug, lang} = await props.params;
+    const { slug, lang } = await props.params;
     const post = await getPost(slug, lang);
 
-    const dictionary = await getDictionary(lang)?.['posts-page'];
+    const dictionary = getDictionary(lang)?.['posts-page'];
 
     if (!post) {
         notFound();
@@ -60,7 +60,7 @@ export default async function Page(props: PageProps) {
 }
 
 export async function generateStaticParams(props: PageProps) {
-    const {lang} = await props.params;
+    const { lang } = await props.params;
     const postsFileNames = getPostsFiles(lang);
     return postsFileNames
         .map((fileName) => fileName.replace(/\.md$/, ''))

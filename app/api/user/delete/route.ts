@@ -11,7 +11,7 @@ export async function DELETE() {
                 {
                     status: 401,
                     headers: { 'Content-Type': 'application/json' },
-                }
+                },
             );
         }
 
@@ -23,16 +23,15 @@ export async function DELETE() {
 
         const user = await usersCollection.findOne({ email: userEmail });
         if (!user) {
-            return new Response(
-                JSON.stringify({ error: 'User not found.' }),
-                {
-                    status: 404,
-                    headers: { 'Content-Type': 'application/json' },
-                }
-            );
+            return new Response(JSON.stringify({ error: 'User not found.' }), {
+                status: 404,
+                headers: { 'Content-Type': 'application/json' },
+            });
         }
 
-        const deleteResult = await usersCollection.deleteOne({ email: userEmail });
+        const deleteResult = await usersCollection.deleteOne({
+            email: userEmail,
+        });
 
         await client.close();
 
@@ -42,7 +41,7 @@ export async function DELETE() {
                 {
                     status: 500,
                     headers: { 'Content-Type': 'application/json' },
-                }
+                },
             );
         }
 
@@ -51,7 +50,7 @@ export async function DELETE() {
             {
                 status: 200,
                 headers: { 'Content-Type': 'application/json' },
-            }
+            },
         );
     } catch (error) {
         console.error('Error deleting user:', error);
@@ -60,7 +59,7 @@ export async function DELETE() {
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },
-            }
+            },
         );
     }
 }

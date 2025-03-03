@@ -20,9 +20,9 @@ HTTP is an application-layer protocol within the Open Systems Interconnection (O
 
 Similarly, the server responds with different HTTP status codes and data. Here are some examples:
 
-- **200** – OK
-- **400** – Bad Request
-- **404** – Resource Not Found
+-   **200** – OK
+-   **400** – Bad Request
+-   **404** – Resource Not Found
 
 This request-response interaction happens behind the scenes for users. It is the fundamental way browsers and web servers communicate, ensuring the World Wide Web functions smoothly.
 

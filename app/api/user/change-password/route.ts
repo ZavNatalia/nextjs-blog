@@ -31,7 +31,9 @@ export async function PATCH(req: NextRequest) {
         const db = client.db();
         const usersCollection = db.collection('users');
 
-        const existingUser = await usersCollection.findOne({ email: userEmail });
+        const existingUser = await usersCollection.findOne({
+            email: userEmail,
+        });
 
         if (!existingUser) {
             return new Response(JSON.stringify({ error: 'User not found.' }), {
@@ -40,14 +42,17 @@ export async function PATCH(req: NextRequest) {
             });
         }
 
-        const passwordsAreEqual = await verifyPassword(oldPassword, existingUser.password);
+        const passwordsAreEqual = await verifyPassword(
+            oldPassword,
+            existingUser.password,
+        );
         if (!passwordsAreEqual) {
             return new Response(
                 JSON.stringify({ error: 'Old password is incorrect.' }),
                 {
                     status: 403,
                     headers: { 'Content-Type': 'application/json' },
-                }
+                },
             );
         }
 
@@ -55,7 +60,7 @@ export async function PATCH(req: NextRequest) {
 
         await usersCollection.updateOne(
             { email: userEmail },
-            { $set: { password: hashedPassword } }
+            { $set: { password: hashedPassword } },
         );
 
         return new Response(
@@ -63,7 +68,7 @@ export async function PATCH(req: NextRequest) {
             {
                 status: 200,
                 headers: { 'Content-Type': 'application/json' },
-            }
+            },
         );
     } catch (error) {
         console.error('Error in handler:', error);
@@ -72,7 +77,7 @@ export async function PATCH(req: NextRequest) {
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },
-            }
+            },
         );
     } finally {
         if (client) {
