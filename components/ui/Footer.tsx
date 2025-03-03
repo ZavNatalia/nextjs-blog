@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Footer() {
     const currentYear = new Date().getFullYear();
     return (
-        <div className="flex gap-2 w-full items-center justify-center bg-primary p-3 dark:bg-dark">
+        <div className="flex w-full items-center justify-center gap-2 bg-primary p-3 dark:bg-dark">
             <p className="text-xs text-muted-light">
                 © {currentYear} Natalia&apos;s Next blog
             </p>
@@ -11,10 +11,10 @@ export default function Footer() {
                 href="https://github.com/ZavNatalia"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-light hover:text-accent dark:hover:text-accent-dark transition"
+                className="flex items-center gap-2 text-muted-light transition hover:text-accent dark:hover:text-accent-dark"
             >
                 <svg
-                    className="w-5 h-5"
+                    className="h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
