@@ -9,9 +9,7 @@ export default function NewsItemContent({ newsItem }: { newsItem: INews }) {
     return (
         <li className="lg:max-w-4xl">
             <NewsItemHeader title={title} date={date} imagePath={imagePath} />
-            <ReactMarkdown
-                className="markdown-content prose-sm lg:prose-lg dark:prose-invert"
-            >
+            <ReactMarkdown className="markdown-content prose-sm dark:prose-invert lg:prose-lg">
                 {content}
             </ReactMarkdown>
         </li>

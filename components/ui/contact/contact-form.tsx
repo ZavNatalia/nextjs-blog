@@ -1,6 +1,9 @@
 'use client';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import Notification, { NotificationDetails, NotificationStatus } from '@/components/ui/Notification';
+import Notification, {
+    NotificationDetails,
+    NotificationStatus,
+} from '@/components/ui/Notification';
 import { getDictionary } from '@/get-dictionary';
 
 type ContactDetails = {
@@ -40,15 +43,15 @@ async function sendContactDetails(
 }
 
 function InputField({
-                        id,
-                        label,
-                        type,
-                        value,
-                        onChange,
-                        placeholder,
-                        required = false,
-                        rows,
-                    }: InputFieldProps) {
+    id,
+    label,
+    type,
+    value,
+    onChange,
+    placeholder,
+    required = false,
+    rows,
+}: InputFieldProps) {
     const InputComponent = rows ? 'textarea' : 'input';
     return (
         <div className="w-full">
@@ -74,7 +77,6 @@ const getNotificationData = (
     error: string | null,
     dictionary: Record<string, any>,
 ) => {
-
     const notificationMap: {
         [key in NotificationStatus]: NotificationDetails;
     } = {
@@ -109,9 +111,9 @@ const getNotificationData = (
 };
 
 export default function ContactForm({
-                                        dictionary,
-                                    }: {
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page']
+    dictionary,
+}: {
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'];
 }) {
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: '',
@@ -133,12 +135,12 @@ export default function ContactForm({
     }, [requestStatus]);
     const handleInputChange =
         (field: keyof ContactDetails) =>
-            (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-                setMessageDetails((prev) => ({
-                    ...prev,
-                    [field]: event.target.value,
-                }));
-            };
+        (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            setMessageDetails((prev) => ({
+                ...prev,
+                [field]: event.target.value,
+            }));
+        };
 
     const sendMessageHandler = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -198,12 +200,21 @@ export default function ContactForm({
                 <button
                     disabled={requestStatus === 'pending'}
                     type="submit"
-                    className="button-accent self-end flex items-center gap-1"
+                    className="button-accent flex items-center gap-1 self-end"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                         stroke="currentColor" className="size-5">
-                        <path strokeLinecap="round" strokeLinejoin="round"
-                              d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="size-5"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                        />
                     </svg>
 
                     {requestStatus === 'pending'

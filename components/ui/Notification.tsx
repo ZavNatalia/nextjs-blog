@@ -25,11 +25,11 @@ const getBg = (status: NotificationStatus) => {
 };
 
 export default function Notification({
-                                         status,
-                                         title,
-                                         message,
-                                         onClose,
-                                     }: NotificationDetails) {
+    status,
+    title,
+    message,
+    onClose,
+}: NotificationDetails) {
     const notificationsRoot = document.getElementById('notifications');
     const [visible, setVisible] = useState(true);
 
@@ -45,13 +45,9 @@ export default function Notification({
     if (!notificationsRoot || !visible) return null;
 
     return createPortal(
-        <div
-            className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform"
-        >
+        <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform">
             <div
-                className={`relative animate-slide-in overflow-hidden 
-                rounded-3xl p-4 px-6 py-4 text-foreground shadow-lg 
-                ${getBg(status)}`}
+                className={`relative animate-slide-in overflow-hidden rounded-3xl p-4 px-6 py-4 text-foreground shadow-lg ${getBg(status)}`}
             >
                 <button
                     className="absolute right-4 top-3 text-foreground transition-opacity hover:opacity-75"

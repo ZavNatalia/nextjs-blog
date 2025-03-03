@@ -5,21 +5,21 @@ import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 
 export async function generateMetadata(props: {
-    params: Promise<{ lang: Locale }>
+    params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['contact-page'];
+    const dictionary = getDictionary(lang)?.['contact-page'];
     return {
         title: dictionary.contactMe,
         description: dictionary.pageDescription,
-    }
+    };
 }
 
 export default async function ContactPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['contact-page'];
+    const dictionary = getDictionary(lang)?.['contact-page'];
 
     const breadcrumbs: Breadcrumb[] = [
         { title: dictionary.main, link: '/' },
@@ -32,11 +32,15 @@ export default async function ContactPage(props: {
                 {dictionary.howCanIHelp}
             </h2>
             <ContactForm dictionary={dictionary} />
-            <div className="flex text-sm max-w-xl mt-6">
-                <p className="text-muted-dark dark:text-muted-light text-justify">
+            <div className="mt-6 flex max-w-xl text-sm">
+                <p className="text-justify text-muted-dark dark:text-muted-light">
                     {dictionary.bySubmittingMessage}&nbsp;
-                    <Link href="/privacy-policy" className="text-blue-700 dark:text-blue-400">
-                        {dictionary.privacyPolicy}</Link>
+                    <Link
+                        href="/privacy-policy"
+                        className="text-blue-700 dark:text-blue-400 hover:underline"
+                    >
+                        {dictionary.privacyPolicy}
+                    </Link>
                     &nbsp;{dictionary.consentProcessingPersonalData}
                 </p>
             </div>

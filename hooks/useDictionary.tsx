@@ -7,9 +7,9 @@ export type Dictionary = Record<string, any>;
 const UseDictionary = createContext<Dictionary | null>(null);
 
 export const TranslationProvider = ({
-                                        children,
-                                        dictionary,
-                                    }: {
+    children,
+    dictionary,
+}: {
     children: ReactNode;
     dictionary: Dictionary;
 }) => {
@@ -23,7 +23,9 @@ export const TranslationProvider = ({
 export const useDictionary = () => {
     const context = useContext(UseDictionary);
     if (!context) {
-        throw new Error('useDictionary must be used within a TranslationProvider');
+        throw new Error(
+            'useDictionary must be used within a TranslationProvider',
+        );
     }
     return context;
 };

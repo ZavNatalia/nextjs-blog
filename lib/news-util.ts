@@ -13,12 +13,16 @@ export interface INews {
     isLatest: boolean;
 }
 
-const newsDirectory = (lang: Locale) => path.join(process.cwd(), `news/${lang}`);
+const newsDirectory = (lang: Locale) =>
+    path.join(process.cwd(), `news/${lang}`);
 export function getNewsFiles(lang: Locale) {
     return fs.readdirSync(newsDirectory(lang));
 }
 
-export function getNewsData(newsIdentifier: string, lang: Locale): INews | null {
+export function getNewsData(
+    newsIdentifier: string,
+    lang: Locale,
+): INews | null {
     const newsSlug: string = newsIdentifier.replace(/\.md$/, '');
     const filePath = path.join(newsDirectory(lang), `${newsSlug}.md`);
 

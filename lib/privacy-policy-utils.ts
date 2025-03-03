@@ -9,10 +9,14 @@ export interface IPrivacyPolicy {
     content?: string;
 }
 
-const privacyPolicyDirectory = (lang: Locale) => path.join(process.cwd(), `privacy-policy/${lang}`);
+const privacyPolicyDirectory = (lang: Locale) =>
+    path.join(process.cwd(), `privacy-policy/${lang}`);
 
 export function getPrivacyPolicyFile(lang: Locale): IPrivacyPolicy | null {
-    const filePath = path.join(privacyPolicyDirectory(lang), `privacy-policy.md`);
+    const filePath = path.join(
+        privacyPolicyDirectory(lang),
+        `privacy-policy.md`,
+    );
 
     if (!fs.existsSync(filePath)) {
         console.log(`Privacy policy file not found: ${filePath}`);

@@ -1,13 +1,13 @@
-'use client'
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+'use client';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useDictionary } from '@/hooks/useDictionary';
 
 export default function CookieConsent() {
     const { data: session, status } = useSession();
     const privacyDict = useDictionary()?.['privacy-policy-page'];
-    const userId = session?.user?.email || "guest";
+    const userId = session?.user?.email || 'guest';
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -22,24 +22,29 @@ export default function CookieConsent() {
     }, [isVisible, session, status, userId]);
 
     const handleAccept = () => {
-        localStorage.setItem(`cookieConsent-${userId}`, "accepted");
+        localStorage.setItem(`cookieConsent-${userId}`, 'accepted');
         setIsVisible(false);
     };
 
     if (!isVisible) return null;
 
     return (
-        <div className="z-10 fixed bottom-3 right-4 max-w-lg text-foreground p-4 rounded-2xl shadow-md
-        bg-primary-light dark:bg-gray-900
-        border border-primary-contrast dark:border-dark-strong">
+        <div className="fixed bottom-3 right-4 z-10 max-w-lg rounded-2xl border border-primary-contrast bg-primary-light p-4 text-foreground shadow-md dark:border-dark-strong dark:bg-gray-900">
             <p className="text-sm">
                 {privacyDict.weUseCookies}&nbsp;
-                <Link href="/privacy-policy" className="text-blue-500 dark:text-blue-400 underline">
+                <Link
+                    href="/privacy-policy"
+                    className="text-blue-500 underline dark:text-blue-400"
+                >
                     {privacyDict.ourPrivacyPolicy}
-                </Link>.
+                </Link>
+                .
             </p>
             <div className="flex justify-end">
-                <button onClick={handleAccept} className="button-accent button-sm">
+                <button
+                    onClick={handleAccept}
+                    className="button-accent button-sm"
+                >
                     {privacyDict.ok}
                 </button>
             </div>

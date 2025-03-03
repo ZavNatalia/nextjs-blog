@@ -5,11 +5,11 @@ import { INews } from '@/lib/news-util';
 import type { getDictionary } from '@/get-dictionary';
 
 export default function NewsList({
-                                     latestNews,
-                                     dictionary
+    latestNews,
+    dictionary,
 }: {
-    latestNews: INews[],
-    dictionary: Awaited<ReturnType<typeof getDictionary>>["server-component"]
+    latestNews: INews[];
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'];
 }) {
     const [showButton, setShowButton] = useState(false);
 
@@ -48,7 +48,7 @@ export default function NewsList({
             {showButton && (
                 <button
                     onClick={scrollToTop}
-                    className="button fixed bottom-8 right-8 rounded-full bg-primary-contrast/80 dark:bg-dark-soft text-secondary shadow-md hover:bg-accent dark:hover:bg-accent-dark hover:text-foreground-contrast group"
+                    className="button text-secondary group fixed bottom-8 right-8 rounded-full bg-primary-contrast/80 shadow-md hover:bg-accent hover:text-foreground-contrast dark:bg-dark-soft dark:hover:bg-accent-dark"
                 >
                     {dictionary.backToTop}
                 </button>

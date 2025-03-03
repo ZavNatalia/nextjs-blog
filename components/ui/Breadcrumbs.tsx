@@ -8,15 +8,15 @@ export interface Breadcrumb {
     title: string;
 }
 
-const BreadcrumbItem: ({ breadcrumb, isActive, isLast }: {
-    breadcrumb: Breadcrumb;
-    isActive: boolean;
-    isLast: boolean;
-}) => JSX.Element = ({
+const BreadcrumbItem: ({
     breadcrumb,
     isActive,
     isLast,
-}) => (
+}: {
+    breadcrumb: Breadcrumb;
+    isActive: boolean;
+    isLast: boolean;
+}) => JSX.Element = ({ breadcrumb, isActive, isLast }) => (
     <span>
         <Link
             href={breadcrumb.link}
@@ -34,8 +34,9 @@ export default function Breadcrumbs({
     breadcrumbs: Breadcrumb[];
 }) {
     const pathname = usePathname();
-    const normalizedPathname = pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
-   
+    const normalizedPathname =
+        pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
+
     return (
         <nav className="md:text-md flex flex-row flex-wrap gap-2 self-baseline text-lg">
             {breadcrumbs.map((breadcrumb, index) => (

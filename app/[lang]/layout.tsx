@@ -8,11 +8,11 @@ import { getDictionary } from '@/get-dictionary';
 const inter = Inter({ subsets: ['latin'] });
 
 export async function generateMetadata(props: {
-    params: Promise<{ lang: Locale }>
+    params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
-    const dictionary = await getDictionary(lang)?.['server-component'];
+    const dictionary = getDictionary(lang)?.['server-component'];
     return {
         title: {
             template: `%s | ${dictionary.blogTitle}`,
@@ -44,7 +44,6 @@ export async function generateMetadata(props: {
     };
 }
 
-
 export async function generateStaticParams() {
     return i18n.locales.map((locale) => ({ lang: locale }));
 }
@@ -59,11 +58,11 @@ export default async function RootLayout(props: {
 
     return (
         <html lang={params.lang}>
-        <body className={inter.className}>
-        <RootClientLayout dictionary={dictionary}>
-            {children}
-        </RootClientLayout>
-        </body>
+            <body className={inter.className}>
+                <RootClientLayout dictionary={dictionary}>
+                    {children}
+                </RootClientLayout>
+            </body>
         </html>
     );
 }

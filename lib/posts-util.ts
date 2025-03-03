@@ -4,13 +4,17 @@ import matter from 'gray-matter';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import { Locale } from '@/i18n-config';
 
-const postsDirectory = (lang: Locale) => path.join(process.cwd(), `posts/${lang}`);
+const postsDirectory = (lang: Locale) =>
+    path.join(process.cwd(), `posts/${lang}`);
 
 export function getPostsFiles(lang: Locale) {
     return fs.readdirSync(postsDirectory(lang));
 }
 
-export function getPostData(postIdentifier: string, lang: Locale): IPost | null {
+export function getPostData(
+    postIdentifier: string,
+    lang: Locale,
+): IPost | null {
     const postSlug: string = postIdentifier.replace(/\.md$/, '');
     const filePath = path.join(postsDirectory(lang), `${postSlug}.md`);
 

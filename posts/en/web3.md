@@ -1,5 +1,5 @@
 ---
-title: 'What is Web3?'  
+title: 'What is Web3?'
 date: '2024-09-11'
 image: 'web3.webp'
 excerpt: 'Web3 is a broad term for technologies like blockchain that decentralize ownership and data management on the Internet.'
@@ -52,9 +52,9 @@ For example, **freelance platforms** connect workers with clients, while **renta
 
 While centralized platforms **facilitate** interactions, Web 2.0 introduces several **problems**:
 
-- Service providers **cannot transfer their data** to other platforms without **losing their business reputation and client base**.
-- Users **do not control how their data is used** or managed.
-- Platforms have the **power to filter user content**, restrict **access to certain features**, or even **ban users entirely**.
+-   Service providers **cannot transfer their data** to other platforms without **losing their business reputation and client base**.
+-   Users **do not control how their data is used** or managed.
+-   Platforms have the **power to filter user content**, restrict **access to certain features**, or even **ban users entirely**.
 
 #### **Advantages of Web 3.0**
 
@@ -62,9 +62,9 @@ Web 3.0 shifts towards a **read/write/own** paradigm. Creators retain **ownershi
 
 Here are some key advantages:
 
-- **Greater User Engagement**: Users interact **more meaningfully** with services and each other, incentivized by **active participation** rather than passive data exchange.
-- **Enhanced Privacy**: Users control **who can access their data**, and **platform owners cannot view it**. Your **online actions** may be public, but your **identity remains private**.
-- **Democratized Communication**: Web 3.0 aims to **remove corporate, geographic, and political barriers** in communication. It minimizes **big tech censorship** and balances **security with transparency**.
+-   **Greater User Engagement**: Users interact **more meaningfully** with services and each other, incentivized by **active participation** rather than passive data exchange.
+-   **Enhanced Privacy**: Users control **who can access their data**, and **platform owners cannot view it**. Your **online actions** may be public, but your **identity remains private**.
+-   **Democratized Communication**: Web 3.0 aims to **remove corporate, geographic, and political barriers** in communication. It minimizes **big tech censorship** and balances **security with transparency**.
 
 ![A 3D render of a futuristic city with a Web 3.0 logo on a building.](futuristic-city.webp)
 
@@ -98,8 +98,8 @@ Semantic web technologies help applications **better understand and interpret da
 
 Examples include:
 
-- **Resource Description Framework (RDF)**: Uses **triples** (subject-predicate-object) to define relationships between entities.
-- **Web Ontology Language (OWL)**: Defines **classes, properties, and instances** to model knowledge and infer new insights.
+-   **Resource Description Framework (RDF)**: Uses **triples** (subject-predicate-object) to define relationships between entities.
+-   **Web Ontology Language (OWL)**: Defines **classes, properties, and instances** to model knowledge and infer new insights.
 
 ---
 

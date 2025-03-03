@@ -6,14 +6,14 @@ import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 
 export async function generateMetadata(props: {
-    params: Promise<{ lang: Locale }>
+    params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['profile-page'];
+    const dictionary = getDictionary(lang)?.['profile-page'];
     return {
         title: dictionary.profile,
         description: dictionary.pageDescription,
-    }
+    };
 }
 
 export default async function ProfilePage(props: {
@@ -26,20 +26,20 @@ export default async function ProfilePage(props: {
     }
 
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang);
-    const profileDict = dictionary['profile-page'] ?? {};
+    const dictionary = getDictionary(lang)?.['profile-page'];
 
     const breadcrumbs: Breadcrumb[] = [
-        { title: profileDict.main, link: '/' },
-        { title: profileDict.profile, link: '/profile' },
+        { title: dictionary.main, link: '/' },
+        { title: dictionary.profile, link: '/profile' },
     ];
 
     return (
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <UserProfile
-                dictionary={profileDict}
-                userEmail={session?.user?.email || profileDict.noEmailProvided} />
+                dictionary={dictionary}
+                userEmail={session?.user?.email || dictionary.noEmailProvided}
+            />
         </main>
     );
 }
