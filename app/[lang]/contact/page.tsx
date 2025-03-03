@@ -8,7 +8,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = getDictionary(lang)?.['contact-page'];
+    const dictionary = await getDictionary(lang)?.['contact-page'];
     return {
         title: dictionary.contactMe,
         description: dictionary.pageDescription,
@@ -19,7 +19,7 @@ export default async function ContactPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = getDictionary(lang)?.['contact-page'];
+    const dictionary = await getDictionary(lang)?.['contact-page'];
 
     const breadcrumbs: Breadcrumb[] = [
         { title: dictionary.main, link: '/' },

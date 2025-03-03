@@ -15,7 +15,7 @@ export interface INews {
 
 const newsDirectory = (lang: Locale) =>
     path.join(process.cwd(), `news/${lang}`);
-export function getNewsFiles(lang: Locale) {
+export async function getNewsFiles(lang: Locale) {
     return fs.readdirSync(newsDirectory(lang));
 }
 
@@ -44,15 +44,15 @@ export function getNewsData(
         return null;
     }
 }
-export function getAllNews(lang: Locale): INews[] {
-    const newsFiles = getNewsFiles(lang);
+export async function getAllNews(lang: Locale): Promise<INews[]> {
+    const newsFiles = await getNewsFiles(lang);
     const allNews = newsFiles
         .map((newsFile) => getNewsData(newsFile, lang))
         .filter((news): news is INews => news !== null);
     return allNews.sort((newsA, newsB) => (newsA.date > newsB.date ? -1 : 1));
 }
 
-export function getLatestNews(lang: Locale) {
-    const allNews = getAllNews(lang);
+export async function getLatestNews(lang: Locale) {
+    const allNews = await getAllNews(lang);
     return allNews.filter((news) => news.isLatest);
 }

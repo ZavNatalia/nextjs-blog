@@ -7,24 +7,20 @@ import { Locale } from '@/i18n-config';
 const postsDirectory = (lang: Locale) =>
     path.join(process.cwd(), `posts/${lang}`);
 
-export function getPostsFiles(lang: Locale) {
-    return fs.readdirSync(postsDirectory(lang));
+export async function getPostsFiles(lang: Locale) {
+    return await fs.promises.readdir(postsDirectory(lang));
 }
 
-export function getPostData(
+export async function getPostData(
     postIdentifier: string,
     lang: Locale,
-): IPost | null {
+): Promise<IPost | null> {
     const postSlug: string = postIdentifier.replace(/\.md$/, '');
     const filePath = path.join(postsDirectory(lang), `${postSlug}.md`);
 
-    if (!fs.existsSync(filePath)) {
-        console.log(`File not found: ${filePath}`);
-        return null;
-    }
-
     try {
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        await fs.promises.access(filePath);
+        const fileContent = await fs.promises.readFile(filePath, 'utf-8');
         const { data, content } = matter(fileContent);
         return {
             slug: postSlug,
@@ -36,15 +32,18 @@ export function getPostData(
         return null;
     }
 }
-export function getAllPosts(lang: Locale): IPost[] {
-    const postFiles = getPostsFiles(lang);
-    const allPosts = postFiles
-        .map((postFile) => getPostData(postFile, lang))
-        .filter((post): post is IPost => post !== null);
-    return allPosts.sort((postA, postB) => (postA.date > postB.date ? -1 : 1));
+export async function getAllPosts(lang: Locale): Promise<IPost[]> {
+    const postFiles = await getPostsFiles(lang);
+    const allPosts = await Promise.all(
+        postFiles.map((postFile) => getPostData(postFile, lang)),
+    );
+
+    return allPosts
+        .filter((post): post is IPost => post !== null)
+        .sort((postA, postB) => (postA.date > postB.date ? -1 : 1));
 }
 
-export function getFeaturedPosts(lang: Locale) {
-    const allPosts = getAllPosts(lang);
+export async function getFeaturedPosts(lang: Locale) {
+    const allPosts = await getAllPosts(lang);
     return allPosts.filter((post) => post.isFeatured);
 }
