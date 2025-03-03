@@ -15,7 +15,7 @@ export default function ThemeSwitcher({
 }: ThemeSwitcherProps) {
     return (
         <button
-            className="rounded-xl p-0 md:p-1"
+            className="icon-button rounded-xl p-0 md:p-1"
             title={
                 theme === 'light'
                     ? dictionary.switchToDarkTheme
@@ -24,9 +24,9 @@ export default function ThemeSwitcher({
             onClick={toggleTheme}
         >
             {theme === 'light' ? (
-                <MoonIcon className="icon-button h-8 w-8 md:h-5 md:w-5" />
+                <MoonIcon className="h-8 w-8 md:h-5 md:w-5" />
             ) : (
-                <SunIcon className="icon-button h-8 w-8 md:h-5 md:w-5" />
+                <SunIcon className="h-8 w-8 md:h-5 md:w-5" />
             )}
         </button>
     );

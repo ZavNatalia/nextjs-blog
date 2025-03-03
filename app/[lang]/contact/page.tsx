@@ -37,7 +37,7 @@ export default async function ContactPage(props: {
                     {dictionary.bySubmittingMessage}&nbsp;
                     <Link
                         href="/privacy-policy"
-                        className="text-blue-700 dark:text-blue-400 hover:underline"
+                        className="text-blue-700 hover:underline dark:text-blue-400"
                     >
                         {dictionary.privacyPolicy}
                     </Link>
