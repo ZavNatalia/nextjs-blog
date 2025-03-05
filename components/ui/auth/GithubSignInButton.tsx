@@ -1,15 +1,19 @@
 import type { getDictionary } from '@/get-dictionary';
 import { signIn } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 export default function GithubSignInButton({
                                              dictionary,
                                          }: {
     dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
 }) {
+    const pathname = usePathname();
 
     return (
         <button
             className='button-primary flex font-normal justify-center gap-2'
-            onClick={() => signIn('github')}>
+            onClick={() => signIn("github", {
+                callbackUrl: pathname || "/",
+            })}>
             <svg
                 className="h-6 w-6"
                 fill="currentColor"
