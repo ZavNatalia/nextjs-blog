@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
 }) {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
-    const dictionary = getDictionary(lang)?.['server-component'];
+    const dictionary = await getDictionary(lang)?.['server-component'];
     return {
         title: {
             template: `%s | ${dictionary.blogTitle}`,
@@ -53,7 +53,7 @@ export default async function RootLayout(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const params = await props.params;
-    const dictionary = getDictionary(params.lang);
+    const dictionary = await getDictionary(params.lang);
     const { children } = props;
 
     return (

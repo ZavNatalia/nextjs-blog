@@ -9,7 +9,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = getDictionary(lang)?.['profile-page'];
+    const dictionary = await getDictionary(lang)?.['profile-page'];
     return {
         title: dictionary.profile,
         description: dictionary.pageDescription,
@@ -26,7 +26,7 @@ export default async function ProfilePage(props: {
     }
 
     const { lang } = await props.params;
-    const dictionary = getDictionary(lang)?.['profile-page'];
+    const dictionary = await getDictionary(lang)?.['profile-page'];
 
     const breadcrumbs: Breadcrumb[] = [
         { title: dictionary.main, link: '/' },

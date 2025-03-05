@@ -8,7 +8,7 @@ export default async function PrivacyPolicyPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = getDictionary(lang)?.['privacy-policy-page'];
+    const dictionary = await getDictionary(lang)?.['privacy-policy-page'];
     const privacyPolicy = getPrivacyPolicyFile(lang);
 
     const breadcrumbs: Breadcrumb[] = [

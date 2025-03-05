@@ -32,8 +32,7 @@ export async function generateMetadata(props: PageProps) {
 export default async function Page(props: PageProps) {
     const { slug, lang } = await props.params;
     const post = await getPost(slug, lang);
-
-    const dictionary = getDictionary(lang)?.['posts-page'];
+    const dictionary = await getDictionary(lang)?.['posts-page'];
 
     if (!post) {
         notFound();
@@ -61,7 +60,7 @@ export default async function Page(props: PageProps) {
 
 export async function generateStaticParams(props: PageProps) {
     const { lang } = await props.params;
-    const postsFileNames = getPostsFiles(lang);
+    const postsFileNames = await getPostsFiles(lang);
     return postsFileNames
         .map((fileName) => fileName.replace(/\.md$/, ''))
         .map((slug) => ({ slug }));

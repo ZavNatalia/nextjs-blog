@@ -5,10 +5,10 @@ import { INews } from '@/lib/news-util';
 import type { getDictionary } from '@/get-dictionary';
 
 export default function NewsList({
-    latestNews,
+    newsList,
     dictionary,
 }: {
-    latestNews: INews[];
+    newsList: INews[];
     dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'];
 }) {
     const [showButton, setShowButton] = useState(false);
@@ -34,14 +34,14 @@ export default function NewsList({
         });
     };
 
-    if (!latestNews) {
+    if (!newsList) {
         return;
     }
 
     return (
-        <>
+        <div className="px-4 md:rounded-3xl md:bg-primary-light/60 md:p-6 md:dark:bg-dark-soft/40 lg:p-10">
             <ul>
-                {latestNews.map((item) => (
+                {newsList.map((item) => (
                     <NewsItemContent newsItem={item} key={item.slug} />
                 ))}
             </ul>
@@ -53,6 +53,6 @@ export default function NewsList({
                     {dictionary.backToTop}
                 </button>
             )}
-        </>
+        </div>
     );
 }
