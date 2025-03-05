@@ -1,3 +1,4 @@
+'use client'
 import type { getDictionary } from '@/get-dictionary';
 import { signIn } from 'next-auth/react';
 export default function GithubSignInButton({
@@ -6,14 +7,19 @@ export default function GithubSignInButton({
     dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
 }) {
 
+    const buttonStyle = "bg-[#F2F2F2] text-[#1F1F1F] border border-[#F2F2F2] hover:bg-[#e5e5e5] " +
+        "dark:bg-[#131314] dark:text-[#E3E3E3] dark:border dark:border-[#8E918F] dark:hover:bg-[#020202]";
+
+
     return (
         <button
-            className='button-primary flex font-normal justify-center gap-2'
-            onClick={() => signIn('github')}>
+            onClick={() => signIn("google")}
+            className={`flex font-medium gap-[10px] px-3 py-[10px] text-sm rounded-[20px] transition ${buttonStyle}`}
+        >
             <svg
-                className="h-6 w-6"
+                className="h-[20px] w-[20px] mt-[-2px]"
                 fill="currentColor"
-                viewBox="0 0 24 24"
+                viewBox="0 0 22 22"
                 aria-hidden="true"
             >
                 <path
@@ -22,7 +28,7 @@ export default function GithubSignInButton({
                     clipRule="evenodd"
                 />
             </svg>
-            {dictionary.continueWith} Github
+            <span>{dictionary.signInWith} Github</span>
         </button>
-    )
+    );
 }

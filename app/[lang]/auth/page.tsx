@@ -4,6 +4,9 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
+import GithubSignInButton from '@/components/ui/auth/GithubSignInButton';
+import GoogleSignInButton from '@/components/ui/auth/GoogleSignInButton';
+
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
@@ -36,7 +39,16 @@ export default async function AuthPage(props: {
     return (
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
-            <AuthForm dictionary={authDict} />
+            <div className="w-full max-w-sm lg:max-w-md rounded-3xl p-8 border border-border dark:border-none shadow-md
+            bg-primary dark:bg-dark-strong ">
+                <AuthForm dictionary={authDict} />
+                <hr className="my-4 border-t border-border dark:border-border-dark" />
+                <p className='uppercase text-center text-muted-light text-sm'>{authDict.or}</p>
+                <div className='flex flex-col items-center gap-3 mt-3'>
+                    <GoogleSignInButton dictionary={authDict} />
+                    <GithubSignInButton dictionary={authDict} />
+                </div>
+            </div>
         </main>
     );
 }
