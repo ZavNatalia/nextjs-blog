@@ -106,14 +106,17 @@
         "failedToLogIn": "Не удалось войти",
         "sending": "Отправка...",
         "showPassword": "Показать пароль",
-        "hidePassword": "Скрыть пароль"
+        "hidePassword": "Скрыть пароль",
+        "continueWith": "Войти через",
+        "or": "Или"
     },
     "posts-page": {
         "main": "Главная",
         "allPosts": "Все посты",
         "readMore": "Читать далее",
         "pageDescription": "Список статей по программированию",
-        "goToAllPosts": "Перейти ко всем постам"
+        "goToAllPosts": "Перейти ко всем постам",
+        "noPosts": "Постов пока нет"
     },
     "contact-page": {
         "contactMe": "Обратная связь",

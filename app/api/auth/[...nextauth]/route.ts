@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectToDatabase } from '@/lib/db';
 import { verifyPassword } from '@/lib/auth';
 import { MongoClient } from 'mongodb';
+import GitHubProvider from 'next-auth/providers/github';
 
 declare module 'next-auth/jwt' {
     interface JWT {
@@ -69,6 +70,10 @@ const handler = NextAuth({
                     await client.close();
                 }
             },
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!,
         }),
     ],
     secret: process.env.NEXTAUTH_SECRET,

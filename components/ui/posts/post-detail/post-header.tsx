@@ -23,7 +23,7 @@ export default function PostHeader({
                 <h1 className="mb-1 text-xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-5xl">
                     {title}
                 </h1>
-                <span className="text-secondary text-sm md:text-lg">
+                <span className="text-secondary dark:text-muted-light text-sm md:text-md">
                     {formattedDate}
                 </span>
             </div>
