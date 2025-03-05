@@ -13,7 +13,7 @@ export default function GithubSignInButton({
 
     return (
         <button
-            onClick={() => signIn("google")}
+            onClick={() => signIn("github")}
             className={`flex font-medium gap-[10px] px-3 py-[10px] text-sm rounded-[20px] transition ${buttonStyle}`}
         >
             <svg
