@@ -235,12 +235,12 @@ export default function AuthForm({
                                         : dictionary.submitSignUp}
                             </button>
 
-                            <div className="text-center">
+                            <div className="text-center text-sm">
                                 {!isLogin && (
                                     <span>{dictionary.haveAccount} </span>
                                 )}
                                 {isLogin && (
-                                    <span>{dictionary.doNotHaveAccount} </span>
+                                    <span>{dictionary.doNotHaveAccount}&nbsp;</span>
                                 )}
                                 <button
                                     type="button"
@@ -257,7 +257,6 @@ export default function AuthForm({
                 }}
             </Formik>
             <hr className="my-4 border-t border-border dark:border-border-dark" />
-
             <div className='w-full flex flex-col gap-3 '>
                 <p className='uppercase text-center text-muted-light text-sm'>{dictionary.or}</p>
                 <GithubSignInButton dictionary={dictionary} />
