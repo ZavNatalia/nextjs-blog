@@ -105,7 +105,9 @@
         "failedToLogIn": "Failed to log in",
         "sending": "Sending...",
         "showPassword": "Show password",
-        "hidePassword": "Hide password"
+        "hidePassword": "Hide password",
+        "continueWith": "Continue with",
+        "or": "Or"
     },
     "posts-page": {
         "main": "main",

@@ -16,6 +16,8 @@ import { useRouter } from 'next/navigation';
 import Notification, {
     NotificationDetails,
 } from '@/components/ui/Notification';
+import type { getDictionary } from '@/get-dictionary';
+import GithubSignInButton from '@/components/ui/auth/GithubSignInButton';
 
 export type AuthFormData = {
     email: string;
@@ -26,7 +28,7 @@ export type AuthFormData = {
 export default function AuthForm({
     dictionary,
 }: {
-    dictionary: Record<string, any>;
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page']
 }) {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState(false);
@@ -229,8 +231,8 @@ export default function AuthForm({
                                 {isSubmitting
                                     ? dictionary.sending
                                     : isLogin
-                                      ? dictionary.login
-                                      : dictionary.submitSignUp}
+                                        ? dictionary.login
+                                        : dictionary.submitSignUp}
                             </button>
 
                             <div className="text-center">
@@ -254,6 +256,13 @@ export default function AuthForm({
                     );
                 }}
             </Formik>
+            <hr className="my-4 border-t border-border dark:border-border-dark" />
+
+            <div className='w-full flex flex-col gap-3 '>
+                <p className='uppercase text-center text-muted-light text-sm'>{dictionary.or}</p>
+                <GithubSignInButton dictionary={dictionary} />
+            </div>
+
 
             {notificationData && <Notification {...notificationData} />}
         </div>
