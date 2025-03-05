@@ -107,7 +107,7 @@
         "sending": "Отправка...",
         "showPassword": "Показать пароль",
         "hidePassword": "Скрыть пароль",
-        "continueWith": "Войти через",
+        "signInWith": "Войти через",
         "or": "Или"
     },
     "posts-page": {
