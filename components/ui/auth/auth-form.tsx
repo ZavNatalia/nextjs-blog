@@ -17,7 +17,6 @@ import Notification, {
     NotificationDetails,
 } from '@/components/ui/Notification';
 import type { getDictionary } from '@/get-dictionary';
-import GithubSignInButton from '@/components/ui/auth/GithubSignInButton';
 
 export type AuthFormData = {
     email: string;
@@ -75,7 +74,7 @@ export default function AuthForm({
                 if (!result || !result.ok) {
                     throw new Error(result?.error || dictionary.failedToLogIn);
                 }
-                router.replace('/profile', { scroll: false });
+                router.replace('/', { scroll: false });
             } else {
                 await createUser(values.email, values.password);
 
@@ -97,7 +96,7 @@ export default function AuthForm({
     };
 
     return (
-        <div className="w-full max-w-sm rounded-3xl bg-primary-light/60 p-8 shadow-lg dark:bg-dark-soft/30 lg:max-w-md">
+        <>
             <h1 className="mb-6 text-center text-2xl font-bold text-accent">
                 {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
@@ -256,14 +255,7 @@ export default function AuthForm({
                     );
                 }}
             </Formik>
-            <hr className="my-4 border-t border-border dark:border-border-dark" />
-            <div className='w-full flex flex-col gap-3 '>
-                <p className='uppercase text-center text-muted-light text-sm'>{dictionary.or}</p>
-                <GithubSignInButton dictionary={dictionary} />
-            </div>
-
-
             {notificationData && <Notification {...notificationData} />}
-        </div>
+        </>
     );
 }
