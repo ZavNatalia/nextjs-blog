@@ -111,12 +111,14 @@ const getNotificationData = (
 };
 
 export default function ContactForm({
+    userEmail,
     dictionary,
 }: {
+    userEmail: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'];
 }) {
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
-        email: '',
+        email: userEmail,
         name: '',
         message: '',
     });

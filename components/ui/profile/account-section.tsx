@@ -23,7 +23,9 @@ export function AccountSection({
             <h2 className="text-xl font-semibold text-foreground">
                 {dictionary.yourAccount}
             </h2>
-            <p className="text-md text-foreground-muted dark:text-muted-light mb-4">{userEmail}</p>
+            <p className="text-md mb-4 text-foreground-muted dark:text-muted-light">
+                {userEmail}
+            </p>
             <button
                 onClick={() => signOut()}
                 className="button-secondary group flex items-center gap-2"

@@ -1,23 +1,22 @@
-'use client'
+'use client';
 import type { getDictionary } from '@/get-dictionary';
 import { signIn } from 'next-auth/react';
 export default function GithubSignInButton({
-                                             dictionary,
-                                         }: {
+    dictionary,
+}: {
     dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
 }) {
-
-    const buttonStyle = "bg-[#F2F2F2] text-[#1F1F1F] border border-[#F2F2F2] hover:bg-[#e5e5e5] " +
-        "dark:bg-[#131314] dark:text-[#E3E3E3] dark:border dark:border-[#8E918F] dark:hover:bg-[#020202]";
-
+    const buttonStyle =
+        'bg-[#F2F2F2] text-[#1F1F1F] border border-[#F2F2F2] hover:bg-[#e5e5e5] ' +
+        'dark:bg-[#131314] dark:text-[#E3E3E3] dark:border dark:border-[#8E918F] dark:hover:bg-[#020202]';
 
     return (
         <button
-            onClick={() => signIn("github")}
-            className={`flex font-medium gap-[10px] px-3 py-[10px] text-sm rounded-[20px] transition ${buttonStyle}`}
+            onClick={() => signIn('github')}
+            className={`flex gap-[10px] rounded-[20px] px-3 py-[10px] text-sm font-medium transition ${buttonStyle}`}
         >
             <svg
-                className="h-[20px] w-[20px] mt-[-2px]"
+                className="mt-[-2px] h-[20px] w-[20px]"
                 fill="currentColor"
                 viewBox="0 0 22 22"
                 aria-hidden="true"

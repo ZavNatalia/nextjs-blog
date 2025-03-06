@@ -28,7 +28,7 @@ export default function FeaturedPosts({
     dictionary,
     lang,
 }: {
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'];
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
     lang: Locale;
 }) {
     return (

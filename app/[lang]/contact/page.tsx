@@ -3,6 +3,7 @@ import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
+import { getServerSession } from 'next-auth';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
@@ -20,6 +21,8 @@ export default async function ContactPage(props: {
 }) {
     const { lang } = await props.params;
     const dictionary = await getDictionary(lang)?.['contact-page'];
+    const session = await getServerSession();
+    const userEmail = session?.user?.email ?? '';
 
     const breadcrumbs: Breadcrumb[] = [
         { title: dictionary.main, link: '/' },
@@ -31,7 +34,7 @@ export default async function ContactPage(props: {
             <h2 className="mb-6 text-center text-2xl font-bold lg:text-4xl">
                 {dictionary.howCanIHelp}
             </h2>
-            <ContactForm dictionary={dictionary} />
+            <ContactForm userEmail={userEmail} dictionary={dictionary} />
             <div className="mt-6 flex max-w-xl text-sm">
                 <p className="text-justify text-muted-dark dark:text-muted-light">
                     {dictionary.bySubmittingMessage}&nbsp;

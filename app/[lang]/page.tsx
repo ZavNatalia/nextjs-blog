@@ -10,13 +10,13 @@ export default async function HomePage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['server-component'];
+    const dictionary = await getDictionary(lang)?.['common'];
 
     return (
         <main className="page">
             <HeroCard dictionary={dictionary} />
             <Suspense fallback={<Loader size={50} />}>
-                <LatestNews lang={lang} dictionary={dictionary} />
+                <LatestNews lang={lang} />
             </Suspense>
             <FeaturedPosts dictionary={dictionary} lang={lang} />
         </main>

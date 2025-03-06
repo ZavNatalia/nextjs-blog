@@ -6,6 +6,7 @@ import { IPost } from '@/components/ui/posts/post-card/post-card';
 import Link from 'next/link';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
+import BackToTopButton from '@/components/ui/BackToTopButton';
 
 interface PageProps {
     params: Promise<{ slug: string; lang: Locale }>;
@@ -54,6 +55,7 @@ export default async function Page(props: PageProps) {
             <Link href="/posts" className="button-accent">
                 {dictionary.goToAllPosts}
             </Link>
+            <BackToTopButton />
         </main>
     );
 }

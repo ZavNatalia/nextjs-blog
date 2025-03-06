@@ -1,5 +1,5 @@
 {
-    "server-component": {
+    "common": {
         "greetings": "Создаём с Next.js",
         "greetingsDescription": "Всё о Next.js и современной веб-разработке",
         "blogTitle": "Natalia's Next blog",

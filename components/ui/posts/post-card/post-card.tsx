@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
+import { getLocale } from '@/components/utils/getLocale';
 
 export interface IPost {
     slug: string;
@@ -20,16 +21,10 @@ export default function PostCard({
     lang,
 }: {
     post: IPost;
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'];
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
     lang: Locale;
 }) {
     const { title, date, excerpt, image, slug } = post;
-
-    const getLocale = (value: 'en' | 'ru') =>
-        ({
-            en: 'en-US',
-            ru: 'ru-RU',
-        })[value] || 'en-US';
 
     const formattedDate = new Date(date).toLocaleDateString(getLocale(lang), {
         day: 'numeric',
@@ -46,7 +41,7 @@ export default function PostCard({
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
-                <time className="text-foreground-muted dark:text-muted-light whitespace-nowrap text-sm">
+                <time className="whitespace-nowrap text-sm text-foreground-muted dark:text-muted-light">
                     {formattedDate}
                 </time>
             </div>
