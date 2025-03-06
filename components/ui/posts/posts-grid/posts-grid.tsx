@@ -8,7 +8,7 @@ export default function PostsGrid({
     lang,
 }: {
     posts: IPost[];
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'];
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
     lang: Locale;
 }) {
     return (

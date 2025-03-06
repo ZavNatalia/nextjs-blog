@@ -2,7 +2,8 @@
 
 `nextjs-blog` is a modern **Next.js** application designed for publishing posts and curating the latest trends and news in the frontend development ecosystem. Built with **TypeScript** and styled using **TailwindCSS**, this platform provides an elegant, fast, and responsive experience for developers and enthusiasts alike.
 
---- 
+---
+
 ## Features
 
 -   **Frontend News Hub**: Stay updated with the latest news and trends in frontend technologies like JavaScript, TypeScript, CSS, and HTML.

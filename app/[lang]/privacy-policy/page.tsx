@@ -3,6 +3,7 @@ import { getPrivacyPolicyFile } from '@/lib/privacy-policy-utils';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import ReactMarkdown from 'react-markdown';
+import BackToTopButton from '@/components/ui/BackToTopButton';
 
 export default async function PrivacyPolicyPage(props: {
     params: Promise<{ lang: Locale }>;
@@ -27,6 +28,7 @@ export default async function PrivacyPolicyPage(props: {
                     {privacyPolicy?.content}
                 </ReactMarkdown>
             </article>
+            <BackToTopButton />
         </main>
     );
 }

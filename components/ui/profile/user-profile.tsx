@@ -36,7 +36,7 @@ export default function UserProfile({
                             'flex flex-col items-center rounded-xl p-2 transition-all duration-300',
                             activeSection === key
                                 ? 'bg-primary text-foreground shadow-lg'
-                                : 'text-foreground-muted dark:text-foreground-onDarkMuted hover:bg-primary/10 hover:text-foreground dark:hover:text-onDark',
+                                : 'dark:hover:text-onDark text-foreground-muted hover:bg-primary/10 hover:text-foreground dark:text-foreground-onDarkMuted',
                         )}
                         onClick={() => setActiveSection(key)}
                     >

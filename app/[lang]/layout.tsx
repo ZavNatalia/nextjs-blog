@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
 }) {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
-    const dictionary = await getDictionary(lang)?.['server-component'];
+    const dictionary = await getDictionary(lang)?.['common'];
     return {
         title: {
             template: `%s | ${dictionary.blogTitle}`,

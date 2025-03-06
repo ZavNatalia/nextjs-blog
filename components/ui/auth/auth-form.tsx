@@ -27,7 +27,7 @@ export type AuthFormData = {
 export default function AuthForm({
     dictionary,
 }: {
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page']
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
 }) {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState(false);
@@ -230,8 +230,8 @@ export default function AuthForm({
                                 {isSubmitting
                                     ? dictionary.sending
                                     : isLogin
-                                        ? dictionary.login
-                                        : dictionary.submitSignUp}
+                                      ? dictionary.login
+                                      : dictionary.submitSignUp}
                             </button>
 
                             <div className="text-center text-sm">
@@ -239,7 +239,9 @@ export default function AuthForm({
                                     <span>{dictionary.haveAccount} </span>
                                 )}
                                 {isLogin && (
-                                    <span>{dictionary.doNotHaveAccount}&nbsp;</span>
+                                    <span>
+                                        {dictionary.doNotHaveAccount}&nbsp;
+                                    </span>
                                 )}
                                 <button
                                     type="button"

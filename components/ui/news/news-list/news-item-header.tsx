@@ -1,15 +1,19 @@
 import Image from 'next/image';
+import { getLocale } from '@/components/utils/getLocale';
+import { Locale } from '@/i18n-config';
 
 export default function NewsItemHeader({
     title,
+    lang,
     date,
     imagePath,
 }: {
     title: string;
     date: string;
     imagePath: string;
+    lang: Locale;
 }) {
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+    const formattedDate = new Date(date).toLocaleDateString(getLocale(lang), {
         day: 'numeric',
         month: 'long',
         year: 'numeric',

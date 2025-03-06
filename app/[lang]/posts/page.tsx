@@ -5,6 +5,7 @@ import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skeleton';
+import BackToTopButton from '@/components/ui/BackToTopButton';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
@@ -18,18 +19,20 @@ export async function generateMetadata(props: {
 }
 
 async function AllPosts({
-                            lang,
-                            dictionary,
-                        }: {
+    lang,
+    dictionary,
+}: {
     lang: Locale;
     dictionary: any;
 }) {
     const posts = await getAllPosts(lang);
 
     if (!posts.length) {
-        return <p className="text-muted dark:text-muted-light">
-            {dictionary.noPosts}
-        </p>;
+        return (
+            <p className="text-muted dark:text-muted-light">
+                {dictionary.noPosts}
+            </p>
+        );
     }
 
     return <PostsGrid posts={posts} dictionary={dictionary} lang={lang} />;
@@ -55,6 +58,7 @@ export default async function Posts(props: {
             <Suspense fallback={<PostsGridSkeleton />}>
                 <AllPosts lang={lang} dictionary={dictionary} />
             </Suspense>
+            <BackToTopButton />
         </main>
     );
 }
