@@ -4,7 +4,7 @@ import { type getDictionary } from '@/get-dictionary';
 export default function HeroCard({
     dictionary,
 }: {
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['server-component'];
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
 }) {
     return (
         <section className="flex max-w-md flex-col items-center gap-1 overflow-hidden rounded-3xl bg-gradient-to-b from-orange-300 via-orange-100 to-white px-6 pb-4 shadow-md dark:bg-gradient-to-br dark:from-purple-950/60 dark:via-pink-800/70 dark:to-yellow-700 sm:px-10 md:max-w-lg md:gap-2 lg:pb-6 xl:max-w-xl">
