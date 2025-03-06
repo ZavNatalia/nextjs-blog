@@ -16,7 +16,6 @@ export default function HeroCard({
                     sizes="(max-width: 640px) 60vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 30vw"
                     className="hidden rounded-b-xl object-cover shadow-md dark:block"
                     alt="Hero"
-                    priority
                 />
                 <Image
                     src="/images/site/hero-desktop-light.webp"
