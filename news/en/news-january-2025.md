@@ -3,7 +3,7 @@ title: 'Frontend Development News: January 2025'
 date: '2025-01-14'
 image: 'news-january-2025.webp'
 excerpt: 'A collection of the latest news in frontend development for January 2025'
-isLatest: true
+isLatest: false
 ---
 
 ### 1. **[Next.js 15.1](https://nextjsweekly.com/issues/70): React 19 Support and Development Improvements**

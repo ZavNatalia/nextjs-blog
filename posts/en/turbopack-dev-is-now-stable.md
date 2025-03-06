@@ -3,7 +3,7 @@ title: 'Turbopack Dev is Now Stable!'
 date: '2024-10-21'
 image: 'turbopack-dev-is-now-stable.webp'
 excerpt: '"next dev --turbo" is now stable and ready to accelerate your development process. It has been used to improve vercel.com, nextjs.org, v0, and all other applications, achieving outstanding results.'
-isFeatured: true
+isFeatured: false
 ---
 
 ## **Next.js Announces Turbopack Dev as Stable**
