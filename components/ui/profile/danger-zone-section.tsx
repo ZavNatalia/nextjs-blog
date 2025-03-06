@@ -100,12 +100,18 @@ export function DangerZoneSection({
             </button>
 
             {isConfirmOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-primary-contrast/80 p-4 dark:bg-dark-strong/90" onClick={() => setIsConfirmOpen(false)}>
-                    <div className="max-w-sm rounded-3xl bg-primary p-6 text-center shadow-lg dark:bg-dark" onClick={(e) => e.stopPropagation()}>
+                <div
+                    className="fixed inset-0 flex items-center justify-center bg-primary-contrast/80 p-4 dark:bg-dark-strong/90"
+                    onClick={() => setIsConfirmOpen(false)}
+                >
+                    <div
+                        className="max-w-sm rounded-3xl bg-primary p-6 text-center shadow-lg dark:bg-dark"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <h3 className="text-lg font-semibold text-error">
                             {dictionary.confirmAccountDeletion}
                         </h3>
-                        <p className="text-md text-foreground-muted dark:text-muted-light mt-2">
+                        <p className="text-md mt-2 text-foreground-muted dark:text-muted-light">
                             {dictionary.areYouSureYouWantToDelete}&nbsp;
                             <span className="font-mono font-bold text-foreground">
                                 {userEmail}

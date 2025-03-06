@@ -23,7 +23,7 @@ export default function PostHeader({
                 <h1 className="mb-1 text-xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-5xl">
                     {title}
                 </h1>
-                <span className="text-foreground-muted dark:text-muted-light text-sm md:text-md">
+                <span className="md:text-md text-sm text-foreground-muted dark:text-muted-light">
                     {formattedDate}
                 </span>
             </div>
@@ -37,6 +37,7 @@ export default function PostHeader({
                     alt={title}
                     fill
                     sizes="260px"
+                    priority
                     onLoad={() => setImageLoaded(true)}
                 />
             </div>
