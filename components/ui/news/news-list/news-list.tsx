@@ -14,7 +14,13 @@ export default function NewsList({
         return;
     }
 
-    const NewsItem = ({ newsItem }: { newsItem: INews }) => {
+    const NewsItem = ({
+        newsItem,
+        lang,
+    }: {
+        newsItem: INews;
+        lang: Locale;
+    }) => {
         const { title, date, slug, image, content } = newsItem;
         const imagePath = `/images/news/${slug}/${image}`;
         return (
