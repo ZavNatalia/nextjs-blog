@@ -22,7 +22,7 @@ export default async function ContactPage(props: {
     const { lang } = await props.params;
     const dictionary = await getDictionary(lang)?.['contact-page'];
     const session = await getServerSession();
-    const userEmail = session ? session?.user?.email : '';
+    const userEmail = session?.user?.email ?? '';
 
     const breadcrumbs: Breadcrumb[] = [
         { title: dictionary.main, link: '/' },
