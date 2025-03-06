@@ -46,7 +46,7 @@ export default function PostCard({
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
-                <time className="text-secondary whitespace-nowrap text-sm">
+                <time className="text-foreground-muted dark:text-muted-light whitespace-nowrap text-sm">
                     {formattedDate}
                 </time>
             </div>

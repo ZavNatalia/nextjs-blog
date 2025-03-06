@@ -3,7 +3,7 @@ title: 'Next.js 15 RC 2'
 date: '2024-10-15'
 image: 'next-js-15-rc-2.webp'
 excerpt: 'The second release candidate of Next.js 15 brings performance improvements, new security features, and TypeScript support in configuration.'
-isFeatured: true
+isFeatured: false
 ---
 
 After the announcement of the first release candidate of Next.js 15 in May, the second release candidate (RC2) has been released, incorporating feedback from the community. Here are the key updates:

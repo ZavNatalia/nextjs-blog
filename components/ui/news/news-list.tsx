@@ -39,7 +39,7 @@ export default function NewsList({
     }
 
     return (
-        <div className="px-4 md:rounded-3xl md:bg-primary-light/60 md:p-6 md:dark:bg-dark-soft/40 lg:p-10">
+        <>
             <ul>
                 {newsList.map((item) => (
                     <NewsItemContent newsItem={item} key={item.slug} />
@@ -48,11 +48,11 @@ export default function NewsList({
             {showButton && (
                 <button
                     onClick={scrollToTop}
-                    className="button text-secondary group fixed bottom-8 right-8 rounded-full bg-primary-contrast/80 shadow-md hover:bg-accent hover:text-foreground-contrast dark:bg-dark-soft dark:hover:bg-accent-dark"
+                    className="button text-foreground-muted dark:text-muted-light group fixed bottom-8 right-8 rounded-full bg-primary-contrast/80 shadow-md hover:bg-accent hover:text-foreground-contrast dark:bg-dark-soft dark:hover:bg-accent-dark"
                 >
                     {dictionary.backToTop}
                 </button>
             )}
-        </div>
+        </>
     );
 }

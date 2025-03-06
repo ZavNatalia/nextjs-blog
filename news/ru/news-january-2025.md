@@ -3,7 +3,7 @@ title: 'Новости фронтенд-разработки: Январь 2025'
 date: '2025-01-14'
 image: 'news-january-2025.webp'
 excerpt: 'Подборка актуальных новостей из мира фронтенд-разработки на январь 2025 года'
-isLatest: true
+isLatest: false
 ---
 
 ### 1. **[Next.js 15.1](https://nextjsweekly.com/issues/70): Поддержка React 19 и улучшения разработки**
