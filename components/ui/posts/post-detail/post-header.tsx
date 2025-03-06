@@ -36,7 +36,6 @@ export default function PostHeader({
                     src={imagePath}
                     alt={title}
                     fill
-                    priority
                     sizes="260px"
                     onLoad={() => setImageLoaded(true)}
                 />
