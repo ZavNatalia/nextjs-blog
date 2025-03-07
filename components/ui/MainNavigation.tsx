@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { useTheme } from '@/hooks/useTheme';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -18,7 +17,8 @@ interface NavigationItem {
 
 function ProfileLoadingSpinner() {
     return (
-        <div className="mx-2 h-10 w-10 animate-spin rounded-full border-2 border-border-dark/70 border-t-border-dark/40 dark:border-border-dark dark:border-t-border-dark/40" />
+        <div
+            className="mx-2 h-10 w-10 animate-spin rounded-full border-2 border-border-dark/70 border-t-border-dark/40 dark:border-border-dark dark:border-t-border-dark/40" />
     );
 }
 
@@ -30,7 +30,6 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 
 export default function MainNavigation() {
     const { data: session, status } = useSession();
-    const { theme, toggleTheme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
     const dictionary = useDictionary()?.['navigation'];
@@ -120,18 +119,15 @@ export default function MainNavigation() {
                         <span>|</span>
                         <LocaleSwitcher />
                         <span>|</span>
-                        <ThemeSwitcher
-                            theme={theme}
-                            dictionary={dictionary}
-                            toggleTheme={toggleTheme}
-                        />
+                        <ThemeSwitcher />
                     </div>
                 </nav>
             </div>
 
             {/* Mobile menu */}
             {isOpen && (
-                <nav className="absolute left-0 top-20 w-full bg-primary-contrast p-6 shadow-lg dark:bg-dark-soft md:hidden">
+                <nav
+                    className="absolute left-0 top-20 w-full bg-primary-contrast p-6 shadow-lg dark:bg-dark-soft md:hidden">
                     <ul className="flex flex-col gap-4 text-lg">
                         {NAVIGATION_ITEMS.map(({ href, label }) =>
                             renderListItem(href, label, toggleMenu),
@@ -141,11 +137,7 @@ export default function MainNavigation() {
                         {status === 'authenticated' &&
                             renderProfileButton(toggleMenu)}
                         <hr className="my-2 border-t border-border dark:border-border" />
-                        <ThemeSwitcher
-                            theme={theme}
-                            dictionary={dictionary}
-                            toggleTheme={toggleTheme}
-                        />
+                        <ThemeSwitcher />
                         <LocaleSwitcher />
                     </ul>
                 </nav>
