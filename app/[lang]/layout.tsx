@@ -64,7 +64,7 @@ export default async function RootLayout(props: {
             <body className={inter.className}>
                 <TranslationProvider dictionary={dictionary}>
                     <ThemeProvider attribute="class">
-                        <RootClientLayout dictionary={dictionary}>
+                        <RootClientLayout>
                             {children}
                         </RootClientLayout>
                         <Footer />
