@@ -30,7 +30,7 @@ export default function HeroCard({
             <h1 className="text-center text-xl font-extrabold tracking-wider text-foreground/90 dark:text-foreground sm:text-xl md:text-2xl">
                 {dictionary.greetings}
             </h1>
-            <p className="sm:text-md text-center text-base text-foreground-muted dark:text-foreground-onDark md:text-lg">
+            <p className="text-center text-base text-foreground-muted dark:text-foreground-onDark sm:text-base md:text-lg">
                 {dictionary.greetingsDescription}
             </p>
         </section>

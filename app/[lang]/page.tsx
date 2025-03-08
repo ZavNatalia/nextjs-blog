@@ -3,7 +3,7 @@ import HeroCard from '@/components/ui/HeroCard';
 import FeaturedPosts from '@/components/ui/posts/featured-posts';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
-import Loader from '@/components/ui/Loader';
+import { Loader } from '@/components/ui/Loader';
 import LatestNews from '@/components/ui/news/latest-news';
 
 export default async function HomePage(props: {

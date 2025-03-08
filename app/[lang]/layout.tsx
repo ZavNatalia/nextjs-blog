@@ -64,9 +64,7 @@ export default async function RootLayout(props: {
             <body className={inter.className}>
                 <TranslationProvider dictionary={dictionary}>
                     <ThemeProvider attribute="class">
-                        <RootClientLayout>
-                            {children}
-                        </RootClientLayout>
+                        <RootClientLayout>{children}</RootClientLayout>
                         <Footer />
                         <div id="notifications" />
                     </ThemeProvider>
