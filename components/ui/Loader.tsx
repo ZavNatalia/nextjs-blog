@@ -1,11 +1,14 @@
 import React from 'react';
 
-interface LoaderProps {
+export const Loader = ({
+    size = 40,
+    primaryColor = '#ee7e32',
+    secondaryColor = 'transparent',
+}: {
     size?: number;
-    color?: string;
-}
-
-export default function Loader({ size = 40, color = '#ee7e32' }: LoaderProps) {
+    primaryColor?: string;
+    secondaryColor?: string;
+}) => {
     return (
         <div className="flex items-center justify-center">
             <div
@@ -13,10 +16,10 @@ export default function Loader({ size = 40, color = '#ee7e32' }: LoaderProps) {
                     width: size,
                     height: size,
                     borderWidth: size / 10,
-                    borderColor: `${color} transparent ${color} transparent`,
+                    borderColor: `${primaryColor} ${secondaryColor} ${primaryColor} ${secondaryColor}`,
                 }}
                 className="animate-spin rounded-full border-4"
             ></div>
         </div>
     );
-}
+};

@@ -38,7 +38,7 @@ export default function Breadcrumbs({
         pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
 
     return (
-        <nav className="md:text-md flex flex-row flex-wrap gap-2 self-baseline text-lg">
+        <nav className="flex flex-row flex-wrap gap-2 self-baseline text-lg md:text-base">
             {breadcrumbs.map((breadcrumb, index) => (
                 <BreadcrumbItem
                     key={index}

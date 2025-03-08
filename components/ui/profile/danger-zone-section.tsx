@@ -65,7 +65,7 @@ export function DangerZoneSection({
             <h3 className="mb-3 text-xl font-semibold text-error">
                 {dictionary.dangerZone}
             </h3>
-            <p className="text-md text-error">
+            <p className="text-base text-error">
                 {dictionary.deletingIsIrreversible}
             </p>
             <button
@@ -111,7 +111,7 @@ export function DangerZoneSection({
                         <h3 className="text-lg font-semibold text-error">
                             {dictionary.confirmAccountDeletion}
                         </h3>
-                        <p className="text-md mt-2 text-foreground-muted dark:text-muted-light">
+                        <p className="mt-2 text-base text-foreground-muted dark:text-muted-light">
                             {dictionary.areYouSureYouWantToDelete}&nbsp;
                             <span className="font-mono font-bold text-foreground">
                                 {userEmail}

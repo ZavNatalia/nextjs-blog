@@ -56,7 +56,7 @@ export default function PostCard({
                     />
                 </div>
                 <div className="flex flex-col justify-between gap-3">
-                    <p className="text-md line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-foreground lg:line-clamp-5 lg:max-h-[8rem]">
+                    <p className="line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-base text-foreground lg:line-clamp-5 lg:max-h-[8rem]">
                         {excerpt}
                     </p>
                     <Link href={linkPath} className="button-primary self-end">

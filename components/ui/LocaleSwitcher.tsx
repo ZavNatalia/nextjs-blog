@@ -11,15 +11,16 @@ export default function LocaleSwitcher() {
     const pathname = usePathname();
     const dictionary = useDictionary()?.['navigation'];
 
-
     const switchLocale = (locale: string) => {
         const newPath = pathname.replace(/^\/(en|ru)/, `/${locale}`);
         router.push(newPath);
+        router.refresh();
     };
 
     const renderSwitchButton = (locale: string) => {
         const isActive = pathname.startsWith(`/${locale}`);
-        const getTitle = locale === 'en' ? dictionary.switchToEn : dictionary.switchToRu;
+        const getTitle =
+            locale === 'en' ? dictionary.switchToEn : dictionary.switchToRu;
 
         return (
             <button
@@ -27,9 +28,10 @@ export default function LocaleSwitcher() {
                 aria-label={getTitle}
                 key={locale}
                 onClick={() => switchLocale(locale)}
-                className={`icon-button text-md rounded-2xl border-2 border-transparent px-2 py-1 transition-colors duration-300 md:rounded-xl md:p-1 md:text-xs ${
+                className={`icon-button rounded-2xl border-2 border-transparent px-2 py-1 text-base md:rounded-xl md:p-1 md:text-xs ${
                     isActive
-                        ? 'border-muted bg-primary-light/80 text-foreground dark:border-muted-dark/80 dark:bg-dark/80 md:border-muted-light'
+                        ? 'border-border-dark/60 dark:border-border/70 md:border-border-dark/60 md:dark:border-border/30 ' +
+                          'text-foreground'
                         : ''
                 } `}
             >
@@ -38,5 +40,9 @@ export default function LocaleSwitcher() {
         );
     };
 
-    return <div className="flex gap-2">{locales.map(renderSwitchButton)}</div>;
+    return (
+        <div className="flex gap-2">
+            {locales.map((locale) => renderSwitchButton(locale))}
+        </div>
+    );
 }

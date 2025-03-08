@@ -61,7 +61,7 @@ function InputField({
             <InputComponent
                 id={id}
                 type={type}
-                className="input sm:text-md"
+                className="input"
                 placeholder={placeholder}
                 required={required}
                 value={value}
