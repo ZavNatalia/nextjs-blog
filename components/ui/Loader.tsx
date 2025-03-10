@@ -2,23 +2,27 @@ import React from 'react';
 
 export const Loader = ({
     size = 40,
-    primaryColor = '#ee7e32',
-    secondaryColor = 'transparent',
+    primaryColor = 'rgba(255,255,255,0.7)',
+    secondaryColor = 'rgba(119,124,133,0.7)',
+    borderWidth = size / 10,
+    paddings
 }: {
     size?: number;
     primaryColor?: string;
     secondaryColor?: string;
+    borderWidth?: number;
+    paddings?: string;
 }) => {
     return (
-        <div className="flex items-center justify-center">
+        <div className={`flex items-center justify-center ${paddings}`}>
             <div
                 style={{
                     width: size,
                     height: size,
-                    borderWidth: size / 10,
+                    borderWidth: borderWidth,
                     borderColor: `${primaryColor} ${secondaryColor} ${primaryColor} ${secondaryColor}`,
                 }}
-                className="animate-spin rounded-full border-4"
+                className="animate-spin rounded-full"
             ></div>
         </div>
     );

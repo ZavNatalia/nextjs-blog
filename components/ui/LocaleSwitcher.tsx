@@ -30,8 +30,9 @@ export default function LocaleSwitcher() {
                 onClick={() => switchLocale(locale)}
                 className={`icon-button rounded-2xl border-2 border-transparent px-2 py-1 text-base md:rounded-xl md:p-1 md:text-xs ${
                     isActive
-                        ? 'border-border-dark/60 dark:border-border/70 md:border-border-dark/60 md:dark:border-border/30 ' +
-                          'text-foreground'
+                        ? 'bg-primary dark:bg-dark ' +
+                        'md:bg-primary-contrast md:dark:bg-dark-soft ' +
+                        'text-foreground '
                         : ''
                 } `}
             >

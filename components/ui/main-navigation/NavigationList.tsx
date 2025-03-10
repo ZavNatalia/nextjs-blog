@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import ProfileButton, {
-    ProfileLoadingSpinner,
-} from '@/components/ui/main-navigation/ProfileButton';
+import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
+import { Loader } from '@/components/ui/Loader';
 
 interface NavigationItem {
     href: string;
@@ -65,7 +64,12 @@ export function NavigationList({
                     onClick={onClick}
                 />
             ))}
-            {status === 'loading' && <ProfileLoadingSpinner />}
+            {status === 'loading' && <Loader
+                size={40}
+                borderWidth={2}
+                paddings={'p-2'}
+            />}
+
             {!session && status !== 'loading' && (
                 <NavListItem
                     key="/auth"
