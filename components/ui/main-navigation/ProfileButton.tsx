@@ -7,10 +7,6 @@ interface ProfileButtonProps {
     onClick?: () => void;
 }
 
-export const ProfileLoadingSpinner = () => (
-    <div className="mx-2 h-10 w-10 animate-spin rounded-full border-2 border-border-dark/70 border-t-border-dark/40 dark:border-border-dark dark:border-t-border-dark/40" />
-);
-
 export default function ProfileButton({
     title,
     normalizedPathname,

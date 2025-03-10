@@ -18,13 +18,11 @@ export default function ThemeSwitcher() {
 
     if (isLoading) {
         return (
-            <div className="p-0 md:p-1">
-                <Loader
-                    size={20}
-                    primaryColor="#4b5463"
-                    secondaryColor="#9aa8bd"
-                />
-            </div>
+            <Loader
+                size={20}
+                borderWidth={2}
+                paddings={'p-0 md:p-1'}
+            />
         );
     }
 
