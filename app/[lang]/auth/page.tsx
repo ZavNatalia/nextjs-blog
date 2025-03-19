@@ -38,7 +38,7 @@ export default async function AuthPage(props: {
     return (
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
-            <div className="w-full max-w-sm rounded-3xl border border-border bg-primary p-8 shadow-md dark:border-none dark:bg-dark-strong lg:max-w-md">
+            <div className="w-full max-w-sm rounded-3xl border border-border bg-primary p-6 shadow-md dark:border-none dark:bg-dark-strong lg:max-w-md">
                 <AuthForm dictionary={authDict} />
                 <hr className="my-4 border-t border-border dark:border-border-dark" />
                 <p className="text-center text-sm uppercase text-muted-light">

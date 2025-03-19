@@ -114,7 +114,7 @@ export default function AuthForm({
                     const { isSubmitting } = formikProps;
 
                     return (
-                        <Form className="space-y-6">
+                        <Form className="space-y-4">
                             <div>
                                 <label htmlFor="email" className="label">
                                     Email
