@@ -21,7 +21,11 @@ export default function MainNavigation() {
 
     return (
         <header
-            className={` ${isOpen ? 'bg-primary-contrast dark:bg-dark-soft md:bg-primary md:dark:bg-dark-strong' : 'bg-primary dark:bg-dark-strong'} z-10 w-full shadow-lg md:sticky md:top-0`}
+            className={`z-10 shadow-lg md:sticky md:top-0 ${
+                isOpen
+                    ? 'bg-primary-contrast dark:bg-dark-soft md:bg-primary md:dark:bg-dark-strong'
+                    : 'bg-primary dark:bg-dark-strong'
+            } `}
         >
             <div className="mx-auto flex h-[48px] max-w-[90rem] items-center justify-between p-2 md:h-[88px] md:p-3">
                 <Logo title={dictionary['home']} />

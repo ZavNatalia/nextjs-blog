@@ -18,32 +18,29 @@ export default function ThemeSwitcher() {
 
     if (isLoading) {
         return (
-            <Loader
-                size={20}
-                borderWidth={2}
-                paddings={'p-0 md:p-1'}
-            />
+            <div className="m-1 h-5 w-5 animate-pulse rounded-full bg-primary-contrast dark:bg-dark-strong" />
         );
     }
 
-    if (mounted) {
-        return (
-            <button
-                className="icon-button rounded-xl p-0 md:p-1"
-                title={
-                    theme === 'light'
-                        ? dictionary.switchToDarkTheme
-                        : dictionary.switchToLightTheme
-                }
-                onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            >
-                {theme === 'light' ? (
-                    <MoonIcon className="h-8 w-8 md:h-5 md:w-5" />
-                ) : (
-                    <SunIcon className="h-8 w-8 md:h-5 md:w-5" />
-                )}
-            </button>
-        );
+    if (!mounted) {
+        return null;
     }
-    return null;
+
+    return (
+        <button
+            className="icon-button rounded-xl p-0 md:p-1"
+            title={
+                theme === 'light'
+                    ? dictionary.switchToDarkTheme
+                    : dictionary.switchToLightTheme
+            }
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        >
+            {theme === 'light' ? (
+                <MoonIcon className="h-8 w-8 md:h-5 md:w-5" />
+            ) : (
+                <SunIcon className="h-8 w-8 md:h-5 md:w-5" />
+            )}
+        </button>
+    );
 }

@@ -5,7 +5,7 @@ export const Loader = ({
     primaryColor = 'rgba(255,255,255,0.7)',
     secondaryColor = 'rgba(119,124,133,0.7)',
     borderWidth = size / 10,
-    paddings
+    paddings,
 }: {
     size?: number;
     primaryColor?: string;

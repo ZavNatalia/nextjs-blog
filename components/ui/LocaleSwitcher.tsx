@@ -31,8 +31,8 @@ export default function LocaleSwitcher() {
                 className={`icon-button rounded-2xl border-2 border-transparent px-2 py-1 text-base md:rounded-xl md:p-1 md:text-xs ${
                     isActive
                         ? 'bg-primary dark:bg-dark ' +
-                        'md:bg-primary-contrast md:dark:bg-dark-soft ' +
-                        'text-foreground '
+                          'md:bg-muted-light/40 hover:md:bg-muted-light/40 md:dark:bg-dark-strong hover:md:dark:bg-dark-strong' +
+                          'text-foreground'
                         : ''
                 } `}
             >
@@ -42,7 +42,7 @@ export default function LocaleSwitcher() {
     };
 
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 md:gap-1">
             {locales.map((locale) => renderSwitchButton(locale))}
         </div>
     );
