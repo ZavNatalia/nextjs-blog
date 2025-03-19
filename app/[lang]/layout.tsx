@@ -68,8 +68,6 @@ export default async function RootLayout(props: {
                         <RootClientLayout session={session}>
                             {props.children}
                         </RootClientLayout>
-                        <Footer />
-                        <div id="notifications" />
                     </TranslationProvider>
                 </ThemeProvider>
             </body>

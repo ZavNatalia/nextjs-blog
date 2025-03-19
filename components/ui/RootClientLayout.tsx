@@ -4,6 +4,7 @@ import MainNavigation from '@/components/ui/main-navigation/MainNavigation';
 import CookieConsent from '@/components/ui/CookieConsent';
 import { SessionProvider } from 'next-auth/react';
 import { Session } from 'next-auth';
+import Footer from '@/components/ui/Footer';
 
 export default function RootClientLayout({
     children,
@@ -18,6 +19,8 @@ export default function RootClientLayout({
                 <MainNavigation />
                 {children}
                 <CookieConsent />
+                <Footer />
+                <div id="notifications" />
             </div>
         </SessionProvider>
     );
