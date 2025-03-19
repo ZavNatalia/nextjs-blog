@@ -63,13 +63,13 @@ export default function PostContent({ post }: { post: IPost }) {
             const isCopied = copiedCode === children;
 
             return (
-                <div className="flex flex-col overflow-x-auto rounded-xl bg-primary-contrast p-2 text-sm dark:bg-dark/50 md:text-lg lg:px-5 lg:py-3">
+                <div className="relative text-sm md:text-lg">
                     <button
-                        className="self-end text-foreground hover:text-accent-dark dark:text-foreground-onDarkMuted dark:hover:text-accent"
+                        className="absolute right-2 top-2 text-foreground-contrast hover:text-accent dark:text-foreground-onDarkMuted dark:hover:text-accent-dark"
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
                         {isCopied ? (
-                            <ClipboardDocumentCheckIcon className="h-6 w-6 cursor-default text-green-600 dark:text-green-500" />
+                            <ClipboardDocumentCheckIcon className="h-6 w-6 cursor-default text-green-500 dark:text-green-600" />
                         ) : (
                             <DocumentDuplicateIcon className="h-6 w-6" />
                         )}

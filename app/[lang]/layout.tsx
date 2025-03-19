@@ -4,6 +4,10 @@ import RootClientLayout from '@/components/ui/RootClientLayout';
 import { ReactNode } from 'react';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
+import { ThemeProvider } from 'next-themes';
+import { TranslationProvider } from '@/hooks/useDictionary';
+import { getServerSession } from 'next-auth';
+import Footer from '@/components/ui/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -54,14 +58,18 @@ export default async function RootLayout(props: {
 }) {
     const params = await props.params;
     const dictionary = await getDictionary(params.lang);
-    const { children } = props;
+    const session = await getServerSession();
 
     return (
-        <html lang={params.lang}>
+        <html suppressHydrationWarning lang={params.lang}>
             <body className={inter.className}>
-                <RootClientLayout dictionary={dictionary}>
-                    {children}
-                </RootClientLayout>
+                <ThemeProvider attribute="class">
+                    <TranslationProvider dictionary={dictionary}>
+                        <RootClientLayout session={session}>
+                            {props.children}
+                        </RootClientLayout>
+                    </TranslationProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

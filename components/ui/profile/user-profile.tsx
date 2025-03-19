@@ -56,7 +56,7 @@ export default function UserProfile({
                             <button
                                 key={key}
                                 className={clsx(
-                                    'text-md flex w-full items-center gap-3 rounded-xl px-3 py-2 text-start transition-all duration-300',
+                                    'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-start text-base transition-all duration-300',
                                     activeSection === key
                                         ? 'bg-primary/50 text-foreground shadow-lg dark:bg-dark-soft/60'
                                         : 'text-foreground-muted hover:bg-primary/70 hover:text-foreground dark:text-foreground-onDarkMuted dark:hover:bg-dark-soft/40 dark:hover:text-foreground',

@@ -2,12 +2,14 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { i18n } from '@/i18n-config';
+import { useDictionary } from '@/hooks/useDictionary';
 
 const locales: string[] = [...i18n.locales];
 
 export default function LocaleSwitcher() {
     const router = useRouter();
     const pathname = usePathname();
+    const dictionary = useDictionary()?.['navigation'];
 
     const switchLocale = (locale: string) => {
         const newPath = pathname.replace(/^\/(en|ru)/, `/${locale}`);
@@ -17,14 +19,20 @@ export default function LocaleSwitcher() {
 
     const renderSwitchButton = (locale: string) => {
         const isActive = pathname.startsWith(`/${locale}`);
+        const getTitle =
+            locale === 'en' ? dictionary.switchToEn : dictionary.switchToRu;
+
         return (
             <button
-                title={locale}
+                title={getTitle}
+                aria-label={getTitle}
                 key={locale}
                 onClick={() => switchLocale(locale)}
-                className={`icon-button text-md rounded-2xl border-2 border-transparent px-2 py-1 transition-colors duration-300 md:rounded-xl md:p-1 md:text-xs ${
+                className={`icon-button rounded-2xl border-2 border-transparent px-2 py-1 text-base md:rounded-xl md:p-1 md:text-xs ${
                     isActive
-                        ? 'border-muted bg-primary-light/80 text-foreground dark:border-muted-dark/80 dark:bg-dark/80 md:border-muted-light'
+                        ? 'bg-primary dark:bg-dark ' +
+                          'md:bg-muted-light/40 hover:md:bg-muted-light/40 md:dark:bg-dark-strong hover:md:dark:bg-dark-strong' +
+                          'text-foreground'
                         : ''
                 } `}
             >
@@ -33,5 +41,9 @@ export default function LocaleSwitcher() {
         );
     };
 
-    return <div className="flex gap-2">{locales.map(renderSwitchButton)}</div>;
+    return (
+        <div className="flex gap-2 md:gap-1">
+            {locales.map((locale) => renderSwitchButton(locale))}
+        </div>
+    );
 }

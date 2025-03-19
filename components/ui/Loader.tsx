@@ -1,22 +1,29 @@
 import React from 'react';
 
-interface LoaderProps {
+export const Loader = ({
+    size = 40,
+    primaryColor = 'rgba(255,255,255,0.7)',
+    secondaryColor = 'rgba(119,124,133,0.7)',
+    borderWidth = size / 10,
+    paddings,
+}: {
     size?: number;
-    color?: string;
-}
-
-export default function Loader({ size = 40, color = '#ee7e32' }: LoaderProps) {
+    primaryColor?: string;
+    secondaryColor?: string;
+    borderWidth?: number;
+    paddings?: string;
+}) => {
     return (
-        <div className="flex items-center justify-center">
+        <div className={`flex items-center justify-center ${paddings}`}>
             <div
                 style={{
                     width: size,
                     height: size,
-                    borderWidth: size / 10,
-                    borderColor: `${color} transparent ${color} transparent`,
+                    borderWidth: borderWidth,
+                    borderColor: `${primaryColor} ${secondaryColor} ${primaryColor} ${secondaryColor}`,
                 }}
-                className="animate-spin rounded-full border-4"
+                className="animate-spin rounded-full"
             ></div>
         </div>
     );
-}
+};

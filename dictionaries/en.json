@@ -29,7 +29,9 @@
         "profile": "Profile",
         "userProfile": "User profile",
         "switchToLightTheme": "Switch to Light theme",
-        "switchToDarkTheme": "Switch to Dark theme"
+        "switchToDarkTheme": "Switch to Dark theme",
+        "switchToRu": "Switch to Russian",
+        "switchToEn": "Switch to English"
     },
     "profile-page": {
         "pageDescription": "Manage your account settings, update your password, or delete your account permanently.",
