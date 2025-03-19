@@ -64,11 +64,9 @@ export function NavigationList({
                     onClick={onClick}
                 />
             ))}
-            {status === 'loading' && <Loader
-                size={40}
-                borderWidth={2}
-                paddings={'p-2'}
-            />}
+            {status === 'loading' && (
+                <Loader size={40} borderWidth={2} paddings={'p-2'} />
+            )}
 
             {!session && status !== 'loading' && (
                 <NavListItem
