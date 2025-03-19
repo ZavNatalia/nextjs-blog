@@ -114,7 +114,7 @@ export default function AuthForm({
                     const { isSubmitting } = formikProps;
 
                     return (
-                        <Form className="space-y-6">
+                        <Form className="space-y-4">
                             <div>
                                 <label htmlFor="email" className="label">
                                     Email
@@ -123,7 +123,7 @@ export default function AuthForm({
                                     id="email"
                                     name="email"
                                     type="email"
-                                    className="input sm:text-md mt-1"
+                                    className="input mt-1"
                                     placeholder={dictionary.yourEmail}
                                 />
                                 <ErrorMessage
@@ -141,7 +141,7 @@ export default function AuthForm({
                                     id="password"
                                     name="password"
                                     type={showPassword ? 'text' : 'password'}
-                                    className="input sm:text-md mt-1"
+                                    className="input mt-1"
                                     placeholder={dictionary.yourPassword}
                                 />
                                 <button
@@ -186,7 +186,7 @@ export default function AuthForm({
                                                 ? 'text'
                                                 : 'password'
                                         }
-                                        className="input sm:text-md mt-1"
+                                        className="input mt-1"
                                         placeholder={dictionary.confirmPassword}
                                     />
                                     <button

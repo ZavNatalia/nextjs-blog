@@ -23,7 +23,7 @@ export function AccountSection({
             <h2 className="text-xl font-semibold text-foreground">
                 {dictionary.yourAccount}
             </h2>
-            <p className="text-md mb-4 text-foreground-muted dark:text-muted-light">
+            <p className="mb-4 text-base text-foreground-muted dark:text-muted-light">
                 {userEmail}
             </p>
             <button

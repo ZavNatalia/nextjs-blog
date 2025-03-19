@@ -1,18 +1,31 @@
+'use client';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import { useTheme } from 'next-themes';
+import { useDictionary } from '@/hooks/useDictionary';
+import { useEffect, useState } from 'react';
+import { Loader } from '@/components/ui/Loader';
 
-interface ThemeSwitcherProps {
-    theme: 'light' | 'dark';
-    dictionary: {
-        switchToDarkTheme: string;
-        switchToLightTheme: string;
-    };
-    toggleTheme: () => void;
-}
-export default function ThemeSwitcher({
-    theme,
-    dictionary,
-    toggleTheme,
-}: ThemeSwitcherProps) {
+export default function ThemeSwitcher() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [mounted, setMounted] = useState(false);
+    const { theme, setTheme } = useTheme();
+    const dictionary = useDictionary()?.['navigation'];
+
+    useEffect(() => {
+        setMounted(true);
+        setIsLoading(false);
+    }, [mounted, isLoading]);
+
+    if (isLoading) {
+        return (
+            <div className="m-1 h-5 w-5 animate-pulse rounded-full bg-primary-contrast dark:bg-dark-strong" />
+        );
+    }
+
+    if (!mounted) {
+        return null;
+    }
+
     return (
         <button
             className="icon-button rounded-xl p-0 md:p-1"
@@ -21,7 +34,7 @@ export default function ThemeSwitcher({
                     ? dictionary.switchToDarkTheme
                     : dictionary.switchToLightTheme
             }
-            onClick={toggleTheme}
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         >
             {theme === 'light' ? (
                 <MoonIcon className="h-8 w-8 md:h-5 md:w-5" />

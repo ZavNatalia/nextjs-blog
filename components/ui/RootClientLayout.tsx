@@ -1,33 +1,27 @@
 'use client';
 import { ReactNode } from 'react';
-import { SessionProvider } from 'next-auth/react';
-import MainNavigation from '@/components/ui/MainNavigation';
+import MainNavigation from '@/components/ui/main-navigation/MainNavigation';
 import CookieConsent from '@/components/ui/CookieConsent';
+import { SessionProvider } from 'next-auth/react';
+import { Session } from 'next-auth';
 import Footer from '@/components/ui/Footer';
-import { TranslationProvider } from '@/hooks/useDictionary';
 
 export default function RootClientLayout({
-    dictionary,
     children,
+    session,
 }: {
-    dictionary: Record<string, any>;
     children: ReactNode;
+    session: Session | null;
 }) {
     return (
-        <SessionProvider
-            refetchOnWindowFocus={false}
-            refetchInterval={0}
-            refetchWhenOffline={false}
-        >
-            <TranslationProvider dictionary={dictionary}>
-                <div className="flex min-h-screen flex-col">
-                    <MainNavigation />
-                    {children}
-                    <CookieConsent />
-                    <Footer />
-                    <div id="notifications" />
-                </div>
-            </TranslationProvider>
+        <SessionProvider session={session}>
+            <div className="flex min-h-screen flex-col">
+                <MainNavigation />
+                {children}
+                <CookieConsent />
+                <Footer />
+                <div id="notifications" />
+            </div>
         </SessionProvider>
     );
 }
