@@ -7,7 +7,6 @@ import { getDictionary } from '@/get-dictionary';
 import { ThemeProvider } from 'next-themes';
 import { TranslationProvider } from '@/hooks/useDictionary';
 import { getServerSession } from 'next-auth';
-import Footer from '@/components/ui/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
