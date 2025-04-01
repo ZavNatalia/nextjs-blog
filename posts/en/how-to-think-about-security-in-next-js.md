@@ -10,10 +10,10 @@ React Server Components (RSC) in the App Router introduce a new paradigm that re
 
 ### **Main Goal of This Article**
 
--   Highlight key areas of focus.
--   Describe built-in security mechanisms.
--   Provide a guide for auditing applications.
--   Pay special attention to the risks of accidental data exposure.
+- Highlight key areas of focus.
+- Describe built-in security mechanisms.
+- Provide a guide for auditing applications.
+- Pay special attention to the risks of accidental data exposure.
 
 ---
 
@@ -96,27 +96,27 @@ When auditing a Next.js project using the App Router, focus on the following asp
 
 1. **Data Access Layer**
 
--   Ensure there is a clearly defined data access layer.
--   Verify that database-related packages and environment variables are not used outside this layer.
+- Ensure there is a clearly defined data access layer.
+- Verify that database-related packages and environment variables are not used outside this layer.
 
 2. **Client Components (_"use client"_)**
 
--   Review component props to prevent the exposure of private data.
--   Ensure components only receive the necessary data.
+- Review component props to prevent the exposure of private data.
+- Ensure components only receive the necessary data.
 
 3. **Server Actions (_"use server"_)**
 
--   Validate function arguments inside the action itself.
--   Check that user permissions are verified on every action call.
+- Validate function arguments inside the action itself.
+- Check that user permissions are verified on every action call.
 
 4. **Dynamic Routes (_/[param]/_)**
 
--   Route parameters are user input and should be carefully validated.
+- Route parameters are user input and should be carefully validated.
 
 5. **Middleware & Route Handlers**
 
--   These files significantly impact security and should receive extra attention.
--   Regularly conduct penetration testing and vulnerability scans as part of your software development lifecycle.
+- These files significantly impact security and should receive extra attention.
+- Regularly conduct penetration testing and vulnerability scans as part of your software development lifecycle.
 
 ---
 

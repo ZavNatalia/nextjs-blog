@@ -13,6 +13,7 @@ import {
     DocumentDuplicateIcon,
     ClipboardDocumentCheckIcon,
 } from '@heroicons/react/24/outline';
+import remarkGfm from 'remark-gfm';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);
@@ -55,6 +56,20 @@ export default function PostContent({ post }: { post: IPost }) {
                 />
             );
         },
+        a({ href, children }) {
+            const isExternal = href?.startsWith('http');
+
+            return (
+                <a
+                    href={href}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                    className="text-accent underline hover:opacity-80"
+                >
+                    {children}
+                </a>
+            );
+        },
         code({ className, children }) {
             const language = className
                 ? className.replace('language-', '')
@@ -84,16 +99,46 @@ export default function PostContent({ post }: { post: IPost }) {
                 </div>
             );
         },
+        table({ node, ...props }) {
+            return (
+                <table
+                    className="w-full border-collapse border border-border dark:border-dark"
+                    {...props}
+                />
+            );
+        },
+        thead({ node, ...props }) {
+            return (
+                <thead
+                    className="bg-primary-light dark:bg-dark-soft"
+                    {...props}
+                />
+            );
+        },
+        th({ node, ...props }) {
+            return (
+                <th
+                    className="border border-border px-4 py-2 text-left font-semibold dark:border-dark"
+                    {...props}
+                />
+            );
+        },
+        td({ node, ...props }) {
+            return (
+                <td
+                    className="border border-border bg-primary px-4 py-2 dark:border-dark dark:bg-dark-soft/30"
+                    {...props}
+                />
+            );
+        },
     };
 
     return (
         <article className="mx-auto w-full rounded-3xl bg-primary-contrast/40 p-3 dark:bg-dark-soft/50 md:p-4 lg:max-w-5xl lg:p-10">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
-                components={{
-                    img: customRenderers.img,
-                    code: customRenderers.code,
-                }}
+                remarkPlugins={[remarkGfm]}
+                components={customRenderers}
                 className="markdown-content prose-sm dark:prose-invert lg:prose-lg"
             >
                 {content}
