@@ -7,6 +7,10 @@ import Link from 'next/link';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 import BackToTopButton from '@/components/ui/BackToTopButton';
+import Script from 'next/script';
+
+export const revalidate = 3600;
+export const dynamic = 'force-static';
 
 interface PageProps {
     params: Promise<{ slug: string; lang: Locale }>;
@@ -24,9 +28,37 @@ export async function generateMetadata(props: PageProps) {
     const post = await getPost(slug, lang);
     if (!post) return { title: 'Post Not Found' };
 
+    const imageUrl = `https://zav.me/images/posts/${slug}/${post.image}`;
+    const baseUrl = `https://zav.me`;
+
     return {
         title: post.title,
         description: post.excerpt,
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            type: 'article',
+            url: `${baseUrl}/${lang}/posts/${slug}`,
+            images: [
+                {
+                    url: imageUrl,
+                    alt: post.title,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.excerpt,
+            images: [imageUrl],
+        },
+        alternates: {
+            canonical: `${baseUrl}/${lang}/posts/${slug}`,
+            languages: {
+                en: `${baseUrl}/en/posts/${slug}`,
+                ru: `${baseUrl}/ru/posts/${slug}`,
+            },
+        },
     };
 }
 
@@ -48,14 +80,30 @@ export default async function Page(props: PageProps) {
         },
     ];
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        image: `https://zav.me/images/posts/${post.slug}/${post.image}`,
+        datePublished: post.date,
+        mainEntityOfPage: `https://zav.me/${lang}/posts/${post.slug}`,
+    };
+
     return (
         <main className="page">
+            <h1 className="sr-only">{post.title}</h1>
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} />
             <Link href="/posts" className="button-accent">
                 {dictionary.goToAllPosts}
             </Link>
             <BackToTopButton />
+            <Script
+                id="post-jsonld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
         </main>
     );
 }
@@ -67,3 +115,4 @@ export async function generateStaticParams(props: PageProps) {
         .map((fileName) => fileName.replace(/\.md$/, ''))
         .map((slug) => ({ slug }));
 }
+
