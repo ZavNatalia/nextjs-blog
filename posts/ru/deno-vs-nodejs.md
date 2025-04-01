@@ -3,7 +3,7 @@ title: 'Deno vs Node.js'
 date: '2024-10-07'
 image: 'deno-vs-nodejs.webp'
 excerpt: 'Node.js и Deno — это две платформы для выполнения JavaScript и TypeScript вне браузера, но они имеют ряд отличий в дизайне и архитектуре.'
-isFeatured: true
+isFeatured: false
 ---
 
 **Node.js** и **Deno** — это две платформы для выполнения JavaScript и TypeScript вне браузера, но они имеют ряд отличий в дизайне и архитектуре.
