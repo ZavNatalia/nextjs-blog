@@ -16,24 +16,24 @@ next dev --turbo
 
 For large applications like [Vercel](https://vercel.com), the following improvements have been achieved:
 
--   **Up to 76.7% faster** local server startup
--   **Up to 96.3% faster** code updates with Fast Refresh
--   **Up to 45.8% faster** initial route compilation without caching
+- **Up to 76.7% faster** local server startup
+- **Up to 96.3% faster** code updates with Fast Refresh
+- **Up to 45.8% faster** initial route compilation without caching
 
 ## **History and Motivation**
 
 ### **Background**
 
--   Next.js has been used for everything from hobby projects to enterprise applications.
--   Webpack was the best choice when Next.js was first launched.
--   Over time, Webpack struggled to keep up with the needs of modern web development.
--   The community expressed frustration over slow iterations when waiting for routes to load and reflect changes.
+- Next.js has been used for everything from hobby projects to enterprise applications.
+- Webpack was the best choice when Next.js was first launched.
+- Over time, Webpack struggled to keep up with the needs of modern web development.
+- The community expressed frustration over slow iterations when waiting for routes to load and reflect changes.
 
 ### **Optimization Efforts**
 
--   The Next.js team spent significant time optimizing Webpack.
--   However, they reached the limit of improvements possible with the existing architecture.
--   A new foundation was required to support both existing applications and future innovations.
+- The Next.js team spent significant time optimizing Webpack.
+- However, they reached the limit of improvements possible with the existing architecture.
+- A new foundation was required to support both existing applications and future innovations.
 
 ## **Technical Improvements**
 
@@ -43,34 +43,34 @@ For large applications like [Vercel](https://vercel.com), the following improvem
 
 #### **Issues with Webpack:**
 
--   Required separate compilers for the server and browser.
--   Code parsing was duplicated.
--   No parallelization across CPU cores.
--   JavaScript-based architecture introduced inherent limitations.
+- Required separate compilers for the server and browser.
+- Code parsing was duplicated.
+- No parallelization across CPU cores.
+- JavaScript-based architecture introduced inherent limitations.
 
 #### **Turbopack Solutions:**
 
--   A **unified compiler** for all execution environments.
--   **"Target transitions"** for efficient processing of Server and Client Components.
--   **Parallelized** workload distribution across CPU cores using Rust.
--   Optimized **file system operations**.
--   Improved **module resolution**.
--   Skips work for modules **without side effects**.
+- A **unified compiler** for all execution environments.
+- **"Target transitions"** for efficient processing of Server and Client Components.
+- **Parallelized** workload distribution across CPU cores using Rust.
+- Optimized **file system operations**.
+- Improved **module resolution**.
+- Skips work for modules **without side effects**.
 
 ### **2. Fast Refresh**
 
 #### **Issues with Webpack:**
 
--   Performance was limited by the number of JavaScript modules.
--   For ~30,000 modules, there was a **minimum** of **1-second overhead** per change.
--   Linear scalability with module count led to performance degradation.
+- Performance was limited by the number of JavaScript modules.
+- For ~30,000 modules, there was a **minimum** of **1-second overhead** per change.
+- Linear scalability with module count led to performance degradation.
 
 #### **Improvements with Turbopack:**
 
--   **Refresh speed depends only on the size of the changes.**
--   Uses **Turbo Engine** for incremental calculations.
--   Based on **decades of research** (including Webpack, Salsa, Parcel, and Adapton).
--   **Updates in milliseconds** even for large applications.
+- **Refresh speed depends only on the size of the changes.**
+- Uses **Turbo Engine** for incremental calculations.
+- Based on **decades of research** (including Webpack, Salsa, Parcel, and Adapton).
+- **Updates in milliseconds** even for large applications.
 
 ### **3. Advanced Tracing**
 
@@ -90,9 +90,9 @@ next internal turbo-trace-server .next/trace-turbopack
 
 ### **4. Compilation Stability**
 
--   **More predictable** compilation times.
--   **Variance within just a few percent.**
--   **Better alignment** between development and production builds.
+- **More predictable** compilation times.
+- **Variance within just a few percent.**
+- **Better alignment** between development and production builds.
 
 ---
 
@@ -100,40 +100,40 @@ next internal turbo-trace-server .next/trace-turbopack
 
 ### **Stable Features:**
 
--   _next dev --turbo_ command.
--   Full support for **App Router** and **Pages Router**.
--   Works with all **stable Next.js features**.
+- _next dev --turbo_ command.
+- Full support for **App Router** and **Pages Router**.
+- Works with all **stable Next.js features**.
 
 ### **Supported Webpack Loaders:**
 
--   @svgr/webpack
--   babel-loader
--   url-loader
--   file-loader
--   raw-loader
--   tsconfig-paths-webpack-plugin
+- @svgr/webpack
+- babel-loader
+- url-loader
+- file-loader
+- raw-loader
+- tsconfig-paths-webpack-plugin
 
 ### **CSS and CSS-in-JS Support**
 
 #### **Supported:**
 
--   Tailwind CSS
--   _@emotion/react_
--   Sass
--   styled-components
--   Bootstrap
--   Antd
--   node-sass
--   JSS
--   theme-ui
--   Chakra UI
--   aphrodite
+- Tailwind CSS
+- _@emotion/react_
+- Sass
+- styled-components
+- Bootstrap
+- Antd
+- node-sass
+- JSS
+- theme-ui
+- Chakra UI
+- aphrodite
 
 #### **Not Yet Supported:**
 
--   Less
--   _@vanilla-extract/css_
--   StyleX
+- Less
+- _@vanilla-extract/css_
+- StyleX
 
 ---
 
@@ -141,10 +141,10 @@ next internal turbo-trace-server .next/trace-turbopack
 
 ### **Current Achievements:**
 
--   **Significant improvements over Webpack**.
--   **No persistent caching yet** (in progress).
--   **25-35% lower memory usage** (RC 2 vs RC 1).
--   **30-50% faster initial compilation** for large pages.
+- **Significant improvements over Webpack**.
+- **No persistent caching yet** (in progress).
+- **25-35% lower memory usage** (RC 2 vs RC 1).
+- **30-50% faster initial compilation** for large pages.
 
 ### **Breaking Changes:**
 
@@ -193,10 +193,10 @@ Turbopack **enhanced Lightning CSS**, adding **better error messages and CSS Mod
 
 ### **Long-Term Plans:**
 
--   Recommended in _create-next-app_.
--   Become the default bundler in Next.js.
--   Support for popular Webpack plugins.
--   Standalone version outside of Next.js.
+- Recommended in _create-next-app_.
+- Become the default bundler in Next.js.
+- Support for popular Webpack plugins.
+- Standalone version outside of Next.js.
 
 ---
 
@@ -204,23 +204,23 @@ Turbopack **enhanced Lightning CSS**, adding **better error messages and CSS Mod
 
 ### **Already Implemented:**
 
--   **SWC Minify** for JavaScript.
--   **Lightning CSS** minification.
--   **Production JS Runtime.**
--   **Global application optimizations.**
+- **SWC Minify** for JavaScript.
+- **Lightning CSS** minification.
+- **Production JS Runtime.**
+- **Global application optimizations.**
 
 ### **In Progress:**
 
--   **CSS chunking**.
--   **Extended tree shaking**.
--   **Module ID hashing**.
--   **Export optimizations**.
+- **CSS chunking**.
+- **Extended tree shaking**.
+- **Module ID hashing**.
+- **Export optimizations**.
 
 ### **Planned:**
 
--   **Scope hoisting**.
--   **Optimized JS chunking**.
--   **Content-based file hashing**.
+- **Scope hoisting**.
+- **Optimized JS chunking**.
+- **Content-based file hashing**.
 
 ---
 

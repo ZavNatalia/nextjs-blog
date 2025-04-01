@@ -144,4 +144,11 @@ body {
     .markdown-content a:hover {
         @apply text-accent-dark;
     }
+
+    .markdown-content table th:first-child,
+    .markdown-content table td:first-child,
+    .markdown-content table tfoot td:first-child {
+        padding-inline-start: 12px;
+        padding-inline-end: 12px;
+    }
 }
