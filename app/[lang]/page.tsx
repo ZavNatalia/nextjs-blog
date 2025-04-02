@@ -1,9 +1,8 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import HeroCard from '@/components/ui/HeroCard';
 import FeaturedPosts from '@/components/ui/posts/featured-posts';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
-import { Loader } from '@/components/ui/Loader';
 import LatestNews from '@/components/ui/news/latest-news';
 
 export default async function HomePage(props: {
@@ -15,9 +14,7 @@ export default async function HomePage(props: {
     return (
         <main className="page">
             <HeroCard dictionary={dictionary} />
-            <Suspense fallback={<Loader size={50} />}>
-                <LatestNews lang={lang} />
-            </Suspense>
+            <LatestNews lang={lang} />
             <FeaturedPosts dictionary={dictionary} lang={lang} />
         </main>
     );
