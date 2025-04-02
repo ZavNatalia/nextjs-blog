@@ -9,7 +9,7 @@
         "start": "next start",
         "lint": "next lint",
         "format": "prettier --write .",
-        "postbuild": "next-sitemap"
+        "postbuild": "next-sitemap --config next-sitemap.config.cjs"
     },
     "dependencies": {
         "@formatjs/intl-localematcher": "^0.6.1",
