@@ -75,7 +75,7 @@ function InputField({
 const getNotificationData = (
     status: NotificationStatus,
     error: string | null,
-    dictionary: Record<string, any>,
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
 ) => {
     const notificationMap: {
         [key in NotificationStatus]: NotificationDetails;

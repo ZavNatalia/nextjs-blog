@@ -1,7 +1,9 @@
+import React from 'react';
 import { INews } from '@/lib/news-util';
 import { Locale } from '@/i18n-config';
 import NewsItemHeader from '@/components/ui/news/news-list/news-item-header';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { Components } from 'react-markdown';
+import Image from 'next/image';
 
 export default function NewsList({
     newsList,
@@ -23,6 +25,42 @@ export default function NewsList({
     }) => {
         const { title, date, slug, image, content } = newsItem;
         const imagePath = `/images/news/${slug}/${image}`;
+
+        const customRenderers: Components = {
+            img({ src, alt }: { src?: string; alt?: string }) {
+                if (!src) return null;
+
+                return (
+                    <Image
+                        src={`/images/posts/${slug}/${src}`}
+                        alt={alt || 'Post Image'}
+                        width={500}
+                        height={500}
+                        sizes="(max-width: 869px) 100vw, 500px"
+                        className="mx-auto rounded-xl object-contain"
+                    />
+                );
+            },
+            a({ href, children }) {
+                const isExternal = href?.startsWith('http');
+                const ariaLabel = React.Children.toArray(children)
+                    .filter((child) => typeof child === 'string')
+                    .join(' ')
+                    .trim();
+                return (
+                    <a
+                        aria-label={ariaLabel || undefined}
+                        href={href}
+                        target={isExternal ? '_blank' : undefined}
+                        rel={isExternal ? 'noopener noreferrer' : undefined}
+                        className="text-accent underline hover:opacity-80 dark:text-accent-dark"
+                    >
+                        {children}
+                    </a>
+                );
+            },
+        };
+
         return (
             <li className="lg:max-w-4xl">
                 <NewsItemHeader
@@ -31,7 +69,10 @@ export default function NewsList({
                     imagePath={imagePath}
                     lang={lang}
                 />
-                <ReactMarkdown className="markdown-content prose-sm dark:prose-invert lg:prose-lg">
+                <ReactMarkdown
+                    components={customRenderers}
+                    className="markdown-content prose-sm dark:prose-invert lg:prose-lg"
+                >
                     {content}
                 </ReactMarkdown>
             </li>

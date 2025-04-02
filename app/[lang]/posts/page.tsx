@@ -23,7 +23,7 @@ async function AllPosts({
     dictionary,
 }: {
     lang: Locale;
-    dictionary: any;
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['posts-page'];
 }) {
     const posts = await getAllPosts(lang);
 

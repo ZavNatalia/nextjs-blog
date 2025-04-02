@@ -97,7 +97,7 @@ export default function AuthForm({
 
     return (
         <>
-            <h1 className="mb-6 text-center text-2xl font-bold text-accent">
+            <h1 className="mb-6 text-center text-2xl font-bold text-accent dark:text-accent-dark">
                 {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
 
@@ -149,7 +149,7 @@ export default function AuthForm({
                                     onClick={() =>
                                         setShowPassword((prev) => !prev)
                                     }
-                                    className="absolute right-3 top-10 text-accent"
+                                    className="absolute right-3 top-10 text-accent dark:text-accent-dark"
                                 >
                                     {showPassword ? (
                                         <EyeSlashIcon
@@ -196,7 +196,7 @@ export default function AuthForm({
                                                 (prev) => !prev,
                                             )
                                         }
-                                        className="absolute right-3 top-10 text-accent"
+                                        className="absolute right-3 top-10 text-accent dark:text-accent-dark"
                                     >
                                         {showConfirmPassword ? (
                                             <EyeSlashIcon
@@ -246,7 +246,7 @@ export default function AuthForm({
                                 <button
                                     type="button"
                                     onClick={switchAuthModeHandler}
-                                    className="text-accent hover:text-accent-dark"
+                                    className="text-accent hover:text-accent-light dark:text-accent-dark hover:dark:text-accent-dark/80"
                                 >
                                     {isLogin
                                         ? dictionary.createAccount

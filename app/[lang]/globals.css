@@ -78,7 +78,7 @@ body {
     }
 
     .button-primary {
-        @apply button bg-primary-contrast text-foreground hover:bg-accent hover:text-foreground-contrast dark:bg-dark-soft dark:hover:bg-accent-dark;
+        @apply button bg-primary-contrast text-foreground hover:bg-accent hover:text-foreground-contrast dark:bg-dark-soft dark:hover:bg-accent-darker;
     }
 
     .button-secondary {
@@ -86,7 +86,7 @@ body {
     }
 
     .button-accent {
-        @apply button bg-accent text-foreground-contrast hover:bg-accent-dark dark:bg-accent-dark dark:hover:bg-accent-darker;
+        @apply button bg-accent text-foreground-contrast hover:bg-accent-light dark:bg-accent-darker dark:hover:bg-accent-darker/70;
     }
 
     .button-danger {
@@ -98,7 +98,7 @@ body {
     }
 
     .icon-button {
-        @apply button max-w-fit rounded-lg bg-transparent p-0 transition-colors duration-200 hover:bg-transparent hover:text-accent focus-visible:ring-2 focus-visible:ring-accent dark:hover:text-accent;
+        @apply button max-w-fit rounded-lg bg-transparent p-0 transition-colors duration-200 hover:bg-transparent hover:text-accent focus-visible:ring-2 focus-visible:ring-accent dark:hover:text-accent-dark;
     }
 
     .button-sm {
@@ -133,16 +133,16 @@ body {
         @apply italic;
     }
     .markdown-content h2 {
-        @apply text-center text-accent;
+        @apply text-center text-accent dark:text-accent-dark;
     }
     .markdown-content pre {
         @apply m-0 p-1;
     }
     .markdown-content a {
-        @apply text-accent underline;
+        @apply text-accent no-underline transition-all duration-300 dark:text-accent-dark;
     }
     .markdown-content a:hover {
-        @apply text-accent-dark;
+        @apply text-accent-light underline dark:text-accent-dark/90;
     }
 
     .markdown-content table th:first-child,

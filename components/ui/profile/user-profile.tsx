@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { AccountSection } from '@/components/ui/profile/account-section';
 import { SecuritySection } from '@/components/ui/profile/security-section';
 import { DangerZoneSection } from '@/components/ui/profile/danger-zone-section';
+import { getDictionary } from '@/get-dictionary';
 
 const SECTIONS = [
     { key: 'Account', label: 'yourAccount', icon: UserIcon },
@@ -21,7 +22,7 @@ export default function UserProfile({
     dictionary,
 }: {
     userEmail: string;
-    dictionary: Record<string, any>;
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['profile-page'];
 }) {
     const [activeSection, setActiveSection] = useState('Account');
 

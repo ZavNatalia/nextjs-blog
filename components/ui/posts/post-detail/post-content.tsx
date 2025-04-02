@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import darcula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
@@ -14,11 +14,18 @@ import {
     ClipboardDocumentCheckIcon,
 } from '@heroicons/react/24/outline';
 import remarkGfm from 'remark-gfm';
+import { getDictionary } from '@/get-dictionary';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);
 
-export default function PostContent({ post }: { post: IPost }) {
+export default function PostContent({
+    post,
+    dictionary,
+}: {
+    post: IPost;
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['posts-page'];
+}) {
     const { title, date, slug, image, content } = post;
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
     const imagePath = `/images/posts/${slug}/${image}`;
@@ -58,13 +65,17 @@ export default function PostContent({ post }: { post: IPost }) {
         },
         a({ href, children }) {
             const isExternal = href?.startsWith('http');
-
+            const ariaLabel = React.Children.toArray(children)
+                .filter((child) => typeof child === 'string')
+                .join(' ')
+                .trim();
             return (
                 <a
+                    aria-label={ariaLabel || undefined}
                     href={href}
                     target={isExternal ? '_blank' : undefined}
                     rel={isExternal ? 'noopener noreferrer' : undefined}
-                    className="text-accent underline hover:opacity-80"
+                    className="text-accent underline hover:opacity-80 dark:text-accent-dark"
                 >
                     {children}
                 </a>
@@ -80,7 +91,8 @@ export default function PostContent({ post }: { post: IPost }) {
             return (
                 <div className="relative text-sm md:text-lg">
                     <button
-                        className="absolute right-2 top-2 text-foreground-contrast hover:text-accent dark:text-foreground-onDarkMuted dark:hover:text-accent-dark"
+                        aria-label={dictionary.copyCode}
+                        className="absolute right-2 top-2 text-foreground-contrast transition-colors duration-300 hover:text-muted-light dark:text-foreground-onDarkMuted dark:hover:text-accent-dark"
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
                         {isCopied ? (

@@ -30,7 +30,13 @@ export default function MainNavigation() {
             <div className="mx-auto flex h-[48px] max-w-[90rem] items-center justify-between p-2 md:h-[88px] md:p-3">
                 <Logo title={dictionary['home']} />
 
-                <MobileMenuButton isOpen={isOpen} toggleMenu={toggleMenu} />
+                <MobileMenuButton
+                    ariaLabel={
+                        isOpen ? dictionary.closeMenu : dictionary.openMenu
+                    }
+                    isOpen={isOpen}
+                    toggleMenu={toggleMenu}
+                />
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex">
