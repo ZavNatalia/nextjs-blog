@@ -99,7 +99,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 </div>
             );
         },
-        table({ node, ...props }) {
+        table(props) {
             return (
                 <table
                     className="w-full border-collapse border border-border dark:border-dark"
@@ -107,7 +107,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 />
             );
         },
-        thead({ node, ...props }) {
+        thead(props) {
             return (
                 <thead
                     className="bg-primary-light dark:bg-dark-soft"
@@ -115,7 +115,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 />
             );
         },
-        th({ node, ...props }) {
+        th(props) {
             return (
                 <th
                     className="border border-border px-4 py-2 text-left font-semibold dark:border-dark"
@@ -123,7 +123,7 @@ export default function PostContent({ post }: { post: IPost }) {
                 />
             );
         },
-        td({ node, ...props }) {
+        td(props) {
             return (
                 <td
                     className="border border-border bg-primary px-4 py-2 dark:border-dark dark:bg-dark-soft/30"

@@ -1,17 +1,21 @@
 import Link from 'next/link';
+import { useDictionary } from '@/hooks/useDictionary';
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
+    const dictionary = useDictionary()?.['common'];
+
     return (
         <div className="flex w-full items-center justify-center gap-2 bg-primary p-3 dark:bg-dark">
-            <p className="text-xs text-muted-light">
+            <p className="text-xs text-muted">
                 © {currentYear} Natalia&apos;s Next blog
             </p>
             <Link
                 href="https://github.com/ZavNatalia"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-light transition hover:text-accent dark:hover:text-accent-dark"
+                aria-label={dictionary.githubAccount}
+                className="flex items-center gap-2 text-muted transition hover:text-accent dark:hover:text-accent-dark"
             >
                 <svg
                     className="h-5 w-5"
