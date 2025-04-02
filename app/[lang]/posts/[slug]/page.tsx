@@ -81,8 +81,8 @@ export default async function Page(props: PageProps) {
     ];
 
     const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
         headline: post.title,
         description: post.excerpt,
         image: `https://zav.me/images/posts/${post.slug}/${post.image}`,
@@ -115,4 +115,3 @@ export async function generateStaticParams(props: PageProps) {
         .map((fileName) => fileName.replace(/\.md$/, ''))
         .map((slug) => ({ slug }));
 }
-
