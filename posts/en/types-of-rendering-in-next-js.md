@@ -35,15 +35,15 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 }
 ```
 
-***dynamic = 'error'*** — Disabling Dynamic Rendering
+**_dynamic = 'error'_** — Disabling Dynamic Rendering
 
 If Next.js detects anything that requires dynamic rendering during the rendering process (such as cookies(), headers(), fetch(..., { cache: 'no-store' }), useSearchParams(), etc.), it will throw a build or runtime error.
 
 ### Why use it?
 
-* Ensures the page is fully static (SSG)
-* Beneficial for SEO and fast loading times
-* Helps catch accidental or unexpected dynamic dependencies
+- Ensures the page is fully static (SSG)
+- Beneficial for SEO and fast loading times
+- Helps catch accidental or unexpected dynamic dependencies
 
 ---
 
@@ -64,15 +64,15 @@ export default async function Dashboard() {
 }
 ```
 
-***force-dynamic*** forces the page to always be rendered on the server on every request — in other words, it enables Server-Side Rendering (SSR) even when the data could be cached or statically pre-rendered.
+**_force-dynamic_** forces the page to always be rendered on the server on every request — in other words, it enables Server-Side Rendering (SSR) even when the data could be cached or statically pre-rendered.
 
 If your component uses cookies, headers, useSearchParams, request-time data, or calls unstable_noStore(), Next.js will automatically fall back to dynamic rendering (force-dynamic). However, you can also declare this behavior explicitly using export const dynamic = 'force-dynamic'.
 
 ### When and why to use force-dynamic?
 
-* The page depends on data that changes frequently
-* You don't want caching to be applied
-* You’re making API or database calls that should always return fresh data
+- The page depends on data that changes frequently
+- You don't want caching to be applied
+- You’re making API or database calls that should always return fresh data
 
 ---
 
