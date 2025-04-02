@@ -11,7 +11,8 @@
         "backToTop": "Наверх",
         "featuredPosts": "Актуальные посты",
         "goToAllPosts": "Перейти ко всем постам",
-        "cancel": "Отмена"
+        "cancel": "Отмена",
+        "githubAccount": "Аккаунт на GitHub"
     },
     "privacy-policy-page": {
         "main": "главная",
