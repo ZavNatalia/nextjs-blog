@@ -20,7 +20,7 @@ const substringText = (text: string, length = 50): string =>
     text.length > length ? `${text.substring(0, length)}...` : text;
 
 async function getPost(slug: string, lang: Locale): Promise<IPost | null> {
-    return getPostData(slug, lang);
+    return await getPostData(slug, lang);
 }
 
 export async function generateMetadata(props: PageProps) {
