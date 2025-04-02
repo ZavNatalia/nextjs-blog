@@ -34,7 +34,7 @@ export default function CookieConsent() {
                 {privacyDict.weUseCookies}&nbsp;
                 <Link
                     href="/privacy-policy"
-                    className="text-blue-500 hover:underline dark:text-blue-400"
+                    className="text-blue-700 hover:underline dark:text-blue-400"
                 >
                     {privacyDict.ourPrivacyPolicy}
                 </Link>
