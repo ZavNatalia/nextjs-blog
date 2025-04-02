@@ -10,6 +10,9 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+            },
             colors: {
                 primary: {
                     DEFAULT: '#ffffff',
@@ -30,7 +33,7 @@ const config: Config = {
                     onDarkMuted: '#9aa8bd',
                 },
                 accent: {
-                    DEFAULT: 'rgb(238,126,50)',
+                    DEFAULT: 'rgb(220,92,3)',
                     light: 'rgb(252,158,95)',
                     dark: '#bf590b',
                     darker: '#9e4610',
