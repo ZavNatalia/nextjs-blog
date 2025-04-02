@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
 import { Loader } from '@/components/ui/Loader';
+import { getDictionary } from '@/get-dictionary';
 
 interface NavigationItem {
     href: string;
@@ -31,7 +32,7 @@ function NavListItem({
             <Link
                 href={href}
                 title={title}
-                className={`block rounded-xl px-2 py-2 text-base transition-colors duration-200 hover:text-accent dark:hover:text-accent xl:text-lg ${isActive ? 'text-accent' : 'text-foreground dark:text-foreground-onDark'}`}
+                className={`block rounded-xl px-2 py-2 text-base transition-colors duration-200 hover:text-accent dark:hover:text-accent-dark xl:text-lg ${isActive ? 'text-accent dark:text-accent-dark' : 'text-foreground dark:text-foreground-onDark'}`}
                 onClick={onClick}
             >
                 {title}
@@ -50,7 +51,7 @@ export function NavigationList({
     normalizedPathname: string;
     session: any;
     status: string;
-    dictionary: Record<string, any>;
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['navigation'];
     onClick?: () => void;
 }) {
     return (

@@ -49,7 +49,7 @@ export default function BackToTopButton({
   hover:text-foreground-contrast
   dark:bg-dark-soft
   dark:text-muted-light
-  dark:hover:bg-accent-dark
+  dark:hover:bg-accent-darker
   dark:hover:text-foreground-onDark
 `;
 

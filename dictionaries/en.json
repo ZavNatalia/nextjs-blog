@@ -32,7 +32,9 @@
         "switchToLightTheme": "Switch to Light theme",
         "switchToDarkTheme": "Switch to Dark theme",
         "switchToRu": "Switch to Russian",
-        "switchToEn": "Switch to English"
+        "switchToEn": "Switch to English",
+        "closeMenu": "Close menu",
+        "openMenu": "Open menu"
     },
     "profile-page": {
         "pageDescription": "Manage your account settings, update your password, or delete your account permanently.",
@@ -118,7 +120,8 @@
         "readMore": "Read more",
         "pageDescription": "A list of all programming-related tutorials and posts",
         "goToAllPosts": "Go to all posts",
-        "noPosts": "No posts available yet"
+        "noPosts": "No posts available yet",
+        "copyCode": "Copy code"
     },
     "contact-page": {
         "main": "main",

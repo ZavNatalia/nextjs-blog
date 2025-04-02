@@ -33,13 +33,13 @@ const config: Config = {
                     onDarkMuted: '#9aa8bd',
                 },
                 accent: {
-                    DEFAULT: 'rgb(220,92,3)',
-                    light: 'rgb(252,158,95)',
-                    dark: '#bf590b',
-                    darker: '#9e4610',
+                    DEFAULT: 'rgb(77,7,163)',
+                    light: 'rgb(102,18,206)',
+                    dark: '#ff761e',
+                    darker: '#a34b09',
                 },
                 muted: {
-                    DEFAULT: '#6b7280',
+                    DEFAULT: '#4c5058',
                     light: '#9ca3af',
                     dark: '#4b5563',
                     darker: '#374151',

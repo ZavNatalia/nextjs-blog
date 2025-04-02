@@ -38,7 +38,7 @@ export default async function FeaturedPosts({
             role="region"
             className="flex flex-col items-center gap-5 px-4 py-4 md:py-6 lg:gap-8 lg:rounded-3xl lg:bg-primary/60 lg:px-8 lg:py-8 dark:lg:bg-dark-strong/50"
         >
-            <h2 className="text-2xl font-bold text-accent lg:text-4xl">
+            <h2 className="text-2xl font-bold text-accent dark:text-accent-dark lg:text-4xl">
                 {dictionary.featuredPosts}
             </h2>
 
