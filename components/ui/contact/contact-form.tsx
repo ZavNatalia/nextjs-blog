@@ -200,6 +200,8 @@ export default function ContactForm({
                     rows={5}
                 />
                 <button
+                    aria-label={dictionary.sendMessage}
+                    title={dictionary.sendMessage}
                     disabled={requestStatus === 'pending'}
                     type="submit"
                     className="button-accent flex items-center gap-1 self-end"

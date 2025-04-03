@@ -53,7 +53,11 @@ export default async function FeaturedPosts({
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <Link href="/posts" className="button-accent">
+            <Link
+                href="/posts"
+                className="button-accent"
+                aria-label={dictionary.allPosts}
+            >
                 {dictionary.allPosts}
             </Link>
         </div>

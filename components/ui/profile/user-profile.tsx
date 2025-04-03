@@ -42,7 +42,7 @@ export default function UserProfile({
                         onClick={() => setActiveSection(key)}
                     >
                         <Icon
-                            className={`mb-2 h-6 w-6 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`}
+                            className={`mb-2 h-6 w-6 transition-all duration-300 ${activeSection === key ? 'text-accent dark:text-accent-dark' : 'text-foreground'}`}
                         />
                         <span className="text-sm">{dictionary[label]}</span>
                     </button>
@@ -65,7 +65,7 @@ export default function UserProfile({
                                 onClick={() => setActiveSection(key)}
                             >
                                 <Icon
-                                    className={`h-6 w-6 ${activeSection === key ? 'text-accent' : 'text-foreground'}`}
+                                    className={`h-6 w-6 ${activeSection === key ? 'text-accent dark:text-accent-dark' : 'text-foreground'}`}
                                 />
                                 {dictionary[label]}
                             </button>

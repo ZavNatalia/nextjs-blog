@@ -10,7 +10,7 @@ export function AccountSection({
 }) {
     return (
         <div className="flex flex-col items-center gap-3 text-center">
-            <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-accent shadow-md">
+            <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-accent shadow-md dark:border-accent-dark">
                 <Image
                     src="/images/site/default-avatar.png"
                     alt="User avatar"

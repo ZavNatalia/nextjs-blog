@@ -142,6 +142,7 @@
         "errorOccurred": "An error occurred",
         "bySubmittingMessage": "By submitting a message through the contact form, you confirm that you have read our",
         "privacyPolicy": "Privacy Policy",
+        "openPrivacyPolicyPage": "Open Privacy Policy page",
         "consentProcessingPersonalData": "and consent to the processing of your personal data in accordance with the stated terms.",
         "somethingWentWrong": "Something went wrong!"
     },

@@ -95,7 +95,11 @@ export default async function Page(props: PageProps) {
             <h1 className="sr-only">{post.title}</h1>
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} dictionary={dictionary} />
-            <Link href="/posts" className="button-accent">
+            <Link
+                aria-label={dictionary.goToAllPosts}
+                href="/posts"
+                className="button-accent"
+            >
                 {dictionary.goToAllPosts}
             </Link>
             <BackToTopButton />

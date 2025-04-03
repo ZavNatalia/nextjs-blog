@@ -39,6 +39,8 @@ export default async function ContactPage(props: {
                 <p className="text-justify text-muted-dark dark:text-muted-light">
                     {dictionary.bySubmittingMessage}&nbsp;
                     <Link
+                        title={dictionary.openPrivacyPolicyPage}
+                        aria-label={dictionary.openPrivacyPolicyPage}
                         href="/privacy-policy"
                         className="text-blue-700 hover:underline dark:text-blue-400"
                     >
