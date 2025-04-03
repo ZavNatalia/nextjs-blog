@@ -154,11 +154,13 @@ export default function AuthForm({
                                     {showPassword ? (
                                         <EyeSlashIcon
                                             className="mr-1 h-5 w-5"
+                                            aria-label={dictionary.hidePassword}
                                             title={dictionary.hidePassword}
                                         />
                                     ) : (
                                         <EyeIcon
                                             className="mr-1 h-5 w-5"
+                                            aria-label={dictionary.showPassword}
                                             title={dictionary.showPassword}
                                         />
                                     )}
@@ -201,11 +203,17 @@ export default function AuthForm({
                                         {showConfirmPassword ? (
                                             <EyeSlashIcon
                                                 className="mr-1 h-5 w-5"
+                                                aria-label={
+                                                    dictionary.hidePassword
+                                                }
                                                 title={dictionary.hidePassword}
                                             />
                                         ) : (
                                             <EyeIcon
                                                 className="mr-1 h-5 w-5"
+                                                aria-label={
+                                                    dictionary.showPassword
+                                                }
                                                 title={dictionary.showPassword}
                                             />
                                         )}

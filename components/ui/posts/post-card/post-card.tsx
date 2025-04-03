@@ -61,7 +61,8 @@ export default function PostCard({
                     </p>
                     <Link
                         href={linkPath}
-                        aria-label={`${dictionary.readMore} ${post.title}`}
+                        title={`${dictionary.readMore} - ${post.title}`}
+                        aria-label={`${dictionary.readMore} - ${post.title}`}
                         className="button-primary self-end"
                     >
                         {dictionary.readMore}

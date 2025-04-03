@@ -36,7 +36,7 @@ const config: Config = {
                     DEFAULT: 'rgb(77,7,163)',
                     light: 'rgb(102,18,206)',
                     dark: '#ff761e',
-                    darker: '#a34b09',
+                    darker: '#cb4400',
                 },
                 muted: {
                     DEFAULT: '#4c5058',

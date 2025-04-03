@@ -35,6 +35,7 @@ export default function ProfileButton({
             <Link
                 href="/profile"
                 title={title}
+                aria-label={title}
                 className="rounded-full"
                 onClick={onClick}
             >
