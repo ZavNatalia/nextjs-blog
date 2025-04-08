@@ -38,7 +38,34 @@ export async function POST(req: NextRequest) {
     let client: MongoClient | null = null;
 
     try {
-        const body: IMessage = await req.json();
+        const { token, ...body }: IMessage & { token: string } =
+            await req.json();
+        const secretKey = process.env.TURNSTILE_SECRET_KEY;
+        const verifyRes = await fetch(
+            'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    secret: secretKey,
+                    response: token,
+                }),
+            },
+        );
+
+        const { success } = await verifyRes.json();
+
+        if (!success) {
+            return new Response(
+                JSON.stringify({ error: 'Captcha verification failed' }),
+                {
+                    status: 400,
+                    headers: { 'Content-Type': 'application/json' },
+                },
+            );
+        }
 
         const validationError = validateMessage(body);
         if (validationError) {
