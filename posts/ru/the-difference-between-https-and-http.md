@@ -1,7 +1,7 @@
 ---
 title: 'В чем разница между HTTP и HTTPS?'
 date: '2024-09-12'
-image: 'the-difference-between-https-and-http.webp'
+image: 'the-difference-between-https-and-http.png'
 excerpt: 'Протокол передачи гипертекста (HTTP) – это протокол или набор правил взаимодействия между клиентом и сервером. '
 isFeatured: false
 ---
@@ -67,4 +67,4 @@ HTTPS требует, чтобы вы получили и сохранили с�
 
 ---
 
-_Автор [оригинального поста](https://aws.amazon.com/ru/compare/the-difference-between-https-and-http/ Amazon Web Services_
+_Автор [оригинального поста](https://aws.amazon.com/ru/compare/the-difference-between-https-and-http/) Amazon Web Services_

@@ -16,6 +16,9 @@ export async function generateMetadata(props: {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
     const dictionary = await getDictionary(lang)?.['common'];
+
+    const baseUrl = 'https://zav.me';
+
     return {
         title: {
             template: `%s | ${dictionary.blogTitle}`,
@@ -44,6 +47,13 @@ export async function generateMetadata(props: {
             apple: '/icons/apple-touch-icon.png',
         },
         manifest: manifestPath,
+        alternates: {
+            canonical: `${baseUrl}/${lang}`,
+            languages: {
+                en: `${baseUrl}/en`,
+                ru: `${baseUrl}/ru`,
+            },
+        },
     };
 }
 

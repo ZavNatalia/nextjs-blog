@@ -12,9 +12,19 @@ export async function generateMetadata(props: {
 }) {
     const { lang } = await props.params;
     const dictionary = await getDictionary(lang)?.['posts-page'];
+    const baseUrl = 'https://zav.me';
+    const path = 'posts';
+
     return {
         title: dictionary.allPosts,
         description: dictionary.pageDescription,
+        alternates: {
+            canonical: `${baseUrl}/${lang}/${path}`,
+            languages: {
+                en: `${baseUrl}/en/${path}`,
+                ru: `${baseUrl}/ru/${path}`,
+            },
+        },
     };
 }
 
