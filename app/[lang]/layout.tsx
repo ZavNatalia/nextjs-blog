@@ -1,4 +1,3 @@
-import { Inter } from 'next/font/google';
 import './globals.css';
 import RootClientLayout from '@/components/ui/RootClientLayout';
 import { ReactNode } from 'react';
@@ -8,7 +7,33 @@ import { ThemeProvider } from 'next-themes';
 import { TranslationProvider } from '@/hooks/useDictionary';
 import { getServerSession } from 'next-auth';
 
-const inter = Inter({ subsets: ['latin'] });
+import localFont from 'next/font/local';
+
+export const openSans = localFont({
+    src: [
+        {
+            path: '../../public/fonts/Open_Sans/static/OpenSans-Regular.ttf',
+            weight: '400',
+            style: 'normal',
+        },
+        {
+            path: '../../public/fonts/Open_Sans/static/OpenSans-Bold.ttf',
+            weight: '700',
+            style: 'normal',
+        },
+        {
+            path: '../../public/fonts/Open_Sans/static/OpenSans-Medium.ttf',
+            weight: '500',
+            style: 'medium',
+        },
+        {
+            path: '../../public/fonts/Open_Sans/static/OpenSans-Italic.ttf',
+            weight: '400',
+            style: 'italic',
+        },
+    ],
+    variable: '--font-open-sans',
+});
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
@@ -71,7 +96,7 @@ export default async function RootLayout(props: {
 
     return (
         <html suppressHydrationWarning lang={params.lang}>
-            <body className={inter.className}>
+            <body className={openSans.className}>
                 <ThemeProvider attribute="class">
                     <TranslationProvider dictionary={dictionary}>
                         <RootClientLayout session={session}>
