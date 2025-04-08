@@ -61,11 +61,11 @@ export function DangerZoneSection({
     };
 
     return (
-        <div className="rounded-xl border border-error bg-error-light/10 p-4 shadow-md dark:bg-error/10">
-            <h3 className="mb-3 text-xl font-semibold text-error">
+        <div className="rounded-xl border border-error bg-error-light/10 p-4 shadow-md dark:bg-error-dark/10">
+            <h3 className="mb-3 text-xl font-semibold text-error dark:text-error-light">
                 {dictionary.dangerZone}
             </h3>
-            <p className="text-base text-error">
+            <p className="text-base text-error dark:text-error-light">
                 {dictionary.deletingIsIrreversible}
             </p>
             <button

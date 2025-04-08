@@ -10,7 +10,7 @@
 }
 
 .dark {
-    --foreground-rgb: 226, 232, 240;
+    --foreground-rgb: 220, 230, 235;
     --background-rgb: 33, 35, 52;
     --accent-rgb: 180, 83, 9;
     --muted-rgb: 67, 78, 94;
@@ -74,7 +74,7 @@ body {
     }
 
     .button {
-        @apply rounded-lg px-4 py-2 font-semibold transition-colors duration-300 hover:bg-primary focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+        @apply rounded-lg px-4 py-2 font-bold transition-colors duration-300 hover:bg-primary focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
     }
 
     .button-primary {

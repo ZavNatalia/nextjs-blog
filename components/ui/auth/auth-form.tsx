@@ -229,7 +229,7 @@ export default function AuthForm({
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className={`w-full max-w-full ${
+                                className={`w-full ${
                                     isSubmitting || !formikProps.isValid
                                         ? 'button-disabled'
                                         : 'button-accent'
