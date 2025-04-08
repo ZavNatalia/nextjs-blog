@@ -5,6 +5,7 @@ import Notification, {
     NotificationStatus,
 } from '@/components/ui/Notification';
 import { getDictionary } from '@/get-dictionary';
+import Turnstile from 'react-turnstile';
 
 type ContactDetails = {
     email: string;
@@ -26,19 +27,20 @@ type InputFieldProps = {
 };
 
 async function sendContactDetails(
+    token: string,
     contactDetails: ContactDetails,
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
 ): Promise<void> {
     const response = await fetch('/api/contact', {
         method: 'POST',
-        body: JSON.stringify(contactDetails),
+        body: JSON.stringify({ ...contactDetails, token }),
         headers: {
             'Content-Type': 'application/json',
         },
     });
     const data = await response.json();
     if (!response.ok) {
-        throw new Error(data?.message || dictionary.somethingWentWrong);
+        throw new Error(data?.error || dictionary.somethingWentWrong);
     }
 }
 
@@ -117,6 +119,7 @@ export default function ContactForm({
     userEmail: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'];
 }) {
+    const [token, setToken] = useState('');
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: userEmail,
         name: '',
@@ -148,10 +151,22 @@ export default function ContactForm({
         event.preventDefault();
         setRequestStatus('pending');
         try {
-            await sendContactDetails(messageDetails, dictionary);
+            await sendContactDetails(token, messageDetails, dictionary);
+            if (typeof window !== 'undefined' && window.turnstile) {
+                const el = document.getElementById('turnstile-widget');
+                if (el) {
+                    window.turnstile.reset(el);
+                }
+            }
             setRequestStatus('success');
             setMessageDetails({ email: '', name: '', message: '' });
         } catch (error) {
+            if (typeof window !== 'undefined' && window.turnstile) {
+                const el = document.getElementById('turnstile-widget');
+                if (el) {
+                    window.turnstile.reset(el);
+                }
+            }
             setRequestError(
                 error instanceof Error
                     ? error.message
@@ -199,12 +214,21 @@ export default function ContactForm({
                     required
                     rows={5}
                 />
+                <div className="h-[66px]">
+                    <Turnstile
+                        sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                        onVerify={(token) => setToken(token)}
+                        className="text-center"
+                        id="turnstile-widget"
+                    />
+                </div>
+
                 <button
                     aria-label={dictionary.sendMessage}
                     title={dictionary.sendMessage}
                     disabled={requestStatus === 'pending'}
                     type="submit"
-                    className="button-accent flex items-center gap-1 self-end"
+                    className="button-accent flex items-center gap-1 self-center"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
