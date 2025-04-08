@@ -7,6 +7,14 @@ import Notification, {
 import { getDictionary } from '@/get-dictionary';
 import Turnstile from 'react-turnstile';
 
+declare global {
+    interface Window {
+        turnstile?: {
+            reset: (element: HTMLElement) => void;
+        };
+    }
+}
+
 type ContactDetails = {
     email: string;
     name: string;
