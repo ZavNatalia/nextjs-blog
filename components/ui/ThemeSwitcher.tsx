@@ -27,7 +27,7 @@ export default function ThemeSwitcher() {
 
     return (
         <button
-            className="icon-button rounded-xl p-0 md:p-1"
+            className="icon-button rounded-xl p-0 duration-0 md:p-1"
             aria-label={
                 theme === 'light'
                     ? dictionary.switchToDarkTheme

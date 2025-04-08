@@ -8,6 +8,8 @@ import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 import BackToTopButton from '@/components/ui/BackToTopButton';
 import Script from 'next/script';
+import fs from 'fs';
+import path from 'path';
 
 export const revalidate = 3600;
 export const dynamic = 'force-static';
@@ -22,18 +24,43 @@ const substringText = (text: string, length = 50): string =>
 async function getPost(slug: string, lang: Locale): Promise<IPost | null> {
     return await getPostData(slug, lang);
 }
+async function getAvailableLanguages(
+    slug: string,
+): Promise<Partial<Record<Locale, string>>> {
+    const langs: Locale[] = ['en', 'ru'];
+    const result: Partial<Record<Locale, string>> = {};
+
+    langs.forEach((lang) => {
+        const filePath = path.join(process.cwd(), `posts/${lang}/${slug}.md`);
+        if (fs.existsSync(filePath)) {
+            result[lang] = `https://zav.me/${lang}/posts/${slug}`;
+        }
+    });
+
+    return result;
+}
+
+function shortenDescription(text: string, maxLength = 150): string {
+    if (text.length <= maxLength) return text;
+
+    const truncated = text.slice(0, maxLength);
+
+    const lastSpace = truncated.lastIndexOf(' ');
+    return `${truncated.slice(0, lastSpace)}...`;
+}
 
 export async function generateMetadata(props: PageProps) {
     const { lang, slug } = await props.params;
     const post = await getPost(slug, lang);
     if (!post) return { title: 'Post Not Found' };
+    const alternatesLanguages = await getAvailableLanguages(slug);
 
     const imageUrl = `https://zav.me/images/posts/${slug}/${post.image}`;
     const baseUrl = `https://zav.me`;
 
     return {
         title: post.title,
-        description: post.excerpt,
+        description: shortenDescription(post.excerpt),
         openGraph: {
             title: post.title,
             description: post.excerpt,
@@ -54,10 +81,7 @@ export async function generateMetadata(props: PageProps) {
         },
         alternates: {
             canonical: `${baseUrl}/${lang}/posts/${slug}`,
-            languages: {
-                en: `${baseUrl}/en/posts/${slug}`,
-                ru: `${baseUrl}/ru/posts/${slug}`,
-            },
+            languages: alternatesLanguages,
         },
     };
 }
