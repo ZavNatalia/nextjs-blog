@@ -14,7 +14,7 @@ export interface NotificationDetails {
 const bgMap: { [key in NotificationStatus]: string } = {
     pending: 'bg-primary-contrast dark:bg-dark-soft',
     success: 'bg-green-200 dark:bg-green-900',
-    error: 'bg-error-light/60 dark:bg-error-dark',
+    error: 'bg-red-300 dark:bg-error-dark',
 };
 
 const getBg = (status: NotificationStatus) => {
