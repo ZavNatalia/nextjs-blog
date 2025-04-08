@@ -1,7 +1,7 @@
 ---
 title: 'What is the difference between HTTP and HTTPS?'
 date: '2024-09-12'
-image: 'the-difference-between-https-and-http.webp'
+image: 'the-difference-between-https-and-http.png'
 excerpt: 'The Hypertext Transfer Protocol (HTTP) is a protocol or a set of rules that defines communication between a client and a server.'
 isFeatured: false
 ---
