@@ -17,15 +17,15 @@ export default function ProfileButton({
     ${
         isActive
             ? `
-        border-2 border-accent dark:border-accent-dark
+        border-2 border-accent-500
         `
             : `
-        border-2 border-border dark:border-border-light md:dark:border-border-dark
-        hover:bg-accent hover:dark:bg-accent-dark
-        hover:border-accent hover:dark:border-accent-dark
+        border-2 border-border-500 
+        hover:bg-accent 
+        hover:border-accent-500 
         `
     }
-    relative mx-2 h-12 w-12 md:h-10 md:w-10 rounded-full
+    relative h-12 w-12 md:h-10 md:w-10 rounded-full
     bg-primary shadow-md
     transition-colors duration-600
 `;
@@ -36,8 +36,8 @@ export default function ProfileButton({
                 href="/profile"
                 title={title}
                 aria-label={title}
-                className="rounded-full"
                 onClick={onClick}
+                className={`focus-visible:ring-accent group inline-block rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-0`}
             >
                 <div className={imageStyles}>
                     <Image

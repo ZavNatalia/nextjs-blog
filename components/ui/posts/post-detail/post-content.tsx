@@ -75,7 +75,6 @@ export default function PostContent({
                     href={href}
                     target={isExternal ? '_blank' : undefined}
                     rel={isExternal ? 'noopener noreferrer' : undefined}
-                    className="text-accent underline hover:opacity-80 dark:text-accent-dark"
                 >
                     {children}
                 </a>
@@ -87,16 +86,16 @@ export default function PostContent({
                 : '';
 
             const isCopied = copiedCode === children;
-
+            const copyButtonStyles = `absolute focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-100 right-2 top-2 p-1 rounded-xl text-foreground-contrast transition-colors duration-300 hover:text-accent-100 dark:text-foreground-muted dark:hover:text-accent-100`;
             return (
                 <div className="relative text-sm md:text-lg">
                     <button
                         aria-label={dictionary.copyCode}
-                        className="absolute right-2 top-2 text-foreground-contrast transition-colors duration-300 hover:text-muted-light dark:text-foreground-onDarkMuted dark:hover:text-accent-dark"
+                        className={copyButtonStyles}
                         onClick={() => copyCodeToClipboard(children as string)}
                     >
                         {isCopied ? (
-                            <ClipboardDocumentCheckIcon className="h-6 w-6 cursor-default text-green-500 dark:text-green-600" />
+                            <ClipboardDocumentCheckIcon className="h-6 w-6 cursor-default text-success-500" />
                         ) : (
                             <DocumentDuplicateIcon className="h-6 w-6" />
                         )}
@@ -114,23 +113,18 @@ export default function PostContent({
         table(props) {
             return (
                 <table
-                    className="w-full border-collapse border border-border dark:border-dark"
+                    className="w-full border-collapse border border-border-500"
                     {...props}
                 />
             );
         },
         thead(props) {
-            return (
-                <thead
-                    className="bg-primary-light dark:bg-dark-soft"
-                    {...props}
-                />
-            );
+            return <thead className="bg-background-tertiary/40" {...props} />;
         },
         th(props) {
             return (
                 <th
-                    className="border border-border px-4 py-2 text-left font-semibold dark:border-dark"
+                    className="border border-border-500 px-4 py-2 text-left font-semibold"
                     {...props}
                 />
             );
@@ -138,7 +132,7 @@ export default function PostContent({
         td(props) {
             return (
                 <td
-                    className="border border-border bg-primary px-4 py-2 dark:border-dark dark:bg-dark-soft/30"
+                    className="bg-primary border border-border-500 px-4 py-2"
                     {...props}
                 />
             );
@@ -146,7 +140,7 @@ export default function PostContent({
     };
 
     return (
-        <article className="mx-auto w-full rounded-3xl bg-primary-contrast/40 p-3 dark:bg-dark-soft/50 md:p-4 lg:max-w-5xl lg:p-10">
+        <article className="mx-auto w-full rounded-3xl p-3 md:p-4 lg:max-w-5xl lg:p-10">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}

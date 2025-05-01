@@ -41,7 +41,7 @@ export default async function AuthPage(props: {
             <div className="w-full max-w-sm rounded-3xl border border-border bg-primary p-6 shadow-md dark:border-none dark:bg-dark-strong lg:max-w-md">
                 <AuthForm dictionary={authDict} />
                 <hr className="my-4 border-t border-border dark:border-border-dark" />
-                <p className="text-center text-sm uppercase text-muted-light">
+                <p className="text-muted-100 text-center text-sm uppercase">
                     {authDict.or}
                 </p>
                 <div className="mt-3 flex flex-col items-center gap-3">

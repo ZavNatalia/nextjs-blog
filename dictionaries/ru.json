@@ -6,7 +6,7 @@
         "blogDescription": "Я пишу о программировании и веб-разработке.",
         "main": "Главная",
         "allPosts": "Все посты",
-        "noPosts": "Постов пока нет",
+        "noPosts": "Здесь будут отображаться опубликованные посты",
         "readMore": "Читать далее",
         "backToTop": "Наверх",
         "featuredPosts": "Актуальные посты",
@@ -60,6 +60,8 @@
             "newPasswordRequired": "Новый пароль обязателен.",
             "atLeast7Characters": "Новый пароль должен содержать как минимум 7 символов.",
             "oldPasswordIncorrect": "Старый пароль введён неверно.",
+            "showPassword": "Показать пароль",
+            "hidePassword": "Скрыть пароль",
             "somethingWentWrong": "Что-то пошло не так!",
             "passwordChangedSuccessfully": "Пароль успешно изменён!",
             "failedChangePassword": "При изменении пароля произошла ошибка.",
@@ -121,7 +123,7 @@
         "readMore": "Читать далее",
         "pageDescription": "Список статей по программированию",
         "goToAllPosts": "Перейти ко всем постам",
-        "noPosts": "Постов пока нет",
+        "noPosts": "Здесь будут отображаться опубликованные посты",
         "copyCode": "Копировать код"
     },
     "contact-page": {

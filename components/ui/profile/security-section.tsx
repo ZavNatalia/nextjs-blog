@@ -15,12 +15,12 @@ export function SecuritySection({
                 {dictionary.wantToChangeYourPassword}
             </p>
             <ChangePasswordForm dictionary={dictionary} />
-            <div className="mt-3 flex text-sm text-foreground-muted dark:text-foreground-onDarkMuted">
+            <div className="dark:text-foreground-onDarkMuted mt-3 flex text-sm text-foreground-muted">
                 <p>
                     {dictionary.reviewPrivacyPolicy}&nbsp;
                     <Link
                         href="/privacy-policy"
-                        className="text-blue-700 hover:underline dark:text-blue-400"
+                        className="link text-blue-700 hover:underline dark:text-blue-400"
                     >
                         {dictionary.here}
                     </Link>

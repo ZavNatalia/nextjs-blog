@@ -21,10 +21,8 @@ export default function MainNavigation() {
 
     return (
         <header
-            className={`z-10 shadow-lg md:sticky md:top-0 ${
-                isOpen
-                    ? 'bg-primary-contrast dark:bg-dark-soft md:bg-primary md:dark:bg-dark-strong'
-                    : 'bg-primary dark:bg-dark-strong'
+            className={`z-10 shadow-md md:sticky md:top-0 ${
+                isOpen ? 'bg-tertiary' : 'bg-background-secondary'
             } `}
         >
             <div className="mx-auto flex h-[48px] max-w-[90rem] items-center justify-between p-2 md:h-[88px] md:p-3">
@@ -51,7 +49,7 @@ export default function MainNavigation() {
 
                 {/* Mobile Navigation */}
                 {isOpen && (
-                    <nav className="absolute left-0 top-[48px] w-full border-t border-t-border-dark/40 bg-primary-contrast p-6 shadow-lg dark:border-t-border-light/60 dark:bg-dark-soft md:hidden">
+                    <nav className="bg-tertiary border-t-border-500 absolute left-0 top-[48px] w-full border-t p-6 shadow-lg md:hidden">
                         <ul className="flex flex-col gap-4 text-lg">
                             <NavigationList
                                 normalizedPathname={normalizedPathname}
@@ -60,7 +58,7 @@ export default function MainNavigation() {
                                 dictionary={dictionary}
                                 onClick={toggleMenu}
                             />
-                            <hr className="my-2 border-t border-border dark:border-border-light/20" />
+                            <hr className="border-border-500 my-2 border-t border-border" />
                             <NavigationControls isMobile={isOpen} />
                         </ul>
                     </nav>

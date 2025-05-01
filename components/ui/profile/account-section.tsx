@@ -10,7 +10,7 @@ export function AccountSection({
 }) {
     return (
         <div className="flex flex-col items-center gap-3 text-center">
-            <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-accent shadow-md dark:border-accent-dark">
+            <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-accent-500 shadow-md dark:border-accent-700">
                 <Image
                     src="/images/site/default-avatar.png"
                     alt="User avatar"
@@ -23,12 +23,12 @@ export function AccountSection({
             <h2 className="text-xl font-semibold text-foreground">
                 {dictionary.yourAccount}
             </h2>
-            <p className="mb-4 text-base text-foreground-muted dark:text-muted-light">
+            <p className="mb-4 text-base text-foreground-muted dark:text-muted-100">
                 {userEmail}
             </p>
             <button
                 onClick={() => signOut()}
-                className="button-secondary group flex items-center gap-2"
+                className="button button-secondary button-md group"
             >
                 {dictionary.logout}
                 <svg
