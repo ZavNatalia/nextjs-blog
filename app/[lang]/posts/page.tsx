@@ -61,7 +61,6 @@ export default async function Posts(props: {
             <h2 className="mb-5 text-center text-2xl font-bold lg:mb-8 lg:text-4xl">
                 {dictionary.allPosts}
             </h2>
-            <PostsGridSkeleton />
             <Suspense fallback={<PostsGridSkeleton />}>
                 <AllPosts lang={lang} dictionary={dictionary} />
             </Suspense>

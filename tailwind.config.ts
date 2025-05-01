@@ -62,7 +62,7 @@ const config: Config = {
             fontFamily: {
                 sans: ['OpenSans', 'sans-serif'],
             },
-            typography: (theme) => ({
+            typography: (theme: (path: string) => string) => ({
                 DEFAULT: {
                     css: {
                         color: theme('colors.foreground.DEFAULT'),
