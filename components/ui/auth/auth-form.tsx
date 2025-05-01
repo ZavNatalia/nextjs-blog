@@ -97,7 +97,7 @@ export default function AuthForm({
 
     return (
         <>
-            <h1 className="mb-6 text-center text-2xl font-bold text-accent dark:text-accent-dark">
+            <h1 className="mb-6 text-center text-2xl font-bold text-accent-500 dark:text-accent-700">
                 {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
 
@@ -129,7 +129,7 @@ export default function AuthForm({
                                 <ErrorMessage
                                     name="email"
                                     component="p"
-                                    className="mt-2 text-sm text-error"
+                                    className="text-error mt-2 text-sm"
                                 />
                             </div>
 
@@ -149,7 +149,7 @@ export default function AuthForm({
                                     onClick={() =>
                                         setShowPassword((prev) => !prev)
                                     }
-                                    className="absolute right-3 top-10 text-accent dark:text-accent-dark"
+                                    className="absolute right-3 top-10 text-accent-500"
                                 >
                                     {showPassword ? (
                                         <EyeSlashIcon
@@ -168,7 +168,7 @@ export default function AuthForm({
                                 <ErrorMessage
                                     name="password"
                                     component="p"
-                                    className="mt-2 text-sm text-error"
+                                    className="text-error mt-2 text-sm"
                                 />
                             </div>
 
@@ -198,7 +198,7 @@ export default function AuthForm({
                                                 (prev) => !prev,
                                             )
                                         }
-                                        className="absolute right-3 top-10 text-accent dark:text-accent-dark"
+                                        className="absolute right-3 top-10 text-accent-500 dark:text-accent-700"
                                     >
                                         {showConfirmPassword ? (
                                             <EyeSlashIcon
@@ -221,7 +221,7 @@ export default function AuthForm({
                                     <ErrorMessage
                                         name="confirmPassword"
                                         component="p"
-                                        className="mt-2 text-sm text-error"
+                                        className="text-error mt-2 text-sm"
                                     />
                                 </div>
                             )}
@@ -229,7 +229,7 @@ export default function AuthForm({
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className={`w-full ${
+                                className={`button button-md w-full ${
                                     isSubmitting || !formikProps.isValid
                                         ? 'button-disabled'
                                         : 'button-accent'
@@ -254,7 +254,7 @@ export default function AuthForm({
                                 <button
                                     type="button"
                                     onClick={switchAuthModeHandler}
-                                    className="text-accent hover:text-accent-light dark:text-accent-dark hover:dark:text-accent-dark/80"
+                                    className="text-accent-500 hover:text-accent-500 dark:text-accent-700 hover:dark:text-accent-700"
                                 >
                                     {isLogin
                                         ? dictionary.createAccount

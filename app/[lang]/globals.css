@@ -167,7 +167,6 @@ body {
     focus-visible:border-background-secondary hover:text-accent-700
     }
 
-
     .button {
         @apply inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary;
     }

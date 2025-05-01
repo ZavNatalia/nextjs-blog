@@ -38,11 +38,7 @@ async function AllPosts({
     const posts = await getAllPosts(lang);
 
     if (!posts.length) {
-        return (
-            <p className="text-muted dark:text-muted-light">
-                {dictionary.noPosts}
-            </p>
-        );
+        return <p className="text-muted">{dictionary.noPosts}</p>;
     }
 
     return <PostsGrid posts={posts} dictionary={dictionary} lang={lang} />;
@@ -65,6 +61,7 @@ export default async function Posts(props: {
             <h2 className="mb-5 text-center text-2xl font-bold lg:mb-8 lg:text-4xl">
                 {dictionary.allPosts}
             </h2>
+            <PostsGridSkeleton />
             <Suspense fallback={<PostsGridSkeleton />}>
                 <AllPosts lang={lang} dictionary={dictionary} />
             </Suspense>

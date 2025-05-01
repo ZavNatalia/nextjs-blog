@@ -32,7 +32,7 @@ function NavListItem({
             <Link
                 href={href}
                 title={title}
-                className={`block rounded-xl px-2 py-2 text-base transition-colors duration-200 hover:text-accent dark:hover:text-accent-dark xl:text-lg ${isActive ? 'text-accent dark:text-accent-dark' : 'text-foreground dark:text-foreground-onDark'}`}
+                className={`link hover:text-accent block px-2 py-1 font-medium transition-colors duration-200 xl:text-lg ${isActive ? 'text-accent' : 'text-foreground'}`}
                 onClick={onClick}
             >
                 {title}
@@ -55,7 +55,7 @@ export function NavigationList({
     onClick?: () => void;
 }) {
     return (
-        <ul className="flex flex-col items-center gap-4 text-lg md:flex-row md:gap-2 md:text-base">
+        <ul className="flex flex-col items-center gap-2 text-lg md:flex-row md:gap-4 md:text-base">
             {NAVIGATION_ITEMS.map(({ href, label }) => (
                 <NavListItem
                     key={href}

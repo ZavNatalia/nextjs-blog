@@ -6,7 +6,7 @@
         "blogDescription": "I post about programming and web development.",
         "main": "Main",
         "allPosts": "All posts",
-        "noPosts": "No posts available yet",
+        "noPosts": "We haven’t published anything yet — stay tuned!",
         "readMore": "Read more",
         "backToTop": "Back to Top",
         "featuredPosts": "Featured Posts",
@@ -60,6 +60,8 @@
             "newPasswordRequired": "New password is required.",
             "atLeast7Characters": "New password must be at least 7 characters.",
             "oldPasswordIncorrect": "Old password is incorrect.",
+            "showPassword": "Show password",
+            "hidePassword": "Hide password",
             "somethingWentWrong": "Something went wrong!",
             "passwordChangedSuccessfully": "Password changed successfully!",
             "failedChangePassword.": "Failed to change password.",
@@ -120,7 +122,7 @@
         "readMore": "Read more",
         "pageDescription": "A list of all programming-related tutorials and posts",
         "goToAllPosts": "Go to all posts",
-        "noPosts": "No posts available yet",
+        "noPosts": "We haven’t published anything yet — stay tuned!",
         "copyCode": "Copy code"
     },
     "contact-page": {

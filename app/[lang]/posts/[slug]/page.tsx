@@ -122,7 +122,7 @@ export default async function Page(props: PageProps) {
             <Link
                 aria-label={dictionary.goToAllPosts}
                 href="/posts"
-                className="button-accent"
+                className="button button-accent button-md"
             >
                 {dictionary.goToAllPosts}
             </Link>

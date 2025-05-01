@@ -1,11 +1,9 @@
 import './globals.css';
-import RootClientLayout from '@/components/ui/RootClientLayout';
 import { ReactNode } from 'react';
 import { i18n, type Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
-import { ThemeProvider } from 'next-themes';
-import { TranslationProvider } from '@/hooks/useDictionary';
 import { getServerSession } from 'next-auth';
+import { Providers } from './providers';
 
 import localFont from 'next/font/local';
 
@@ -97,13 +95,9 @@ export default async function RootLayout(props: {
     return (
         <html suppressHydrationWarning lang={params.lang}>
             <body className={openSans.className}>
-                <ThemeProvider attribute="class">
-                    <TranslationProvider dictionary={dictionary}>
-                        <RootClientLayout session={session}>
-                            {props.children}
-                        </RootClientLayout>
-                    </TranslationProvider>
-                </ThemeProvider>
+                <Providers dictionary={dictionary} session={session}>
+                    {props.children}
+                </Providers>
             </body>
         </html>
     );

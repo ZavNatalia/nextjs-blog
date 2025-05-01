@@ -38,19 +38,17 @@ export default function BackToTopButton({
 
     const buttonStyles = `
   button
+  button-md
   fixed
   bottom-8
   right-8
   rounded-full
   shadow-md
-  bg-primary-contrast/80
+  bg-tertiary
   text-foreground-muted
   hover:bg-accent
   hover:text-foreground-contrast
-  dark:bg-dark-soft
-  dark:text-muted-light
-  dark:hover:bg-accent-darker
-  dark:hover:text-foreground-onDark
+  dark:hover:text-foreground
 `;
 
     return (

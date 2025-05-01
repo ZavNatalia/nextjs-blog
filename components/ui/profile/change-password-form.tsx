@@ -90,7 +90,7 @@ export default function ChangePasswordForm({
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="flex w-full max-w-md flex-col gap-4 rounded-xl bg-primary px-5 py-6 shadow-md dark:bg-dark-strong/50">
+                    <Form className="bg-primary flex w-full max-w-md flex-col gap-4 rounded-xl px-5 py-6 shadow-md">
                         <div className="relative">
                             <label
                                 htmlFor="oldPassword"
@@ -109,22 +109,30 @@ export default function ChangePasswordForm({
                                 onClick={() =>
                                     setShowOldPassword((prev) => !prev)
                                 }
-                                className={`absolute right-2 top-12 text-accent ${
+                                className={`link absolute right-2 top-12 mr-1 text-accent-500 transition-colors duration-200 hover:text-accent-700 ${
                                     values.oldPassword.length > 0
                                         ? 'block'
                                         : 'hidden'
                                 }`}
                             >
                                 {showOldPassword ? (
-                                    <EyeSlashIcon className="mr-1 h-5 w-5" />
+                                    <EyeSlashIcon
+                                        aria-label={dictionary.hidePassword}
+                                        title={dictionary.hidePassword}
+                                        className="h-5 w-5"
+                                    />
                                 ) : (
-                                    <EyeIcon className="mr-1 h-5 w-5" />
+                                    <EyeIcon
+                                        aria-label={dictionary.showPassword}
+                                        title={dictionary.showPassword}
+                                        className="h-5 w-5"
+                                    />
                                 )}
                             </button>
                             <ErrorMessage
                                 name="oldPassword"
                                 component="p"
-                                className="mt-2 text-sm text-error"
+                                className="text-error mt-2 text-sm"
                             />
                         </div>
 
@@ -146,7 +154,7 @@ export default function ChangePasswordForm({
                                 onClick={() =>
                                     setShowNewPassword((prev) => !prev)
                                 }
-                                className={`absolute right-2 top-12 text-accent ${
+                                className={`absolute right-2 top-12 text-accent-500 ${
                                     values.newPassword.length > 0
                                         ? 'block'
                                         : 'hidden'
@@ -161,14 +169,14 @@ export default function ChangePasswordForm({
                             <ErrorMessage
                                 name="newPassword"
                                 component="p"
-                                className="mt-2 text-sm text-error"
+                                className="text-error mt-2 text-sm"
                             />
                         </div>
 
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`button-accent w-full ${
+                            className={`button button-accent button-md w-full ${
                                 isSubmitting ? 'cursor-wait' : ''
                             }`}
                         >
