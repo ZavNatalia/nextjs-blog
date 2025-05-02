@@ -41,9 +41,9 @@ export default function ThemeSwitcher() {
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         >
             {theme === 'light' ? (
-                <MoonIcon className="h-8 w-8 md:h-5 md:w-5" />
+                <MoonIcon className="h-7 w-7 md:h-5 md:w-5" />
             ) : (
-                <SunIcon className="h-8 w-8 md:h-5 md:w-5" />
+                <SunIcon className="h-7 w-7 md:h-5 md:w-5" />
             )}
         </button>
     );

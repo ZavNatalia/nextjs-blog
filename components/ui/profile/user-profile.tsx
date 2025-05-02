@@ -29,7 +29,7 @@ export default function UserProfile({
     return (
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-5">
             {/* Mobile Navigation */}
-            <nav className="dark:bg-secondary bg-tertiary flex min-w-fit justify-around rounded-xl px-1 py-2 shadow-md md:hidden">
+            <nav className="bg-secondary flex min-w-fit justify-around rounded-xl p-2 shadow-md md:hidden">
                 {SECTIONS.map(({ key, label, icon: Icon }) => (
                     <button
                         key={key}
@@ -37,7 +37,7 @@ export default function UserProfile({
                             'flex flex-col items-center rounded-lg p-2 transition-all duration-300',
                             activeSection === key
                                 ? 'bg-primary text-foreground shadow-lg'
-                                : 'dark:hover:text-onDark hover:bg-primary/10 dark:text-foreground-onDarkMuted text-foreground-muted hover:text-foreground',
+                                : 'hover:bg-primary text-foreground-muted hover:text-foreground',
                         )}
                         onClick={() => setActiveSection(key)}
                     >
@@ -51,7 +51,7 @@ export default function UserProfile({
 
             <div className="flex flex-col gap-6 md:flex-row">
                 {/* Sidebar for Desktop */}
-                <aside className="hidden h-fit w-1/4 min-w-fit rounded-2xl bg-background-secondary/80 p-3 shadow-lg backdrop-blur-md md:block lg:p-5">
+                <aside className="hidden h-fit w-1/4 min-w-fit rounded-2xl bg-background-secondary p-3 shadow-lg md:block lg:p-5">
                     <nav className="flex flex-col gap-2 lg:gap-3">
                         {SECTIONS.map(({ key, label, icon: Icon }) => (
                             <button
@@ -59,7 +59,7 @@ export default function UserProfile({
                                 className={clsx(
                                     'link flex w-full items-center gap-3 rounded-lg border-none px-3 py-2 text-start text-base font-medium transition-all duration-200',
                                     activeSection === key
-                                        ? 'bg-primary text-foreground shadow-lg'
+                                        ? 'bg-primary text-foreground shadow-md'
                                         : 'hover:bg-primary text-foreground-muted hover:text-foreground',
                                 )}
                                 onClick={() => setActiveSection(key)}

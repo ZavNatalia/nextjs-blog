@@ -24,7 +24,7 @@ export default function NewsItemHeader({
                 <h2 className="mb-2 text-2xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-4xl">
                     {title}
                 </h2>
-                <span className="dark:text-muted-100 text-muted-700 text-base">
+                <span className="text-base text-muted-700 dark:text-muted-100">
                     {formattedDate}
                 </span>
             </div>

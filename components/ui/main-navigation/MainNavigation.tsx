@@ -49,7 +49,7 @@ export default function MainNavigation() {
 
                 {/* Mobile Navigation */}
                 {isOpen && (
-                    <nav className="bg-tertiary border-t-border-500 absolute left-0 top-[48px] w-full border-t p-6 shadow-lg md:hidden">
+                    <nav className="bg-tertiary absolute left-0 top-[48px] w-full border-t border-t-border-500 p-6 shadow-lg md:hidden">
                         <ul className="flex flex-col gap-4 text-lg">
                             <NavigationList
                                 normalizedPathname={normalizedPathname}
@@ -58,7 +58,7 @@ export default function MainNavigation() {
                                 dictionary={dictionary}
                                 onClick={toggleMenu}
                             />
-                            <hr className="border-border-500 my-2 border-t border-border" />
+                            <hr className="my-2 border-t border-border-100" />
                             <NavigationControls isMobile={isOpen} />
                         </ul>
                     </nav>
