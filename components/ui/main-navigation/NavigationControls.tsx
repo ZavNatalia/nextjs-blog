@@ -9,7 +9,7 @@ export function NavigationControls({ isMobile }: { isMobile?: boolean }) {
     return (
         <div className={styles}>
             <LocaleSwitcher />
-            {!isMobile && <div className="bg-border-500 h-6 w-px" />}
+            {!isMobile && <div className="h-6 w-px bg-border-500" />}
             <ThemeSwitcher />
         </div>
     );

@@ -53,7 +53,6 @@ export default function NewsList({
                         href={href}
                         target={isExternal ? '_blank' : undefined}
                         rel={isExternal ? 'noopener noreferrer' : undefined}
-                        className="text-accent-500 underline hover:opacity-80 dark:text-accent-700"
                     >
                         {children}
                     </a>

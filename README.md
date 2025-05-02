@@ -115,7 +115,7 @@ Example Tailwind utility for buttons:
 
 ```css
 .button {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary;
+    @apply focus-visible:ring-accent inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary;
 }
 ```
 

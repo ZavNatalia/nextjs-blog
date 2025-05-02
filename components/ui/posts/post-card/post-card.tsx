@@ -37,7 +37,7 @@ export default function PostCard({
 
     return (
         <li className="w-full rounded-3xl shadow-sm">
-            <div className="flex justify-between rounded-t-3xl border-b border-border-100 bg-background-secondary/80 px-5 py-4 lg:px-6 lg:py-5">
+            <div className="flex justify-between rounded-t-3xl bg-background-tertiary/50 px-5 py-4 lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>

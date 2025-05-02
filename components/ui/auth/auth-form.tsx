@@ -97,7 +97,7 @@ export default function AuthForm({
 
     return (
         <>
-            <h1 className="mb-6 text-center text-2xl font-bold text-accent-500 dark:text-accent-700">
+            <h1 className="mb-6 text-center text-2xl font-bold text-accent-500">
                 {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
 
@@ -149,7 +149,7 @@ export default function AuthForm({
                                     onClick={() =>
                                         setShowPassword((prev) => !prev)
                                     }
-                                    className="absolute right-3 top-10 text-accent-500"
+                                    className="absolute right-3 top-9 text-accent-500"
                                 >
                                     {showPassword ? (
                                         <EyeSlashIcon
@@ -198,7 +198,7 @@ export default function AuthForm({
                                                 (prev) => !prev,
                                             )
                                         }
-                                        className="absolute right-3 top-10 text-accent-500 dark:text-accent-700"
+                                        className="absolute right-3 top-9 text-accent-500 dark:text-accent-700"
                                     >
                                         {showConfirmPassword ? (
                                             <EyeSlashIcon
@@ -254,7 +254,7 @@ export default function AuthForm({
                                 <button
                                     type="button"
                                     onClick={switchAuthModeHandler}
-                                    className="text-accent-500 hover:text-accent-500 dark:text-accent-700 hover:dark:text-accent-700"
+                                    className="text-accent-500 hover:text-accent-700 dark:text-accent-100 hover:dark:text-accent-500"
                                 >
                                     {isLogin
                                         ? dictionary.createAccount
