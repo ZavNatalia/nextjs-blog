@@ -27,7 +27,7 @@ export default function ThemeSwitcher() {
 
     return (
         <button
-            className="button icon-button rounded-full text-foreground duration-0 hover:bg-background-tertiary hover:text-foreground md:text-xs"
+            className="button icon-button hover:button-secondary button-md md:button-xs text-foreground"
             aria-label={
                 theme === 'light'
                     ? dictionary.switchToDarkTheme

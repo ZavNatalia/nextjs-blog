@@ -12,7 +12,9 @@
         "featuredPosts": "Актуальные посты",
         "goToAllPosts": "Перейти ко всем постам",
         "cancel": "Отмена",
-        "githubAccount": "Аккаунт на GitHub"
+        "githubAccount": "Аккаунт на GitHub",
+        "showPassword": "Показать пароль",
+        "hidePassword": "Скрыть пароль"
     },
     "privacy-policy-page": {
         "main": "главная",
@@ -60,8 +62,6 @@
             "newPasswordRequired": "Новый пароль обязателен.",
             "atLeast7Characters": "Новый пароль должен содержать как минимум 7 символов.",
             "oldPasswordIncorrect": "Старый пароль введён неверно.",
-            "showPassword": "Показать пароль",
-            "hidePassword": "Скрыть пароль",
             "somethingWentWrong": "Что-то пошло не так!",
             "passwordChangedSuccessfully": "Пароль успешно изменён!",
             "failedChangePassword": "При изменении пароля произошла ошибка.",
@@ -112,8 +112,7 @@
         "accountCreatedYouCanLogin": "Ваш аккаунт успешно создан. Теперь вы можете войти в систему.",
         "failedToLogIn": "Не удалось войти",
         "sending": "Отправка...",
-        "showPassword": "Показать пароль",
-        "hidePassword": "Скрыть пароль",
+
         "signInWith": "Войти через",
         "or": "Или"
     },

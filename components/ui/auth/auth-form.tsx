@@ -9,7 +9,6 @@ import {
     FormikProps,
 } from 'formik';
 import * as Yup from 'yup';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { createUser } from '@/app/actions/auth';
 import { signIn, SignInResponse } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -17,6 +16,7 @@ import Notification, {
     NotificationDetails,
 } from '@/components/ui/Notification';
 import type { getDictionary } from '@/get-dictionary';
+import TogglePasswordButton from '@/components/ui/TogglePasswordButton';
 
 export type AuthFormData = {
     email: string;
@@ -144,27 +144,13 @@ export default function AuthForm({
                                     className="input mt-1"
                                     placeholder={dictionary.yourPassword}
                                 />
-                                <button
-                                    type="button"
-                                    onClick={() =>
+                                <TogglePasswordButton
+                                    onToggle={() =>
                                         setShowPassword((prev) => !prev)
                                     }
-                                    className="absolute right-3 top-9 text-accent-500"
-                                >
-                                    {showPassword ? (
-                                        <EyeSlashIcon
-                                            className="mr-1 h-5 w-5"
-                                            aria-label={dictionary.hidePassword}
-                                            title={dictionary.hidePassword}
-                                        />
-                                    ) : (
-                                        <EyeIcon
-                                            className="mr-1 h-5 w-5"
-                                            aria-label={dictionary.showPassword}
-                                            title={dictionary.showPassword}
-                                        />
-                                    )}
-                                </button>
+                                    isPasswordVisible={showPassword}
+                                    className="top-9"
+                                />
                                 <ErrorMessage
                                     name="password"
                                     component="p"
@@ -191,33 +177,15 @@ export default function AuthForm({
                                         className="input mt-1"
                                         placeholder={dictionary.confirmPassword}
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() =>
+                                    <TogglePasswordButton
+                                        onToggle={() =>
                                             setShowConfirmPassword(
                                                 (prev) => !prev,
                                             )
                                         }
-                                        className="absolute right-3 top-9 text-accent-500 dark:text-accent-700"
-                                    >
-                                        {showConfirmPassword ? (
-                                            <EyeSlashIcon
-                                                className="mr-1 h-5 w-5"
-                                                aria-label={
-                                                    dictionary.hidePassword
-                                                }
-                                                title={dictionary.hidePassword}
-                                            />
-                                        ) : (
-                                            <EyeIcon
-                                                className="mr-1 h-5 w-5"
-                                                aria-label={
-                                                    dictionary.showPassword
-                                                }
-                                                title={dictionary.showPassword}
-                                            />
-                                        )}
-                                    </button>
+                                        isPasswordVisible={showConfirmPassword}
+                                        className="top-9"
+                                    />
                                     <ErrorMessage
                                         name="confirmPassword"
                                         component="p"
