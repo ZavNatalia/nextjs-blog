@@ -12,7 +12,9 @@
         "featuredPosts": "Featured Posts",
         "goToAllPosts": "Go to all posts",
         "cancel": "Cancel",
-        "githubAccount": "Github account"
+        "githubAccount": "Github account",
+        "showPassword": "Show password",
+        "hidePassword": "Hide password"
     },
     "privacy-policy-page": {
         "main": "Main",
@@ -60,8 +62,6 @@
             "newPasswordRequired": "New password is required.",
             "atLeast7Characters": "New password must be at least 7 characters.",
             "oldPasswordIncorrect": "Old password is incorrect.",
-            "showPassword": "Show password",
-            "hidePassword": "Hide password",
             "somethingWentWrong": "Something went wrong!",
             "passwordChangedSuccessfully": "Password changed successfully!",
             "failedChangePassword.": "Failed to change password.",
@@ -111,8 +111,6 @@
         "accountCreatedYouCanLogin": "Your account has been successfully created. You can now log in.",
         "failedToLogIn": "Failed to log in",
         "sending": "Sending...",
-        "showPassword": "Show password",
-        "hidePassword": "Hide password",
         "signInWith": "Sign in with",
         "or": "Or"
     },

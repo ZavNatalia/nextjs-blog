@@ -181,12 +181,16 @@ body {
         @apply bg-error-500 font-medium text-foreground-contrast hover:bg-error-700 dark:text-foreground;
     }
 
+    .button-disabled {
+        @apply cursor-not-allowed bg-background-tertiary/60 text-muted-700;
+    }
+
     .button:disabled {
         @apply bg-primary cursor-not-allowed text-muted-500 opacity-60;
     }
 
     .button-xs {
-        @apply px-3 py-1 text-xs;
+        @apply px-2 py-1 text-xs;
     }
 
     .button-sm {

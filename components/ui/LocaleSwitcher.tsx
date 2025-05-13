@@ -28,12 +28,10 @@ export default function LocaleSwitcher() {
                 aria-label={getTitle}
                 key={locale}
                 onClick={() => switchLocale(locale)}
-                className={`icon-button button-md md:button-xs rounded-lg px-2 py-1 font-bold ${
+                className={`button icon-button button-md md:button-xs font-bold ${
                     isActive
-                        ? 'bg-background-secondary/70 hover:bg-background-secondary/70 ' +
-                          ' md:bg-background-tertiary/70 hover:md:bg-background-tertiary/70' +
-                          ' text-foreground hover:text-foreground'
-                        : 'hover:text-accent hover:bg-background-secondary/70 md:hover:bg-background-tertiary/70'
+                        ? 'button-secondary'
+                        : 'hover:button-secondary text-foreground'
                 } `}
             >
                 {locale.toUpperCase()}
