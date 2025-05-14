@@ -51,7 +51,7 @@ export default function UserProfile({
 
             <div className="flex flex-col gap-6 md:flex-row">
                 {/* Sidebar for Desktop */}
-                <aside className="hidden h-fit w-1/4 min-w-fit rounded-2xl bg-background-secondary p-3 shadow-lg md:block lg:p-5">
+                <aside className="bg-secondary hidden h-fit w-1/4 min-w-fit rounded-2xl p-3 shadow-lg md:block lg:p-5">
                     <nav className="flex flex-col gap-2 lg:gap-3">
                         {SECTIONS.map(({ key, label, icon: Icon }) => (
                             <button
@@ -74,7 +74,7 @@ export default function UserProfile({
                 </aside>
 
                 {/* Content */}
-                <section className="flex-1 rounded-2xl bg-background-secondary/50 p-6 shadow-lg transition-all duration-300">
+                <section className="bg-secondary flex-1 rounded-2xl p-6 shadow-lg transition-all duration-300">
                     {activeSection === 'Account' && (
                         <AccountSection
                             userEmail={userEmail}

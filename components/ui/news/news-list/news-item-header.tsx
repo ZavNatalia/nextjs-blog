@@ -33,8 +33,8 @@ export default function NewsItemHeader({
                     className="rounded-xl object-cover"
                     src={imagePath}
                     alt={title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 220px"
+                    height={220}
+                    width={220}
                 />
             </div>
         </header>
