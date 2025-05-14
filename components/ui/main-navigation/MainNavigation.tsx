@@ -22,7 +22,7 @@ export default function MainNavigation() {
     return (
         <header
             className={`z-10 shadow-md md:sticky md:top-0 ${
-                isOpen ? 'bg-tertiary' : 'bg-background-secondary'
+                isOpen ? 'bg-tertiary' : 'bg-secondary'
             } `}
         >
             <div className="mx-auto flex h-[48px] max-w-[90rem] items-center justify-between p-2 md:h-[88px] md:p-3">

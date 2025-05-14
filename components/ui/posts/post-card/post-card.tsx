@@ -45,7 +45,7 @@ export default function PostCard({
                     {formattedDate}
                 </time>
             </div>
-            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-background-secondary px-5 pb-5 pt-4 shadow-md lg:grid-cols-[180px_1fr] lg:px-6">
+            <div className="bg-secondary grid grid-cols-1 gap-5 rounded-b-3xl px-5 pb-5 pt-4 shadow-md lg:grid-cols-[180px_1fr] lg:px-6">
                 <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[180px] lg:w-[180px]">
                     <Image
                         className={`rounded-lg`}

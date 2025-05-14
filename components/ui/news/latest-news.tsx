@@ -20,7 +20,7 @@ export default async function LatestNews({ lang }: { lang: Locale }) {
         })),
     };
     return (
-        <div className="px-4 md:rounded-3xl md:bg-background-secondary/60 md:p-6 lg:p-10">
+        <article className="px-4 md:rounded-3xl md:bg-background-secondary md:p-6 lg:p-10">
             <NewsList newsList={latestNews} lang={lang} />
             <Script
                 id="home-news-jsonld"
@@ -28,6 +28,6 @@ export default async function LatestNews({ lang }: { lang: Locale }) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <BackToTopButton />
-        </div>
+        </article>
     );
 }

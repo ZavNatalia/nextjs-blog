@@ -105,7 +105,7 @@ export function DangerZoneSection({
                     onClick={() => setIsConfirmOpen(false)}
                 >
                     <div
-                        className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
+                        className="bg-secondary max-w-sm rounded-3xl p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3 className="text-error text-lg font-semibold">
