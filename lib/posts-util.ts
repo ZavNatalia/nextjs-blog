@@ -5,7 +5,7 @@ import { IPost } from '@/components/ui/posts/post-card/post-card';
 import { Locale } from '@/i18n-config';
 
 const postsDirectory = (lang: Locale) =>
-    path.join(process.cwd(), `posts/${lang}`);
+    path.join(process.cwd(), `data/posts/${lang}`);
 
 export async function getPostsFiles(lang: Locale) {
     return await fs.promises.readdir(postsDirectory(lang));

@@ -14,7 +14,7 @@ export interface INews {
 }
 
 const newsDirectory = (lang: Locale) =>
-    path.join(process.cwd(), `news/${lang}`);
+    path.join(process.cwd(), `data/news/${lang}`);
 export async function getNewsFiles(lang: Locale) {
     return fs.readdirSync(newsDirectory(lang));
 }
