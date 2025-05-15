@@ -15,10 +15,12 @@
     --color-fg-base: 17, 24, 39;
     --color-fg-muted: 100, 116, 139;
     --color-fg-contrast: 255, 255, 255;
+    --color-fg-error: 206, 30, 30;
+    --color-fg-accent: 97, 31, 200;
 
-    --color-accent-100: 125, 73, 188;
+    --color-accent-100: 226, 205, 251;
     --color-accent-500: 109, 40, 217;
-    --color-accent-700: 77, 7, 163;
+    --color-accent-700: 79, 4, 172;
 
     --color-border-100: 229, 231, 235;
     --color-border-500: 203, 213, 225;
@@ -28,7 +30,7 @@
     --color-muted-500: 107, 114, 128;
     --color-muted-700: 71, 85, 105;
 
-    --color-error-100: 254, 226, 226;
+    --color-error-100: 254, 232, 232;
     --color-error-500: 239, 68, 68;
     --color-error-700: 153, 27, 27;
 
@@ -50,13 +52,15 @@
     --color-bg-secondary: 19, 23, 34;
     --color-bg-tertiary: 57, 65, 81;
 
-    --color-fg-base: 243, 244, 246;
-    --color-fg-muted: 148, 163, 184;
+    --color-fg-base: 236, 237, 238;
+    --color-fg-muted: 158, 172, 192;
     --color-fg-contrast: 15, 23, 42;
+    --color-fg-error: 251, 105, 105;
+    --color-fg-accent: 244, 128, 80;
 
-    --color-accent-100: 223, 120, 75;
-    --color-accent-500: 203, 68, 10;
-    --color-accent-700: 164, 60, 5;
+    --color-accent-100: 245, 182, 156;
+    --color-accent-500: 202, 64, 7;
+    --color-accent-700: 168, 51, 3;
 
     --color-border-100: 41, 45, 65;
     --color-border-500: 71, 85, 105;
@@ -66,9 +70,9 @@
     --color-muted-500: 169, 178, 191;
     --color-muted-700: 71, 85, 105;
 
-    --color-error-100: 123, 17, 17;
-    --color-error-500: 239, 68, 68;
-    --color-error-700: 248, 158, 158;
+    --color-error-100: 199, 130, 130;
+    --color-error-500: 207, 36, 36;
+    --color-error-700: 158, 21, 21;
 
     --color-success-100: 220, 252, 231;
     --color-success-500: 34, 197, 94;
@@ -128,15 +132,14 @@ body {
     .text-contrast {
         color: rgba(var(--color-fg-contrast));
     }
-
     .text-muted {
         color: rgba(var(--color-fg-muted));
     }
     .text-accent {
-        color: rgba(var(--color-accent-100));
+        color: rgba(var(--color-fg-accent));
     }
     .text-error {
-        color: rgba(var(--color-error-500));
+        color: rgba(var(--color-fg-error));
     }
 
     .ring-accent {
@@ -158,23 +161,19 @@ body {
     }
 
     .link {
-        @apply text-accent rounded-lg hover:text-accent-700 focus-visible:border-background-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500;
+        @apply text-accent rounded-lg transition-colors duration-300 focus-visible:border-background-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500;
     }
 
     .button {
         @apply focus-visible:ring-accent inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary;
     }
 
-    .button-primary {
-        @apply bg-primary hover:bg-accent text-foreground hover:text-foreground-contrast;
-    }
-
-    .button-accent {
+    .button-solid {
         @apply bg-accent text-contrast hover:text-contrast hover:bg-accent-700 dark:text-foreground;
     }
 
-    .button-secondary {
-        @apply bg-background-tertiary/60 text-foreground hover:bg-background-tertiary;
+    .button-ghost {
+        @apply bg-background-tertiary/50 text-foreground hover:bg-background-tertiary/90;
     }
 
     .button-danger {
@@ -233,7 +232,7 @@ body {
     }
 
     .markdown-content a {
-        @apply text-accent focus-visible:ring-accent rounded-xl px-[2px] no-underline hover:text-accent-500 hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:ring-offset-accent-100;
+        @apply text-accent focus-visible:ring-accent hover:text-accent rounded-xl px-[2px] no-underline hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:ring-offset-accent-100;
     }
 
     .markdown-content h2 {

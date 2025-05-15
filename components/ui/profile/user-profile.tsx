@@ -42,7 +42,7 @@ export default function UserProfile({
                         onClick={() => setActiveSection(key)}
                     >
                         <Icon
-                            className={`mb-2 h-6 w-6 transition-all duration-300 ${activeSection === key ? 'text-accent-500 dark:text-accent-700' : 'text-foreground'}`}
+                            className={`mb-2 h-6 w-6 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`}
                         />
                         <span className="text-sm">{dictionary[label]}</span>
                     </button>
@@ -57,7 +57,7 @@ export default function UserProfile({
                             <button
                                 key={key}
                                 className={clsx(
-                                    'link flex w-full items-center gap-3 rounded-lg border-none px-3 py-2 text-start text-base font-medium transition-all duration-200',
+                                    'flex w-full items-center gap-3 rounded-lg border-none px-3 py-2 text-start text-base font-medium transition-all duration-200',
                                     activeSection === key
                                         ? 'bg-primary text-foreground shadow-md'
                                         : 'hover:bg-primary text-foreground-muted hover:text-foreground',

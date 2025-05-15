@@ -20,7 +20,7 @@ const BreadcrumbItem: ({
     <span>
         <Link
             href={breadcrumb.link}
-            className={`link hover:text-accent cursor-pointer px-1 py-1 text-base transition-all duration-200 md:text-lg ${isActive ? 'font-medium text-foreground-accent' : 'text-foreground'} `}
+            className={`link hover:text-accent cursor-pointer px-1 py-1 text-base transition-all duration-200 md:text-lg ${isActive ? 'text-accent font-medium' : 'text-foreground'} `}
         >
             {breadcrumb.title.toLowerCase()}
         </Link>

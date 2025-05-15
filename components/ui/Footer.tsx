@@ -15,7 +15,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={dictionary.githubAccount}
-                className="link text-muted flex items-center gap-2 transition hover:text-accent-500"
+                className="link text-muted hover:text-accent flex items-center gap-2"
             >
                 <svg
                     className="h-5 w-5"

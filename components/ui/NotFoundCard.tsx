@@ -8,9 +8,7 @@ export default function NotFoundCard() {
     const { lang } = useParams();
     return (
         <div className="dark:bg-secondary bg-tertiary mt-20 w-full max-w-lg rounded-2xl p-8 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-accent-500 dark:text-accent-700">
-                404
-            </h2>
+            <h2 className="text-accent mb-4 text-4xl font-bold">404</h2>
             <p className="mb-4 text-xl text-foreground">
                 {dictionary.notFound}
             </p>
@@ -19,7 +17,7 @@ export default function NotFoundCard() {
             </p>
             <Link
                 href={`/${lang}`}
-                className="button button-accent button-md"
+                className="button button-solid button-md"
                 aria-label={dictionary.returnHome}
             >
                 {dictionary.returnHome}

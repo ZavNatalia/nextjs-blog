@@ -30,8 +30,8 @@ export default function LocaleSwitcher() {
                 onClick={() => switchLocale(locale)}
                 className={`button icon-button button-md md:button-xs font-bold ${
                     isActive
-                        ? 'button-secondary'
-                        : 'hover:button-secondary text-foreground'
+                        ? 'button-ghost'
+                        : 'hover:button-ghost text-foreground'
                 } `}
             >
                 {locale.toUpperCase()}

@@ -55,7 +55,7 @@ export default async function FeaturedPosts({
 
             <Link
                 href="/posts"
-                className="button button-accent button-md"
+                className="button button-solid button-md"
                 aria-label={dictionary.allPosts}
             >
                 {dictionary.allPosts}

@@ -97,7 +97,7 @@ export default function AuthForm({
 
     return (
         <>
-            <h1 className="mb-6 text-center text-2xl font-bold text-accent-500">
+            <h1 className="text-accent mb-6 text-center text-2xl font-bold">
                 {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
 
@@ -200,7 +200,7 @@ export default function AuthForm({
                                 className={`button button-md w-full ${
                                     isSubmitting || !formikProps.isValid
                                         ? 'button-disabled'
-                                        : 'button-accent'
+                                        : 'button-solid'
                                 }`}
                             >
                                 {isSubmitting
@@ -222,7 +222,7 @@ export default function AuthForm({
                                 <button
                                     type="button"
                                     onClick={switchAuthModeHandler}
-                                    className="text-accent-500 hover:text-accent-700 dark:text-accent-100 hover:dark:text-accent-500"
+                                    className="link hover:underline"
                                 >
                                     {isLogin
                                         ? dictionary.createAccount

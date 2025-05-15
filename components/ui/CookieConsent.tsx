@@ -43,7 +43,7 @@ export default function CookieConsent() {
             <div className="flex justify-end">
                 <button
                     onClick={handleAccept}
-                    className="button button-accent button-sm"
+                    className="button button-solid button-sm"
                 >
                     {privacyDict.ok}
                 </button>
