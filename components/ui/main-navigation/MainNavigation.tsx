@@ -25,7 +25,7 @@ export default function MainNavigation() {
                 isOpen ? 'bg-tertiary' : 'bg-secondary'
             } `}
         >
-            <div className="mx-auto flex h-[48px] max-w-[90rem] items-center justify-between p-2 md:h-[88px] md:p-3">
+            <div className="mx-auto flex max-w-[90rem] items-center justify-between p-2 md:p-3">
                 <Logo title={dictionary['home']} />
 
                 <MobileMenuButton
@@ -49,7 +49,7 @@ export default function MainNavigation() {
 
                 {/* Mobile Navigation */}
                 {isOpen && (
-                    <nav className="bg-tertiary absolute left-0 top-[48px] w-full border-t border-t-border-500 p-6 shadow-lg md:hidden">
+                    <nav className="bg-tertiary absolute left-0 top-[60px] w-full border-t border-t-border-700 p-6 shadow-lg md:hidden">
                         <ul className="flex flex-col gap-4 text-lg">
                             <NavigationList
                                 normalizedPathname={normalizedPathname}
@@ -58,7 +58,7 @@ export default function MainNavigation() {
                                 dictionary={dictionary}
                                 onClick={toggleMenu}
                             />
-                            <hr className="my-2 border-t border-border-100" />
+                            <hr className="my-2 border-t border-border-700" />
                             <NavigationControls isMobile={isOpen} />
                         </ul>
                     </nav>
