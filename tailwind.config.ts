@@ -1,65 +1,83 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 import typography from '@tailwindcss/typography';
 
 const config: Config = {
     darkMode: 'class',
     content: [
-        './pages/**/*.{js,ts,jsx,tsx,mdx}',
-        './components/**/*.{js,ts,jsx,tsx,mdx}',
-        './app/**/*.{js,ts,jsx,tsx,mdx}',
+        './app/**/*.{ts,tsx,js,jsx,mdx}',
+        './components/**/*.{ts,tsx,js,jsx,mdx}',
+        './pages/**/*.{ts,tsx,js,jsx,mdx}',
     ],
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-            },
             colors: {
-                primary: {
-                    DEFAULT: '#ffffff',
-                    light: '#eeeeee',
-                    contrast: '#dde1e6',
-                },
-                dark: {
-                    DEFAULT: '#212334',
-                    soft: '#394454',
-                    strong: '#131722',
+                background: {
+                    primary: 'rgba(var(--color-bg-primary), <alpha-value>)',
+                    secondary: 'rgba(var(--color-bg-secondary), <alpha-value>)',
+                    tertiary: 'rgba(var(--color-bg-tertiary), <alpha-value>)',
                 },
                 foreground: {
-                    DEFAULT: '#1d1d1d',
-                    muted: '#4b5563',
-                    contrast: '#ffffff',
-                    subtle: '#6b7280',
-                    onDark: '#e2e8f0',
-                    onDarkMuted: '#9aa8bd',
-                },
-                accent: {
-                    DEFAULT: 'rgb(77,7,163)',
-                    light: 'rgb(102,18,206)',
-                    dark: '#ff761e',
-                    darker: '#cb4400',
-                },
-                muted: {
-                    DEFAULT: '#4c5058',
-                    light: '#9ca3af',
-                    dark: '#4b5563',
-                    darker: '#374151',
-                },
-                error: {
-                    light: '#f86363',
-                    DEFAULT: '#dc2626',
-                    dark: '#a01d1d',
+                    DEFAULT: 'rgba(var(--color-fg-base), <alpha-value>)',
+                    accent: 'rgba(var(--color-fg-accent), <alpha-value>)',
+                    muted: 'rgba(var(--color-fg-muted), <alpha-value>)',
+                    contrast: 'rgba(var(--color-fg-contrast), <alpha-value>)',
                 },
                 border: {
-                    DEFAULT: '#d1d5db',
-                    dark: '#374151',
-                    light: '#e5e7eb',
-                    error: '#dc2626',
+                    100: 'rgba(var(--color-border-100), <alpha-value>)',
+                    500: 'rgba(var(--color-border-500), <alpha-value>)',
+                    700: 'rgba(var(--color-border-700), <alpha-value>)',
                 },
+                accent: {
+                    100: 'rgba(var(--color-accent-100), <alpha-value>)',
+                    500: 'rgba(var(--color-accent-500), <alpha-value>)',
+                    700: 'rgba(var(--color-accent-700), <alpha-value>)',
+                },
+                success: {
+                    100: 'rgba(var(--color-success-100), <alpha-value>)',
+                    500: 'rgba(var(--color-success-500), <alpha-value>)',
+                    700: 'rgba(var(--color-success-700), <alpha-value>)',
+                },
+                error: {
+                    100: 'rgba(var(--color-error-100), <alpha-value>)',
+                    500: 'rgba(var(--color-error-500), <alpha-value>)',
+                    700: 'rgba(var(--color-error-700), <alpha-value>)',
+                },
+                warning: {
+                    100: 'rgba(var(--color-warning-100), <alpha-value>)',
+                    500: 'rgba(var(--color-warning-500), <alpha-value>)',
+                    700: 'rgba(var(--color-warning-700), <alpha-value>)',
+                },
+                info: {
+                    100: 'rgba(var(--color-info-100), <alpha-value>)',
+                    500: 'rgba(var(--color-info-500), <alpha-value>)',
+                    700: 'rgba(var(--color-info-700), <alpha-value>)',
+                },
+                muted: {
+                    100: 'rgb(var(--color-muted-100) / <alpha-value>)',
+                    500: 'rgb(var(--color-muted-500) / <alpha-value>)',
+                    700: 'rgb(var(--color-muted-700) / <alpha-value>)',
+                },
+            },
+            fontFamily: {
+                sans: ['OpenSans', 'sans-serif'],
             },
             typography: (theme: (path: string) => string) => ({
                 DEFAULT: {
                     css: {
-                        color: theme('colors.gray.300'),
+                        color: theme('colors.foreground.DEFAULT'),
+                        a: {
+                            color: theme('colors.accent.500'),
+                            '&:hover': {
+                                color: theme('colors.accent.700'),
+                            },
+                        },
+                        h2: {
+                            color: theme('colors.accent.500'),
+                        },
+                        strong: {
+                            color: theme('colors.foreground.DEFAULT'),
+                        },
                     },
                 },
             }),
@@ -80,9 +98,6 @@ const config: Config = {
         },
     },
     plugins: [typography()],
-    corePlugins: {
-        hyphens: true,
-    },
 };
 
 export default config;

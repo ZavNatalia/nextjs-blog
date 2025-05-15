@@ -139,7 +139,7 @@ export default function ClientProfile() {
 | **ISR** (Incremental Static Regeneration) | Yes          | Almost like SSG, but with background updates         |
 | **CSR** (Client-Side Rendering)           | No           | HTML is empty — content appears only after JS loads  |
 
-> For good SEO, it's best to use SSG, SSR, or ISR. CSR is suitable for supporting components, not for primary pages.
+For good SEO, it's best to use SSG, SSR, or ISR. CSR is suitable for supporting components, not for primary pages.
 
 ---
 

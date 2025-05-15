@@ -36,9 +36,9 @@ export default async function FeaturedPosts({
         <div
             aria-label={dictionary.featuredPosts}
             role="region"
-            className="flex flex-col items-center gap-5 px-4 py-4 md:py-6 lg:gap-8 lg:rounded-3xl lg:bg-primary/60 lg:px-8 lg:py-8 dark:lg:bg-dark-strong/50"
+            className="flex flex-col items-center gap-5 px-4 py-4 md:py-6 lg:gap-8 lg:rounded-3xl lg:px-8 lg:py-8"
         >
-            <h2 className="text-2xl font-bold text-accent dark:text-accent-dark lg:text-4xl">
+            <h2 className="text-accent text-2xl font-bold lg:text-4xl">
                 {dictionary.featuredPosts}
             </h2>
 
@@ -55,7 +55,7 @@ export default async function FeaturedPosts({
 
             <Link
                 href="/posts"
-                className="button-accent"
+                className="button button-solid button-md"
                 aria-label={dictionary.allPosts}
             >
                 {dictionary.allPosts}

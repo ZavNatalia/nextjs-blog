@@ -36,13 +36,13 @@ export default async function ContactPage(props: {
             </h2>
             <ContactForm userEmail={userEmail} dictionary={dictionary} />
             <div className="mt-6 flex max-w-xl text-sm">
-                <p className="text-justify text-muted-dark dark:text-muted-light">
+                <p className="text-justify text-muted-700 dark:text-muted-100">
                     {dictionary.bySubmittingMessage}&nbsp;
                     <Link
                         title={dictionary.openPrivacyPolicyPage}
                         aria-label={dictionary.openPrivacyPolicyPage}
                         href="/privacy-policy"
-                        className="text-blue-700 hover:underline dark:text-blue-400"
+                        className="link text-blue-700 hover:underline dark:text-blue-400"
                     >
                         {dictionary.privacyPolicy}
                     </Link>

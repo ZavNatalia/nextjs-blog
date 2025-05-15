@@ -6,13 +6,15 @@
         "blogDescription": "I post about programming and web development.",
         "main": "Main",
         "allPosts": "All posts",
-        "noPosts": "No posts available yet",
+        "noPosts": "We haven’t published anything yet — stay tuned!",
         "readMore": "Read more",
         "backToTop": "Back to Top",
         "featuredPosts": "Featured Posts",
         "goToAllPosts": "Go to all posts",
         "cancel": "Cancel",
-        "githubAccount": "Github account"
+        "githubAccount": "Github account",
+        "showPassword": "Show password",
+        "hidePassword": "Hide password"
     },
     "privacy-policy-page": {
         "main": "Main",
@@ -93,6 +95,7 @@
         "email": "Email",
         "yourEmail": "Your Email",
         "emailRequired": "Email is required",
+        "passwordRequired": "Password is required",
         "invalidEmailAddress": "Invalid email address",
         "password": "Password",
         "yourPassword": "Your password",
@@ -109,8 +112,6 @@
         "accountCreatedYouCanLogin": "Your account has been successfully created. You can now log in.",
         "failedToLogIn": "Failed to log in",
         "sending": "Sending...",
-        "showPassword": "Show password",
-        "hidePassword": "Hide password",
         "signInWith": "Sign in with",
         "or": "Or"
     },
@@ -120,7 +121,7 @@
         "readMore": "Read more",
         "pageDescription": "A list of all programming-related tutorials and posts",
         "goToAllPosts": "Go to all posts",
-        "noPosts": "No posts available yet",
+        "noPosts": "We haven’t published anything yet — stay tuned!",
         "copyCode": "Copy code"
     },
     "contact-page": {

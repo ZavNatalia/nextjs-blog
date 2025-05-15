@@ -6,8 +6,8 @@ export default function Footer() {
     const dictionary = useDictionary()?.['common'];
 
     return (
-        <div className="flex w-full items-center justify-center gap-2 bg-primary p-3 dark:bg-dark">
-            <p className="text-xs text-muted-dark dark:text-muted-light">
+        <div className="bg-primary dark:bg-dark flex w-full items-center justify-center gap-2 p-3">
+            <p className="text-muted text-sm">
                 © {currentYear} Natalia&apos;s Next blog
             </p>
             <Link
@@ -15,7 +15,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={dictionary.githubAccount}
-                className="flex items-center gap-2 text-muted-dark transition hover:text-accent dark:text-muted-light dark:hover:text-accent-dark"
+                className="link text-muted hover:text-accent flex items-center gap-2"
             >
                 <svg
                     className="h-5 w-5"

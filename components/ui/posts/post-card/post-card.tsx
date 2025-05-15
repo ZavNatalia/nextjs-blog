@@ -36,16 +36,16 @@ export default function PostCard({
     const linkPath = `posts/${slug}`;
 
     return (
-        <li className="w-full">
-            <div className="flex justify-between rounded-t-3xl bg-primary-contrast/80 px-5 py-4 shadow-md dark:bg-dark-soft/60 lg:px-6 lg:py-5">
+        <li className="w-full rounded-3xl shadow-sm">
+            <div className="flex justify-between rounded-t-3xl bg-background-tertiary/50 px-5 py-4 lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
-                <time className="whitespace-nowrap text-sm text-foreground-muted dark:text-muted-light">
+                <time className="text-muted whitespace-nowrap text-sm">
                     {formattedDate}
                 </time>
             </div>
-            <div className="grid grid-cols-1 gap-5 rounded-b-3xl bg-primary-light/40 px-5 pb-5 pt-4 shadow-md dark:bg-dark-soft/40 lg:grid-cols-[180px_1fr] lg:px-6">
+            <div className="bg-secondary grid grid-cols-1 gap-5 rounded-b-3xl px-5 pb-5 pt-4 shadow-md lg:grid-cols-[180px_1fr] lg:px-6">
                 <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[180px] lg:w-[180px]">
                     <Image
                         className={`rounded-lg`}
@@ -63,7 +63,7 @@ export default function PostCard({
                         href={linkPath}
                         title={`${dictionary.readMore} - ${post.title}`}
                         aria-label={`${dictionary.readMore} - ${post.title}`}
-                        className="button-primary self-end font-medium"
+                        className="button button-ghost button-md self-end font-medium"
                     >
                         {dictionary.readMore}
                     </Link>

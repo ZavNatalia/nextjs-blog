@@ -11,16 +11,16 @@ export function SecuritySection({
             <h3 className="mb-3 text-xl font-semibold text-foreground">
                 {dictionary.security}
             </h3>
-            <p className="mb-3 text-center md:text-start">
+            <p className="mb-3 text-left md:text-start">
                 {dictionary.wantToChangeYourPassword}
             </p>
             <ChangePasswordForm dictionary={dictionary} />
-            <div className="mt-3 flex text-sm text-foreground-muted dark:text-foreground-onDarkMuted">
+            <div className="mt-3 flex text-sm text-foreground-muted">
                 <p>
                     {dictionary.reviewPrivacyPolicy}&nbsp;
                     <Link
                         href="/privacy-policy"
-                        className="text-blue-700 hover:underline dark:text-blue-400"
+                        className="link text-blue-700 hover:underline dark:text-blue-400"
                     >
                         {dictionary.here}
                     </Link>

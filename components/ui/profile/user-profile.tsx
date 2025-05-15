@@ -27,22 +27,22 @@ export default function UserProfile({
     const [activeSection, setActiveSection] = useState('Account');
 
     return (
-        <div className="mx-auto flex w-full flex-col gap-5">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-5">
             {/* Mobile Navigation */}
-            <nav className="flex min-w-fit justify-around rounded-xl bg-primary-contrast px-1 py-2 shadow-md dark:bg-dark-soft/40 md:hidden">
+            <nav className="bg-secondary flex min-w-fit justify-around rounded-xl p-2 shadow-md md:hidden">
                 {SECTIONS.map(({ key, label, icon: Icon }) => (
                     <button
                         key={key}
                         className={clsx(
-                            'flex flex-col items-center rounded-xl p-2 transition-all duration-300',
+                            'flex flex-col items-center rounded-lg p-2 transition-all duration-300',
                             activeSection === key
                                 ? 'bg-primary text-foreground shadow-lg'
-                                : 'dark:hover:text-onDark text-foreground-muted hover:bg-primary/10 hover:text-foreground dark:text-foreground-onDarkMuted',
+                                : 'hover:bg-primary text-foreground-muted hover:text-foreground',
                         )}
                         onClick={() => setActiveSection(key)}
                     >
                         <Icon
-                            className={`mb-2 h-6 w-6 transition-all duration-300 ${activeSection === key ? 'text-accent dark:text-accent-dark' : 'text-foreground'}`}
+                            className={`mb-2 h-6 w-6 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`}
                         />
                         <span className="text-sm">{dictionary[label]}</span>
                     </button>
@@ -51,21 +51,21 @@ export default function UserProfile({
 
             <div className="flex flex-col gap-6 md:flex-row">
                 {/* Sidebar for Desktop */}
-                <aside className="hidden h-fit w-1/4 min-w-fit rounded-2xl bg-primary-contrast/70 p-3 shadow-lg backdrop-blur-md dark:bg-dark-soft/20 md:block lg:p-5">
+                <aside className="bg-secondary hidden h-fit w-1/4 min-w-fit rounded-2xl p-3 shadow-lg md:block lg:p-5">
                     <nav className="flex flex-col gap-2 lg:gap-3">
                         {SECTIONS.map(({ key, label, icon: Icon }) => (
                             <button
                                 key={key}
                                 className={clsx(
-                                    'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-start text-base font-medium transition-all duration-300',
+                                    'flex w-full items-center gap-3 rounded-lg border-none px-3 py-2 text-start text-base font-medium transition-all duration-200',
                                     activeSection === key
-                                        ? 'bg-primary/50 text-foreground shadow-lg dark:bg-dark-soft/60'
-                                        : 'text-foreground-muted hover:bg-primary/70 hover:text-foreground dark:text-foreground-onDarkMuted dark:hover:bg-dark-soft/40 dark:hover:text-foreground',
+                                        ? 'bg-primary text-foreground shadow-md'
+                                        : 'hover:bg-primary text-foreground-muted hover:text-foreground',
                                 )}
                                 onClick={() => setActiveSection(key)}
                             >
                                 <Icon
-                                    className={`h-6 w-6 ${activeSection === key ? 'text-accent dark:text-accent-dark' : 'text-foreground'}`}
+                                    className={`h-6 w-6 ${activeSection === key ? 'text-accent' : 'text-foreground'}`}
                                 />
                                 {dictionary[label]}
                             </button>
@@ -74,7 +74,7 @@ export default function UserProfile({
                 </aside>
 
                 {/* Content */}
-                <section className="flex-1 rounded-2xl bg-primary-contrast/40 p-6 shadow-lg transition-all duration-300 dark:bg-dark-soft/40">
+                <section className="bg-secondary flex-1 rounded-2xl p-6 shadow-lg transition-all duration-300">
                     {activeSection === 'Account' && (
                         <AccountSection
                             userEmail={userEmail}
