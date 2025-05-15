@@ -150,7 +150,7 @@ export default function ChangePasswordForm({
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`button button-accent button-md w-full ${
+                            className={`button button-solid button-md w-full ${
                                 isSubmitting ? 'cursor-wait' : ''
                             }`}
                         >

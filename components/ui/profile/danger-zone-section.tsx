@@ -61,11 +61,11 @@ export function DangerZoneSection({
     };
 
     return (
-        <div className="rounded-xl border border-error-500 bg-error-500/20 p-4 shadow-md">
-            <h3 className="mb-3 text-xl font-semibold text-error-700">
+        <div className="rounded-xl border border-error-700 bg-error-100 p-4 shadow-md dark:bg-error-100/10">
+            <h3 className="text-error mb-3 text-xl font-semibold">
                 {dictionary.dangerZone}
             </h3>
-            <p className="text-base text-error-700">
+            <p className="text-base text-foreground-muted">
                 {dictionary.deletingIsIrreversible}
             </p>
             <button
@@ -121,7 +121,7 @@ export function DangerZoneSection({
                         </p>
                         <div className="mt-4 flex justify-center gap-4">
                             <button
-                                className="button button-secondary button-md"
+                                className="button button-ghost button-md"
                                 onClick={() => setIsConfirmOpen(false)}
                             >
                                 {dictionary.cancel}

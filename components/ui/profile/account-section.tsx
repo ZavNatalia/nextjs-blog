@@ -28,7 +28,7 @@ export function AccountSection({
             </p>
             <button
                 onClick={() => signOut()}
-                className="button button-secondary button-md group"
+                className="button button-ghost button-md group"
             >
                 {dictionary.logout}
                 <svg

@@ -55,7 +55,7 @@ export function NavigationList({
     onClick?: () => void;
 }) {
     return (
-        <ul className="flex flex-col items-center gap-2 text-lg md:flex-row md:gap-4 md:text-base">
+        <ul className="flex flex-col items-center gap-2 text-lg md:flex-row md:gap-3 md:text-base">
             {NAVIGATION_ITEMS.map(({ href, label }) => (
                 <NavListItem
                     key={href}

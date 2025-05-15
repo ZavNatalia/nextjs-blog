@@ -86,7 +86,7 @@ export default function PostContent({
                 : '';
 
             const isCopied = copiedCode === children;
-            const copyButtonStyles = `absolute focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-100 right-2 top-2 p-1 rounded-xl text-foreground-contrast transition-colors duration-300 hover:text-accent-100 dark:text-foreground-muted dark:hover:text-accent-100`;
+            const copyButtonStyles = `absolute button button-ghost button-xs right-3 top-3 `;
             return (
                 <div className="relative text-sm md:text-lg">
                     <button

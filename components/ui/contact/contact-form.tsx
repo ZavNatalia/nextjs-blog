@@ -236,7 +236,7 @@ export default function ContactForm({
                     title={dictionary.sendMessage}
                     disabled={requestStatus === 'pending'}
                     type="submit"
-                    className="button button-accent button-md self-center"
+                    className="button button-solid button-md self-center"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
