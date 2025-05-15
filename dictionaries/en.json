@@ -95,6 +95,7 @@
         "email": "Email",
         "yourEmail": "Your Email",
         "emailRequired": "Email is required",
+        "passwordRequired": "Password is required",
         "invalidEmailAddress": "Invalid email address",
         "password": "Password",
         "yourPassword": "Your password",
