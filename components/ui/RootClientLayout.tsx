@@ -15,7 +15,7 @@ export default function RootClientLayout({
 }) {
     return (
         <SessionProvider session={session}>
-            <div className="flex min-h-screen flex-col">
+            <div className="relative flex min-h-screen flex-col">
                 <MainNavigation />
                 {children}
                 <CookieConsent />

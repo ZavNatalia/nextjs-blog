@@ -9,7 +9,6 @@ import {
     FormikProps,
 } from 'formik';
 import * as Yup from 'yup';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { createUser } from '@/app/actions/auth';
 import { signIn, SignInResponse } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -17,6 +16,7 @@ import Notification, {
     NotificationDetails,
 } from '@/components/ui/Notification';
 import type { getDictionary } from '@/get-dictionary';
+import TogglePasswordButton from '@/components/ui/TogglePasswordButton';
 
 export type AuthFormData = {
     email: string;
@@ -97,7 +97,7 @@ export default function AuthForm({
 
     return (
         <>
-            <h1 className="mb-6 text-center text-2xl font-bold text-accent dark:text-accent-dark">
+            <h1 className="text-accent mb-6 text-center text-2xl font-bold">
                 {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
 
@@ -129,7 +129,7 @@ export default function AuthForm({
                                 <ErrorMessage
                                     name="email"
                                     component="p"
-                                    className="mt-2 text-sm text-error"
+                                    className="text-error mt-2 text-sm"
                                 />
                             </div>
 
@@ -144,31 +144,17 @@ export default function AuthForm({
                                     className="input mt-1"
                                     placeholder={dictionary.yourPassword}
                                 />
-                                <button
-                                    type="button"
-                                    onClick={() =>
+                                <TogglePasswordButton
+                                    onToggle={() =>
                                         setShowPassword((prev) => !prev)
                                     }
-                                    className="absolute right-3 top-10 text-accent dark:text-accent-dark"
-                                >
-                                    {showPassword ? (
-                                        <EyeSlashIcon
-                                            className="mr-1 h-5 w-5"
-                                            aria-label={dictionary.hidePassword}
-                                            title={dictionary.hidePassword}
-                                        />
-                                    ) : (
-                                        <EyeIcon
-                                            className="mr-1 h-5 w-5"
-                                            aria-label={dictionary.showPassword}
-                                            title={dictionary.showPassword}
-                                        />
-                                    )}
-                                </button>
+                                    isPasswordVisible={showPassword}
+                                    className="top-9"
+                                />
                                 <ErrorMessage
                                     name="password"
                                     component="p"
-                                    className="mt-2 text-sm text-error"
+                                    className="text-error mt-2 text-sm"
                                 />
                             </div>
 
@@ -191,37 +177,19 @@ export default function AuthForm({
                                         className="input mt-1"
                                         placeholder={dictionary.confirmPassword}
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() =>
+                                    <TogglePasswordButton
+                                        onToggle={() =>
                                             setShowConfirmPassword(
                                                 (prev) => !prev,
                                             )
                                         }
-                                        className="absolute right-3 top-10 text-accent dark:text-accent-dark"
-                                    >
-                                        {showConfirmPassword ? (
-                                            <EyeSlashIcon
-                                                className="mr-1 h-5 w-5"
-                                                aria-label={
-                                                    dictionary.hidePassword
-                                                }
-                                                title={dictionary.hidePassword}
-                                            />
-                                        ) : (
-                                            <EyeIcon
-                                                className="mr-1 h-5 w-5"
-                                                aria-label={
-                                                    dictionary.showPassword
-                                                }
-                                                title={dictionary.showPassword}
-                                            />
-                                        )}
-                                    </button>
+                                        isPasswordVisible={showConfirmPassword}
+                                        className="top-9"
+                                    />
                                     <ErrorMessage
                                         name="confirmPassword"
                                         component="p"
-                                        className="mt-2 text-sm text-error"
+                                        className="text-error mt-2 text-sm"
                                     />
                                 </div>
                             )}
@@ -229,10 +197,10 @@ export default function AuthForm({
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className={`w-full ${
+                                className={`button button-md w-full ${
                                     isSubmitting || !formikProps.isValid
                                         ? 'button-disabled'
-                                        : 'button-accent'
+                                        : 'button-solid'
                                 }`}
                             >
                                 {isSubmitting
@@ -254,7 +222,7 @@ export default function AuthForm({
                                 <button
                                     type="button"
                                     onClick={switchAuthModeHandler}
-                                    className="text-accent hover:text-accent-light dark:text-accent-dark hover:dark:text-accent-dark/80"
+                                    className="link hover:underline"
                                 >
                                     {isLogin
                                         ? dictionary.createAccount

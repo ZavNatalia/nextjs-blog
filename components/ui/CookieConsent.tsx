@@ -29,7 +29,7 @@ export default function CookieConsent() {
     if (!isVisible) return null;
 
     return (
-        <div className="fixed bottom-3 right-4 z-10 max-w-lg rounded-2xl border border-primary-contrast bg-primary-light p-4 text-foreground shadow-md dark:border-dark-strong dark:bg-gray-900">
+        <div className="bg-secondary fixed bottom-3 right-4 z-10 max-w-lg rounded-2xl border border-border-100 p-4 text-foreground shadow-md">
             <p className="text-sm">
                 {privacyDict.weUseCookies}&nbsp;
                 <Link
@@ -43,7 +43,7 @@ export default function CookieConsent() {
             <div className="flex justify-end">
                 <button
                     onClick={handleAccept}
-                    className="button-accent button-sm"
+                    className="button button-solid button-sm"
                 >
                     {privacyDict.ok}
                 </button>

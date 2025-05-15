@@ -61,18 +61,18 @@ export function DangerZoneSection({
     };
 
     return (
-        <div className="rounded-xl border border-error bg-error-light/10 p-4 shadow-md dark:bg-error-dark/10">
-            <h3 className="mb-3 text-xl font-semibold text-error dark:text-error-light">
+        <div className="rounded-xl border border-error-700 bg-error-100 p-4 shadow-md dark:bg-error-100/10">
+            <h3 className="text-error mb-3 text-xl font-semibold">
                 {dictionary.dangerZone}
             </h3>
-            <p className="text-base text-error dark:text-error-light">
+            <p className="text-base text-foreground-muted">
                 {dictionary.deletingIsIrreversible}
             </p>
             <button
                 disabled={
                     requestStatus === 'pending' || requestStatus === 'success'
                 }
-                className={`mt-4 flex items-center gap-1 ${
+                className={`button button-md mt-4 ${
                     requestStatus === 'pending' || requestStatus === 'success'
                         ? 'button-disabled'
                         : 'button-danger'
@@ -101,32 +101,33 @@ export function DangerZoneSection({
 
             {isConfirmOpen && (
                 <div
-                    className="fixed inset-0 flex items-center justify-center bg-primary-contrast/80 p-4 dark:bg-dark-strong/90"
+                    className="fixed inset-0 flex items-center justify-center bg-background-tertiary/80 p-4"
                     onClick={() => setIsConfirmOpen(false)}
                 >
                     <div
-                        className="max-w-sm rounded-3xl bg-primary p-6 text-center shadow-lg dark:bg-dark"
+                        className="bg-secondary max-w-sm rounded-3xl p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h3 className="text-lg font-semibold text-error">
+                        <h3 className="text-error text-lg font-semibold">
                             {dictionary.confirmAccountDeletion}
                         </h3>
-                        <p className="mt-2 text-base text-foreground-muted dark:text-muted-light">
-                            {dictionary.areYouSureYouWantToDelete}&nbsp;
+                        <p className="mt-2 text-base text-foreground">
+                            {dictionary.areYouSureYouWantToDelete}
                             <span className="font-mono font-bold text-foreground">
-                                {userEmail}
+                                &nbsp;{userEmail}
                             </span>
-                            ? {dictionary.thisActionCannotBeUndone}
+                            ?<br />
+                            {dictionary.thisActionCannotBeUndone}
                         </p>
                         <div className="mt-4 flex justify-center gap-4">
                             <button
-                                className="button-primary"
+                                className="button button-ghost button-md"
                                 onClick={() => setIsConfirmOpen(false)}
                             >
                                 {dictionary.cancel}
                             </button>
                             <button
-                                className={`${requestStatus === 'pending' ? 'button-disabled' : 'button-danger'}`}
+                                className={`button button-md ${requestStatus === 'pending' ? 'button-disabled' : 'button-danger'}`}
                                 onClick={deleteAccount}
                             >
                                 {requestStatus === 'pending'

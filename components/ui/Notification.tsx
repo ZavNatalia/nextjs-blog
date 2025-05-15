@@ -12,16 +12,13 @@ export interface NotificationDetails {
 }
 
 const bgMap: { [key in NotificationStatus]: string } = {
-    pending: 'bg-primary-contrast dark:bg-dark-soft',
-    success: 'bg-green-200 dark:bg-green-900',
-    error: 'bg-red-300 dark:bg-error-dark',
+    pending: 'bg-tertiary',
+    success: 'bg-success-100 dark:bg-success-700',
+    error: 'bg-error-500 text-contrast dark:text-foreground',
 };
 
-const getBg = (status: NotificationStatus) => {
-    return (
-        bgMap[status] ||
-        'bg-gradient-to-r from-indigo-700 via-purple-800 to-pink-900'
-    );
+const getToastColors = (status: NotificationStatus) => {
+    return bgMap[status] || 'bg-tertiary text-foreground';
 };
 
 export default function Notification({
@@ -47,10 +44,10 @@ export default function Notification({
     return createPortal(
         <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform">
             <div
-                className={`relative animate-slide-in overflow-hidden rounded-3xl p-4 px-6 py-4 text-foreground shadow-lg ${getBg(status)}`}
+                className={`relative animate-slide-in overflow-hidden rounded-3xl px-6 py-4 shadow-lg ${getToastColors(status)}`}
             >
                 <button
-                    className="absolute right-4 top-3 text-foreground transition-opacity hover:opacity-75"
+                    className="absolute right-4 top-3 transition-opacity hover:opacity-75"
                     onClick={() => {
                         setVisible(false);
                         if (onClose) onClose();
@@ -58,7 +55,7 @@ export default function Notification({
                 >
                     <XMarkIcon className="h-5 w-5" />
                 </button>
-                <p className="text-lg font-bold">{title}</p>
+                <h4 className="mb-3 text-lg font-bold">{title}</h4>
                 <p>{message}</p>
             </div>
         </div>,

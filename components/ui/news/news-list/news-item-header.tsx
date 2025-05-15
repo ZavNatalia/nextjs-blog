@@ -19,12 +19,12 @@ export default function NewsItemHeader({
         year: 'numeric',
     });
     return (
-        <header className="relative mb-6 flex flex-col gap-3 pb-6 after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent-light dark:after:bg-accent-darker md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8">
+        <header className="after:bg-accent relative mb-6 flex flex-col gap-3 pb-6 after:absolute after:bottom-0 after:block after:h-2 after:w-full dark:after:bg-accent-700 md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8">
             <div>
                 <h2 className="mb-2 text-2xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-4xl">
                     {title}
                 </h2>
-                <span className="text-base text-muted-dark dark:text-muted-light">
+                <span className="text-base text-muted-700 dark:text-muted-100">
                     {formattedDate}
                 </span>
             </div>
@@ -33,8 +33,8 @@ export default function NewsItemHeader({
                     className="rounded-xl object-cover"
                     src={imagePath}
                     alt={title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 220px"
+                    height={220}
+                    width={220}
                 />
             </div>
         </header>

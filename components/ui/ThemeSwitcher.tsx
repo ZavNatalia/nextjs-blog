@@ -17,7 +17,7 @@ export default function ThemeSwitcher() {
 
     if (isLoading) {
         return (
-            <div className="m-1 h-5 w-5 animate-pulse rounded-full bg-primary-contrast dark:bg-dark-strong" />
+            <div className="bg-tertiary m-1 h-5 w-5 animate-pulse rounded-full" />
         );
     }
 
@@ -27,7 +27,7 @@ export default function ThemeSwitcher() {
 
     return (
         <button
-            className="icon-button rounded-xl p-0 duration-0 md:p-1"
+            className="button icon-button hover:button-ghost button-md md:button-xs text-foreground"
             aria-label={
                 theme === 'light'
                     ? dictionary.switchToDarkTheme
@@ -41,9 +41,9 @@ export default function ThemeSwitcher() {
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         >
             {theme === 'light' ? (
-                <MoonIcon className="h-8 w-8 md:h-5 md:w-5" />
+                <MoonIcon className="h-7 w-7 md:h-5 md:w-5" />
             ) : (
-                <SunIcon className="h-8 w-8 md:h-5 md:w-5" />
+                <SunIcon className="h-7 w-7 md:h-5 md:w-5" />
             )}
         </button>
     );

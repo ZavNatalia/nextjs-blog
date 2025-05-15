@@ -4,8 +4,8 @@ import Notification, {
 } from '@/components/ui/Notification';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
+import TogglePasswordButton from '@/components/ui/TogglePasswordButton';
 
 export type ChangePasswordFormData = {
     oldPassword: string;
@@ -90,7 +90,7 @@ export default function ChangePasswordForm({
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="flex w-full max-w-md flex-col gap-4 rounded-xl bg-primary px-5 py-6 shadow-md dark:bg-dark-strong/50">
+                    <Form className="bg-primary flex w-full max-w-md flex-col gap-4 rounded-xl px-5 py-6 shadow-md">
                         <div className="relative">
                             <label
                                 htmlFor="oldPassword"
@@ -104,27 +104,18 @@ export default function ChangePasswordForm({
                                 id="oldPassword"
                                 className="input"
                             />
-                            <button
-                                type="button"
-                                onClick={() =>
+                            <TogglePasswordButton
+                                visible={values.oldPassword.length > 0}
+                                onToggle={() =>
                                     setShowOldPassword((prev) => !prev)
                                 }
-                                className={`absolute right-2 top-12 text-accent ${
-                                    values.oldPassword.length > 0
-                                        ? 'block'
-                                        : 'hidden'
-                                }`}
-                            >
-                                {showOldPassword ? (
-                                    <EyeSlashIcon className="mr-1 h-5 w-5" />
-                                ) : (
-                                    <EyeIcon className="mr-1 h-5 w-5" />
-                                )}
-                            </button>
+                                isPasswordVisible={showOldPassword}
+                                className="top-12"
+                            />
                             <ErrorMessage
                                 name="oldPassword"
                                 component="p"
-                                className="mt-2 text-sm text-error"
+                                className="text-error mt-2 text-sm"
                             />
                         </div>
 
@@ -141,34 +132,25 @@ export default function ChangePasswordForm({
                                 id="newPassword"
                                 className="input w-full"
                             />
-                            <button
-                                type="button"
-                                onClick={() =>
+                            <TogglePasswordButton
+                                visible={values.newPassword.length > 0}
+                                onToggle={() =>
                                     setShowNewPassword((prev) => !prev)
                                 }
-                                className={`absolute right-2 top-12 text-accent ${
-                                    values.newPassword.length > 0
-                                        ? 'block'
-                                        : 'hidden'
-                                }`}
-                            >
-                                {showNewPassword ? (
-                                    <EyeSlashIcon className="mr-1 h-5 w-5" />
-                                ) : (
-                                    <EyeIcon className="mr-1 h-5 w-5" />
-                                )}
-                            </button>
+                                isPasswordVisible={showNewPassword}
+                                className="top-12"
+                            />
                             <ErrorMessage
                                 name="newPassword"
                                 component="p"
-                                className="mt-2 text-sm text-error"
+                                className="text-error mt-2 text-sm"
                             />
                         </div>
 
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`button-accent w-full ${
+                            className={`button button-solid button-md w-full ${
                                 isSubmitting ? 'cursor-wait' : ''
                             }`}
                         >
