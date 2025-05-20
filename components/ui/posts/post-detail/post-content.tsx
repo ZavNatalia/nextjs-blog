@@ -49,7 +49,7 @@ export default function PostContent({
     };
 
     const customRenderers: Components = {
-        img({ src, alt }: { src?: string; alt?: string }) {
+        img({ src, alt }: { src?: string | Blob; alt?: string }) {
             if (!src) return null;
 
             return (
