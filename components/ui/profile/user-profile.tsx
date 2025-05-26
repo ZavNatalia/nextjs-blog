@@ -59,8 +59,8 @@ export default function UserProfile({
                                 className={clsx(
                                     'flex w-full items-center gap-3 rounded-lg border-none px-3 py-2 text-start text-base font-medium transition-all duration-200',
                                     activeSection === key
-                                        ? 'bg-primary text-foreground shadow-md'
-                                        : 'hover:bg-primary text-foreground-muted hover:text-foreground',
+                                        ? 'bg-background-tertiary/70 text-foreground shadow-md'
+                                        : 'text-foreground-muted hover:bg-background-tertiary/70 hover:text-foreground',
                                 )}
                                 onClick={() => setActiveSection(key)}
                             >

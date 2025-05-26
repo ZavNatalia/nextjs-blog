@@ -3,10 +3,8 @@ title: 'Next.js 15'
 date: '2024-10-21'
 image: 'next-js-15.webp'
 excerpt: 'Next.js 15 is officially stable and ready for production use. This release builds on updates from RC1 and RC2.'
-isFeatured: true
+isFeatured: false
 ---
-
-## Next.js 15 Released: Stable Version for Production
 
 Next.js 15 has officially been released and is ready for production. This release builds upon updates from RC1 and RC2, with a focus on stability while introducing a few noteworthy new features. Next.js 15 can be tried out today:
 
@@ -80,8 +78,6 @@ Next.js 15 has introduced support for React 19 RC, including an experimental Rea
 ## Turbopack Dev (Stable)
 
 _next dev --turbo_ is now stable and can speed up development workflows. It has already been used in high-profile projects (such as vercel.com and nextjs.org) with excellent results.
-
-![A futuristic server room](futuristic-server-room.webp)
 
 ## Additional Improvements
 

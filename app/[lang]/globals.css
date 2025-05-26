@@ -240,11 +240,11 @@ body {
     }
 
     .markdown-content code {
-        @apply rounded bg-muted-100 px-1 py-0.5 font-mono text-sm md:text-base;
+        @apply rounded font-mono text-sm md:text-base;
     }
 
     .markdown-content pre {
-        @apply overflow-x-auto rounded bg-muted-700 p-4 text-sm text-foreground;
+        @apply mx-0 my-1 overflow-x-auto bg-background-primary p-0 text-sm text-foreground;
     }
 
     .markdown-content table th:first-child,
