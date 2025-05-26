@@ -1,9 +1,9 @@
 'use client';
-import Link from 'next/link';
 import Image from 'next/image';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import { getLocale } from '@/components/utils/getLocale';
+import Link from 'next/link';
 
 export interface IPost {
     slug: string;

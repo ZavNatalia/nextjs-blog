@@ -24,7 +24,7 @@ export default function PostHeader({
             className={`${underlineStyle} relative mb-6 flex flex-col gap-3 pb-6 md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8`}
         >
             <div>
-                <h1 className="mb-1 text-xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-5xl">
+                <h1 className="mb-1 text-xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-4xl">
                     {title}
                 </h1>
                 <span className="text-sm text-foreground-muted dark:text-muted-100 md:text-base">
