@@ -6,8 +6,6 @@ excerpt: 'An overview of the main rendering methods in Next.js 15 — SSG, SSR, 
 isFeatured: true
 ---
 
-## Types of Rendering in Next.js 15 with Examples and Commentary
-
 Next.js 15 offers a flexible rendering system that enables both high performance and strong SEO. In this article, we’ll explore the key rendering methods, their benefits, use cases, SEO impact, and modern streaming support using React Server Components.
 
 ---
