@@ -8,7 +8,6 @@ isFeatured: true
 
 Отладка кода в Next.js — это процесс поиска и исправления ошибок в коде. Он включает в себя **консольные логи, инструменты разработчика, отладку API, профилирование производительности и анализ ошибок.**
 
----
 
 ## **1. Логи (_console.log_) — Базовый уровень**
 
@@ -51,7 +50,7 @@ export default function DebugComponent({ message }: { message: string }) {
 
 Позволяет увидеть, какие данные приходят в компонент.
 
----
+
 
 ## **2. Использование _debugger_ (Остановка кода)**
 
@@ -85,13 +84,13 @@ export default function DebugComponent({ message }: { message: string }) {
 
 Теперь код **остановится перед выполнением**, и ты сможешь пошагово анализировать переменные.
 
----
+
 
 ## **3. Дебаг API Routes (_app/api/_)**
 
 Если твои API маршруты (_app/api/route.ts_) не работают, отладь их:
 
-### **✅ 1. Логирование _req_ и _res_**
+### **1. Логирование _req_ и _res_**
 
 ```js
 import { NextResponse } from 'next/server';
@@ -114,7 +113,7 @@ curl -X GET http://localhost:3000/api/route
 
 или в **Postman** / **Insomnia**.
 
----
+
 
 ## **4. Инструменты DevTools (Performance, Network)**
 
@@ -132,7 +131,7 @@ curl -X GET http://localhost:3000/api/route
 2. Перезагрузи страницу.
 3. Посмотри, какие компоненты загружаются дольше всего.
 
----
+
 
 ## **5. Анализ ошибок (_error.tsx_, _console.error_)**
 
@@ -174,7 +173,7 @@ export async function GET() {
 
 Теперь ошибка **не сломает сервер**, а вернёт _500_.
 
----
+
 
 ## **6. Проверка SSR, Streaming и Client/Server рендеринга**
 
@@ -200,7 +199,7 @@ pnpm build && pnpm start
 
 Далее открой **DevTools → Network → посмотри, какие запросы выполняются**.
 
----
+
 
 ## **7. Дебагging с VS Code (Node.js Debugging)**
 
@@ -232,7 +231,7 @@ pnpm build && pnpm start
 1. **В VS Code → Run & Debug → Debug Next.js**
 2. Теперь ты можешь ставить **breakpoints** в коде!
 
----
+
 
 ## **Заключение: Полный чек-лист дебага Next.js**
 
