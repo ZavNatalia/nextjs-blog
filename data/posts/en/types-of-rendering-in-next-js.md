@@ -8,7 +8,7 @@ isFeatured: true
 
 Next.js 15 offers a flexible rendering system that enables both high performance and strong SEO. In this article, we’ll explore the key rendering methods, their benefits, use cases, SEO impact, and modern streaming support using React Server Components.
 
----
+
 
 ## 1. Static Site Generation (SSG)
 
@@ -43,7 +43,7 @@ If Next.js detects anything that requires dynamic rendering during the rendering
 - Beneficial for SEO and fast loading times
 - Helps catch accidental or unexpected dynamic dependencies
 
----
+
 
 ## 2. Server-Side Rendering (SSR)
 
@@ -72,7 +72,7 @@ If your component uses cookies, headers, useSearchParams, request-time data, or 
 - You don't want caching to be applied
 - You’re making API or database calls that should always return fresh data
 
----
+
 
 ## 3. Incremental Static Regeneration (ISR)
 
@@ -97,7 +97,7 @@ export default async function NewsPage() {
 }
 ```
 
----
+
 
 ## 4. Client-Side Rendering (CSR)
 
@@ -126,7 +126,7 @@ export default function ClientProfile() {
 }
 ```
 
----
+
 
 ## SEO and Rendering
 
@@ -139,7 +139,7 @@ export default function ClientProfile() {
 
 For good SEO, it's best to use SSG, SSR, or ISR. CSR is suitable for supporting components, not for primary pages.
 
----
+
 
 ## Streaming and React Server Components
 
