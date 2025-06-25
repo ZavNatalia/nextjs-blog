@@ -3,9 +3,9 @@ import ThemeSwitcher from '@/components/ui/ThemeSwitcher';
 
 export function NavigationControls({ isMobile }: { isMobile?: boolean }) {
     const styles = isMobile
-        ? 'flex gap-3 flex-col self-center items-center md:gap-2 bg-background-primary/70 py-2 px-3 rounded-2xl'
+        ? 'flex gap-3 flex-col self-center items-center bg-background-primary/50 py-3 px-4 rounded-2xl'
         : 'ml-3 flex items-center gap-1 md:gap-2 text-muted ' +
-          'bg-background-primary/80 py-2 px-3 rounded-2xl';
+          'bg-background-primary px-3 rounded-2xl border border-border-100';
     return (
         <div className={styles}>
             <LocaleSwitcher />
