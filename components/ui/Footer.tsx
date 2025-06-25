@@ -7,9 +7,7 @@ export default function Footer() {
 
     return (
         <div className="bg-primary dark:bg-dark flex w-full items-center justify-center gap-2 p-3">
-            <p className="text-muted text-sm">
-                © {currentYear} Natalia&apos;s Next blog
-            </p>
+            <p className="text-muted text-sm">© {currentYear} Next.js Craft</p>
             <Link
                 href="https://github.com/ZavNatalia"
                 target="_blank"

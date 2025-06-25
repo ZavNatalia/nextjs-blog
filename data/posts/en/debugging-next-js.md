@@ -8,8 +8,6 @@ isFeatured: true
 
 Debugging in Next.js is the process of finding and fixing errors in the code. It involves **console logs, developer tools, API debugging, performance profiling, and error analysis**.
 
-
-
 ## **1. Logs (_console.log_) — Basic Level**
 
 The simplest way to understand what is happening in your code is to use _console.log()_.
@@ -51,8 +49,6 @@ export default function DebugComponent({ message }: { message: string }) {
 
 This allows you to see what data is being passed to the component.
 
-
-
 ## **2. Using _debugger_ (Pausing Code Execution)**
 
 If something is wrong in your code, you can **pause execution and analyze values step by step**.
@@ -89,8 +85,6 @@ If you are using **VS Code**, you can **set a breakpoint**:
 
 Now the code **will stop before execution**, and you can analyze variables step by step.
 
-
-
 ## **3. Debugging API Routes (_app/api/_)**
 
 If your API routes (_app/api/route.ts_) are not working, debug them as follows:
@@ -118,8 +112,6 @@ curl -X GET http://localhost:3000/api/route
 
 or use **Postman** / **Insomnia**.
 
-
-
 ## **4. Developer Tools (Performance, Network)**
 
 ### **1. Network (Inspecting Requests)**
@@ -135,8 +127,6 @@ or use **Postman** / **Insomnia**.
 1. In **DevTools → Performance**, click **Start profiling**.
 2. Reload the page.
 3. Check which components take the longest to load.
-
-
 
 ## **5. Error Analysis (_error.tsx_, _console.error_)**
 
@@ -178,8 +168,6 @@ export async function GET() {
 
 Now the error **won't crash the server** but will return _500_.
 
-
-
 ## **6. Checking SSR, Streaming, and Client/Server Rendering**
 
 ### **1. How to Check if Code is Running on the Server or Client?**
@@ -203,8 +191,6 @@ pnpm build && pnpm start
 ```
 
 Then open **DevTools → Network** and inspect which requests are being made.
-
-
 
 ## **7. Debugging with VS Code (Node.js Debugging)**
 

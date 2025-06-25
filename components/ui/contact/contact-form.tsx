@@ -190,7 +190,7 @@ export default function ContactForm({
             : null;
 
     return (
-        <section className="w-full max-w-xl flex-1">
+        <section className="w-full max-w-2xl flex-1 rounded-3xl bg-background-secondary px-6 py-8 shadow-md">
             <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField

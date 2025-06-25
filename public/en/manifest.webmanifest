@@ -1,8 +1,8 @@
 {
     "id": "/en/",
-    "name": "Natalia's Next Blog",
-    "short_name": "N's Blog",
-    "description": "I post about programming and web development.",
+    "name": "Next.js Craft",
+    "short_name": "Next.js Craft",
+    "description": "Notes on modern front-end: Next.js, React Server Components, and practical techniques for fast web development.",
     "lang": "en",
     "start_url": "/en/",
     "display": "standalone",

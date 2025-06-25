@@ -173,7 +173,7 @@ body {
     }
 
     .button-ghost {
-        @apply bg-background-tertiary/50 text-foreground hover:bg-background-tertiary/90;
+        @apply bg-background-tertiary/60 text-foreground hover:bg-background-tertiary;
     }
 
     .button-danger {
