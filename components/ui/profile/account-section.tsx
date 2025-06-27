@@ -9,7 +9,7 @@ export function AccountSection({
     dictionary: Record<string, any>;
 }) {
     return (
-        <div className="flex flex-col items-center gap-3 text-center">
+        <div className="flex flex-col items-center gap-2 p-4">
             <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-accent-500 shadow-md dark:border-accent-700">
                 <Image
                     src="/images/site/default-avatar.png"
@@ -23,9 +23,7 @@ export function AccountSection({
             <h2 className="text-xl font-semibold text-foreground">
                 {dictionary.yourAccount}
             </h2>
-            <p className="mb-4 text-base text-foreground-muted dark:text-muted-100">
-                {userEmail}
-            </p>
+            <p className="mb-3 text-base text-foreground-muted">{userEmail}</p>
             <button
                 onClick={() => signOut()}
                 className="button button-ghost button-md group"
