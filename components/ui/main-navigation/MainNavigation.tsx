@@ -36,7 +36,7 @@ export default function MainNavigation() {
                 open ? 'bg-tertiary' : 'bg-secondary',
             )}
         >
-            <div className="mx-auto grid max-w-[90rem] grid-cols-[1fr_auto] items-center px-4 py-2 md:grid-cols-[200_1fr_200] md:py-4">
+            <div className="mx-auto grid max-w-[90rem] grid-cols-[1fr_auto] items-center px-4 py-2 md:grid-cols-[200px_1fr_200px] md:py-4">
                 <Logo title={dict.home} />
 
                 <nav className="hidden justify-self-center md:block">
