@@ -32,8 +32,8 @@ export default function NewsList({
 
                 return (
                     <Image
-                        src={`/images/posts/${slug}/${src}`}
-                        alt={alt || 'Post Image'}
+                        src={`/images/news/${slug}/${src}`}
+                        alt={alt || 'News Image'}
                         width={500}
                         height={500}
                         sizes="(max-width: 869px) 100vw, 500px"
@@ -61,7 +61,7 @@ export default function NewsList({
         };
 
         return (
-            <li className="lg:max-w-4xl">
+            <li>
                 <NewsItemHeader
                     title={title}
                     date={date}

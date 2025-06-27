@@ -7,7 +7,7 @@ export function SecuritySection({
     dictionary: Record<string, any>;
 }) {
     return (
-        <div className="flex flex-col items-center md:items-start">
+        <div className="flex flex-col items-center p-4 md:items-start">
             <h3 className="mb-3 text-xl font-semibold text-foreground">
                 {dictionary.security}
             </h3>

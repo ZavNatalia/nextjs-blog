@@ -14,7 +14,7 @@ export default function NotFoundCard() {
             <p className="mb-4 text-xl text-foreground">
                 {dictionary.notFound}
             </p>
-            <p className="mb-8 text-muted-700 dark:text-muted-100">
+            <p className="mb-8 text-foreground-muted">
                 {dictionary.weCouldNotFindPage}
             </p>
             <Link

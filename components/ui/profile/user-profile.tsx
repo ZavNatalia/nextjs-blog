@@ -27,8 +27,8 @@ export default function UserProfile({
     const [activeSection, setActiveSection] = useState('Account');
 
     return (
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-5">
-            {/* Mobile Navigation */}
+        <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
+            {/* Sidebar for Mobile */}
             <nav className="bg-secondary flex min-w-fit justify-around rounded-xl p-2 shadow-md md:hidden">
                 {SECTIONS.map(({ key, label, icon: Icon }) => (
                     <button
@@ -49,15 +49,15 @@ export default function UserProfile({
                 ))}
             </nav>
 
-            <div className="flex flex-col gap-6 md:flex-row">
+            <div className="card flex w-full max-w-4xl flex-col gap-6 md:flex-row">
                 {/* Sidebar for Desktop */}
-                <aside className="bg-secondary hidden h-fit w-1/4 min-w-fit rounded-2xl p-3 shadow-lg md:block lg:p-5">
+                <aside className="hidden h-fit rounded-xl bg-background-primary p-4 md:block">
                     <nav className="flex flex-col gap-2 lg:gap-3">
                         {SECTIONS.map(({ key, label, icon: Icon }) => (
                             <button
                                 key={key}
                                 className={clsx(
-                                    'flex w-full items-center gap-3 rounded-lg border-none px-3 py-2 text-start text-base font-medium transition-all duration-200',
+                                    'flex w-full items-center gap-3 rounded-xl border-none py-2 pl-4 pr-6 text-start text-base font-medium transition-all duration-200',
                                     activeSection === key
                                         ? 'bg-background-tertiary/70 text-foreground shadow-md'
                                         : 'text-foreground-muted hover:bg-background-tertiary/70 hover:text-foreground',
@@ -74,7 +74,7 @@ export default function UserProfile({
                 </aside>
 
                 {/* Content */}
-                <section className="bg-secondary flex-1 rounded-2xl p-6 shadow-lg transition-all duration-300">
+                <section className="flex-1">
                     {activeSection === 'Account' && (
                         <AccountSection
                             userEmail={userEmail}

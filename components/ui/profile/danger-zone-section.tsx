@@ -61,7 +61,7 @@ export function DangerZoneSection({
     };
 
     return (
-        <div className="rounded-xl border border-error-700 bg-error-100 p-4 shadow-md dark:bg-error-100/10">
+        <div className="rounded-xl bg-error-100 p-4 shadow-md dark:bg-error-100/10">
             <h3 className="text-error mb-3 text-xl font-semibold">
                 {dictionary.dangerZone}
             </h3>
