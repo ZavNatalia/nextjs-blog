@@ -40,7 +40,7 @@ export default function MainNavigation() {
                 <Logo title={dict.home} />
 
                 <nav className="hidden justify-self-center md:block">
-                    <NavigationList {...listProps} direction="row" />
+                    <NavigationList {...listProps} />
                 </nav>
 
                 <div className="flex items-center gap-2 justify-self-end">
