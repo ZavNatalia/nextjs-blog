@@ -1,7 +1,7 @@
 ---
 title: 'Frontend News: May 2025'
 date: '2025-05-13'
-image: 'news-may-2025.webp'
+image: 'news-may-2025.png'
 excerpt: 'A collection of the latest news in frontend development for May 2025'
 isLatest: true
 ---

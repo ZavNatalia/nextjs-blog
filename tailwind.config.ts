@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss';
-import plugin from 'tailwindcss/plugin';
 import typography from '@tailwindcss/typography';
 
 const config: Config = {
@@ -54,9 +53,9 @@ const config: Config = {
                     700: 'rgba(var(--color-info-700), <alpha-value>)',
                 },
                 muted: {
-                    100: 'rgb(var(--color-muted-100) / <alpha-value>)',
-                    500: 'rgb(var(--color-muted-500) / <alpha-value>)',
-                    700: 'rgb(var(--color-muted-700) / <alpha-value>)',
+                    100: 'rgba(var(--color-muted-100) / <alpha-value>)',
+                    500: 'rgba(var(--color-muted-500) / <alpha-value>)',
+                    700: 'rgba(var(--color-muted-700) / <alpha-value>)',
                 },
             },
             fontFamily: {

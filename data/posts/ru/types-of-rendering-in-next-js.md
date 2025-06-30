@@ -8,7 +8,6 @@ isFeatured: true
 
 Next.js 15 предоставляет гибкую систему рендеринга, которая позволяет достичь как высокой производительности, так и хорошего SEO. В этой статье разберём основные методы рендеринга, их плюсы, особенности использования, влияние на SEO и современную возможность стриминга с помощью React Server Components.
 
-
 ## 1. Static Site Generation (SSG) — Статическая генерация
 
 - HTML генерируется на этапе сборки (build time)
@@ -42,8 +41,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 - Полезно для SEO и быстрой загрузки
 - Помогает поймать ошибочные или неожиданные динамические зависимости
 
-
-
 ## 2. Server-Side Rendering (SSR) — Рендеринг на сервере
 
 - HTML создаётся на каждый запрос
@@ -71,8 +68,6 @@ export default async function Dashboard() {
 - Ты не хочешь кэширования
 - Используешь запросы к базе данных, API, которые возвращают свежие данные каждый раз
 
-
-
 ## 3. Incremental Static Regeneration (ISR) — Инкрементальная регенерация
 
 - HTML создаётся при сборке и обновляется в фоне через указанное время
@@ -95,8 +90,6 @@ export default async function NewsPage() {
     );
 }
 ```
-
-
 
 ## 4. Client-Side Rendering (CSR) — Рендеринг на клиенте
 
@@ -125,8 +118,6 @@ export default function ClientProfile() {
 }
 ```
 
-
-
 ## SEO и рендеринг
 
 | Метод (полное название)                   | SEO-дружелюбность | Комментарий                                              |
@@ -137,8 +128,6 @@ export default function ClientProfile() {
 | **CSR** (Client-Side Rendering)           | Нет               | HTML пустой, контент появляется только после загрузки JS |
 
 Для хорошего SEO старайтесь использовать SSG, SSR или ISR. CSR подходит для вспомогательных компонентов, но не для основной страницы.
-
-
 
 ## Streaming и React Server Components
 
