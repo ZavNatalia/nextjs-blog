@@ -190,7 +190,10 @@ export default function ContactForm({
             : null;
 
     return (
-        <section className="w-full max-w-xl flex-1">
+        <section className="card max-w-2xl">
+            <h2 className="text-accent mb-6 text-center text-lg font-bold lg:text-2xl">
+                {dictionary.howCanIHelp}
+            </h2>
             <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField

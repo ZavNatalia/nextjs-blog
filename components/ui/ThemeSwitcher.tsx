@@ -17,7 +17,7 @@ export default function ThemeSwitcher() {
 
     if (isLoading) {
         return (
-            <div className="bg-tertiary m-1 h-5 w-5 animate-pulse rounded-full" />
+            <div className="bg-tertiary mx-2 my-1 h-5 w-5 animate-pulse rounded-full" />
         );
     }
 

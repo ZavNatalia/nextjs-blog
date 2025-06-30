@@ -28,10 +28,10 @@ export default function LocaleSwitcher() {
                 aria-label={getTitle}
                 key={locale}
                 onClick={() => switchLocale(locale)}
-                className={`button icon-button button-md md:button-xs font-bold ${
+                className={`button button-md md:button-xs font-bold ${
                     isActive
-                        ? 'button-ghost'
-                        : 'hover:button-ghost text-foreground'
+                        ? 'button-ghost bg-background-tertiary shadow-sm'
+                        : 'hover:button-ghost text-muted'
                 } `}
             >
                 {locale.toUpperCase()}
@@ -40,7 +40,7 @@ export default function LocaleSwitcher() {
     };
 
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-1">
             {locales.map((locale) => renderSwitchButton(locale))}
         </div>
     );

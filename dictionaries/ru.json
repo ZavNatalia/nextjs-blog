@@ -2,7 +2,7 @@
     "common": {
         "greetings": "Создаём с Next.js",
         "greetingsDescription": "Всё о Next.js и современной веб-разработке",
-        "blogTitle": "Natalia's Next blog",
+        "blogTitle": "Next.js Craft",
         "blogDescription": "Я пишу о программировании и веб-разработке.",
         "main": "Главная",
         "allPosts": "Все посты",
@@ -152,7 +152,7 @@
     },
     "not-found": {
         "notFound": "Ой! Похоже, этой страницы не существует.",
-        "weCouldNotFindPage": "Извините, мы не смогли найти страницу или пост, который вы искали.",
+        "weCouldNotFindPage": "Извините, мы не смогли найти страницу, которую вы искали.",
         "returnHome": "Вернуться на главную"
     }
 }

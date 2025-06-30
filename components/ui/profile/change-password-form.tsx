@@ -90,7 +90,7 @@ export default function ChangePasswordForm({
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="bg-primary flex w-full max-w-md flex-col gap-4 rounded-xl px-5 py-6 shadow-md">
+                    <Form className="bg-primary flex w-full max-w-xs flex-col gap-4 rounded-xl px-5 py-6 shadow-md">
                         <div className="relative">
                             <label
                                 htmlFor="oldPassword"

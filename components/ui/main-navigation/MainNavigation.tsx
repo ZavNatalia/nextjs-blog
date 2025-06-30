@@ -1,5 +1,7 @@
 'use client';
+
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import Logo from '@/components/ui/Logo';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
@@ -10,60 +12,59 @@ import { NavigationControls } from '@/components/ui/main-navigation/NavigationCo
 
 export default function MainNavigation() {
     const { data: session, status } = useSession();
-    const [isOpen, setIsOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+    const dict = useDictionary()?.navigation;
     const pathname = usePathname();
-    const dictionary = useDictionary()?.['navigation'];
+    const normalized = pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
 
-    const toggleMenu = () => setIsOpen((prev) => !prev);
+    const close = () => {
+        setOpen(false);
+    };
+    const toggle = () => setOpen((v) => !v);
 
-    const normalizedPathname =
-        pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
+    const listProps = {
+        normalizedPathname: normalized,
+        session,
+        status,
+        dictionary: dict,
+    };
 
     return (
         <header
-            className={`z-10 shadow-md md:sticky md:top-0 ${
-                isOpen ? 'bg-tertiary' : 'bg-secondary'
-            } `}
+            className={clsx(
+                'relative z-10 shadow-md md:sticky md:top-0',
+                open ? 'bg-tertiary' : 'bg-secondary',
+            )}
         >
-            <div className="mx-auto flex max-w-[90rem] items-center justify-between p-1 md:p-2">
-                <Logo title={dictionary['home']} />
+            <div className="mx-auto grid max-w-[90rem] grid-cols-[1fr_auto] items-center px-4 py-2 md:grid-cols-[200px_1fr_200px] md:py-4">
+                <Logo title={dict.home} />
 
-                <MobileMenuButton
-                    ariaLabel={
-                        isOpen ? dictionary.closeMenu : dictionary.openMenu
-                    }
-                    isOpen={isOpen}
-                    toggleMenu={toggleMenu}
-                />
-
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex">
-                    <NavigationList
-                        normalizedPathname={normalizedPathname}
-                        session={session}
-                        status={status}
-                        dictionary={dictionary}
-                    />
-                    <NavigationControls />
+                <nav className="hidden justify-self-center md:block">
+                    <NavigationList {...listProps} />
                 </nav>
 
-                {/* Mobile Navigation */}
-                {isOpen && (
-                    <nav className="bg-tertiary absolute left-0 top-[50px] w-full border-t border-t-border-700 p-6 shadow-lg md:hidden">
-                        <ul className="flex flex-col gap-4 text-lg">
-                            <NavigationList
-                                normalizedPathname={normalizedPathname}
-                                session={session}
-                                status={status}
-                                dictionary={dictionary}
-                                onClick={toggleMenu}
-                            />
-                            <hr className="my-2 border-t border-border-700" />
-                            <NavigationControls isMobile={isOpen} />
-                        </ul>
-                    </nav>
-                )}
+                <div className="flex items-center gap-2 justify-self-end">
+                    <div className="hidden md:block">
+                        <NavigationControls />
+                    </div>
+
+                    <MobileMenuButton
+                        ariaLabel={open ? dict.closeMenu : dict.openMenu}
+                        isOpen={open}
+                        toggleMenu={toggle}
+                    />
+                </div>
             </div>
+
+            {/* Mobile menu drawer */}
+            {open && (
+                <nav className="bg-tertiary absolute inset-x-0 top-full z-20 border-t border-border-700 shadow-lg md:hidden">
+                    <NavigationList {...listProps} onClick={close} />
+                    <div className="flex justify-center border-t border-border-700 p-4">
+                        <NavigationControls isMobile />
+                    </div>
+                </nav>
+            )}
         </header>
     );
 }

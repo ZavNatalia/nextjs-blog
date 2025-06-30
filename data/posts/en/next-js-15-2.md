@@ -36,8 +36,6 @@ export default async function PostsPage() {
 
 **What’s improved:** HTML is formed more quickly, reducing gaps between data requests and display.
 
-
-
 ## 2. Extended Features in the _app_ Directory
 
 ### 2.1 Enhanced Routing Structure
@@ -94,8 +92,6 @@ export default async function ProductPage({ params }: { params: { productId: str
 
 **What’s improved:** clearer route separation and convenience for large projects.
 
-
-
 ## 3. New Tools for Team Development
 
 ### 3.1 Vercel Extensions
@@ -129,8 +125,6 @@ jobs:
             - name: Deploy to Vercel
               run: npx vercel --prod
 ```
-
-
 
 ## 4. Additional Improvements and Examples
 
@@ -182,8 +176,6 @@ export default function SomePage() {
 ```
 
 **What’s improved:** a smoother user experience through a progress indicator or placeholder for large components.
-
-
 
 ## 5. Documentation and Community
 

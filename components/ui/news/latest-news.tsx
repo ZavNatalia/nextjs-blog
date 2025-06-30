@@ -20,7 +20,7 @@ export default async function LatestNews({ lang }: { lang: Locale }) {
         })),
     };
     return (
-        <article className="px-4 md:rounded-3xl md:bg-background-secondary md:p-6 lg:p-10">
+        <article className="card max-w-5xl lg:p-8">
             <NewsList newsList={latestNews} lang={lang} />
             <Script
                 id="home-news-jsonld"
