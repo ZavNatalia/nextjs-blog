@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { getAllPosts } from '@/lib/posts-util';
+import { getAllPosts } from '@/lib/posts';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';

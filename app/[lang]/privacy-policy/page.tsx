@@ -1,5 +1,5 @@
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
-import { getPrivacyPolicyFile } from '@/lib/privacy-policy-utils';
+import { getPrivacyPolicyFile } from '@/lib/privacy-policy';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import ReactMarkdown from 'react-markdown';
