@@ -1,6 +1,6 @@
 import React from 'react';
 import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
-import { getFeaturedPosts } from '@/lib/posts-util';
+import { getFeaturedPosts } from '@/lib/posts';
 import Link from 'next/link';
 import type { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';

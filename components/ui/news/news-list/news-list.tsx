@@ -1,5 +1,5 @@
 import React from 'react';
-import { INews } from '@/lib/news-util';
+import { INews } from '@/lib/news';
 import { Locale } from '@/i18n-config';
 import NewsItemHeader from '@/components/ui/news/news-list/news-item-header';
 import ReactMarkdown, { Components } from 'react-markdown';

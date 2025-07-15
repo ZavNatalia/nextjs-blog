@@ -1,4 +1,4 @@
-import { getLatestNews } from '@/lib/news-util';
+import { getLatestNews } from '@/lib/news';
 import NewsList from '@/components/ui/news/news-list/news-list';
 import { Locale } from '@/i18n-config';
 import BackToTopButton from '@/components/ui/BackToTopButton';
