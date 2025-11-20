@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import { getLocale } from '@/components/utils/getLocale';
@@ -24,7 +23,7 @@ export default function PostCard({
     dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
     lang: Locale;
 }) {
-    const { title, date, excerpt, image, slug } = post;
+    const { title, date, excerpt, slug } = post;
 
     const formattedDate = new Date(date).toLocaleDateString(getLocale(lang), {
         day: 'numeric',
@@ -32,12 +31,11 @@ export default function PostCard({
         year: 'numeric',
     });
 
-    const imagePath = `/images/posts/${slug}/${image}`;
     const linkPath = `posts/${slug}`;
 
     return (
-        <li className="w-full rounded-3xl shadow-sm">
-            <div className="flex justify-between rounded-t-3xl bg-background-tertiary/50 px-5 py-4 lg:px-6 lg:py-5">
+        <li className="h-fit w-full overflow-hidden rounded-2xl shadow-sm">
+            <div className="flex justify-between bg-background-tertiary/50 px-5 py-4 lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
@@ -45,29 +43,18 @@ export default function PostCard({
                     {formattedDate}
                 </time>
             </div>
-            <div className="bg-secondary grid grid-cols-1 gap-5 rounded-b-3xl px-5 pb-5 pt-4 shadow-md lg:grid-cols-[180px_1fr] lg:px-6">
-                <div className="relative hidden h-[160px] w-[160px] overflow-hidden rounded-xl lg:block lg:h-[180px] lg:w-[180px]">
-                    <Image
-                        className={`rounded-lg`}
-                        src={imagePath}
-                        alt={title}
-                        width={180}
-                        height={180}
-                    />
-                </div>
-                <div className="flex flex-col justify-between gap-3">
-                    <p className="line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-base text-foreground lg:line-clamp-5 lg:max-h-[8rem]">
-                        {excerpt}
-                    </p>
-                    <Link
-                        href={linkPath}
-                        title={`${dictionary.readMore} - ${post.title}`}
-                        aria-label={`${dictionary.readMore} - ${post.title}`}
-                        className="button button-ghost button-md self-end font-medium"
-                    >
-                        {dictionary.readMore}
-                    </Link>
-                </div>
+            <div className="bg-secondary flex flex-col justify-between gap-4 px-5 pb-5 pt-4 shadow-md lg:px-6">
+                <p className="line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-base text-foreground lg:line-clamp-5 lg:max-h-[8rem]">
+                    {excerpt}
+                </p>
+                <Link
+                    href={linkPath}
+                    title={`${dictionary.readMore} - ${post.title}`}
+                    aria-label={`${dictionary.readMore} - ${post.title}`}
+                    className="button button-ghost button-sm self-end font-medium"
+                >
+                    {dictionary.readMore}
+                </Link>
             </div>
         </li>
     );
