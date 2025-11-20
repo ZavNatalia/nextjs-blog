@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { getLocale } from '@/components/utils/getLocale';
 import { Locale } from '@/i18n-config';
 
@@ -6,7 +5,6 @@ export default function NewsItemHeader({
     title,
     lang,
     date,
-    imagePath,
 }: {
     title: string;
     date: string;
@@ -27,15 +25,6 @@ export default function NewsItemHeader({
                 <span className="text-base text-foreground-muted">
                     {formattedDate}
                 </span>
-            </div>
-            <div className="relative h-[200px] w-[300px] flex-shrink-0 self-center">
-                <Image
-                    className="rounded-xl object-cover"
-                    src={imagePath}
-                    alt={title}
-                    height={250}
-                    width={375}
-                />
             </div>
         </header>
     );

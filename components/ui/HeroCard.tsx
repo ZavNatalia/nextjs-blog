@@ -16,7 +16,6 @@ export default function HeroCard({
                     height={250}
                     alt="Hero"
                     className="hidden rounded-b-xl object-cover dark:block"
-                    quality={100}
                     priority
                     sizes="(max-width: 768px) 100vw, 446px"
                 />
