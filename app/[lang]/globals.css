@@ -14,7 +14,7 @@
 
     --color-fg-base: 17, 24, 39;
     --color-fg-muted: 100, 116, 139;
-    --color-fg-contrast: 255, 255, 255;
+    --color-fg-contrast: 256, 256, 256;
     --color-fg-error: 206, 30, 30;
     --color-fg-accent: 97, 31, 200;
 
@@ -153,7 +153,7 @@ body {
         @apply mx-auto flex w-full max-w-[90rem] flex-1 flex-col items-center gap-4 px-4 py-6 sm:px-6 lg:px-8;
     }
     .label {
-        @apply block text-sm font-bold;
+        @apply block text-base font-bold;
     }
 
     .input {
@@ -169,7 +169,7 @@ body {
     }
 
     .button-solid {
-        @apply bg-accent text-contrast hover:text-contrast hover:bg-accent-700 dark:text-foreground;
+        @apply bg-accent text-contrast hover:bg-accent-700 dark:text-foreground;
     }
 
     .button-ghost {
@@ -244,11 +244,11 @@ body {
     }
 
     .markdown-content code {
-        @apply rounded font-mono text-sm md:text-base;
+        @apply rounded font-mono text-base md:text-lg;
     }
 
     .markdown-content pre {
-        @apply mx-0 my-1 overflow-x-auto bg-background-primary p-0 text-sm text-foreground;
+        @apply mx-0 my-1 overflow-x-auto bg-background-primary p-0 text-base text-foreground;
     }
 
     .markdown-content table th:first-child,

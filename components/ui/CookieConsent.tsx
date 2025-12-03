@@ -30,7 +30,7 @@ export default function CookieConsent() {
 
     return (
         <div className="bg-secondary fixed bottom-3 right-4 z-10 max-w-lg rounded-2xl border border-border-100 p-4 text-foreground shadow-md">
-            <p className="text-sm">
+            <p className="text-base">
                 {privacyDict.weUseCookies}&nbsp;
                 <Link
                     href="/privacy-policy"

@@ -88,7 +88,7 @@ export default function PostContent({
             const isCopied = copiedCode === children;
             const copyButtonStyles = `absolute button button-ghost button-xs right-3 top-3 `;
             return (
-                <div className="relative text-sm md:text-lg">
+                <div className="relative text-base md:text-lg">
                     <button
                         aria-label={dictionary.copyCode}
                         className={copyButtonStyles}
@@ -145,7 +145,7 @@ export default function PostContent({
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={customRenderers}
-                className="markdown-content prose-sm dark:prose-invert lg:prose-lg"
+                className="markdown-content prose-lg dark:prose-invert lg:prose-xl"
             >
                 {content}
             </ReactMarkdown>

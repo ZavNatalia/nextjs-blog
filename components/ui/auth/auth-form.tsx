@@ -74,6 +74,7 @@ export default function AuthForm({
                 if (!result || !result.ok) {
                     throw new Error(result?.error || dictionary.failedToLogIn);
                 }
+
                 router.replace('/', { scroll: false });
             } else {
                 await createUser(values.email, values.password);
@@ -129,7 +130,7 @@ export default function AuthForm({
                                 <ErrorMessage
                                     name="email"
                                     component="p"
-                                    className="text-error mt-2 text-sm"
+                                    className="text-error mt-2 text-base"
                                 />
                             </div>
 
@@ -154,7 +155,7 @@ export default function AuthForm({
                                 <ErrorMessage
                                     name="password"
                                     component="p"
-                                    className="text-error mt-2 text-sm"
+                                    className="text-error mt-2 text-base"
                                 />
                             </div>
 
@@ -189,7 +190,7 @@ export default function AuthForm({
                                     <ErrorMessage
                                         name="confirmPassword"
                                         component="p"
-                                        className="text-error mt-2 text-sm"
+                                        className="text-error mt-2 text-base"
                                     />
                                 </div>
                             )}
@@ -210,7 +211,7 @@ export default function AuthForm({
                                       : dictionary.submitSignUp}
                             </button>
 
-                            <div className="text-center text-sm">
+                            <div className="text-center text-base">
                                 {!isLogin && (
                                     <span>{dictionary.haveAccount} </span>
                                 )}
