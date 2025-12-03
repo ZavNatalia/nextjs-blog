@@ -6,6 +6,7 @@ import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import GithubSignInButton from '@/components/ui/auth/GithubSignInButton';
 import GoogleSignInButton from '@/components/ui/auth/GoogleSignInButton';
+import { revalidatePath } from 'next/cache';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
@@ -24,6 +25,7 @@ export default async function AuthPage(props: {
     const session = await getServerSession();
 
     if (session) {
+        revalidatePath('/');
         redirect('/');
     }
 
@@ -41,7 +43,7 @@ export default async function AuthPage(props: {
             <div className="card">
                 <AuthForm dictionary={authDict} />
                 <hr className="my-4 border-t border-border-100" />
-                <p className="text-center text-sm uppercase text-foreground-muted">
+                <p className="text-center uppercase text-foreground-muted">
                     {authDict.or}
                 </p>
                 <div className="mt-3 flex flex-col items-center gap-3">

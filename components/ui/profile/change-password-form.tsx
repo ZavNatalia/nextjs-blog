@@ -115,7 +115,7 @@ export default function ChangePasswordForm({
                             <ErrorMessage
                                 name="oldPassword"
                                 component="p"
-                                className="text-error mt-2 text-sm"
+                                className="text-error mt-2 text-base"
                             />
                         </div>
 
@@ -143,7 +143,7 @@ export default function ChangePasswordForm({
                             <ErrorMessage
                                 name="newPassword"
                                 component="p"
-                                className="text-error mt-2 text-sm"
+                                className="text-error mt-2 text-base"
                             />
                         </div>
 

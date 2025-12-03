@@ -32,7 +32,7 @@ export default async function ContactPage(props: {
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <ContactForm userEmail={userEmail} dictionary={dictionary} />
-            <div className="mt-2 flex max-w-xl text-sm">
+            <div className="mt-2 flex max-w-xl">
                 <p className="text-justify text-foreground-muted">
                     {dictionary.bySubmittingMessage}&nbsp;
                     <Link
