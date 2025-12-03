@@ -15,7 +15,7 @@ export const revalidate = 3600;
 export const dynamic = 'force-static';
 
 interface PageProps {
-    params: Promise<{ slug: string; lang: Locale }>;
+    params: Promise<{ slug: string; lang: string }>;
 }
 
 const substringText = (text: string, length = 50): string =>
@@ -51,7 +51,7 @@ function shortenDescription(text: string, maxLength = 150): string {
 
 export async function generateMetadata(props: PageProps) {
     const { lang, slug } = await props.params;
-    const post = await getPost(slug, lang);
+    const post = await getPost(slug, lang as Locale);
     if (!post) return { title: 'Post Not Found' };
     const alternatesLanguages = await getAvailableLanguages(slug);
 
@@ -88,8 +88,8 @@ export async function generateMetadata(props: PageProps) {
 
 export default async function Page(props: PageProps) {
     const { slug, lang } = await props.params;
-    const post = await getPost(slug, lang);
-    const dictionary = await getDictionary(lang)?.['posts-page'];
+    const post = await getPost(slug, lang as Locale);
+    const dictionary = await getDictionary(lang as Locale)?.['posts-page'];
 
     if (!post) {
         notFound();
@@ -138,7 +138,7 @@ export default async function Page(props: PageProps) {
 
 export async function generateStaticParams() {
     const locales: Locale[] = ['en', 'ru'];
-    const params = [];
+    const params: { lang: string; slug: string }[] = [];
 
     for (const lang of locales) {
         const postsFileNames = await getPostsFiles(lang);
