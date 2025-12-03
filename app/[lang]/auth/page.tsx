@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
-import GithubSignInButton from '@/components/ui/auth/GithubSignInButton';
 import GoogleSignInButton from '@/components/ui/auth/GoogleSignInButton';
 import { revalidatePath } from 'next/cache';
 
