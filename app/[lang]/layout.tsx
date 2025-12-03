@@ -34,11 +34,11 @@ export const openSans = localFont({
 });
 
 export async function generateMetadata(props: {
-    params: Promise<{ lang: Locale }>;
+    params: Promise<{ lang: string }>;
 }) {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
-    const dictionary = await getDictionary(lang)?.['common'];
+    const dictionary = await getDictionary(lang as Locale)?.['common'];
 
     const baseUrl = 'https://zav.me';
 
@@ -86,10 +86,10 @@ export async function generateStaticParams() {
 
 export default async function RootLayout(props: {
     children: ReactNode;
-    params: Promise<{ lang: Locale }>;
+    params: Promise<{ lang: string }>;
 }) {
     const params = await props.params;
-    const dictionary = await getDictionary(params.lang);
+    const dictionary = await getDictionary(params.lang as Locale);
     const session = await getServerSession();
 
     return (
