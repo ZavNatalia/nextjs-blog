@@ -136,10 +136,20 @@ export default async function Page(props: PageProps) {
     );
 }
 
-export async function generateStaticParams(props: PageProps) {
-    const { lang } = await props.params;
-    const postsFileNames = await getPostsFiles(lang);
-    return postsFileNames
-        .map((fileName) => fileName.replace(/\.md$/, ''))
-        .map((slug) => ({ slug }));
+export async function generateStaticParams() {
+    const locales: Locale[] = ['en', 'ru'];
+    const params = [];
+
+    for (const lang of locales) {
+        const postsFileNames = await getPostsFiles(lang);
+        const slugs = postsFileNames.map((fileName) =>
+            fileName.replace(/\.md$/, ''),
+        );
+
+        for (const slug of slugs) {
+            params.push({ lang, slug });
+        }
+    }
+
+    return params;
 }
