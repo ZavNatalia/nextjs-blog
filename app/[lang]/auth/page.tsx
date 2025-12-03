@@ -48,7 +48,6 @@ export default async function AuthPage(props: {
                 </p>
                 <div className="mt-3 flex flex-col items-center gap-3">
                     <GoogleSignInButton dictionary={authDict} />
-                    <GithubSignInButton dictionary={authDict} />
                 </div>
             </div>
         </main>
