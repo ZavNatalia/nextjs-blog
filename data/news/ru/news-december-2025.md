@@ -18,6 +18,7 @@ isLatest: true
 - **CVE-2025-55183** – утечка исходного кода Server Actions
 
 **Затронутые версии:**
+
 - React: 19.0.0 - 19.2.2 (патчи: 19.0.3, 19.1.4, 19.2.3)
 - Next.js: 13.x, 14.x, 15.x, 16.x (патчи: 16.0.7, 15.5.7 и др.)
 - Вся экосистема RSC: Vite, Parcel, React Router, RedwoodJS, Waku
@@ -38,16 +39,19 @@ isLatest: true
 Next.js 16 вводит фундаментальные архитектурные изменения:
 
 **Компоненты кеширования (Cache Components):**
+
 - Новая модель кеширования с директивой `use cache` – явное управление вместо неявного
 - Интеграция с Partial Pre-Rendering (PPR) для мгновенной навигации
 - Компилятор автоматически генерирует cache keys
 
 **Turbopack (стабильный):**
+
 - Дефолтный бандлер с ускорением Fast Refresh **5-10x** и сборки **2-5x**
 - **16.1:** File System Caching стабилен – перезапуск dev server **до 14x быстрее** (react.dev: 3.7s → 380ms)
 - Bundle Analyzer (экспериментальный) – интерактивный инструмент для оптимизации бандлов с трассировкой импортов
 
 **Архитектурные изменения:**
+
 - `proxy.ts` заменяет `middleware.ts` – явное определение сетевых границ
 - React Compiler Support (стабильная поддержка) – автоматическая мемоизация без ручного `useMemo`/`useCallback`
 - Устранение дублирования layout при предзагрузке – общий layout скачивается один раз, не 50
@@ -65,21 +69,24 @@ TypeScript 5.8 усиливает type safety и упрощает интероп
 
 ```js
 function getUrlObject(urlString: string): URL {
-  return cache.has(urlString) 
+  return cache.has(urlString)
     ? cache.get(urlString)  // ✅ проверяется тип возвращаемого значения
     : urlString;            // ❌ Error: Type 'string' is not assignable to 'URL'
 }
 ```
 
 **`--erasableSyntaxOnly` флаг:**
+
 - Поддержка прямого выполнения TypeScript в Node.js 23.6+ через `--experimental-strip-types`
 - Компилятор блокирует не-erasable синтаксис (enums, namespaces, parameter properties)
 
 **`require()` для ESM модулей:**
+
 - Флаг `--module nodenext` теперь поддерживает `require("esm")` из CommonJS
 - Решает проблему dual-publishing для библиотек
 
 **Оптимизации производительности:**
+
 - Избежание аллокаций массивов при нормализации путей
 - Ускорение watch mode и editor scenarios для больших проектов
 
@@ -94,28 +101,33 @@ function getUrlObject(urlString: string): URL {
 2025 год приносит революционные CSS-возможности, снижающие зависимость от JavaScript:
 
 **Customizable Select (только Chrome – экспериментальная функция):**
+
 ```css
-select, ::picker(select) {
-  appearance: base-select;
+select,
+::picker(select) {
+    appearance: base-select;
 }
 ```
+
 Полностью стилизуемые `<select>` меню – опция изменения дефолтного рендеринга ОС.
 
 **`if()` Function (Chrome):**
+
 ```css
 background: if(
-  style(--theme: dark): black;
-  style(--theme: light): white;
-  else: gray;
+    style(--theme: dark): black; style(--theme: light): white; else: gray;
 );
 ```
+
 Условная установка свойств на основе кастомных свойств **на том же элементе** (в отличие от container queries).
 
 **Invoker Commands API:**
+
 ```html
 <button commandfor="myDialog" command="show-modal">Open</button>
 <dialog id="myDialog">Hello!</dialog>
 ```
+
 Работа с `<dialog>` и `<popover>` **без JavaScript** – браузер обрабатывает взаимодействия нативно.
 
 **`field-sizing: content`:**
@@ -128,6 +140,7 @@ background: if(
 Возможность создавать собственные CSS-функции – кардинальное расширение языка.
 
 **Лидеры по использованию (State of CSS 2025):**
+
 - `:has()` – #1 most-used и most-loved
 - `subgrid` – #2 most-loved
 - `aspect-ratio` – #2 usage, #3 sentiment
@@ -154,6 +167,7 @@ React 19.2 – третий релиз за год, фокусирующийся
 Помогает отследить, откуда был отрендерен компонент – критично для дебага сложных деревьев.
 
 **React 19.0 (декабрь 2024):**
+
 - Server Components (стабильный)
 - Actions + `useActionState`, `useFormStatus`, `useOptimistic`
 - React Compiler (стабильный) – автоматическая мемоизация

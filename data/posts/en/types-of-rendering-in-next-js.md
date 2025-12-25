@@ -15,6 +15,7 @@ Next.js 15 provides a flexible rendering system that enables both high performan
 - Used for rarely changing content
 
 #### Example:
+
 ```js
 // app/blog/[slug]/page.tsx
 export const dynamic = 'force-static';
@@ -24,10 +25,10 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-export default async function BlogPost({ 
-    params 
-}: { 
-    params: Promise<{ slug: string }> 
+export default async function BlogPost({
+    params
+}: {
+    params: Promise<{ slug: string }>
 }) {
     const { slug } = await params;
     const post = await getPost(slug);
@@ -56,6 +57,7 @@ The `'error'` mode also blocks dynamic rendering but throws an error on any atte
 - Data is always fresh
 
 #### Example:
+
 ```js
 // app/dashboard/page.tsx
 export const dynamic = 'force-dynamic';
@@ -71,6 +73,7 @@ export default async function Dashboard() {
 This directive forces the page to **always render on the server for every request** – enabling Server-Side Rendering (SSR), even if data could be cached or pre-rendered.
 
 Next.js automatically applies dynamic rendering if the component uses:
+
 - `cookies()` or `headers()`
 - `searchParams` (in Page or Layout)
 - `fetch()` with `{ cache: 'no-store' }` or `{ next: { revalidate: 0 } }`
@@ -93,6 +96,7 @@ However, you can set this mode explicitly with `export const dynamic = 'force-dy
 - Cached versions are served instantly while new ones generate in the background
 
 #### Example with time-based revalidation:
+
 ```js
 // app/news/page.tsx
 export const revalidate = 60; // revalidate every 60 seconds
@@ -118,6 +122,7 @@ export default async function NewsPage() {
 ### On-Demand Revalidation:
 
 Instead of time intervals, you can update content on events (for example, after publishing an article):
+
 ```js
 // app/actions.ts
 'use server';
@@ -125,20 +130,21 @@ Instead of time intervals, you can update content on events (for example, after 
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function updateNews() {
-  // Revalidate a specific path
-  revalidatePath('/news');
-  
-  // Or revalidate all requests with a specific tag
-  revalidateTag('news');
+    // Revalidate a specific path
+    revalidatePath('/news');
+
+    // Or revalidate all requests with a specific tag
+    revalidateTag('news');
 }
 ```
+
 ```js
 // app/news/page.tsx
 export default async function NewsPage() {
     const news = await fetch('https://api.example.com/news', {
-        next: { tags: ['news'] }
+        next: { tags: ['news'] },
     });
-    
+
     return (
         <ul>
             {news.map((n) => (
@@ -156,6 +162,7 @@ export default async function NewsPage() {
 - Suitable for personalized content (e.g., user profile)
 
 #### Example:
+
 ```js
 // app/profile/client-profile.tsx
 'use client';
@@ -185,12 +192,12 @@ export default function ClientProfile() {
 
 ## SEO and Rendering
 
-| Method                                    | SEO-Friendly      | Performance        | Comment                                                   |
-| ----------------------------------------- | ----------------- | ------------------ | --------------------------------------------------------- |
-| **SSG** (Static Site Generation)          | ✅ Excellent      | ✅ Maximum         | HTML ready in advance – search engines see all content    |
-| **SSR** (Server-Side Rendering)           | ✅ Excellent      | ⚡ Good            | HTML generated on server for each request                 |
-| **ISR** (Incremental Static Regeneration) | ✅ Excellent      | ✅ Very Good       | Like SSG but with automatic updates                       |
-| **CSR** (Client-Side Rendering)           | ❌ Poor           | ⚠️ JS-dependent    | Initial HTML empty, content appears after JS loads        |
+| Method                                    | SEO-Friendly | Performance     | Comment                                                |
+| ----------------------------------------- | ------------ | --------------- | ------------------------------------------------------ |
+| **SSG** (Static Site Generation)          | ✅ Excellent | ✅ Maximum      | HTML ready in advance – search engines see all content |
+| **SSR** (Server-Side Rendering)           | ✅ Excellent | ⚡ Good         | HTML generated on server for each request              |
+| **ISR** (Incremental Static Regeneration) | ✅ Excellent | ✅ Very Good    | Like SSG but with automatic updates                    |
+| **CSR** (Client-Side Rendering)           | ❌ Poor      | ⚠️ JS-dependent | Initial HTML empty, content appears after JS loads     |
 
 ### SEO Recommendations:
 
@@ -210,6 +217,7 @@ Streaming in Next.js allows displaying parts of the page as they become ready, w
 3. As data becomes ready, Next.js streams the prepared fragments and replaces fallbacks with actual content
 
 #### Streaming Example:
+
 ```js
 // app/products/page.tsx
 import { Suspense } from 'react';
@@ -228,12 +236,13 @@ export default function ProductsPage() {
     );
 }
 ```
+
 ```js
 // app/products/SlowSection.tsx (async Server Component)
 export default async function SlowSection() {
     // Slow database or API request
     const recommendations = await fetchRecommendations();
-    
+
     return (
         <div>
             <h2>Recommendations</h2>
@@ -264,6 +273,7 @@ export default async function SlowSection() {
 - [Granular streaming control](https://nextjs.org/learn/dashboard-app/streaming): wrap individual components to manage loading priorities
 - **Loading UI**: use `loading.tsx` files for automatic Suspense boundaries
 - **Parallel loading**: multiple `<Suspense>` blocks load simultaneously
+
 ```js
 // Example with multiple Suspense
 <Suspense fallback={<ProductsSkeleton />}>
