@@ -3,7 +3,7 @@ title: 'Новости фронтенда: Май 2025'
 date: '2025-05-13'
 image: 'news-may-2025.png'
 excerpt: 'Подборка актуальных новостей из мира фронтенд-разработки на май 2025 года'
-isLatest: true
+isLatest: false
 ---
 
 ### 1. [Next.js 15.3: Новые хуки и ускоренные сборки](https://nextjs.org/blog/next-15-3)

@@ -15,7 +15,7 @@ isFeatured: true
 - This should reduce the time to first render and make the application more responsive.
 
 ```js
-// app/posts/page.tsx — simplified Server Components demo
+// app/posts/page.tsx – simplified Server Components demo
 // This component is rendered on the server and fetch is called directly
 
 export default async function PostsPage() {
@@ -61,7 +61,7 @@ export default function SettingsPage() {
 
 ```
 
-Here, _(website)_ and _(admin)_ do not affect the URL but help logically group files — for instance, public sections and
+Here, _(website)_ and _(admin)_ do not affect the URL but help logically group files – for instance, public sections and
 admin pages.
 
 ### 2.2 Better Support for Dynamic Segments

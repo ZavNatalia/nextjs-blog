@@ -2,7 +2,7 @@
 title: 'Types of Rendering in Next.js'
 date: '2025-04-01'
 image: 'types-of-rendering-in-next-js.png'
-excerpt: 'An overview of the main rendering methods in Next.js 15 — SSG, SSR, ISR, and CSR — with examples, their SEO impact, and streaming capabilities using React Server Components.'
+excerpt: 'An overview of the main rendering methods in Next.js 15 – SSG, SSR, ISR, and CSR – with examples, their SEO impact, and streaming capabilities using React Server Components.'
 isFeatured: true
 ---
 
@@ -32,7 +32,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 }
 ```
 
-**_dynamic = 'error'_** — Disabling Dynamic Rendering
+**_dynamic = 'error'_** – Disabling Dynamic Rendering
 
 If Next.js detects anything that requires dynamic rendering during the rendering process (such as cookies(), headers(), fetch(..., { cache: 'no-store' }), useSearchParams(), etc.), it will throw a build or runtime error.
 
@@ -59,7 +59,7 @@ export default async function Dashboard() {
 }
 ```
 
-**_force-dynamic_** forces the page to always be rendered on the server on every request — in other words, it enables Server-Side Rendering (SSR) even when the data could be cached or statically pre-rendered.
+**_force-dynamic_** forces the page to always be rendered on the server on every request – in other words, it enables Server-Side Rendering (SSR) even when the data could be cached or statically pre-rendered.
 
 If your component uses cookies, headers, useSearchParams, request-time data, or calls unstable_noStore(), Next.js will automatically fall back to dynamic rendering (force-dynamic). However, you can also declare this behavior explicitly using export const dynamic = 'force-dynamic'.
 
@@ -123,10 +123,10 @@ export default function ClientProfile() {
 
 | Method (Full Name)                        | SEO Friendly | Notes                                                |
 | ----------------------------------------- | ------------ | ---------------------------------------------------- |
-| **SSG** (Static Site Generation)          | Yes          | HTML is pre-rendered — search engines see everything |
+| **SSG** (Static Site Generation)          | Yes          | HTML is pre-rendered – search engines see everything |
 | **SSR** (Server-Side Rendering)           | Yes          | HTML is generated per request                        |
 | **ISR** (Incremental Static Regeneration) | Yes          | Almost like SSG, but with background updates         |
-| **CSR** (Client-Side Rendering)           | No           | HTML is empty — content appears only after JS loads  |
+| **CSR** (Client-Side Rendering)           | No           | HTML is empty – content appears only after JS loads  |
 
 For good SEO, it's best to use SSG, SSR, or ISR. CSR is suitable for supporting components, not for primary pages.
 

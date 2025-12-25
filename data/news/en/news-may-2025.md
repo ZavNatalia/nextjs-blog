@@ -3,7 +3,7 @@ title: 'Frontend News: May 2025'
 date: '2025-05-13'
 image: 'news-may-2025.png'
 excerpt: 'A collection of the latest news in frontend development for May 2025'
-isLatest: true
+isLatest: false
 ---
 
 ### 1. [Next.js 15.3: New Hooks and Faster Builds](https://nextjs.org/blog/next-15-3)
