@@ -45,7 +45,7 @@ isFeatured: false
 3. **Security:**
 
     - **Node.js:** Full access to system resources by default.
-    - **Deno:** Secure by default—explicit permissions are required for access to resources (file system, network, etc.).
+    - **Deno:** Secure by default–explicit permissions are required for access to resources (file system, network, etc.).
 
 4. **Package Management:**
 
