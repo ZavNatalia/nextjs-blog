@@ -38,7 +38,7 @@ async function AllPosts({
     const posts = await getAllPosts(lang);
 
     if (!posts.length) {
-        return <p className="text-muted">{dictionary.noPosts}</p>;
+        return <p className="text-secondary">{dictionary.noPosts}</p>;
     }
 
     return <PostsGrid posts={posts} dictionary={dictionary} lang={lang} />;

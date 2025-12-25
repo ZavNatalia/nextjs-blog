@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
-import darcula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
+import dracula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
+import oneLight from 'react-syntax-highlighter/dist/esm/styles/prism/one-light';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
 import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
@@ -15,6 +16,7 @@ import {
 } from '@heroicons/react/24/outline';
 import remarkGfm from 'remark-gfm';
 import { getDictionary } from '@/get-dictionary';
+import { useTheme } from 'next-themes';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);
@@ -28,6 +30,7 @@ export default function PostContent({
 }) {
     const { title, date, slug, image, content } = post;
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
+    const { resolvedTheme } = useTheme();
     const imagePath = `/images/posts/${slug}/${image}`;
 
     useEffect(() => {
@@ -81,12 +84,22 @@ export default function PostContent({
             );
         },
         code({ className, children }) {
+            const isCodeBlock = className && className.startsWith('language-');
+
+            // Inline code
+            if (!isCodeBlock) {
+                return <code>{children}</code>;
+            }
+
             const language = className
                 ? className.replace('language-', '')
                 : '';
 
             const isCopied = copiedCode === children;
             const copyButtonStyles = `absolute button button-ghost button-xs right-3 top-3 `;
+            const codeStyle =
+                !resolvedTheme || resolvedTheme === 'dark' ? dracula : oneLight;
+
             return (
                 <div className="relative text-base md:text-lg">
                     <button
@@ -101,7 +114,7 @@ export default function PostContent({
                         )}
                     </button>
                     <SyntaxHighlighter
-                        style={darcula}
+                        style={codeStyle}
                         language={language}
                         PreTag="div"
                     >

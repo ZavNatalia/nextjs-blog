@@ -65,7 +65,7 @@ export function DangerZoneSection({
             <h3 className="text-error mb-3 text-xl font-semibold">
                 {dictionary.dangerZone}
             </h3>
-            <p className="text-base text-foreground-muted">
+            <p className="text-secondary text-base">
                 {dictionary.deletingIsIrreversible}
             </p>
             <button

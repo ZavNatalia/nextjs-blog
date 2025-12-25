@@ -7,7 +7,7 @@ export default function Footer() {
 
     return (
         <div className="bg-primary flex w-full items-center justify-center gap-2 p-3">
-            <p className="text-muted text-base">
+            <p className="text-secondary text-base">
                 © {currentYear} Next.js Craft
             </p>
             <Link
@@ -15,7 +15,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={dictionary.githubAccount}
-                className="link text-muted hover:text-accent flex items-center gap-2"
+                className="link text-secondary hover:text-accent flex items-center gap-2"
             >
                 <svg
                     className="h-6 w-6"
