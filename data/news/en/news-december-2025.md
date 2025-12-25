@@ -18,6 +18,7 @@ isLatest: true
 - **CVE-2025-55183** – Server Actions source code exposure
 
 **Affected versions:**
+
 - React: 19.0.0 - 19.2.2 (patches: 19.0.3, 19.1.4, 19.2.3)
 - Next.js: 13.x, 14.x, 15.x, 16.x (patches: 16.0.7, 15.5.7 and others)
 - Entire RSC ecosystem: Vite, Parcel, React Router, RedwoodJS, Waku
@@ -38,16 +39,19 @@ Immediate update to patched versions via `npx fix-react2shell-next` + rotation o
 Next.js 16 introduces fundamental architectural changes:
 
 **Cache Components:**
+
 - New caching model with `use cache` directive – explicit control instead of implicit
 - Integration with Partial Pre-Rendering (PPR) for instant navigation
 - Compiler automatically generates cache keys
 
 **Turbopack (stable):**
+
 - Default bundler with **5-10x** faster Fast Refresh and **2-5x** faster builds
 - **16.1:** File System Caching is stable – dev server restart **up to 14x faster** (react.dev: 3.7s → 380ms)
 - Bundle Analyzer (experimental) – interactive tool for bundle optimization with import tracing
 
 **Architectural changes:**
+
 - `proxy.ts` replaces `middleware.ts` – explicit network boundary definition
 - React Compiler Support (stable) – automatic memoization without manual `useMemo`/`useCallback`
 - Layout deduplication during prefetching – shared layout downloaded once, not 50 times
@@ -62,23 +66,27 @@ Next.js 16 introduces fundamental architectural changes:
 TypeScript 5.8 strengthens type safety and simplifies Node.js interoperability:
 
 **Checked Returns for Conditional Expressions:**
+
 ```typescript
 function getUrlObject(urlString: string): URL {
-  return cache.has(urlString) 
-    ? cache.get(urlString)  // ✅ return type is checked
-    : urlString;            // ❌ Error: Type 'string' is not assignable to 'URL'
+    return cache.has(urlString)
+        ? cache.get(urlString) // ✅ return type is checked
+        : urlString; // ❌ Error: Type 'string' is not assignable to 'URL'
 }
 ```
 
 **`--erasableSyntaxOnly` flag:**
+
 - Support for direct TypeScript execution in Node.js 23.6+ via `--experimental-strip-types`
 - Compiler blocks non-erasable syntax (enums, namespaces, parameter properties)
 
 **`require()` for ESM modules:**
+
 - Flag `--module nodenext` now supports `require("esm")` from CommonJS
 - Solves dual-publishing problem for libraries
 
 **Performance optimizations:**
+
 - Avoiding array allocations during path normalization
 - Faster watch mode and editor scenarios for large projects
 
@@ -93,28 +101,33 @@ function getUrlObject(urlString: string): URL {
 2025 brings revolutionary CSS capabilities that reduce JavaScript dependency:
 
 **Customizable Select (Chrome only - experimental):**
+
 ```css
-select, ::picker(select) {
-  appearance: base-select;
+select,
+::picker(select) {
+    appearance: base-select;
 }
 ```
+
 Fully styleable `<select>` menus – option to change OS default rendering.
 
 **`if()` Function (Chrome):**
+
 ```css
 background: if(
-  style(--theme: dark): black;
-  style(--theme: light): white;
-  else: gray;
+    style(--theme: dark): black; style(--theme: light): white; else: gray;
 );
 ```
+
 Conditional property setting based on custom properties **on the same element** (unlike container queries).
 
 **Invoker Commands API:**
+
 ```html
 <button commandfor="myDialog" command="show-modal">Open</button>
 <dialog id="myDialog">Hello!</dialog>
 ```
+
 Working with `<dialog>` and `<popover>` **without JavaScript** – browser handles interactions natively.
 
 **`field-sizing: content`:**
@@ -127,6 +140,7 @@ Getting element index among siblings directly in CSS – previously required har
 Ability to create custom CSS functions – radical language expansion.
 
 **Usage leaders (State of CSS 2025):**
+
 - `:has()` – #1 most-used and most-loved
 - `subgrid` – #2 most-loved
 - `aspect-ratio` – #2 usage, #3 sentiment
@@ -153,6 +167,7 @@ New primitive for managing loading indicators and application activity.
 Helps trace where a component was rendered from – critical for debugging complex trees.
 
 **React 19.0 (December 2024):**
+
 - Server Components (stable)
 - Actions + `useActionState`, `useFormStatus`, `useOptimistic`
 - React Compiler (stable) – automatic memoization
