@@ -42,7 +42,7 @@ export default async function AuthPage(props: {
             <div className="card">
                 <AuthForm dictionary={authDict} />
                 <hr className="my-4 border-t border-border-100" />
-                <p className="text-center uppercase text-foreground-muted">
+                <p className="text-secondary text-center uppercase">
                     {authDict.or}
                 </p>
                 <div className="mt-3 flex flex-col items-center gap-3">

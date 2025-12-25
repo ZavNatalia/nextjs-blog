@@ -39,7 +39,7 @@ export default function PostCard({
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
-                <time className="text-muted whitespace-nowrap text-base">
+                <time className="text-secondary whitespace-nowrap text-base">
                     {formattedDate}
                 </time>
             </div>
@@ -51,7 +51,7 @@ export default function PostCard({
                     href={linkPath}
                     title={`${dictionary.readMore} - ${post.title}`}
                     aria-label={`${dictionary.readMore} - ${post.title}`}
-                    className="button button-ghost button-md self-end font-medium"
+                    className="button button-ghost button-sm self-end font-medium"
                 >
                     {dictionary.readMore}
                 </Link>

@@ -19,6 +19,7 @@ const config: Config = {
                 foreground: {
                     DEFAULT: 'rgba(var(--color-fg-base), <alpha-value>)',
                     accent: 'rgba(var(--color-fg-accent), <alpha-value>)',
+                    secondary: 'rgba(var(--color-fg-secondary), <alpha-value>)',
                     muted: 'rgba(var(--color-fg-muted), <alpha-value>)',
                     contrast: 'rgba(var(--color-fg-contrast), <alpha-value>)',
                 },
@@ -60,6 +61,7 @@ const config: Config = {
             },
             fontFamily: {
                 sans: ['OpenSans', 'sans-serif'],
+                mono: ['var(--font-mono)', 'monospace'],
             },
             typography: (theme: (path: string) => string) => ({
                 DEFAULT: {

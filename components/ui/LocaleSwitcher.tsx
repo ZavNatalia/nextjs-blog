@@ -31,7 +31,7 @@ export default function LocaleSwitcher() {
                 className={`button button-md md:button-xs font-bold ${
                     isActive
                         ? 'button-ghost bg-background-tertiary shadow-sm'
-                        : 'hover:button-ghost text-muted'
+                        : 'hover:button-ghost text-secondary'
                 } `}
             >
                 {locale.toUpperCase()}

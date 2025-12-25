@@ -62,7 +62,8 @@ Next.js 16 вводит фундаментальные архитектурны�
 TypeScript 5.8 усиливает type safety и упрощает интероперабельность с Node.js:
 
 **Checked Returns для условных выражений:**
-```typescript
+
+```js
 function getUrlObject(urlString: string): URL {
   return cache.has(urlString) 
     ? cache.get(urlString)  // ✅ проверяется тип возвращаемого значения

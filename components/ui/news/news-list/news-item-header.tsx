@@ -22,7 +22,7 @@ export default function NewsItemHeader({
                 <h2 className="mb-2 text-2xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-4xl">
                     {title}
                 </h2>
-                <span className="text-base text-foreground-muted">
+                <span className="text-secondary text-base">
                     {formattedDate}
                 </span>
             </div>

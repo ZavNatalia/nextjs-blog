@@ -45,7 +45,7 @@ export default function BackToTopButton({
   rounded-full
   shadow-md
   bg-tertiary
-  text-foreground-muted
+  text-secondary
   hover:bg-accent
   hover:text-foreground-contrast
   dark:hover:text-foreground

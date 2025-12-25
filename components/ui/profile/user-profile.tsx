@@ -37,7 +37,7 @@ export default function UserProfile({
                             'flex flex-col items-center rounded-lg p-2 transition-all duration-300',
                             activeSection === key
                                 ? 'bg-primary text-foreground shadow-lg'
-                                : 'hover:bg-primary text-foreground-muted hover:text-foreground',
+                                : 'hover:bg-primary text-secondary hover:text-foreground',
                         )}
                         onClick={() => setActiveSection(key)}
                     >
@@ -60,7 +60,7 @@ export default function UserProfile({
                                     'flex w-full items-center gap-3 rounded-xl border-none py-2 pl-4 pr-6 text-start text-base font-medium transition-all duration-200',
                                     activeSection === key
                                         ? 'bg-background-tertiary/70 text-foreground shadow-md'
-                                        : 'text-foreground-muted hover:bg-background-tertiary/70 hover:text-foreground',
+                                        : 'text-secondary hover:bg-background-tertiary/70 hover:text-foreground',
                                 )}
                                 onClick={() => setActiveSection(key)}
                             >

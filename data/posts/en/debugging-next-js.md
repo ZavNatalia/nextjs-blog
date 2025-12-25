@@ -8,11 +8,11 @@ isFeatured: true
 
 Debugging in Next.js is the process of finding and fixing errors in the code. It involves **console logs, developer tools, API debugging, performance profiling, and error analysis**.
 
-## **1. Logs (_console.log_) — Basic Level**
+## **1. Logs (_console.log()_) — Basic Level**
 
-The simplest way to understand what is happening in your code is to use _console.log()_.
+The simplest way to understand what is happening in your code is to use `console.log()`.
 
-### **In Server Components**
+#### **In Server Components**
 
 ```js
 export default async function Page() {
@@ -21,9 +21,9 @@ export default async function Page() {
 }
 ```
 
-The log will appear **in the terminal** when running _next dev_ or _next start_.
+The log will appear **in the terminal** when running `next dev` or `next start`.
 
-### **In Client Components**
+#### **In Client Components**
 
 ```js
 'use client';
@@ -36,7 +36,7 @@ export default function ClientComponent() {
 
 The log will appear **in the DevTools Console (F12 → Console)**.
 
-### **Logging Props and State**
+#### **Logging Props and State**
 
 ```js
 'use client';
@@ -53,9 +53,9 @@ This allows you to see what data is being passed to the component.
 
 If something is wrong in your code, you can **pause execution and analyze values step by step**.
 
-### **In the Browser (Client Code)**
+#### **In the Browser (Client Code)**
 
-1. Add _debugger_ to the code:
+1. Add `debugger` to the code:
 
     ```js
     'use client';
@@ -67,9 +67,9 @@ If something is wrong in your code, you can **pause execution and analyze values
     ```
 
 2. Open **DevTools → Sources → (Ctrl + P) → Select the file**.
-3. Reload the page — the browser will stop at _debugger_, allowing you to **inspect variables step by step**.
+3. Reload the page — the browser will stop at `debugger`, allowing you to **inspect variables step by step**.
 
-### **In Server Code**
+#### **In Server Code**
 
 If you are using **VS Code**, you can **set a breakpoint**:
 
@@ -87,9 +87,9 @@ Now the code **will stop before execution**, and you can analyze variables step 
 
 ## **3. Debugging API Routes (_app/api/_)**
 
-If your API routes (_app/api/route.ts_) are not working, debug them as follows:
+If your API routes (`app/api/route.ts`) are not working, debug them as follows:
 
-### **1. Logging _req_ and _res_**
+#### **1. Logging `req` and `res`**
 
 ```js
 import { NextResponse } from 'next/server';
@@ -100,11 +100,11 @@ export async function GET(req: Request) {
 }
 ```
 
-Logs will appear **in the terminal** when running _next dev_.
+Logs will appear **in the terminal** when running `next dev`.
 
-### **2. Making Requests via _curl_ or Postman**
+#### **2. Making Requests via `curl` or Postman**
 
-If _fetch()_ or _axios_ do not work, try making a direct request:
+If `fetch()` or `axios` do not work, try making a direct request:
 
 ```sh
 curl -X GET http://localhost:3000/api/route
@@ -114,15 +114,15 @@ or use **Postman** / **Insomnia**.
 
 ## **4. Developer Tools (Performance, Network)**
 
-### **1. Network (Inspecting Requests)**
+#### **1. Network (Inspecting Requests)**
 
 1. Open **DevTools (F12) → Network**.
 2. Check what requests are being sent and **whether there are 404, 500 errors**.
 3. If an API request is slow, try:
     - Removing unnecessary requests.
-    - Caching data _fetch_ with `{ cache: 'force-cache' }`
+    - Caching data `fetch` with `{ cache: 'force-cache' }`
 
-### **2. Performance (Optimization)**
+#### **2. Performance (Optimization)**
 
 1. In **DevTools → Performance**, click **Start profiling**.
 2. Reload the page.
@@ -132,7 +132,7 @@ or use **Postman** / **Insomnia**.
 
 If a **500 error page** appears in Next.js, you can create a global error handler:
 
-### **1. Global Error Page (_error.tsx_)**
+#### **1. Global Error Page (`error.tsx`)**
 
 ```js
 'use client';
@@ -150,7 +150,7 @@ export default function GlobalError({ error }: { error: Error }) {
 
 Now **all client-side errors** will be displayed on this page.
 
-### **2. Handling API Errors**
+#### **2. Handling API Errors**
 
 ```js
 export async function GET() {
@@ -166,11 +166,11 @@ export async function GET() {
 }
 ```
 
-Now the error **won't crash the server** but will return _500_.
+Now the error **won't crash the server** but will return `500`.
 
 ## **6. Checking SSR, Streaming, and Client/Server Rendering**
 
-### **1. How to Check if Code is Running on the Server or Client?**
+#### **1. How to Check if Code is Running on the Server or Client?**
 
 ```js
 console.log(
@@ -180,9 +180,9 @@ console.log(
 );
 ```
 
-If _typeof window === "undefined"_, the **code is running on the server**.
+If `typeof window === "undefined"`, the **code is running on the server**.
 
-### **2. How to Track SSR and Streaming?**
+#### **2. How to Track SSR and Streaming?**
 
 Run **Next.js in production mode** to check which parts are rendered on the server:
 
@@ -196,7 +196,7 @@ Then open **DevTools → Network** and inspect which requests are being made.
 
 You can **debug Next.js in VS Code** by adding a configuration.
 
-### **1. Open _.vscode/launch.json_**
+#### **1. Open `.vscode/launch.json`**
 
 Add this configuration:
 
@@ -217,7 +217,7 @@ Add this configuration:
 }
 ```
 
-### **2. Start Debugging**
+#### **2. Start Debugging**
 
 1. **In VS Code → Run & Debug → Debug Next.js**
 2. Now you can set **breakpoints** in the code!
@@ -226,11 +226,11 @@ Add this configuration:
 
 ## **Conclusion: Full Next.js Debugging Checklist**
 
-✅ **Logs (_console.log_, _console.error_)** — Basic debugging.  
-✅ **_debugger_ and VS Code Debugger** — Stop execution for analysis.  
-✅ **Inspecting API (_curl_, Postman, Network tab)** — Debug API responses.  
-✅ **Streaming Debugging (_typeof window_, _console.log_)** — Identify where the code runs.  
-✅ **Error Handling (_error.tsx_, _try/catch_)** — Prevent crashes.  
+✅ **Logs (`console.log`, `console.error`)** — Basic debugging.  
+✅ **`debugger` and VS Code Debugger** — Stop execution for analysis.  
+✅ **Inspecting API (`curl`, Postman, Network tab)** — Debug API responses.  
+✅ **Streaming Debugging (`typeof window`, `console.log`)** — Identify where the code runs.  
+✅ **Error Handling (`error.tsx`, `try/catch`)** — Prevent crashes.  
 ✅ **Performance Debugging (_DevTools → Performance_)** — Improve rendering speed.
 
 Now you can **quickly find and fix errors in Next.js!**

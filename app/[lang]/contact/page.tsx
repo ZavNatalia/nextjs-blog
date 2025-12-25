@@ -33,7 +33,7 @@ export default async function ContactPage(props: {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <ContactForm userEmail={userEmail} dictionary={dictionary} />
             <div className="mt-2 flex max-w-xl">
-                <p className="text-justify text-foreground-muted">
+                <p className="text-secondary text-justify">
                     {dictionary.bySubmittingMessage}&nbsp;
                     <Link
                         title={dictionary.openPrivacyPolicyPage}

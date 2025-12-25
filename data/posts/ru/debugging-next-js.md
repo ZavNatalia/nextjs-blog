@@ -8,11 +8,11 @@ isFeatured: true
 
 Отладка кода в Next.js — это процесс поиска и исправления ошибок в коде. Он включает в себя **консольные логи, инструменты разработчика, отладку API, профилирование производительности и анализ ошибок.**
 
-## **1. Логи (_console.log_) — Базовый уровень**
+## **1. Логи (_console.log()_) — Базовый уровень**
 
-Самый простой способ понять, что происходит в коде — использовать _console.log()_.
+Самый простой способ понять, что происходит в коде — использовать `console.log()`.
 
-### **В серверных компонентах (Server Components)**
+#### **В серверных компонентах (Server Components)**
 
 ```js
 export default async function Page() {
@@ -21,9 +21,9 @@ export default async function Page() {
 }
 ```
 
-Лог появится **в терминале** при _next dev_ или _next start_.
+Лог появится **в терминале** при `next dev` или `next start`.
 
-### **В клиентских компонентах (Client Components)**
+#### **В клиентских компонентах (Client Components)**
 
 ```js
 'use client';
@@ -36,7 +36,7 @@ export default function ClientComponent() {
 
 Лог появится **в DevTools (F12 → Console)**.
 
-### **Логирование пропсов и состояний**
+#### **Логирование пропсов и состояний**
 
 ```js
 'use client';
@@ -53,9 +53,9 @@ export default function DebugComponent({ message }: { message: string }) {
 
 Если в коде что-то не так, можно **остановить выполнение и пошагово проанализировать значения.**
 
-### **В браузере (клиентский код)**
+#### **В браузере (клиентский код)**
 
-1. Добавь _debugger_ в код:
+1. Добавь `debugger` в код:
     ```js
     'use client';
     export default function ClientComponent() {
@@ -65,9 +65,9 @@ export default function DebugComponent({ message }: { message: string }) {
     }
     ```
 2. Открой **DevTools → Sources → (Ctrl + P) → выбери файл**.
-3. Перезагрузи страницу — браузер остановится на _debugger_, и ты сможешь **пошагово смотреть переменные**.
+3. Перезагрузи страницу — браузер остановится на `debugger`, и ты сможешь **пошагово смотреть переменные**.
 
-### **В серверном коде**
+#### **В серверном коде**
 
 Если ты используешь **VS Code**, можно **установить breakpoint**:
 
@@ -83,9 +83,9 @@ export default function DebugComponent({ message }: { message: string }) {
 
 ## **3. Дебаг API Routes (_app/api/_)**
 
-Если твои API маршруты (_app/api/route.ts_) не работают, отладь их:
+Если твои API маршруты (`app/api/route.ts`) не работают, отладь их:
 
-### **1. Логирование _req_ и _res_**
+#### **1. Логирование `req` и `res`**
 
 ```js
 import { NextResponse } from 'next/server';
@@ -96,11 +96,11 @@ export async function GET(req: Request) {
 }
 ```
 
-Логи появятся **в терминале** при _next dev_.
+Логи появятся **в терминале** при `next dev`.
 
-### **2. Запросы через _curl_ / Postman**
+#### **2. Запросы через `curl` / Postman**
 
-Если _fetch()_ или _axios_ не работают, попробуй выполнить запрос напрямую:
+Если `fetch()` или `axios` не работают, попробуй выполнить запрос напрямую:
 
 ```sh
 curl -X GET http://localhost:3000/api/route
@@ -110,15 +110,15 @@ curl -X GET http://localhost:3000/api/route
 
 ## **4. Инструменты DevTools (Performance, Network)**
 
-### **1. Network (Проверка запросов)**
+#### **1. Network (Проверка запросов)**
 
 1. Открой **DevTools (F12) → Network**.
 2. Проверь, какие запросы отправляются, и **нет ли ошибок 404, 500**.
 3. Если API медленный, попробуй:
     - Убрать ненужные запросы.
-    - Кэшировать данные _fetch_ с`{ cache: 'force-cache' }`
+    - Кэшировать данные `fetch` с`{ cache: 'force-cache' }`
 
-### **2. Performance (Оптимизация)**
+#### **2. Performance (Оптимизация)**
 
 1. В **DevTools → Performance** нажми **Start profiling**.
 2. Перезагрузи страницу.
@@ -128,7 +128,7 @@ curl -X GET http://localhost:3000/api/route
 
 Если в Next.js появляется **страница ошибки 500**, можно создать глобальный обработчик ошибок:
 
-### **1. Глобальная страница ошибки (_error.tsx_)**
+#### **1. Глобальная страница ошибки (`error.tsx`)**
 
 ```js
 'use client';
@@ -146,7 +146,7 @@ export default function GlobalError({ error }: { error: Error }) {
 
 Теперь **все ошибки в клиентских компонентах** будут показываться на этой странице.
 
-### **2. Обработчик ошибок API**
+#### **2. Обработчик ошибок API**
 
 ```js
 export async function GET() {
@@ -162,11 +162,11 @@ export async function GET() {
 }
 ```
 
-Теперь ошибка **не сломает сервер**, а вернёт _500_.
+Теперь ошибка **не сломает сервер**, а вернёт `500`.
 
 ## **6. Проверка SSR, Streaming и Client/Server рендеринга**
 
-### **1. Как узнать, серверный или клиентский код?**
+#### **1. Как узнать, серверный или клиентский код?**
 
 ```js
 console.log(
@@ -176,9 +176,9 @@ console.log(
 );
 ```
 
-Если _typeof window === "undefined"_, значит **код работает на сервере**.
+Если `typeof window === "undefined"`, значит **код работает на сервере**.
 
-### **2. Как отследить SSR и Streaming?**
+#### **2. Как отследить SSR и Streaming?**
 
 Запусти **Next.js в production-режиме**, чтобы проверить, какие части рендерятся сервером:
 
@@ -192,7 +192,7 @@ pnpm build && pnpm start
 
 Ты можешь **дебажить Next.js в VS Code**, добавив конфигурацию.
 
-### **1. Открываем _.vscode/launch.json_**
+#### **1. Открываем `.vscode/launch.json`**
 
 Добавь этот конфиг:
 
@@ -213,18 +213,18 @@ pnpm build && pnpm start
 }
 ```
 
-### **2. Запускаем дебаг**
+#### **2. Запускаем дебаг**
 
 1. **В VS Code → Run & Debug → Debug Next.js**
 2. Теперь ты можешь ставить **breakpoints** в коде!
 
 ## **Заключение: Полный чек-лист дебага Next.js**
 
-✅ **Логи (_console.log_, _console.error_)** — Базовый способ.  
-✅ **_debugger_ и VS Code Debugger** — Остановка кода для анализа.  
-✅ **Проверка API (_curl_, Postman, Network tab)** — Если API не отвечает.  
-✅ **Streaming Debugging (_typeof window_, _console.log_)** — Чтобы понять, где выполняется код.  
-✅ **Обработчики ошибок (_error.tsx_, _try/catch_)** — Чтобы не ломать приложение.  
+✅ **Логи (`console.log`, `console.error`)** — Базовый способ.  
+✅ **`debugger` и VS Code Debugger** — Остановка кода для анализа.  
+✅ **Проверка API (`curl`, Postman, Network tab)** — Если API не отвечает.  
+✅ **Streaming Debugging (`typeof window`, `console.log`)** — Чтобы понять, где выполняется код.  
+✅ **Обработчики ошибок (`error.tsx`, `try/catch`)** — Чтобы не ломать приложение.  
 ✅ **Performance Debugging (_DevTools → Performance_)** — Чтобы ускорить рендеринг.
 
 Теперь ты можешь **быстро находить и исправлять ошибки в Next.js!**

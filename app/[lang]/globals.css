@@ -5,6 +5,7 @@
 /* ========= THEME DEFAULTS ========= */
 :root {
     --font-sans: 'OpenSans', sans-serif;
+    --font-mono: 'Courier New', Courier, monospace;
 }
 
 :root {
@@ -13,6 +14,7 @@
     --color-bg-tertiary: 211, 215, 220;
 
     --color-fg-base: 17, 24, 39;
+    --color-fg-secondary: 100, 116, 139;
     --color-fg-muted: 100, 116, 139;
     --color-fg-contrast: 256, 256, 256;
     --color-fg-error: 206, 30, 30;
@@ -53,6 +55,7 @@
     --color-bg-tertiary: 57, 65, 81;
 
     --color-fg-base: 236, 237, 238;
+    --color-fg-secondary: 181, 184, 196;
     --color-fg-muted: 158, 172, 192;
     --color-fg-contrast: 15, 23, 42;
     --color-fg-error: 251, 105, 105;
@@ -132,6 +135,9 @@ body {
     .text-contrast {
         color: rgba(var(--color-fg-contrast));
     }
+    .text-secondary {
+        color: rgba(var(--color-fg-secondary));
+    }
     .text-muted {
         color: rgba(var(--color-fg-muted));
     }
@@ -189,19 +195,19 @@ body {
     }
 
     .button-xs {
-        @apply px-2 py-1 text-xs;
+        @apply px-2 py-1 text-sm;
     }
 
     .button-sm {
-        @apply px-3 py-1 text-sm;
+        @apply px-3 py-1 text-base;
     }
 
     .button-md {
-        @apply px-4 py-2 text-base;
+        @apply px-4 py-2 text-lg;
     }
 
     .button-lg {
-        @apply px-6 py-3 text-lg;
+        @apply px-6 py-3 text-xl;
     }
 
     .icon-button {
@@ -243,12 +249,21 @@ body {
         @apply text-accent;
     }
 
-    .markdown-content code {
-        @apply rounded font-mono text-base md:text-lg;
+    .markdown-content :not(pre) > code::before,
+    .markdown-content :not(pre) > code::after {
+        content: none !important;
+    }
+
+    .markdown-content :not(pre) > code {
+        @apply rounded bg-background-secondary px-1.5 py-0.5 font-mono font-thin text-base md:text-lg text-foreground-secondary dark:bg-background-tertiary;
     }
 
     .markdown-content pre {
-        @apply mx-0 my-1 overflow-x-auto bg-background-primary p-0 text-base text-foreground;
+        @apply mx-0 my-4 overflow-x-auto rounded-lg bg-background-primary p-4 text-base md:text-lg text-foreground;
+    }
+
+    .markdown-content pre code {
+        @apply bg-transparent p-0 font-mono text-base md:text-lg;
     }
 
     .markdown-content table th:first-child,
@@ -256,5 +271,10 @@ body {
     .markdown-content table tfoot td:first-child {
         padding-inline-start: 12px;
         padding-inline-end: 12px;
+    }
+
+    .markdown-content pre code::before,
+    .markdown-content pre code::after {
+        content: none !important;
     }
 }
