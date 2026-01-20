@@ -9,7 +9,7 @@
 }
 
 :root {
-    --color-bg-primary: 244, 244, 244;
+    --color-bg-primary: 239, 239, 245;
     --color-bg-secondary: 255, 255, 255;
     --color-bg-tertiary: 211, 215, 220;
 
@@ -237,16 +237,24 @@ body {
     .markdown-content li p {
         @apply my-0.5;
     }
-    .markdown-content h3 {
-        @apply italic;
-    }
-
-    .markdown-content a {
-        @apply text-accent focus-visible:ring-accent hover:text-accent rounded-xl px-[2px] no-underline hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:ring-offset-accent-100;
+    .markdown-content p {
+        @apply my-0.5;
     }
 
     .markdown-content h2 {
         @apply text-accent;
+    }
+
+    .markdown-content h3 {
+        @apply mb-2 mt-5 italic;
+    }
+
+    .markdown-content h4 {
+        @apply mb-1 mt-3;
+    }
+
+    .markdown-content a {
+        @apply text-accent focus-visible:ring-accent hover:text-accent rounded-xl px-[2px] no-underline hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:ring-offset-accent-100;
     }
 
     .markdown-content :not(pre) > code::before,
@@ -259,11 +267,11 @@ body {
     }
 
     .markdown-content pre {
-        @apply mx-0 my-4 overflow-x-auto rounded-lg bg-background-primary p-4 text-base text-foreground md:text-lg;
+        @apply mx-0 my-1 overflow-x-auto rounded-lg bg-background-primary p-4 text-base text-foreground md:text-lg;
     }
 
     .markdown-content pre code {
-        @apply bg-transparent p-0 font-mono text-base md:text-lg;
+        @apply bg-transparent p-0 font-mono text-lg lg:text-xl;
     }
 
     .markdown-content table th:first-child,

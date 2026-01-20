@@ -3,7 +3,7 @@ title: 'Debugging in Next.js'
 date: '2025-03-03'
 image: 'debugging-next-js.webp'
 excerpt: 'Debugging Code in Next.js involves console logs, developer tools, API debugging, performance profiling, and error analysis.'
-isFeatured: true
+isFeatured: false
 ---
 
 Debugging in Next.js is the process of finding and fixing errors in the code. It involves **console logs, developer tools, API debugging, performance profiling, and error analysis**.
