@@ -57,7 +57,7 @@ Search engines often rank **HTTPS websites higher** than HTTP pages because HTTP
 
 #### **Performance and Analytics**
 
-**HTTPS websites load faster** than HTTP websites. Additionally, **referral tracking works better with HTTPS**. Referral traffic—visits from external sources such as advertisements or social media backlinks—is more accurately tracked when using HTTPS. If you want **precise website analytics**, enabling HTTPS is essential.
+**HTTPS websites load faster** than HTTP websites. Additionally, **referral tracking works better with HTTPS**. Referral traffic–visits from external sources such as advertisements or social media backlinks – is more accurately tracked when using HTTPS. If you want **precise website analytics**, enabling HTTPS is essential.
 
 ## Is HTTPS More Expensive to Set Up Than HTTP?
 
