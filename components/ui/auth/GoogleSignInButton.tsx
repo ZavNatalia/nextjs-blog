@@ -14,7 +14,7 @@ export default function GoogleSignInButton({
 
     return (
         <button
-            onClick={() => signIn('google', { redirect: true })}
+            onClick={() => signIn('google', { callbackUrl: '/' })}
             className={`flex items-center justify-center gap-[10px] rounded-[20px] px-3 py-[10px] text-sm font-medium transition ${buttonStyle}`}
         >
             <Image

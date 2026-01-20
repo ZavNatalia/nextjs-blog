@@ -153,7 +153,7 @@ export default function PostContent({
     };
 
     return (
-        <article className="mx-auto w-full rounded-3xl p-3 md:p-4 lg:max-w-5xl lg:p-10">
+        <article className="mx-auto w-full rounded-3xl p-3 md:p-4 lg:max-w-7xl lg:p-10">
             <PostHeader title={title} date={date} imagePath={imagePath} />
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
