@@ -2,11 +2,11 @@
 title: 'Composable Caching'
 date: '2025-01-31'
 image: 'composable-caching-with-next-js.webp'
-excerpt: 'Next.js has introduced Composable Caching — a new caching approach that simplifies cache management at different levels of an application, from data to components and pages.'
+excerpt: 'Next.js has introduced Composable Caching – a new caching approach that simplifies cache management at different levels of an application, from data to components and pages.'
 isFeatured: true
 ---
 
-Next.js has introduced **Composable Caching** — a new caching approach that simplifies cache management at different levels of an application, from data to components and pages.
+Next.js has introduced **Composable Caching** – a new caching approach that simplifies cache management at different levels of an application, from data to components and pages.
 
 ---
 

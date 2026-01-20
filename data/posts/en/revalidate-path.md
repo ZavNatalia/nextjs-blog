@@ -12,8 +12,8 @@ isFeatured: true
 
 ### Where It Can Be Used
 
-- **Server Functions** — primary use case
-- **Route Handlers** — also supported
+- **Server Functions** – primary use case
+- **Route Handlers** – also supported
 - ❌ **Does NOT work** in Client Components and Proxy
 
 ### Function Signature
@@ -24,8 +24,8 @@ revalidatePath(path: string, type?: 'page' | 'layout'): void
 
 **Parameters:**
 
-- `path` — a path or route pattern (e.g., `/product/[slug]` or `/product/123`)
-- `type` — optional parameter `'page'` or `'layout'`
+- `path` – a path or route pattern (e.g., `/product/[slug]` or `/product/123`)
+- `type` – optional parameter `'page'` or `'layout'`
 
 ### Important Usage Rules
 
@@ -106,7 +106,7 @@ import { revalidatePath } from 'next/cache';
 revalidatePath('/blog', 'layout');
 ```
 
-_When to use:_ Data changed in the sidebar, category menu, post counters — anything that lives in the layout.
+_When to use:_ Data changed in the sidebar, category menu, post counters – anything that lives in the layout.
 
 #### Updating a Nested Layout
 
@@ -161,15 +161,15 @@ Next.js 16 introduces important changes to the cache invalidation API.
 
 ### Changes to `revalidateTag()`
 
-The `revalidateTag` function now accepts a **second argument** — a cache profile (recommended to specify):
+The `revalidateTag` function now accepts a **second argument** – a cache profile (recommended to specify):
 
 ```javascript
-// ✅ Next.js 16 — recommended approach
+// ✅ Next.js 16 – recommended approach
 revalidateTag('posts', 'max'); // Uses stale-while-revalidate
 revalidateTag('posts', 'hours'); // Cache for hours
 revalidateTag('posts', { revalidate: 3600 }); // Custom profile
 
-// ⚠️ Without the second argument — legacy behavior (deprecated)
+// ⚠️ Without the second argument – legacy behavior (deprecated)
 revalidateTag('posts');
 ```
 
@@ -235,15 +235,15 @@ export async function updatePost(postId: string) {
 
 ## Important Notes
 
-1. **No memory between requests** — each `revalidatePath` call works independently, you need to pass the full context
+1. **No memory between requests** – each `revalidatePath` call works independently, you need to pass the full context
 
 2. **Client-side mechanism**: when called in a Server Function, information is passed to the browser via response headers (`x-nextjs-*` headers), then the client-side Router Cache is cleared and requests fresh data from the server
 
-3. **Doesn't work with forms directly** — use Server Functions with `revalidatePath` inside
+3. **Doesn't work with forms directly** – use Server Functions with `revalidatePath` inside
 
 4. **Rate limits** don't apply to the function itself, but may exist at the platform level (e.g., Vercel)
 
-5. **`updateTag` is not available in Route Handlers** — if you need tag-based invalidation in a Route Handler, use `revalidateTag`
+5. **`updateTag` is not available in Route Handlers** – if you need tag-based invalidation in a Route Handler, use `revalidateTag`
 
 ## Migrating from ISR
 
