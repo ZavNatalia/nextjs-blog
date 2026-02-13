@@ -24,9 +24,11 @@ export default async function PrivacyPolicyPage(props: {
                 {dictionary.privacyPolicy}
             </h2>
             <article className="bg-secondary mx-auto w-full rounded-3xl p-3 md:p-4 lg:max-w-5xl lg:p-10">
-                <ReactMarkdown className="markdown-content prose-sm dark:prose-invert lg:prose-lg">
-                    {privacyPolicy?.content}
-                </ReactMarkdown>
+                <div className="markdown-content prose-sm dark:prose-invert lg:prose-lg">
+                    <ReactMarkdown>
+                        {privacyPolicy?.content}
+                    </ReactMarkdown>
+                </div>
             </article>
             <BackToTopButton />
         </main>

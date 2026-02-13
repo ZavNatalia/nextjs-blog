@@ -68,12 +68,11 @@ export default function NewsList({
                     imagePath={imagePath}
                     lang={lang}
                 />
-                <ReactMarkdown
-                    components={customRenderers}
-                    className="markdown-content prose-sm dark:prose-invert lg:prose-lg"
-                >
-                    {content}
-                </ReactMarkdown>
+                <div className="markdown-content prose-sm dark:prose-invert lg:prose-lg">
+                    <ReactMarkdown components={customRenderers}>
+                        {content}
+                    </ReactMarkdown>
+                </div>
             </li>
         );
     };
