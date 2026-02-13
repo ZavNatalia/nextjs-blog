@@ -33,7 +33,7 @@ export default function PostCard({
     const linkPath = `posts/${slug}`;
 
     return (
-        <li className="h-fit w-full overflow-hidden rounded-2xl shadow-sm">
+        <li className="h-fit w-full overflow-hidden rounded-2xl shadow-xs">
             <div className="flex justify-between bg-background-tertiary/50 px-5 py-4 lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
