@@ -2,7 +2,8 @@
 
 import { createContext, ReactNode, useContext } from 'react';
 
-export type Dictionary = Record<string, any>;
+import type { Dictionary } from '@/get-dictionary';
+export type { Dictionary };
 
 const UseDictionary = createContext<Dictionary | null>(null);
 
