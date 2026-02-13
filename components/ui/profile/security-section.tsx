@@ -4,7 +4,7 @@ import Link from 'next/link';
 export function SecuritySection({
     dictionary,
 }: {
-    dictionary: Record<string, any>;
+    dictionary: Record<string, string>;
 }) {
     return (
         <div className="flex flex-col items-center p-4 md:items-start">

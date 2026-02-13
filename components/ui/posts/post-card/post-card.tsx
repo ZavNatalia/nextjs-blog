@@ -1,6 +1,5 @@
 'use client';
 import { Locale } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
 import { getLocale } from '@/components/utils/getLocale';
 import Link from 'next/link';
 
@@ -8,7 +7,7 @@ export interface IPost {
     slug: string;
     title: string;
     date: string;
-    image?: any;
+    image?: string;
     excerpt: string;
     content?: string;
     isFeatured: boolean;
@@ -20,7 +19,7 @@ export default function PostCard({
     lang,
 }: {
     post: IPost;
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
+    dictionary: { readMore: string };
     lang: Locale;
 }) {
     const { title, date, excerpt, slug } = post;

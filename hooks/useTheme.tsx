@@ -9,7 +9,7 @@ export function useTheme() {
             | 'dark'
             | null;
         if (storedTheme) {
-            setTheme(storedTheme);
+            setTheme(storedTheme); // eslint-disable-line react-hooks/set-state-in-effect -- syncing from localStorage
             document.documentElement.classList.toggle(
                 'dark',
                 storedTheme === 'dark',

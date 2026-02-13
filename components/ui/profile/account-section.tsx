@@ -6,7 +6,7 @@ export function AccountSection({
     dictionary,
 }: {
     userEmail: string;
-    dictionary: Record<string, any>;
+    dictionary: Record<string, string>;
 }) {
     return (
         <div className="flex flex-col items-center gap-2 p-4">

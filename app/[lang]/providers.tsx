@@ -1,4 +1,5 @@
 import { TranslationProvider } from '@/hooks/useDictionary';
+import type { Dictionary } from '@/hooks/useDictionary';
 import RootClientLayout from '@/components/ui/RootClientLayout';
 import { ThemeProvider } from 'next-themes';
 import { Session } from 'next-auth';
@@ -8,7 +9,7 @@ export function Providers({
     session,
     children,
 }: {
-    dictionary: Record<string, any>;
+    dictionary: Dictionary;
     session: Session | null;
     children: React.ReactNode;
 }) {

@@ -15,7 +15,7 @@ export type ChangePasswordFormData = {
 export default function ChangePasswordForm({
     dictionary,
 }: {
-    dictionary: Record<string, any>;
+    dictionary: Record<string, string>;
 }) {
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
@@ -67,11 +67,12 @@ export default function ChangePasswordForm({
             });
 
             resetForm();
-        } catch (error: any) {
+        } catch (error) {
+            const message = error instanceof Error ? error.message : '';
             const errorMessage =
-                error.message === 'Old password is incorrect.'
+                message === 'Old password is incorrect.'
                     ? dictionary.oldPasswordIncorrect
-                    : error.message;
+                    : message;
             setNotificationData({
                 title: dictionary.error,
                 message: errorMessage || dictionary.failedChangePassword,

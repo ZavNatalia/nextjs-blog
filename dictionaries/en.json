@@ -64,7 +64,7 @@
             "oldPasswordIncorrect": "Old password is incorrect.",
             "somethingWentWrong": "Something went wrong!",
             "passwordChangedSuccessfully": "Password changed successfully!",
-            "failedChangePassword.": "Failed to change password.",
+            "failedChangePassword": "Failed to change password.",
             "success": "Success!",
             "error": "Error!"
         },
@@ -126,6 +126,8 @@
     },
     "contact-page": {
         "main": "main",
+        "contactMe": "Contact Me",
+        "pageDescription": "Here you can send me a message",
         "contact": "contact",
         "howCanIHelp": "How can I help you?",
         "yourEmail": "Your Email",

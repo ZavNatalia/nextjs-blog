@@ -7,7 +7,7 @@ export interface INews {
     slug: string;
     title: string;
     date: string;
-    image?: any;
+    image?: string;
     excerpt: string;
     content?: string;
     isLatest: boolean;
