@@ -1,6 +1,6 @@
-import { Db, MongoClient } from 'mongodb';
+import { Db } from 'mongodb';
 import { NextRequest } from 'next/server';
-import { connectToDatabase } from '@/lib/db';
+import clientPromise from '@/lib/db';
 
 export interface IMessage {
     email: string;
@@ -28,15 +28,6 @@ async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
 }
 
 export async function POST(req: NextRequest) {
-    if (req.method !== 'POST') {
-        return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-            status: 405,
-            headers: { 'Content-Type': 'application/json' },
-        });
-    }
-
-    let client: MongoClient | null = null;
-
     try {
         const { token, ...body }: IMessage & { token: string } =
             await req.json();
@@ -75,7 +66,7 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        client = await connectToDatabase();
+        const client = await clientPromise;
         const db = client.db();
 
         const newMessage = await insertMessage(db, body);
@@ -99,9 +90,5 @@ export async function POST(req: NextRequest) {
                 headers: { 'Content-Type': 'application/json' },
             },
         );
-    } finally {
-        if (client) {
-            await client.close();
-        }
     }
 }

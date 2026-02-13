@@ -1,6 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { connectToDatabase } from '@/lib/db';
-import { MongoClient } from 'mongodb';
+import clientPromise from '@/lib/db';
 
 export async function DELETE() {
     try {
@@ -17,7 +16,7 @@ export async function DELETE() {
 
         const userEmail = session.user.email;
 
-        const client: MongoClient = await connectToDatabase();
+        const client = await clientPromise;
         const db = client.db();
         const usersCollection = db.collection('users');
 
@@ -32,8 +31,6 @@ export async function DELETE() {
         const deleteResult = await usersCollection.deleteOne({
             email: userEmail,
         });
-
-        await client.close();
 
         if (deleteResult.deletedCount === 0) {
             return new Response(
