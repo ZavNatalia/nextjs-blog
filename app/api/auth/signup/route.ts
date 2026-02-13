@@ -1,16 +1,8 @@
-import { MongoClient } from 'mongodb';
-import { connectToDatabase } from '@/lib/db';
+import clientPromise from '@/lib/db';
 import { hashPassword } from '@/lib/auth';
 import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
-    if (request.method !== 'POST') {
-        return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-            status: 405,
-            headers: { 'Content-Type': 'application/json' },
-        });
-    }
-
     const data = await request.json();
     const { email, password } = data;
 
@@ -29,14 +21,9 @@ export async function POST(request: NextRequest) {
         );
     }
 
-    let client: MongoClient | null = null;
-
     try {
-        client = await connectToDatabase();
+        const client = await clientPromise;
         const db = client.db();
-
-        const hashedPassword = await hashPassword(password);
-
         const collection = db.collection('users');
 
         const existingUser = await collection.findOne({ email });
@@ -51,6 +38,8 @@ export async function POST(request: NextRequest) {
                 },
             );
         }
+
+        const hashedPassword = await hashPassword(password);
 
         await collection.insertOne({
             email,
@@ -73,9 +62,5 @@ export async function POST(request: NextRequest) {
                 headers: { 'Content-Type': 'application/json' },
             },
         );
-    } finally {
-        if (client) {
-            await client.close();
-        }
     }
 }

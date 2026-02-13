@@ -1,16 +1,9 @@
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { connectToDatabase } from '@/lib/db';
+import clientPromise from '@/lib/db';
 import { hashPassword, verifyPassword } from '@/lib/auth';
 
 export async function PATCH(req: NextRequest) {
-    if (req.method !== 'PATCH') {
-        return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-            status: 405,
-            headers: { 'Content-Type': 'application/json' },
-        });
-    }
-
     const session = await getServerSession();
 
     if (!session) {
@@ -25,9 +18,8 @@ export async function PATCH(req: NextRequest) {
 
     const userEmail = session.user.email;
 
-    let client;
     try {
-        client = await connectToDatabase();
+        const client = await clientPromise;
         const db = client.db();
         const usersCollection = db.collection('users');
 
@@ -79,9 +71,5 @@ export async function PATCH(req: NextRequest) {
                 headers: { 'Content-Type': 'application/json' },
             },
         );
-    } finally {
-        if (client) {
-            await client.close();
-        }
     }
 }

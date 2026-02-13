@@ -1,8 +1,7 @@
 import NextAuth, { DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { connectToDatabase } from '@/lib/db';
+import clientPromise from '@/lib/db';
 import { verifyPassword } from '@/lib/auth';
-import { MongoClient } from 'mongodb';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -43,33 +42,25 @@ const handler = NextAuth({
                     throw new Error('Missing email or password');
                 }
 
-                const client: MongoClient = await connectToDatabase();
-                if (!client) {
-                    throw new Error('Failed to connect to database');
+                const client = await clientPromise;
+                const usersCollection = client.db().collection('users');
+                const user = await usersCollection.findOne({
+                    email: credentials.email,
+                });
+
+                if (!user) {
+                    throw new Error('Invalid email or password');
                 }
 
-                try {
-                    const usersCollection = client.db().collection('users');
-                    const user = await usersCollection.findOne({
-                        email: credentials.email,
-                    });
-
-                    if (!user) {
-                        throw new Error('Invalid email or password');
-                    }
-
-                    const isValid = await verifyPassword(
-                        credentials.password,
-                        user.password,
-                    );
-                    if (!isValid) {
-                        throw new Error('Invalid email or password');
-                    }
-
-                    return { id: user._id.toString(), email: user.email };
-                } finally {
-                    await client.close();
+                const isValid = await verifyPassword(
+                    credentials.password,
+                    user.password,
+                );
+                if (!isValid) {
+                    throw new Error('Invalid email or password');
                 }
+
+                return { id: user._id.toString(), email: user.email };
             },
         }),
         GitHubProvider({
