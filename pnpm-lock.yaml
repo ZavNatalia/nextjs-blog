@@ -68,9 +68,6 @@ importers:
       yup:
         specifier: ^1.7.1
         version: 1.7.1
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.1.18
@@ -2801,9 +2798,6 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
-
-  zod@3.24.2:
-    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
@@ -6103,8 +6097,6 @@ snapshots:
   zod-validation-error@4.0.2(zod@3.25.76):
     dependencies:
       zod: 3.25.76
-
-  zod@3.24.2: {}
 
   zod@3.25.76: {}
 
