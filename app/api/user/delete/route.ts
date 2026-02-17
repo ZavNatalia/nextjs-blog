@@ -1,8 +1,30 @@
+import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 import clientPromise from '@/lib/db';
 import { IUser } from '@/lib/types/mongodb';
+import { rateLimit, getClientIp } from '@/lib/rate-limit';
 
-export async function DELETE() {
+const limiter = rateLimit({ maxRequests: 3, windowMs: 15 * 60 * 1000 });
+
+export async function DELETE(req: NextRequest) {
+    const ip = getClientIp(req);
+    const { success, retryAfterMs } = limiter.check(ip);
+
+    if (!success) {
+        return new Response(
+            JSON.stringify({
+                error: 'Too many requests. Please try again later.',
+            }),
+            {
+                status: 429,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Retry-After': String(Math.ceil(retryAfterMs / 1000)),
+                },
+            },
+        );
+    }
+
     try {
         const session = await getServerSession();
         if (!session || !session.user?.email) {

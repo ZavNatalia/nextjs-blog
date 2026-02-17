@@ -3,6 +3,9 @@ import { NextRequest } from 'next/server';
 import clientPromise from '@/lib/db';
 import { contactSchema } from '@/lib/validations';
 import { IMessage } from '@/lib/types/mongodb';
+import { rateLimit, getClientIp } from '@/lib/rate-limit';
+
+const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
 
 async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
     const collection = db.collection<IMessage>('messages');
@@ -11,6 +14,24 @@ async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
 }
 
 export async function POST(req: NextRequest) {
+    const ip = getClientIp(req);
+    const { success, retryAfterMs } = limiter.check(ip);
+
+    if (!success) {
+        return new Response(
+            JSON.stringify({
+                error: 'Too many requests. Please try again later.',
+            }),
+            {
+                status: 429,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Retry-After': String(Math.ceil(retryAfterMs / 1000)),
+                },
+            },
+        );
+    }
+
     try {
         const rawBody = await req.json();
         const result = contactSchema.safeParse(rawBody);
