@@ -3,8 +3,29 @@ import { hashPassword } from '@/lib/auth';
 import { signupSchema } from '@/lib/validations';
 import { NextRequest } from 'next/server';
 import { IUser } from '@/lib/types/mongodb';
+import { rateLimit, getClientIp } from '@/lib/rate-limit';
+
+const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
 
 export async function POST(request: NextRequest) {
+    const ip = getClientIp(request);
+    const { success, retryAfterMs } = limiter.check(ip);
+
+    if (!success) {
+        return new Response(
+            JSON.stringify({
+                error: 'Too many requests. Please try again later.',
+            }),
+            {
+                status: 429,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Retry-After': String(Math.ceil(retryAfterMs / 1000)),
+                },
+            },
+        );
+    }
+
     const data = await request.json();
     const result = signupSchema.safeParse(data);
 
