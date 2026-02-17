@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { TranslationProvider, useDictionary } from './useDictionary';
+
 import type { Dictionary } from './useDictionary';
+import { TranslationProvider, useDictionary } from './useDictionary';
 
 const mockDictionary = {
     home: { title: 'Home' },

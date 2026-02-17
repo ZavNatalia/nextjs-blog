@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
+
 import { i18n, type Locale } from '@/i18n-config';
-import { getAllPosts } from '@/lib/posts';
 import { getAllNews } from '@/lib/news';
+import { getAllPosts } from '@/lib/posts';
 
 const BASE_URL = 'https://zav.me';
 

@@ -1,15 +1,16 @@
-import PostContent from '@/components/ui/posts/post-detail/post-content';
-import { getPostData, getPostsFiles } from '@/lib/posts';
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
-import { notFound } from 'next/navigation';
-import { IPost } from '@/components/ui/posts/post-card/post-card';
+import fs from 'fs';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import Script from 'next/script';
+import path from 'path';
+
+import BackToTopButton from '@/components/ui/BackToTopButton';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
+import { IPost } from '@/components/ui/posts/post-card/post-card';
+import PostContent from '@/components/ui/posts/post-detail/post-content';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
-import BackToTopButton from '@/components/ui/BackToTopButton';
-import Script from 'next/script';
-import fs from 'fs';
-import path from 'path';
+import { getPostData, getPostsFiles } from '@/lib/posts';
 
 export const revalidate = 3600;
 export const dynamic = 'force-static';

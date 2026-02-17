@@ -1,11 +1,12 @@
 'use client';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import Turnstile from 'react-turnstile';
+
 import Notification, {
     NotificationDetails,
     NotificationStatus,
 } from '@/components/ui/Notification';
 import { getDictionary } from '@/get-dictionary';
-import Turnstile from 'react-turnstile';
 
 declare global {
     interface Window {

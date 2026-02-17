@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { signupSchema, contactSchema, changePasswordSchema } from './validations';
+import { describe, expect,it } from 'vitest';
+
+import { changePasswordSchema,contactSchema, signupSchema } from './validations';
 
 describe('signupSchema', () => {
     it('accepts valid input', () => {

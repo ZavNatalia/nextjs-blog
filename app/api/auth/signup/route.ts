@@ -1,9 +1,10 @@
-import clientPromise from '@/lib/db';
-import { hashPassword } from '@/lib/auth';
-import { signupSchema } from '@/lib/validations';
 import { NextRequest } from 'next/server';
+
+import { hashPassword } from '@/lib/auth';
+import clientPromise from '@/lib/db';
+import { getClientIp,rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { signupSchema } from '@/lib/validations';
 
 const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
 

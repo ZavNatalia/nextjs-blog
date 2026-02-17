@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-import { i18n } from './i18n-config';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+
+import { i18n } from './i18n-config';
 
 const COOKIE_NAME = 'locale';
 const COOKIE_OPTIONS = {

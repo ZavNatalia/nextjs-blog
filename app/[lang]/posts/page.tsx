@@ -1,11 +1,12 @@
 import React, { Suspense } from 'react';
-import { getAllPosts } from '@/lib/posts';
+
+import BackToTopButton from '@/components/ui/BackToTopButton';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
-import { Locale } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
 import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skeleton';
-import BackToTopButton from '@/components/ui/BackToTopButton';
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
+import { getAllPosts } from '@/lib/posts';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;

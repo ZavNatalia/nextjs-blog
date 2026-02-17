@@ -15,8 +15,9 @@ vi.mock('@/lib/db', () => ({
 const mockFetch = vi.fn();
 vi.stubGlobal('fetch', mockFetch);
 
-import { POST } from './route';
 import { NextRequest } from 'next/server';
+
+import { POST } from './route';
 
 function makeRequest(body: Record<string, unknown>) {
     return new NextRequest('http://localhost:3000/api/contact', {

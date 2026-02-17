@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import PostCard from './post-card';
+
 import type { IPost } from './post-card';
+import PostCard from './post-card';
 
 vi.mock('next/link', () => ({
     default: ({ children, href, ...props }: { children: React.ReactNode; href: string; [key: string]: unknown }) => (

@@ -1,11 +1,12 @@
 import NextAuth, { DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import clientPromise from '@/lib/db';
-import { verifyPassword } from '@/lib/auth';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import { IUser } from '@/lib/types/mongodb';
+
+import { verifyPassword } from '@/lib/auth';
+import clientPromise from '@/lib/db';
 import { rateLimit } from '@/lib/rate-limit';
+import { IUser } from '@/lib/types/mongodb';
 
 const loginLimiter = rateLimit({ maxRequests: 10, windowMs: 60 * 1000 });
 
