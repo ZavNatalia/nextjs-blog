@@ -7,7 +7,10 @@
         "build": "next build",
         "start": "next start",
         "lint": "eslint .",
-        "format": "prettier --write ."
+        "format": "prettier --write .",
+        "test": "vitest",
+        "test:run": "vitest run",
+        "test:coverage": "vitest run --coverage"
     },
     "dependencies": {
         "@formatjs/intl-localematcher": "^0.8.1",
@@ -33,19 +36,28 @@
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.18",
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^14.6.1",
         "@types/negotiator": "^0.6.4",
         "@types/node": "^25.2.3",
         "@types/react": "19.2.14",
         "@types/react-dom": "19.2.3",
         "@types/react-syntax-highlighter": "^15.5.13",
+        "@vitejs/plugin-react": "^5.1.4",
+        "@vitest/coverage-v8": "^4.0.18",
         "eslint": "^9.39.2",
         "eslint-config-next": "16.1.6",
         "eslint-plugin-unused-imports": "^4.4.1",
+        "jsdom": "^28.1.0",
         "postcss": "^8.5.6",
         "prettier": "^3.8.1",
         "prettier-plugin-tailwindcss": "^0.7.2",
         "tailwindcss": "^4.1.18",
-        "typescript": "^5.9.3"
+        "typescript": "^5.9.3",
+        "vite-tsconfig-paths": "^6.1.1",
+        "vitest": "^4.0.18"
     },
     "type": "module"
 }
