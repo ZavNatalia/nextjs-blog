@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
+
 import type { getDictionary } from '@/get-dictionary';
 
 export default function GoogleSignInButton({

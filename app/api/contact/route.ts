@@ -1,9 +1,10 @@
 import { Db } from 'mongodb';
 import { NextRequest } from 'next/server';
+
 import clientPromise from '@/lib/db';
-import { contactSchema } from '@/lib/validations';
+import { getClientIp,rateLimit } from '@/lib/rate-limit';
 import { IMessage } from '@/lib/types/mongodb';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { contactSchema } from '@/lib/validations';
 
 const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
 

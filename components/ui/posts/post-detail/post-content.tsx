@@ -1,22 +1,23 @@
 'use client';
+import {
+    ClipboardDocumentCheckIcon,
+    DocumentDuplicateIcon,
+} from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import React from 'react';
+import { useEffect, useState } from 'react';
+import ReactMarkdown, { Components } from 'react-markdown';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
+import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
 import dracula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
 import oneLight from 'react-syntax-highlighter/dist/esm/styles/prism/one-light';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
-import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
-import ReactMarkdown, { Components } from 'react-markdown';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import PostHeader from '@/components/ui/posts/post-detail/post-header';
-import { IPost } from '@/components/ui/posts/post-card/post-card';
-import {
-    DocumentDuplicateIcon,
-    ClipboardDocumentCheckIcon,
-} from '@heroicons/react/24/outline';
 import remarkGfm from 'remark-gfm';
+
+import { IPost } from '@/components/ui/posts/post-card/post-card';
+import PostHeader from '@/components/ui/posts/post-detail/post-header';
 import { getDictionary } from '@/get-dictionary';
-import { useTheme } from 'next-themes';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('css', css);

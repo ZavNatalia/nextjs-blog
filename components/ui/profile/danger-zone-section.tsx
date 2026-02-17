@@ -1,10 +1,11 @@
 'use client';
+import { signOut } from 'next-auth/react';
+import React, { useEffect,useState } from 'react';
+
 import Notification, {
     NotificationDetails,
     NotificationStatus,
 } from '@/components/ui/Notification';
-import React, { useState, useEffect } from 'react';
-import { signOut } from 'next-auth/react';
 
 export function DangerZoneSection({
     userEmail,

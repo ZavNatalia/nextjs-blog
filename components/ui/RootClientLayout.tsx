@@ -1,10 +1,11 @@
 'use client';
-import { ReactNode } from 'react';
-import MainNavigation from '@/components/ui/main-navigation/MainNavigation';
-import CookieConsent from '@/components/ui/CookieConsent';
-import { SessionProvider } from 'next-auth/react';
 import { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
+import { ReactNode } from 'react';
+
+import CookieConsent from '@/components/ui/CookieConsent';
 import Footer from '@/components/ui/Footer';
+import MainNavigation from '@/components/ui/main-navigation/MainNavigation';
 
 export default function RootClientLayout({
     children,

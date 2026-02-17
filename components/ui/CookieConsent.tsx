@@ -1,7 +1,8 @@
 'use client';
+import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+
 import { useDictionary } from '@/hooks/useDictionary';
 
 export default function CookieConsent() {

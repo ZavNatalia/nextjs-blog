@@ -1,9 +1,10 @@
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
-import { getPrivacyPolicyFile } from '@/lib/privacy-policy';
-import { Locale } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
 import ReactMarkdown from 'react-markdown';
+
 import BackToTopButton from '@/components/ui/BackToTopButton';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
+import { getPrivacyPolicyFile } from '@/lib/privacy-policy';
 
 export default async function PrivacyPolicyPage(props: {
     params: Promise<{ lang: Locale }>;

@@ -1,6 +1,7 @@
 import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
+import path from 'path';
+
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import { Locale } from '@/i18n-config';
 

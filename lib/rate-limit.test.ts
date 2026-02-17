@@ -1,6 +1,7 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { rateLimit, getClientIp } from './rate-limit';
 import { NextRequest } from 'next/server';
+import { afterEach,beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { getClientIp,rateLimit } from './rate-limit';
 
 describe('rateLimit', () => {
     beforeEach(() => {

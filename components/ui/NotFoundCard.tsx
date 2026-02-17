@@ -1,7 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { useDictionary } from '@/hooks/useDictionary';
 import { useParams } from 'next/navigation';
+
+import { useDictionary } from '@/hooks/useDictionary';
 
 export default function NotFoundCard() {
     const dictionary = useDictionary()?.['not-found'];

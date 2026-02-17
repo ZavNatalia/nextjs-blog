@@ -18,8 +18,9 @@ vi.mock('@/lib/auth', () => ({
     hashPassword: vi.fn().mockResolvedValue('hashed_password'),
 }));
 
-import { POST } from './route';
 import { NextRequest } from 'next/server';
+
+import { POST } from './route';
 
 function makeRequest(body: Record<string, unknown>) {
     return new NextRequest('http://localhost:3000/api/auth/signup', {

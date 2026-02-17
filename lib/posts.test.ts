@@ -1,5 +1,5 @@
-import { vi } from 'vitest';
 import fs from 'fs';
+import { vi } from 'vitest';
 
 vi.mock('fs', () => ({
     default: {
@@ -15,7 +15,7 @@ const mockReaddir = vi.mocked(fs.promises.readdir);
 const mockAccess = vi.mocked(fs.promises.access);
 const mockReadFile = vi.mocked(fs.promises.readFile);
 
-import { getPostsFiles, getPostData, getAllPosts, getFeaturedPosts } from './posts';
+import { getAllPosts, getFeaturedPosts,getPostData, getPostsFiles } from './posts';
 
 const makeMd = (frontmatter: Record<string, unknown>, content = 'body') => {
     const lines = Object.entries(frontmatter).map(([k, v]) => `${k}: ${v}`);
@@ -28,7 +28,7 @@ beforeEach(() => {
 
 describe('getPostsFiles', () => {
     it('returns file list for a locale', async () => {
-        mockReaddir.mockResolvedValue(['post1.md', 'post2.md'] as any);
+        mockReaddir.mockResolvedValue(['post1.md', 'post2.md'] as never);
         const files = await getPostsFiles('en');
         expect(files).toEqual(['post1.md', 'post2.md']);
     });
@@ -66,7 +66,7 @@ describe('getPostData', () => {
 
 describe('getAllPosts', () => {
     it('returns posts sorted by date descending', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as any);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile
@@ -86,7 +86,7 @@ describe('getAllPosts', () => {
 
 describe('getFeaturedPosts', () => {
     it('returns only posts with isFeatured: true', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as any);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile

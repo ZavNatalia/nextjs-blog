@@ -1,10 +1,11 @@
-import React from 'react';
-import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
-import { getFeaturedPosts } from '@/lib/posts';
 import Link from 'next/link';
+import Script from 'next/script';
+import React from 'react';
+
+import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 import type { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
-import Script from 'next/script';
+import { getFeaturedPosts } from '@/lib/posts';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;

@@ -1,11 +1,12 @@
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
-import AuthForm from '@/components/ui/auth/auth-form';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import { Locale } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
-import GoogleSignInButton from '@/components/ui/auth/GoogleSignInButton';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+
+import AuthForm from '@/components/ui/auth/auth-form';
+import GoogleSignInButton from '@/components/ui/auth/GoogleSignInButton';
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;

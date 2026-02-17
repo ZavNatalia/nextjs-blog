@@ -1,5 +1,4 @@
 'use client';
-import React, { useState } from 'react';
 import {
     ErrorMessage,
     Field,
@@ -8,15 +7,17 @@ import {
     FormikHelpers,
     FormikProps,
 } from 'formik';
-import * as Yup from 'yup';
-import { createUser } from '@/app/actions/auth';
-import { signIn, SignInResponse } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { signIn, SignInResponse } from 'next-auth/react';
+import React, { useState } from 'react';
+import * as Yup from 'yup';
+
+import { createUser } from '@/app/actions/auth';
 import Notification, {
     NotificationDetails,
 } from '@/components/ui/Notification';
-import type { getDictionary } from '@/get-dictionary';
 import TogglePasswordButton from '@/components/ui/TogglePasswordButton';
+import type { getDictionary } from '@/get-dictionary';
 
 export type AuthFormData = {
     email: string;

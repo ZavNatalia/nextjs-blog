@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
+
 import { Loader } from '@/components/ui/Loader';
+import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
 import { getDictionary } from '@/get-dictionary';
 
 type NavLabel = 'home' | 'posts' | 'contact';

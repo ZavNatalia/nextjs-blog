@@ -1,5 +1,5 @@
-import { vi } from 'vitest';
 import fs from 'fs';
+import { vi } from 'vitest';
 
 vi.mock('fs', () => ({
     default: {
@@ -15,7 +15,7 @@ const mockReaddir = vi.mocked(fs.promises.readdir);
 const mockAccess = vi.mocked(fs.promises.access);
 const mockReadFile = vi.mocked(fs.promises.readFile);
 
-import { getNewsFiles, getNewsData, getAllNews, getLatestNews } from './news';
+import { getAllNews, getLatestNews,getNewsData, getNewsFiles } from './news';
 
 const makeMd = (frontmatter: Record<string, unknown>, content = 'body') => {
     const lines = Object.entries(frontmatter).map(([k, v]) => `${k}: ${v}`);
@@ -28,7 +28,7 @@ beforeEach(() => {
 
 describe('getNewsFiles', () => {
     it('returns file list for a locale', async () => {
-        mockReaddir.mockResolvedValue(['news1.md', 'news2.md'] as any);
+        mockReaddir.mockResolvedValue(['news1.md', 'news2.md'] as never);
         const files = await getNewsFiles('en');
         expect(files).toEqual(['news1.md', 'news2.md']);
     });
@@ -65,7 +65,7 @@ describe('getNewsData', () => {
 
 describe('getAllNews', () => {
     it('returns news sorted by date descending', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as any);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile
@@ -85,7 +85,7 @@ describe('getAllNews', () => {
 
 describe('getLatestNews', () => {
     it('returns only news with isLatest: true', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as any);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile

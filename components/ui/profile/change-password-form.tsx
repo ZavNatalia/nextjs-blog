@@ -1,10 +1,11 @@
 'use client';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import React, { useState } from 'react';
+import * as Yup from 'yup';
+
 import Notification, {
     NotificationDetails,
 } from '@/components/ui/Notification';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
-import React, { useState } from 'react';
 import TogglePasswordButton from '@/components/ui/TogglePasswordButton';
 
 export type ChangePasswordFormData = {

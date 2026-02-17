@@ -1,8 +1,9 @@
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
+
 import clientPromise from '@/lib/db';
+import { getClientIp,rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
 
 const limiter = rateLimit({ maxRequests: 3, windowMs: 15 * 60 * 1000 });
 

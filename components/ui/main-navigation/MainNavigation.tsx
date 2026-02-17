@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
 import clsx from 'clsx';
-import Logo from '@/components/ui/Logo';
-import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import { useDictionary } from '@/hooks/useDictionary';
+import { useSession } from 'next-auth/react';
+import React, { useState } from 'react';
+
+import Logo from '@/components/ui/Logo';
 import { MobileMenuButton } from '@/components/ui/main-navigation/MobileMenuButton';
-import { NavigationList } from '@/components/ui/main-navigation/NavigationList';
 import { NavigationControls } from '@/components/ui/main-navigation/NavigationControls';
+import { NavigationList } from '@/components/ui/main-navigation/NavigationList';
+import { useDictionary } from '@/hooks/useDictionary';
 
 export default function MainNavigation() {
     const { data: session, status } = useSession();
