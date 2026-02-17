@@ -3,9 +3,11 @@ import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
 import { Loader } from '@/components/ui/Loader';
 import { getDictionary } from '@/get-dictionary';
 
+type NavLabel = 'home' | 'posts' | 'contact';
+
 interface NavigationItem {
     href: string;
-    label: string;
+    label: NavLabel;
 }
 
 const NAVIGATION_ITEMS: NavigationItem[] = [
@@ -21,7 +23,7 @@ function NavListItem({
     onClick,
 }: {
     href: string;
-    title: any;
+    title: string;
     normalizedPathname: string;
     onClick?: () => void;
 }) {
@@ -49,7 +51,7 @@ export function NavigationList({
     onClick,
 }: {
     normalizedPathname: string;
-    session: any;
+    session: { user?: { email?: string | null } } | null;
     status: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['navigation'];
     onClick?: () => void;

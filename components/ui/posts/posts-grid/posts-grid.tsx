@@ -1,5 +1,4 @@
 import PostCard, { IPost } from '@/components/ui/posts/post-card/post-card';
-import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 
 export default function PostsGrid({
@@ -8,7 +7,7 @@ export default function PostsGrid({
     lang,
 }: {
     posts: IPost[];
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
+    dictionary: { readMore: string };
     lang: Locale;
 }) {
     return (

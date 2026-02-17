@@ -89,8 +89,9 @@ export default function AuthForm({
                     setNotificationData(null);
                 }, 5000);
             }
-        } catch (error: any) {
-            setErrors({ password: error.message });
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'An error occurred';
+            setErrors({ password: message });
         } finally {
             setSubmitting(false);
         }
