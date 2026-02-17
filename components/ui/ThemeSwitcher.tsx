@@ -11,9 +11,9 @@ export default function ThemeSwitcher() {
     const dictionary = useDictionary()?.['navigation'];
 
     useEffect(() => {
-        setMounted(true);
+        setMounted(true); // eslint-disable-line react-hooks/set-state-in-effect -- hydration guard
         setIsLoading(false);
-    }, [mounted, isLoading]);
+    }, []);
 
     if (isLoading) {
         return (

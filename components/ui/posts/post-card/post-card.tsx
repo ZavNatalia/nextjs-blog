@@ -1,6 +1,5 @@
 'use client';
 import { Locale } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
 import { getLocale } from '@/components/utils/getLocale';
 import Link from 'next/link';
 
@@ -8,7 +7,7 @@ export interface IPost {
     slug: string;
     title: string;
     date: string;
-    image?: any;
+    image?: string;
     excerpt: string;
     content?: string;
     isFeatured: boolean;
@@ -20,7 +19,7 @@ export default function PostCard({
     lang,
 }: {
     post: IPost;
-    dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
+    dictionary: { readMore: string };
     lang: Locale;
 }) {
     const { title, date, excerpt, slug } = post;
@@ -34,7 +33,7 @@ export default function PostCard({
     const linkPath = `posts/${slug}`;
 
     return (
-        <li className="h-fit w-full overflow-hidden rounded-2xl shadow-sm">
+        <li className="h-fit w-full overflow-hidden rounded-2xl shadow-xs">
             <div className="flex justify-between bg-background-tertiary/50 px-5 py-4 lg:px-6 lg:py-5">
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}

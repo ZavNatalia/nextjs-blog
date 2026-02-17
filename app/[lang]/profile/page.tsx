@@ -38,7 +38,7 @@ export default async function ProfilePage(props: {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <UserProfile
                 dictionary={dictionary}
-                userEmail={session?.user?.email || dictionary.noEmailProvided}
+                userEmail={session?.user?.email || dictionary.dangerZoneSection.noEmailProvided}
             />
         </main>
     );

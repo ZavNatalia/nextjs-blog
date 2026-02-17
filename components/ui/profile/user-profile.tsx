@@ -11,7 +11,9 @@ import { SecuritySection } from '@/components/ui/profile/security-section';
 import { DangerZoneSection } from '@/components/ui/profile/danger-zone-section';
 import { getDictionary } from '@/get-dictionary';
 
-const SECTIONS = [
+type SectionLabel = 'yourAccount' | 'security' | 'dangerZone';
+
+const SECTIONS: { key: string; label: SectionLabel; icon: typeof UserIcon }[] = [
     { key: 'Account', label: 'yourAccount', icon: UserIcon },
     { key: 'Security', label: 'security', icon: LockClosedIcon },
     { key: 'DangerZone', label: 'dangerZone', icon: ExclamationTriangleIcon },

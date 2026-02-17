@@ -178,7 +178,7 @@ export default function ContactForm({
             setRequestError(
                 error instanceof Error
                     ? error.message
-                    : dictionary.unknownError,
+                    : dictionary.somethingWentWrong,
             );
             setRequestStatus('error');
         }

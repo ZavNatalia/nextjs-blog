@@ -11,7 +11,7 @@ export function DangerZoneSection({
     dictionary,
 }: {
     userEmail: string;
-    dictionary: Record<string, any>;
+    dictionary: Record<string, string>;
 }) {
     const [notificationData, setNotificationData] =
         useState<NotificationDetails | null>(null);
@@ -48,11 +48,12 @@ export function DangerZoneSection({
                 message: dictionary.accountDeletedSuccessfully,
                 status: 'success',
             });
-        } catch (error: any) {
+        } catch (error) {
+            const message = error instanceof Error ? error.message : '';
             setRequestStatus('error');
             setNotificationData({
                 title: dictionary.error,
-                message: error.message || dictionary.failedDeleteAccount,
+                message: message || dictionary.failedDeleteAccount,
                 status: 'error',
             });
         } finally {
