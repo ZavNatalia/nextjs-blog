@@ -1,25 +1,23 @@
 import clientPromise from '@/lib/db';
 import { hashPassword } from '@/lib/auth';
+import { signupSchema } from '@/lib/validations';
 import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
     const data = await request.json();
-    const { email, password } = data;
+    const result = signupSchema.safeParse(data);
 
-    if (
-        !email ||
-        !email.includes('@') ||
-        !password ||
-        password.trim().length < 7
-    ) {
+    if (!result.success) {
         return new Response(
-            JSON.stringify({ error: 'Invalid email or password.' }),
+            JSON.stringify({ error: result.error.issues[0].message }),
             {
                 status: 422,
                 headers: { 'Content-Type': 'application/json' },
             },
         );
     }
+
+    const { email, password } = result.data;
 
     try {
         const client = await clientPromise;

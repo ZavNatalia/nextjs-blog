@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 import clientPromise from '@/lib/db';
 import { hashPassword, verifyPassword } from '@/lib/auth';
+import { changePasswordSchema } from '@/lib/validations';
 
 export async function PATCH(req: NextRequest) {
     const session = await getServerSession();
@@ -14,7 +15,19 @@ export async function PATCH(req: NextRequest) {
     }
 
     const data = await req.json();
-    const { oldPassword, newPassword } = data;
+    const result = changePasswordSchema.safeParse(data);
+
+    if (!result.success) {
+        return new Response(
+            JSON.stringify({ error: result.error.issues[0].message }),
+            {
+                status: 422,
+                headers: { 'Content-Type': 'application/json' },
+            },
+        );
+    }
+
+    const { oldPassword, newPassword } = result.data;
 
     const userEmail = session.user.email;
 
