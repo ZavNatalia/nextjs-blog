@@ -2,18 +2,12 @@ import { Db } from 'mongodb';
 import { NextRequest } from 'next/server';
 import clientPromise from '@/lib/db';
 import { contactSchema } from '@/lib/validations';
-
-export interface IMessage {
-    email: string;
-    name: string;
-    message: string;
-    id?: string;
-}
+import { IMessage } from '@/lib/types/mongodb';
 
 async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
-    const collection = db.collection('messages');
+    const collection = db.collection<IMessage>('messages');
     const result = await collection.insertOne(message);
-    return { ...message, id: result.insertedId.toString() };
+    return { ...message, _id: result.insertedId };
 }
 
 export async function POST(req: NextRequest) {

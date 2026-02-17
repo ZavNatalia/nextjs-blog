@@ -2,6 +2,7 @@ import clientPromise from '@/lib/db';
 import { hashPassword } from '@/lib/auth';
 import { signupSchema } from '@/lib/validations';
 import { NextRequest } from 'next/server';
+import { IUser } from '@/lib/types/mongodb';
 
 export async function POST(request: NextRequest) {
     const data = await request.json();
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
     try {
         const client = await clientPromise;
         const db = client.db();
-        const collection = db.collection('users');
+        const collection = db.collection<IUser>('users');
 
         const existingUser = await collection.findOne({ email });
         if (existingUser) {

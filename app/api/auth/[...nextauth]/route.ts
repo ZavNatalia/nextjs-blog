@@ -4,6 +4,7 @@ import clientPromise from '@/lib/db';
 import { verifyPassword } from '@/lib/auth';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
+import { IUser } from '@/lib/types/mongodb';
 
 declare module 'next-auth/jwt' {
     interface JWT {
@@ -43,7 +44,7 @@ const handler = NextAuth({
                 }
 
                 const client = await clientPromise;
-                const usersCollection = client.db().collection('users');
+                const usersCollection = client.db().collection<IUser>('users');
                 const user = await usersCollection.findOne({
                     email: credentials.email,
                 });

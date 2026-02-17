@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import clientPromise from '@/lib/db';
 import { hashPassword, verifyPassword } from '@/lib/auth';
 import { changePasswordSchema } from '@/lib/validations';
+import { IUser } from '@/lib/types/mongodb';
 
 export async function PATCH(req: NextRequest) {
     const session = await getServerSession();
@@ -34,7 +35,7 @@ export async function PATCH(req: NextRequest) {
     try {
         const client = await clientPromise;
         const db = client.db();
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection<IUser>('users');
 
         const existingUser = await usersCollection.findOne({
             email: userEmail,
