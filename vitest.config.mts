@@ -11,6 +11,7 @@ export default defineConfig({
             ['lib/**', 'node'],
             ['app/api/**', 'node'],
         ],
+        exclude: ['node_modules', 'e2e'],
         setupFiles: ['./test/setup.ts'],
     },
 });
