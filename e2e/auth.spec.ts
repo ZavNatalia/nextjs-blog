@@ -8,7 +8,9 @@ test.describe('Auth page (EN)', () => {
             page.getByRole('heading', { name: 'Login' }),
         ).toBeVisible();
         await expect(page.getByLabel('Email')).toBeVisible();
-        await expect(page.locator('#password')).toBeVisible();
+        await expect(
+            page.getByLabel('Password', { exact: true }),
+        ).toBeVisible();
         await expect(
             page.getByRole('button', { name: 'Login', exact: true }),
         ).toBeVisible();
@@ -24,7 +26,7 @@ test.describe('Auth page (EN)', () => {
         await expect(
             page.getByRole('heading', { name: 'Sign Up' }),
         ).toBeVisible();
-        await expect(page.locator('#confirmPassword')).toBeVisible();
+        await expect(page.getByLabel('Confirm Password')).toBeVisible();
     });
 
     test('shows validation errors on empty login submit', async ({ page }) => {
@@ -44,7 +46,7 @@ test.describe('Auth page (EN)', () => {
         await page.goto('/en/auth');
 
         await page.getByLabel('Email').fill('not-an-email');
-        await page.locator('#password').click();
+        await page.getByLabel('Password', { exact: true }).click();
 
         await expect(
             page.getByText('Invalid email address'),
@@ -61,8 +63,8 @@ test.describe('Auth page (EN)', () => {
             .click();
 
         await page.getByLabel('Email').fill('test@example.com');
-        await page.locator('#password').fill('123');
-        await page.locator('#confirmPassword').click();
+        await page.getByLabel('Password', { exact: true }).fill('123');
+        await page.getByLabel('Confirm Password').click();
 
         await expect(
             page.getByText('Password must be at least 7 characters'),

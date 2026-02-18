@@ -27,7 +27,6 @@ test.describe('Homepage (EN)', () => {
         await page.goto('/en');
 
         await page.getByRole('link', { name: 'All posts' }).click();
-        await page.waitForURL('**/en/posts');
 
         await expect(page).toHaveURL(/\/en\/posts$/);
     });
