@@ -14,7 +14,8 @@
         "cancel": "Отмена",
         "githubAccount": "Аккаунт на GitHub",
         "showPassword": "Показать пароль",
-        "hidePassword": "Скрыть пароль"
+        "hidePassword": "Скрыть пароль",
+        "minRead": "мин чтения"
     },
     "privacy-policy-page": {
         "main": "главная",
@@ -123,7 +124,10 @@
         "pageDescription": "Список статей по программированию",
         "goToAllPosts": "Перейти ко всем постам",
         "noPosts": "Здесь будут отображаться опубликованные посты",
-        "copyCode": "Копировать код"
+        "copyCode": "Копировать код",
+        "minRead": "мин чтения",
+        "searchPlaceholder": "Поиск по постам...",
+        "noSearchResults": "По вашему запросу ничего не найдено."
     },
     "contact-page": {
         "contactMe": "Обратная связь",
