@@ -2,8 +2,8 @@ import React, { Suspense } from 'react';
 
 import BackToTopButton from '@/components/ui/BackToTopButton';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
-import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 import PostsGridSkeleton from '@/components/ui/posts/posts-grid/posts-grid-skeleton';
+import PostsPageClient from '@/components/ui/posts/posts-page-client';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 import { getAllPosts } from '@/lib/posts';
@@ -29,7 +29,7 @@ export async function generateMetadata(props: {
     };
 }
 
-async function AllPosts({
+async function AllPostsWithSearch({
     lang,
     dictionary,
 }: {
@@ -38,11 +38,9 @@ async function AllPosts({
 }) {
     const posts = await getAllPosts(lang);
 
-    if (!posts.length) {
-        return <p className="text-secondary">{dictionary.noPosts}</p>;
-    }
-
-    return <PostsGrid posts={posts} dictionary={dictionary} lang={lang} />;
+    return (
+        <PostsPageClient posts={posts} dictionary={dictionary} lang={lang} />
+    );
 }
 
 export default async function Posts(props: {
@@ -60,7 +58,7 @@ export default async function Posts(props: {
         <main className="page">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <Suspense fallback={<PostsGridSkeleton />}>
-                <AllPosts lang={lang} dictionary={dictionary} />
+                <AllPostsWithSearch lang={lang} dictionary={dictionary} />
             </Suspense>
             <BackToTopButton />
         </main>

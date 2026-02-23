@@ -7,7 +7,7 @@ export default function PostsGrid({
     lang,
 }: {
     posts: IPost[];
-    dictionary: { readMore: string };
+    dictionary: { readMore: string; minRead?: string };
     lang: Locale;
 }) {
     return (

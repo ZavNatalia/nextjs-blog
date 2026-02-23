@@ -58,4 +58,28 @@ describe('PostHeader', () => {
         );
         expect(container.querySelector('.square-skeleton')).toBeInTheDocument();
     });
+
+    it('renders reading time when provided', () => {
+        render(
+            <PostHeader
+                title="My Post Title"
+                date="2025-03-15"
+                imagePath="/images/posts/test/cover.png"
+                readingTime={5}
+                readingTimeLabel="min read"
+            />,
+        );
+        expect(screen.getByText(/· 5 min read/)).toBeInTheDocument();
+    });
+
+    it('does not render reading time when not provided', () => {
+        render(
+            <PostHeader
+                title="My Post Title"
+                date="2025-03-15"
+                imagePath="/images/posts/test/cover.png"
+            />,
+        );
+        expect(screen.queryByText(/min read/)).not.toBeInTheDocument();
+    });
 });

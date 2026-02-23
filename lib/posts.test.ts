@@ -53,6 +53,7 @@ describe('getPostData', () => {
             title: 'Test Post',
             excerpt: 'An excerpt',
             isFeatured: true,
+            readingTime: 1,
         });
         expect(post!.content).toBe('body');
     });

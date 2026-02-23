@@ -18,9 +18,10 @@ const mockPost: IPost = {
     excerpt: 'This is a test excerpt for the post card.',
     isFeatured: true,
     image: 'test.png',
+    readingTime: 5,
 };
 
-const mockDictionary = { readMore: 'Read More' };
+const mockDictionary = { readMore: 'Read More', minRead: 'min read' };
 
 describe('PostCard', () => {
     it('renders post title', () => {
@@ -42,5 +43,10 @@ describe('PostCard', () => {
         render(<PostCard post={mockPost} dictionary={mockDictionary} lang="en" />);
         const link = screen.getByRole('link', { name: /Read More - My Test Post/i });
         expect(link).toHaveAttribute('href', 'posts/test-post');
+    });
+
+    it('renders reading time', () => {
+        render(<PostCard post={mockPost} dictionary={mockDictionary} lang="en" />);
+        expect(screen.getByText('5 min read')).toBeInTheDocument();
     });
 });
