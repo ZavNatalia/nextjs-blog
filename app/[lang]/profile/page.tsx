@@ -1,5 +1,6 @@
-import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import UserProfile from '@/components/ui/profile/user-profile';
 import { getDictionary } from '@/get-dictionary';

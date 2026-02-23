@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import { useDictionary } from '@/hooks/useDictionary';
 
 export default function Footer() {

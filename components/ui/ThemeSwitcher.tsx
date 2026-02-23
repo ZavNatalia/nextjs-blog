@@ -1,8 +1,9 @@
 'use client';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { useTheme } from 'next-themes';
-import { useDictionary } from '@/hooks/useDictionary';
 import { useEffect, useState } from 'react';
+
+import { useDictionary } from '@/hooks/useDictionary';
 
 export default function ThemeSwitcher() {
     const [isLoading, setIsLoading] = useState(true);

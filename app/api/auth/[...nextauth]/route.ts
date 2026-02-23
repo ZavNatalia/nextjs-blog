@@ -1,9 +1,14 @@
 import NextAuth, { DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import clientPromise from '@/lib/db';
-import { verifyPassword } from '@/lib/auth';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
+
+import { verifyPassword } from '@/lib/auth';
+import clientPromise from '@/lib/db';
+import { rateLimit } from '@/lib/rate-limit';
+import { IUser } from '@/lib/types/mongodb';
+
+const loginLimiter = rateLimit({ maxRequests: 10, windowMs: 60 * 1000 });
 
 declare module 'next-auth/jwt' {
     interface JWT {
@@ -33,7 +38,20 @@ const handler = NextAuth({
                 },
                 password: { label: 'Password', type: 'password' },
             },
-            async authorize(credentials) {
+            async authorize(credentials, req) {
+                const forwarded =
+                    req?.headers?.['x-forwarded-for']?.toString() ?? '';
+                const ip = forwarded
+                    ? forwarded.split(',')[0].trim()
+                    : 'unknown';
+
+                const { success } = loginLimiter.check(ip);
+                if (!success) {
+                    throw new Error(
+                        'Too many login attempts. Please try again later.',
+                    );
+                }
+
                 if (
                     !credentials ||
                     !credentials.email ||
@@ -43,7 +61,7 @@ const handler = NextAuth({
                 }
 
                 const client = await clientPromise;
-                const usersCollection = client.db().collection('users');
+                const usersCollection = client.db().collection<IUser>('users');
                 const user = await usersCollection.findOne({
                     email: credentials.email,
                 });

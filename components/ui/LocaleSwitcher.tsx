@@ -1,8 +1,9 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { i18n } from '@/i18n-config';
+
 import { useDictionary } from '@/hooks/useDictionary';
+import { i18n } from '@/i18n-config';
 
 const locales: string[] = [...i18n.locales];
 

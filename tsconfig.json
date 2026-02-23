@@ -29,7 +29,8 @@
         "./*"
       ]
     },
-    "target": "ES2022"
+    "target": "ES2022",
+    "types": ["vitest/globals"]
   },
   "include": [
     "next-env.d.ts",
