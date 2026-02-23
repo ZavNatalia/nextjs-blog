@@ -5,10 +5,14 @@ export default function PostHeader({
     title,
     date,
     imagePath,
+    readingTime,
+    readingTimeLabel,
 }: {
     title: string;
     date: string;
     imagePath: string;
+    readingTime?: number;
+    readingTimeLabel?: string;
 }) {
     const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -29,6 +33,12 @@ export default function PostHeader({
                 </h1>
                 <span className="text-secondary text-base md:text-lg">
                     {formattedDate}
+                    {readingTime && readingTimeLabel && (
+                        <span>
+                            {' '}
+                            · {readingTime} {readingTimeLabel}
+                        </span>
+                    )}
                 </span>
             </div>
             <div className="relative h-[200px] w-[200px] flex-shrink-0 self-center md:h-[260px] md:w-[260px]">

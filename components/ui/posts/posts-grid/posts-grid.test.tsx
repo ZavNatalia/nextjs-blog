@@ -39,7 +39,7 @@ const mockPosts: IPost[] = [
     },
 ];
 
-const mockDictionary = { readMore: 'Read More' };
+const mockDictionary = { readMore: 'Read More', minRead: 'min read' };
 
 describe('PostsGrid', () => {
     it('renders all posts', () => {
