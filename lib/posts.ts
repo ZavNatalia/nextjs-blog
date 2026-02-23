@@ -4,6 +4,7 @@ import path from 'path';
 
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import { Locale } from '@/i18n-config';
+import { calculateReadingTime } from '@/lib/reading-time';
 
 const postsDirectory = (lang: Locale) =>
     path.join(process.cwd(), `data/posts/${lang}`);
@@ -27,6 +28,7 @@ export async function getPostData(
             slug: postSlug,
             ...data,
             content,
+            readingTime: calculateReadingTime(content),
         } as IPost;
     } catch (error) {
         console.error(`Error reading file ${filePath}:`, error);

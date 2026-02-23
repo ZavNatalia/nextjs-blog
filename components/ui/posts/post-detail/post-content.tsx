@@ -29,7 +29,7 @@ export default function PostContent({
     post: IPost;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['posts-page'];
 }) {
-    const { title, date, slug, image, content } = post;
+    const { title, date, slug, image, content, readingTime } = post;
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
     const { resolvedTheme } = useTheme();
     const imagePath = `/images/posts/${slug}/${image}`;
@@ -155,7 +155,13 @@ export default function PostContent({
 
     return (
         <article className="mx-auto w-full rounded-3xl p-3 md:p-4 lg:max-w-7xl lg:p-10">
-            <PostHeader title={title} date={date} imagePath={imagePath} />
+            <PostHeader
+                title={title}
+                date={date}
+                imagePath={imagePath}
+                readingTime={readingTime}
+                readingTimeLabel={dictionary.minRead}
+            />
             <div className="markdown-content prose-lg dark:prose-invert lg:prose-xl">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}

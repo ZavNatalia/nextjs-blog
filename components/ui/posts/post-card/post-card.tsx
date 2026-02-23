@@ -12,6 +12,7 @@ export interface IPost {
     excerpt: string;
     content?: string;
     isFeatured: boolean;
+    readingTime?: number;
 }
 
 export default function PostCard({
@@ -20,10 +21,10 @@ export default function PostCard({
     lang,
 }: {
     post: IPost;
-    dictionary: { readMore: string };
+    dictionary: { readMore: string; minRead?: string };
     lang: Locale;
 }) {
-    const { title, date, excerpt, slug } = post;
+    const { title, date, excerpt, slug, readingTime } = post;
 
     const formattedDate = new Date(date).toLocaleDateString(getLocale(lang), {
         day: 'numeric',
@@ -39,7 +40,7 @@ export default function PostCard({
                 <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
-                <time className="text-secondary whitespace-nowrap text-base">
+                <time className="text-secondary shrink-0 whitespace-nowrap text-base">
                     {formattedDate}
                 </time>
             </div>
@@ -47,14 +48,23 @@ export default function PostCard({
                 <p className="line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-base text-foreground lg:line-clamp-5 lg:max-h-[8rem]">
                     {excerpt}
                 </p>
-                <Link
-                    href={linkPath}
-                    title={`${dictionary.readMore} - ${post.title}`}
-                    aria-label={`${dictionary.readMore} - ${post.title}`}
-                    className="button button-ghost button-sm self-end font-medium"
-                >
-                    {dictionary.readMore}
-                </Link>
+                <div className="flex items-center justify-between">
+                    {readingTime && dictionary.minRead ? (
+                        <span className="text-secondary text-sm">
+                            {readingTime} {dictionary.minRead}
+                        </span>
+                    ) : (
+                        <span />
+                    )}
+                    <Link
+                        href={linkPath}
+                        title={`${dictionary.readMore} - ${post.title}`}
+                        aria-label={`${dictionary.readMore} - ${post.title}`}
+                        className="button button-ghost button-sm font-medium"
+                    >
+                        {dictionary.readMore}
+                    </Link>
+                </div>
             </div>
         </li>
     );

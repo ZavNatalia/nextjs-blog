@@ -14,7 +14,8 @@
         "cancel": "Cancel",
         "githubAccount": "Github account",
         "showPassword": "Show password",
-        "hidePassword": "Hide password"
+        "hidePassword": "Hide password",
+        "minRead": "min read"
     },
     "privacy-policy-page": {
         "main": "Main",
@@ -122,7 +123,10 @@
         "pageDescription": "A list of all programming-related tutorials and posts",
         "goToAllPosts": "Go to all posts",
         "noPosts": "We haven’t published anything yet — stay tuned!",
-        "copyCode": "Copy code"
+        "copyCode": "Copy code",
+        "minRead": "min read",
+        "searchPlaceholder": "Search posts...",
+        "noSearchResults": "No posts found matching your search."
     },
     "contact-page": {
         "main": "main",
