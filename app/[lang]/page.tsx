@@ -15,7 +15,7 @@ export default async function HomePage(props: {
 
     return (
         <main className="page">
-            <HeroCard dictionary={dictionary} />
+            <HeroCard dictionary={dictionary} lang={lang} />
             <Suspense fallback={<LatestNewsSkeleton />}>
                 <LatestNews lang={lang} />
             </Suspense>
