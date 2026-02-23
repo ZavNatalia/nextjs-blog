@@ -1,11 +1,13 @@
 import './globals.css';
-import { ReactNode } from 'react';
-import { i18n, type Locale } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
-import { getServerSession } from 'next-auth';
-import { Providers } from './providers';
 
 import localFont from 'next/font/local';
+import { getServerSession } from 'next-auth';
+import { ReactNode } from 'react';
+
+import { getDictionary } from '@/get-dictionary';
+import { i18n, type Locale } from '@/i18n-config';
+
+import { Providers } from './providers';
 
 export const openSans = localFont({
     src: [

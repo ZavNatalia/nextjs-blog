@@ -1,7 +1,8 @@
 'use client';
-import { Locale } from '@/i18n-config';
-import { getLocale } from '@/components/utils/getLocale';
 import Link from 'next/link';
+
+import { getLocale } from '@/components/utils/getLocale';
+import { Locale } from '@/i18n-config';
 
 export interface IPost {
     slug: string;

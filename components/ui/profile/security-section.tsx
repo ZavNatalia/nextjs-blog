@@ -1,5 +1,6 @@
-import ChangePasswordForm from '@/components/ui/profile/change-password-form';
 import Link from 'next/link';
+
+import ChangePasswordForm from '@/components/ui/profile/change-password-form';
 
 export function SecuritySection({
     dictionary,

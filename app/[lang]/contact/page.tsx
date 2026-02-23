@@ -1,9 +1,10 @@
-import ContactForm from '@/components/ui/contact/contact-form';
-import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';
-import { Locale } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
 import { getServerSession } from 'next-auth';
+
+import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
+import ContactForm from '@/components/ui/contact/contact-form';
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;

@@ -1,8 +1,9 @@
-import { getLatestNews } from '@/lib/news';
+import Script from 'next/script';
+
+import BackToTopButton from '@/components/ui/BackToTopButton';
 import NewsList from '@/components/ui/news/news-list/news-list';
 import { Locale } from '@/i18n-config';
-import BackToTopButton from '@/components/ui/BackToTopButton';
-import Script from 'next/script';
+import { getLatestNews } from '@/lib/news';
 
 export const revalidate = 3600;
 export const dynamic = 'force-static';

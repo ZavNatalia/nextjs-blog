@@ -1,36 +1,54 @@
 import { Db } from 'mongodb';
 import { NextRequest } from 'next/server';
-import clientPromise from '@/lib/db';
 
-export interface IMessage {
-    email: string;
-    name: string;
-    message: string;
-    id?: string;
-}
-function validateMessage(message: Partial<IMessage>): string | null {
-    if (!message.email || !message.email.includes('@')) {
-        return 'Invalid email address.';
-    }
-    if (!message.name || message.name.trim() === '') {
-        return 'Name is required.';
-    }
-    if (!message.message || message.message.trim() === '') {
-        return 'Message is required.';
-    }
-    return null;
-}
+import clientPromise from '@/lib/db';
+import { getClientIp,rateLimit } from '@/lib/rate-limit';
+import { IMessage } from '@/lib/types/mongodb';
+import { contactSchema } from '@/lib/validations';
+
+const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
 
 async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
-    const collection = db.collection('messages');
+    const collection = db.collection<IMessage>('messages');
     const result = await collection.insertOne(message);
-    return { ...message, id: result.insertedId.toString() };
+    return { ...message, _id: result.insertedId };
 }
 
 export async function POST(req: NextRequest) {
+    const ip = getClientIp(req);
+    const { success, retryAfterMs } = limiter.check(ip);
+
+    if (!success) {
+        return new Response(
+            JSON.stringify({
+                error: 'Too many requests. Please try again later.',
+            }),
+            {
+                status: 429,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Retry-After': String(Math.ceil(retryAfterMs / 1000)),
+                },
+            },
+        );
+    }
+
     try {
-        const { token, ...body }: IMessage & { token: string } =
-            await req.json();
+        const rawBody = await req.json();
+        const result = contactSchema.safeParse(rawBody);
+
+        if (!result.success) {
+            return new Response(
+                JSON.stringify({ error: result.error.issues[0].message }),
+                {
+                    status: 400,
+                    headers: { 'Content-Type': 'application/json' },
+                },
+            );
+        }
+
+        const { token, ...body } = result.data;
+
         const secretKey = process.env.TURNSTILE_SECRET_KEY;
         const verifyRes = await fetch(
             'https://challenges.cloudflare.com/turnstile/v0/siteverify',
@@ -58,18 +76,10 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const validationError = validateMessage(body);
-        if (validationError) {
-            return new Response(JSON.stringify({ error: validationError }), {
-                status: 400,
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
-
         const client = await clientPromise;
         const db = client.db();
 
-        const newMessage = await insertMessage(db, body);
+        const newMessage = await insertMessage(db, body as IMessage);
 
         return new Response(
             JSON.stringify({

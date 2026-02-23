@@ -1,14 +1,15 @@
 'use client';
-import { useState } from 'react';
 import {
-    UserIcon,
-    LockClosedIcon,
     ExclamationTriangleIcon,
+    LockClosedIcon,
+    UserIcon,
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
+import { useState } from 'react';
+
 import { AccountSection } from '@/components/ui/profile/account-section';
-import { SecuritySection } from '@/components/ui/profile/security-section';
 import { DangerZoneSection } from '@/components/ui/profile/danger-zone-section';
+import { SecuritySection } from '@/components/ui/profile/security-section';
 import { getDictionary } from '@/get-dictionary';
 
 type SectionLabel = 'yourAccount' | 'security' | 'dangerZone';

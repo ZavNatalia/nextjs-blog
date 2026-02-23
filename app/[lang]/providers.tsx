@@ -1,8 +1,9 @@
-import { TranslationProvider } from '@/hooks/useDictionary';
-import type { Dictionary } from '@/hooks/useDictionary';
-import RootClientLayout from '@/components/ui/RootClientLayout';
-import { ThemeProvider } from 'next-themes';
 import { Session } from 'next-auth';
+import { ThemeProvider } from 'next-themes';
+
+import RootClientLayout from '@/components/ui/RootClientLayout';
+import type { Dictionary } from '@/hooks/useDictionary';
+import { TranslationProvider } from '@/hooks/useDictionary';
 
 export function Providers({
     dictionary,

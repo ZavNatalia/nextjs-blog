@@ -1,9 +1,10 @@
-import React from 'react';
-import { INews } from '@/lib/news';
-import { Locale } from '@/i18n-config';
-import NewsItemHeader from '@/components/ui/news/news-list/news-item-header';
-import ReactMarkdown, { Components } from 'react-markdown';
 import Image from 'next/image';
+import React from 'react';
+import ReactMarkdown, { Components } from 'react-markdown';
+
+import NewsItemHeader from '@/components/ui/news/news-list/news-item-header';
+import { Locale } from '@/i18n-config';
+import { INews } from '@/lib/news';
 
 export default function NewsList({
     newsList,

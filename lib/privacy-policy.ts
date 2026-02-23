@@ -1,7 +1,8 @@
 import fs from 'fs';
-import { Locale } from '@/i18n-config';
-import path from 'path';
 import matter from 'gray-matter';
+import path from 'path';
+
+import { Locale } from '@/i18n-config';
 
 export interface IPrivacyPolicy {
     title: string;

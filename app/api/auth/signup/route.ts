@@ -1,19 +1,38 @@
-import clientPromise from '@/lib/db';
-import { hashPassword } from '@/lib/auth';
 import { NextRequest } from 'next/server';
 
-export async function POST(request: NextRequest) {
-    const data = await request.json();
-    const { email, password } = data;
+import { hashPassword } from '@/lib/auth';
+import clientPromise from '@/lib/db';
+import { getClientIp,rateLimit } from '@/lib/rate-limit';
+import { IUser } from '@/lib/types/mongodb';
+import { signupSchema } from '@/lib/validations';
 
-    if (
-        !email ||
-        !email.includes('@') ||
-        !password ||
-        password.trim().length < 7
-    ) {
+const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
+
+export async function POST(request: NextRequest) {
+    const ip = getClientIp(request);
+    const { success, retryAfterMs } = limiter.check(ip);
+
+    if (!success) {
         return new Response(
-            JSON.stringify({ error: 'Invalid email or password.' }),
+            JSON.stringify({
+                error: 'Too many requests. Please try again later.',
+            }),
+            {
+                status: 429,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Retry-After': String(Math.ceil(retryAfterMs / 1000)),
+                },
+            },
+        );
+    }
+
+    const data = await request.json();
+    const result = signupSchema.safeParse(data);
+
+    if (!result.success) {
+        return new Response(
+            JSON.stringify({ error: result.error.issues[0].message }),
             {
                 status: 422,
                 headers: { 'Content-Type': 'application/json' },
@@ -21,10 +40,12 @@ export async function POST(request: NextRequest) {
         );
     }
 
+    const { email, password } = result.data;
+
     try {
         const client = await clientPromise;
         const db = client.db();
-        const collection = db.collection('users');
+        const collection = db.collection<IUser>('users');
 
         const existingUser = await collection.findOne({ email });
         if (existingUser) {

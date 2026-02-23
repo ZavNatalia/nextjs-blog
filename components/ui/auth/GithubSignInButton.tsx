@@ -1,6 +1,7 @@
 'use client';
-import type { getDictionary } from '@/get-dictionary';
 import { signIn } from 'next-auth/react';
+
+import type { getDictionary } from '@/get-dictionary';
 export default function GithubSignInButton({
     dictionary,
 }: {
