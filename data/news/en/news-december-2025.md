@@ -11,16 +11,16 @@ isLatest: true
 **Dates:** December 3-11, 2025  
 **Links:** [React Advisory](https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components) | [Next.js Security Update](https://nextjs.org/blog/security-update-2025-12-11) | [CVE Details](https://thehackernews.com/2025/12/critical-rsc-bugs-in-react-and-nextjs.html)
 
-**A series of critical vulnerabilities with CVSS 10.0 rating** discovered in React Server Components:
+**A series of critical vulnerabilities** discovered in React Server Components:
 
-- **CVE-2025-55182** – Remote Code Execution via RSC payload deserialization, allowing arbitrary JavaScript execution on the server without authentication
-- **CVE-2025-55184 / CVE-2025-67779** – Denial of Service through infinite loop during deserialization
-- **CVE-2025-55183** – Server Actions source code exposure
+- **CVE-2025-55182** (CVSS 10.0) – Remote Code Execution via RSC payload deserialization, allowing arbitrary JavaScript execution on the server without authentication
+- **CVE-2025-55184 / CVE-2025-67779** (CVSS 7.5) – Denial of Service through infinite loop during deserialization
+- **CVE-2025-55183** (CVSS 5.3) – Server Actions source code exposure
 
 **Affected versions:**
 
-- React: 19.0.0 - 19.2.2 (patches: 19.0.3, 19.1.4, 19.2.3)
-- Next.js: 13.x, 14.x, 15.x, 16.x (patches: 16.0.7, 15.5.7 and others)
+- React: 19.0.0 - 19.2.2 (patches: 19.0.4, 19.1.5, 19.2.4)
+- Next.js: 13.x, 14.x, 15.x, 16.x (patches: 16.0.10, 15.5.9 and others)
 - Entire RSC ecosystem: Vite, Parcel, React Router, RedwoodJS, Waku
 
 **Attack scale:**  
@@ -47,7 +47,7 @@ Next.js 16 introduces fundamental architectural changes:
 **Turbopack (stable):**
 
 - Default bundler with **5-10x** faster Fast Refresh and **2-5x** faster builds
-- **16.1:** File System Caching is stable – dev server restart **up to 14x faster** (react.dev: 3.7s → 380ms)
+- **16.1:** File System Caching is stable for `next dev` – dev server restart **up to 14x faster** on large projects (react.dev: 3.7s → 380ms, ~10x)
 - Bundle Analyzer (experimental) – interactive tool for bundle optimization with import tracing
 
 **Architectural changes:**
@@ -90,7 +90,7 @@ function getUrlObject(urlString: string): URL {
 - Avoiding array allocations during path normalization
 - Faster watch mode and editor scenarios for large projects
 
-**TypeScript 5.9** (beta, release July 2025) will continue improvements to conditional types.
+**TypeScript 5.9** (GA release August 1, 2025) continued improvements to conditional types, added deferred imports (`import defer`) and `--module node20`.
 
 ---
 
@@ -100,7 +100,7 @@ function getUrlObject(urlString: string): URL {
 
 2025 brings revolutionary CSS capabilities that reduce JavaScript dependency:
 
-**Customizable Select (Chrome only - experimental):**
+**Customizable Select (stable in Chrome 135+):**
 
 ```css
 select,
@@ -128,7 +128,7 @@ Conditional property setting based on custom properties **on the same element** 
 <dialog id="myDialog">Hello!</dialog>
 ```
 
-Working with `<dialog>` and `<popover>` **without JavaScript** – browser handles interactions natively.
+Working with `<dialog>` and `<popover>` **without JavaScript** – browser handles interactions natively. Reached Baseline status: Chrome 135, Edge 135, Firefox 144, Safari 26.2.
 
 **`field-sizing: content`:**
 Automatic `<textarea>` growth to fit content without JavaScript – long-awaited feature.
@@ -154,14 +154,14 @@ Ability to create custom CSS functions – radical language expansion.
 
 React 19.2 – third release this year, focusing on refinement:
 
-**View Transitions API:**
-Native support for smooth UI state transitions with browser-level animations.
+**View Transitions API (canary/experimental):**
+Groundwork for native smooth UI state transitions. The `<ViewTransition />` component is only available in the canary channel and was not included in the stable 19.2 release.
 
 **`useEffectEvent()` (stable):**
 Separation of reactive logic from event logic – simplified event handling without unnecessary re-renders.
 
 **`<Activity/>` component:**
-New primitive for managing loading indicators and application activity.
+New primitive for hiding/showing UI while preserving state. Supports `visible` and `hidden` modes — in hidden mode the component is not displayed, effects are unmounted, and updates are deferred.
 
 **Owner Stack (dev-only, 19.1):**
 Helps trace where a component was rendered from – critical for debugging complex trees.
@@ -170,7 +170,7 @@ Helps trace where a component was rendered from – critical for debugging compl
 
 - Server Components (stable)
 - Actions + `useActionState`, `useFormStatus`, `useOptimistic`
-- React Compiler (stable) – automatic memoization
+- React Compiler (beta) – automatic memoization (stable 1.0 released October 7, 2025)
 - `ref` as prop for function components (without `forwardRef`)
 
 **Critical note:** The ecosystem is transitioning with challenges due to breaking changes in async `params` (Next.js 15), but performance gains justify the migration.
