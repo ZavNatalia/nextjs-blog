@@ -1,6 +1,6 @@
 ---
 title: 'Debugging in Next.js'
-date: '2025-03-03'
+date: '2026-02-23'
 image: 'debugging-next-js.webp'
 excerpt: 'Debugging Code in Next.js involves console logs, developer tools, API debugging, performance profiling, and error analysis.'
 isFeatured: false
@@ -22,6 +22,20 @@ export default async function Page() {
 ```
 
 The log will appear **in the terminal** when running `next dev` or `next start`.
+
+> **Tip:** You can enable detailed fetch request logging in dev mode via `next.config.ts` to see every server-side fetch with its URL and cache status:
+>
+> ```js
+> // next.config.ts
+> const nextConfig = {
+>     logging: {
+>         fetches: {
+>             fullUrl: true,
+>             hmrRefreshes: true,
+>         },
+>     },
+> };
+> ```
 
 #### **In Client Components**
 
@@ -71,34 +85,43 @@ If something is wrong in your code, you can **pause execution and analyze values
 
 #### **In Server Code**
 
-If you are using **VS Code**, you can **set a breakpoint**:
+In Next.js 15+, you can start the dev server with the **built-in `--inspect` flag**:
 
-1. **Open the file in VS Code**.
-2. **Click to the left of the code line** — a red dot will appear.
-3. **Run Next.js with debugging mode**:
+```sh
+pnpm dev --inspect
+```
 
-    ```sh
-    node --inspect-brk .next/standalone/server.js
-    ```
+You'll see this in the terminal:
 
-4. In **VS Code → Run & Debug → Attach to Node.js Process**.
+```
+Debugger listening on ws://127.0.0.1:9229/...
+```
 
-Now the code **will stop before execution**, and you can analyze variables step by step.
+Then you can:
+
+1. **In VS Code** — open **Run & Debug → Attach to Node.js Process** and select the Next.js process.
+2. **In Chrome** — open `chrome://inspect` and click **inspect** on the target process.
+3. **In the error overlay** — when a server error occurs, the overlay shows a **Node.js icon**. Click it to copy the DevTools URL to the clipboard.
+
+Now you can **set breakpoints** in server code and analyze variables step by step.
 
 ## **3. Debugging API Routes (_app/api/_)**
 
 If your API routes (`app/api/route.ts`) are not working, debug them as follows:
 
-#### **1. Logging `req` and `res`**
+#### **1. Logging the Request**
 
 ```js
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
-    console.log("🔎 API request received:", req);
-    return NextResponse.json({ message: "Hello from API" });
+    const url = new URL(req.url);
+    console.log('API request:', req.method, url.pathname, Object.fromEntries(url.searchParams));
+    return NextResponse.json({ message: 'Hello from API' });
 }
 ```
+
+> Don't log the entire `req` object — it's huge. Log only the fields you need: `url`, `method`, `headers`.
 
 Logs will appear **in the terminal** when running `next dev`.
 
@@ -120,7 +143,13 @@ or use **Postman** / **Insomnia**.
 2. Check what requests are being sent and **whether there are 404, 500 errors**.
 3. If an API request is slow, try:
     - Removing unnecessary requests.
-    - Caching data `fetch` with `{ cache: 'force-cache' }`
+    - Caching data — in Next.js 15, **fetch is not cached by default**, you need to opt in explicitly:
+      ```js
+      // Force caching
+      fetch(url, { cache: 'force-cache' });
+      // ISR with hourly revalidation
+      fetch(url, { next: { revalidate: 3600 } });
+      ```
 
 #### **2. Performance (Optimization)**
 
@@ -128,29 +157,69 @@ or use **Postman** / **Insomnia**.
 2. Reload the page.
 3. Check which components take the longest to load.
 
-## **5. Error Analysis (_error.tsx_, _console.error_)**
+## **5. Error Analysis (_error.tsx_, _global-error.tsx_)**
 
-If a **500 error page** appears in Next.js, you can create a global error handler:
+Next.js App Router provides two levels of error handling:
 
-#### **1. Global Error Page (`error.tsx`)**
+#### **1. Route Error Boundary (`error.tsx`)**
 
-```js
+An `error.tsx` file in a route folder catches errors from **child components** (but not from the layout at the same level):
+
+```tsx
 'use client';
 
-export default function GlobalError({ error }: { error: Error }) {
-    console.error("Error:", error);
+import { useEffect } from 'react';
+
+export default function Error({
+    error,
+    reset,
+}: {
+    error: Error & { digest?: string };
+    reset: () => void;
+}) {
+    useEffect(() => {
+        console.error('Error:', error);
+    }, [error]);
+
     return (
         <div>
-            <h1>Something went wrong!</h1>
+            <h2>Something went wrong!</h2>
             <p>{error.message}</p>
+            <button onClick={() => reset()}>Try again</button>
         </div>
     );
 }
 ```
 
-Now **all client-side errors** will be displayed on this page.
+- **`reset`** — re-renders the component without a full page reload.
+- **`error.digest`** — an auto-generated hash for matching with server logs (server errors don't expose details to the client for security reasons).
 
-#### **2. Handling API Errors**
+#### **2. Global Error Handler (`global-error.tsx`)**
+
+To catch errors in the **root layout**, you need `app/global-error.tsx`. It **must** define its own `<html>` and `<body>`:
+
+```tsx
+'use client';
+
+export default function GlobalError({
+    error,
+    reset,
+}: {
+    error: Error & { digest?: string };
+    reset: () => void;
+}) {
+    return (
+        <html>
+            <body>
+                <h2>Something went wrong!</h2>
+                <button onClick={() => reset()}>Try again</button>
+            </body>
+        </html>
+    );
+}
+```
+
+#### **3. Handling API Errors**
 
 ```js
 export async function GET() {
@@ -198,39 +267,111 @@ You can **debug Next.js in VS Code** by adding a configuration.
 
 #### **1. Open `.vscode/launch.json`**
 
-Add this configuration:
-
 ```json
 {
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Next.js: debug server-side",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "pnpm dev --inspect"
+        },
+        {
+            "name": "Next.js: debug client-side",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000"
+        },
+        {
+            "name": "Next.js: debug full stack",
             "type": "node",
             "request": "launch",
-            "name": "Debug Next.js",
-            "program": "${workspaceFolder}/node_modules/.bin/next",
-            "args": ["dev"],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
+            "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+            "runtimeArgs": ["--inspect"],
+            "skipFiles": ["<node_internals>/**"],
+            "serverReadyAction": {
+                "action": "debugWithChrome",
+                "killOnServerStop": true,
+                "pattern": "- Local:.+(https?://.+)",
+                "uriFormat": "%s",
+                "webRoot": "${workspaceFolder}"
+            }
         }
     ]
 }
 ```
 
+- **Server-side** — runs `pnpm dev --inspect` and attaches the debugger to the server process.
+- **Client-side** — opens Chrome with the debugger attached for client code.
+- **Full stack** — debugs both server and client code simultaneously. `serverReadyAction` automatically opens the browser when the server is ready.
+
 #### **2. Start Debugging**
 
-1. **In VS Code → Run & Debug → Debug Next.js**
-2. Now you can set **breakpoints** in the code!
+1. **In VS Code → Run & Debug → choose the configuration you need**.
+2. Now you can set **breakpoints** in both server and client code!
+
+## **8. Server Instrumentation (`instrumentation.ts`)**
+
+The `instrumentation.ts` file in the project root allows you to set up server-side instrumentation — error tracking, performance monitoring, and logging.
+
+#### **Tracking All Server Errors**
+
+The `onRequestError` function catches errors in Server Components, Route Handlers, Server Actions, and Middleware:
+
+```ts
+import type { Instrumentation } from 'next';
+
+export const onRequestError: Instrumentation.onRequestError = async (
+    err,
+    request,
+    context,
+) => {
+    console.error(`[${context.routeType}] ${request.method} ${request.path}:`, err.message);
+
+    // You can send to an external monitoring service (Sentry, Datadog, etc.)
+    await fetch('https://your-error-tracker.com/api/errors', {
+        method: 'POST',
+        body: JSON.stringify({
+            message: err.message,
+            path: request.path,
+            routeType: context.routeType,
+        }),
+    });
+};
+```
+
+#### **Initialization on Server Start**
+
+The `register` function is called once when the server instance starts:
+
+```ts
+export function register() {
+    console.log('Next.js server started');
+    // Initialize OpenTelemetry, monitoring SDK, etc.
+}
+```
+
+> This is a stable API since Next.js 15 — the `experimental.instrumentationHook` option is no longer needed.
 
 ---
 
 ## **Conclusion: Full Next.js Debugging Checklist**
 
-✅ **Logs (`console.log`, `console.error`)** — Basic debugging.  
-✅ **`debugger` and VS Code Debugger** — Stop execution for analysis.  
-✅ **Inspecting API (`curl`, Postman, Network tab)** — Debug API responses.  
-✅ **Streaming Debugging (`typeof window`, `console.log`)** — Identify where the code runs.  
-✅ **Error Handling (`error.tsx`, `try/catch`)** — Prevent crashes.  
-✅ **Performance Debugging (_DevTools → Performance_)** — Improve rendering speed.
+- **Logs (`console.log`, `console.error`)** — Basic debugging, enhanced with the `logging` config in `next.config.ts`.
+
+- **`debugger` and `pnpm dev --inspect`** — Pause code and step through on both server and client.
+
+- **VS Code Debugger** — Full stack debugging with breakpoints via `launch.json`.
+
+- **Inspecting API (`curl`, Postman, Network tab)** — Debug API responses.
+
+- **Environment detection (`typeof window`, `console.log`)** — Identify where the code runs.
+
+- **Error Handling (`error.tsx`, `global-error.tsx`)** — Catch and recover without full page reloads.
+
+- **Instrumentation (`instrumentation.ts`)** — Track server errors and integrate with monitoring.
+
+- **Performance Debugging (_DevTools → Performance_)** — Improve rendering speed.
 
 Now you can **quickly find and fix errors in Next.js!**
