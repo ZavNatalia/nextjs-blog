@@ -7,16 +7,16 @@ export default function Footer() {
     const dictionary = useDictionary()?.['common'];
 
     return (
-        <div className="bg-primary flex w-full items-center justify-center gap-2 p-3">
-            <p className="text-secondary text-base">
-                © {currentYear} Next.js Craft
+        <div className="flex w-full items-center justify-center gap-2 bg-primary p-3">
+            <p className="text-base text-secondary">
+                © {currentYear} {dictionary.blogTitle}
             </p>
             <Link
                 href="https://github.com/ZavNatalia"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={dictionary.githubAccount}
-                className="link text-secondary hover:text-accent flex items-center gap-2"
+                className="link flex items-center gap-2 text-secondary hover:text-accent"
             >
                 <svg
                     className="h-6 w-6"
