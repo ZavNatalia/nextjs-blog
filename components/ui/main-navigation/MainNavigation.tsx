@@ -37,7 +37,7 @@ export default function MainNavigation() {
                 open ? 'bg-tertiary' : 'bg-secondary',
             )}
         >
-            <div className="mx-auto grid max-w-[90rem] grid-cols-[1fr_auto] items-center px-4 py-2 md:grid-cols-[200px_1fr_200px] md:py-4">
+            <div className="mx-auto grid max-w-360 grid-cols-[1fr_auto] items-center px-4 py-2 md:grid-cols-[250px_1fr_250px] md:py-4">
                 <Logo title={dict.home} />
 
                 <nav className="hidden justify-self-center md:block">
@@ -59,7 +59,7 @@ export default function MainNavigation() {
 
             {/* Mobile menu drawer */}
             {open && (
-                <nav className="bg-tertiary absolute inset-x-0 top-full z-20 border-t border-border-700 shadow-lg md:hidden">
+                <nav className="absolute inset-x-0 top-full z-20 border-t border-border-700 bg-tertiary shadow-lg md:hidden">
                     <NavigationList {...listProps} onClick={close} />
                     <div className="flex justify-center border-t border-border-700 p-4">
                         <NavigationControls isMobile />
