@@ -19,14 +19,14 @@ test.describe('Homepage (EN)', () => {
             page.getByRole('heading', { name: 'Featured Posts' }),
         ).toBeVisible();
         await expect(
-            page.getByRole('link', { name: 'All posts' }),
+            page.getByRole('link', { name: 'All posts', exact: true }),
         ).toBeVisible();
     });
 
     test('navigates to posts page via "All posts" link', async ({ page }) => {
         await page.goto('/en');
 
-        await page.getByRole('link', { name: 'All posts' }).click();
+        await page.getByRole('link', { name: 'All posts', exact: true }).click();
 
         await expect(page).toHaveURL(/\/en\/posts$/);
     });
