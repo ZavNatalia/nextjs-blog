@@ -38,17 +38,17 @@ export default async function BlogPost({
 
 ### What does `dynamic = 'force-static'` mean?
 
-This directive **forces** the page to be static. If Next.js detects anything requiring dynamic rendering during page rendering (such as `cookies()`, `headers()`, `fetch(..., { cache: 'no-store' })`, or dynamic parameters without `generateStaticParams()`), it will throw an error at build time.
+This directive **forces** the page to be static. If a component uses dynamic APIs (`cookies()`, `headers()`, `searchParams`), Next.js **won't throw an error** — instead, it silently provides **empty values**: `cookies()` returns an empty object, `headers()` returns empty headers, and `searchParams` returns `{}`.
 
 ### Why is this needed?
 
 - Guarantees the page is fully static (SSG)
 - Excellent for SEO and maximum loading speed
-- Helps identify unexpected dynamic dependencies during development
+- Allows components with dynamic APIs to work in a static context (they receive empty values)
 
 ### Alternative: `dynamic = 'error'`
 
-The `'error'` mode also blocks dynamic rendering but throws an error on any attempt to use dynamic functions. Use `'force-static'` for explicit static generation.
+The `'error'` mode also makes the page static, but **throws an error** when any dynamic APIs or uncached data are detected. This is the strict mode: if you accidentally use `cookies()` or `headers()`, the build will fail. Use `'error'` when you want to guarantee the absence of dynamic dependencies.
 
 ## 2. Server-Side Rendering (SSR)
 
@@ -76,8 +76,11 @@ Next.js automatically applies dynamic rendering if the component uses:
 
 - `cookies()` or `headers()`
 - `searchParams` (in Page or Layout)
+- `connection()` from `next/server` (replaces the deprecated `unstable_noStore()`)
+- `draftMode()`
 - `fetch()` with `{ cache: 'no-store' }` or `{ next: { revalidate: 0 } }`
-- `unstable_noStore()`
+
+> **Important:** In Next.js 15, `fetch()` is **not cached by default** (unlike Next.js 14, where the default was `force-cache`). This means you need to explicitly opt in to caching with `{ cache: 'force-cache' }` or `{ next: { revalidate: N } }`.
 
 However, you can set this mode explicitly with `export const dynamic = 'force-dynamic'`.
 
@@ -141,9 +144,10 @@ export async function updateNews() {
 ```js
 // app/news/page.tsx
 export default async function NewsPage() {
-    const news = await fetch('https://api.example.com/news', {
+    const res = await fetch('https://api.example.com/news', {
         next: { tags: ['news'] },
     });
+    const news = await res.json();
 
     return (
         <ul>
