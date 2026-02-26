@@ -28,6 +28,6 @@ describe('GithubSignInButton', () => {
     it('calls signIn with github on click', async () => {
         render(<GithubSignInButton dictionary={mockDictionary} />);
         await userEvent.click(screen.getByRole('button'));
-        expect(mockSignIn).toHaveBeenCalledWith('github');
+        expect(mockSignIn).toHaveBeenCalledWith('github', { callbackUrl: '/' });
     });
 });

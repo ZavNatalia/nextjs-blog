@@ -81,7 +81,7 @@ export default async function CommentsSection({
                         {dict.signInToComment}
                     </p>
                     <Link
-                        href={`/${lang}/auth`}
+                        href={`/${lang}/auth?callbackUrl=/${lang}/posts/${postSlug}`}
                         className="button button-solid button-md"
                     >
                         {dict.signIn}
