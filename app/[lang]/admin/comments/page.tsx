@@ -27,24 +27,47 @@ export default async function ModerationPage(props: {
     const { lang } = await props.params;
     const dictionary = (await getDictionary(lang as Locale))['moderation'];
 
-    const client = await clientPromise;
-    const db = client.db();
-    const comments = await db
-        .collection<IComment>('comments')
-        .find({})
-        .sort({ createdAt: -1 })
-        .toArray();
+    let serializedComments: {
+        _id: string;
+        postSlug: string;
+        authorEmail: string;
+        authorName: string;
+        content: string;
+        status: string;
+        createdAt: string;
+        updatedAt?: string;
+    }[] = [];
 
-    const serializedComments = comments.map((c) => ({
-        _id: c._id!.toString(),
-        postSlug: c.postSlug,
-        authorEmail: c.authorEmail,
-        authorName: c.authorName,
-        content: c.content,
-        status: c.status,
-        createdAt: c.createdAt.toISOString(),
-        updatedAt: c.updatedAt?.toISOString(),
-    }));
+    try {
+        const client = await Promise.race([
+            clientPromise,
+            new Promise<never>((_, reject) =>
+                setTimeout(
+                    () => reject(new Error('MongoDB timeout')),
+                    5000,
+                ),
+            ),
+        ]);
+        const db = client.db();
+        const comments = await db
+            .collection<IComment>('comments')
+            .find({})
+            .sort({ createdAt: -1 })
+            .toArray();
+
+        serializedComments = comments.map((c) => ({
+            _id: c._id!.toString(),
+            postSlug: c.postSlug,
+            authorEmail: c.authorEmail,
+            authorName: c.authorName,
+            content: c.content,
+            status: c.status,
+            createdAt: c.createdAt.toISOString(),
+            updatedAt: c.updatedAt?.toISOString(),
+        }));
+    } catch {
+        // MongoDB unavailable — render with empty list
+    }
 
     return (
         <main className="page">
