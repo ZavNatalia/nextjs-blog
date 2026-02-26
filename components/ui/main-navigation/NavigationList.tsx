@@ -88,6 +88,17 @@ export function NavigationList({
                     onClick={onClick}
                 />
             )}
+            {status === 'authenticated' &&
+                session?.user?.email ===
+                    process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                    <NavListItem
+                        key="/admin/comments"
+                        href="/admin/comments"
+                        title={dictionary['moderation']}
+                        normalizedPathname={normalizedPathname}
+                        onClick={onClick}
+                    />
+                )}
         </ul>
     );
 }

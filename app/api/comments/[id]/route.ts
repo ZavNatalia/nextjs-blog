@@ -176,7 +176,8 @@ export async function DELETE(
             );
         }
 
-        if (comment.authorEmail !== session.user.email) {
+        const isAdmin = session.user.email === process.env.ADMIN_EMAIL;
+        if (comment.authorEmail !== session.user.email && !isAdmin) {
             return new Response(
                 JSON.stringify({
                     error: 'Not authorized to delete this comment.',

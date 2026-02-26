@@ -27,9 +27,19 @@ export default async function CommentsSection({
 
     const client = await clientPromise;
     const db = client.db();
+    const userEmail = session?.user?.email;
+    const query = userEmail
+        ? {
+              postSlug,
+              $or: [
+                  { status: 'approved' as const },
+                  { status: 'pending' as const, authorEmail: userEmail },
+              ],
+          }
+        : { postSlug, status: 'approved' as const };
     const comments = await db
         .collection<IComment>('comments')
-        .find({ postSlug, status: 'approved' })
+        .find(query)
         .sort({ createdAt: -1 })
         .toArray();
 

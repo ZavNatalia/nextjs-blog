@@ -193,6 +193,33 @@ describe('DELETE /api/comments/[id]', () => {
         expect(data.error).toMatch(/not authorized/i);
     });
 
+    it('allows admin to delete any comment', async () => {
+        vi.mocked(getServerSession).mockResolvedValue({
+            user: { email: 'admin@example.com', name: 'Admin' },
+            expires: '',
+        });
+
+        mockFindOne.mockResolvedValue({
+            _id: '67bf1a2b3c4d5e6f78901234',
+            authorEmail: 'other@example.com',
+            content: 'Some comment',
+        });
+
+        mockDeleteOne.mockResolvedValue({ deletedCount: 1 });
+
+        process.env.ADMIN_EMAIL = 'admin@example.com';
+
+        const res = await DELETE(
+            makeDeleteRequest(),
+            makeParams('67bf1a2b3c4d5e6f78901234'),
+        );
+
+        expect(res.status).toBe(200);
+        expect(mockDeleteOne).toHaveBeenCalledOnce();
+
+        delete process.env.ADMIN_EMAIL;
+    });
+
     it('returns 200 on successful delete', async () => {
         vi.mocked(getServerSession).mockResolvedValue({
             user: { email: 'user@test.com' },
