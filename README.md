@@ -1,144 +1,75 @@
 # nextjs-blog
 
-`nextjs-blog` is a modern **Next.js** application designed for publishing posts and curating the latest trends and news in the frontend development ecosystem. Built with **TypeScript** and styled using **TailwindCSS**, this platform provides an elegant, fast, and responsive experience for developers and enthusiasts alike.
+The blog about frontend development — built with Next.js 16 and TypeScript.
+Two languages, Markdown-based content, dark theme, auth, and the things I find worth writing about.
 
----
-
-## Features
-
-- **Frontend News Hub**: Stay updated with the latest news and trends in frontend technologies like JavaScript, TypeScript, CSS, and HTML.
-- **Blog Posts**: Publish and explore detailed posts on various frontend topics, including frameworks, tools, and best practices.
-- **Markdown Support**: Write posts in Markdown with dynamic rendering via `react-markdown` and `react-syntax-highlighter`.
-- **Dynamic Data Fetching**: News and posts are powered by MongoDB, allowing for a dynamic and scalable backend.
-- **Modern UI/UX**: Responsive and clean design powered by TailwindCSS and enhanced by the `@tailwindcss/typography` plugin.
-- **High Performance**: Optimized using **Turbopack** and features like Incremental Static Regeneration (ISR).
-- **TypeScript Support**: Fully typed codebase for safer and scalable development.
-
----
+**Live:** [zav.me](https://zav.me)
 
 ## Tech Stack
 
-### Core Technologies:
+- **Next.js 16** (App Router, Turbopack, ISR)
+- **React 19**, **TypeScript 5.9**
+- **TailwindCSS 4** + `@tailwindcss/typography`
+- **MongoDB** (users, contact messages) + file-based content (Markdown)
+- **NextAuth** (GitHub, Google OAuth)
+- **Vitest** + React Testing Library + **Playwright** (E2E)
 
-- **Next.js 15.1.2**: Built on the latest version, with full integration of React 19 features like `useEvent` and `useOptimistic`.
-- **React 19**: Leveraging the experimental features of React 19 for better developer experience.
-- **TypeScript 5.6.2**: For a fully typed, maintainable codebase.
-- **TailwindCSS 3.4.13**: Modern utility-first CSS framework for rapid styling.
-- **MongoDB 6.9.0**: A scalable NoSQL database for storing posts and news.
+## What's Inside
 
-### Key Libraries:
+- Bilingual content (English / Russian) with automatic locale detection
+- Markdown posts with syntax highlighting, GFM tables, and code copy
+- Reading time estimation per post
+- Dark / light theme via `next-themes`
+- Auth: sign up, sign in (OAuth + credentials), password change, account deletion
+- Contact form protected by Cloudflare Turnstile CAPTCHA
+- Rate limiting on API routes
+- Zod schema validation for all API inputs
+- SEO: dynamic sitemap, robots.txt, OpenGraph, JSON-LD, hreflang
 
-- **@heroicons/react 2.1.5**: Beautiful and scalable icons for the UI.
-- **@tailwindcss/typography 0.5.15**: Enhanced typography for content-rich pages.
-- **gray-matter 4.0.3**: To parse frontmatter metadata in Markdown files.
-- **react-markdown 9.0.1**: For rendering Markdown posts dynamically.
-- **react-syntax-highlighter 15.5.0**: To add syntax highlighting for code snippets in blog posts.
-
-### Developer Tools:
-
-- **Turbopack**: A fast bundler for development builds, ensuring optimal performance.
-- **ESLint 8.57.1**: For maintaining a clean and consistent code style.
-- **Prettier 3.3.3 + Prettier Plugin for TailwindCSS 0.6.8**: For automatically formatting code, including Tailwind class sorting.
-- **PostCSS 8.4.47**: Configured to work seamlessly with TailwindCSS.
-
----
-
-## Installation and Setup
-
-### Prerequisites
-
-Make sure you have the following installed:
-
-- **Node.js**: >= 16.x
-- **pnpm**: Latest version
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/ZavNatalia/nextjs-blog.git
-cd nextjs-blog
-```
-
-### Install Dependencies
-
-Using `pnpm`:
+## Getting Started
 
 ```bash
 pnpm install
+pnpm dev        # http://localhost:3000
 ```
-
-### Run the Development Server
-
-```bash
-pnpm dev
-```
-
-Visit `http://localhost:3000` to view the application.
-
----
-
-## Project Structure
-
-```plaintext
-.
-├── .next/             # Build output directory (generated automatically)
-├── app/               # Next.js App Router (pages and layouts)
-├── components/        # Reusable UI components
-├── lib/               # Utility functions and helpers
-├── news/              # List of articles with news
-├── posts/             # List of articles with posts
-├── public/            # Static assets (images, favicons, etc.)
-```
-
----
 
 ## Scripts
 
-The project includes the following scripts:
+| Script               | Description                         |
+| -------------------- | ----------------------------------- |
+| `pnpm dev`           | Dev server (Turbopack)              |
+| `pnpm build`         | Production build                    |
+| `pnpm start`         | Production server                   |
+| `pnpm lint`          | ESLint                              |
+| `pnpm format`        | Prettier (with Tailwind class sort) |
+| `pnpm test`          | Unit tests (Vitest, watch mode)     |
+| `pnpm test:run`      | Unit tests (single run)             |
+| `pnpm test:coverage` | Coverage report                     |
+| `pnpm e2e`           | E2E tests (Playwright)              |
+| `pnpm e2e:ui`        | E2E with Playwright UI              |
+| `pnpm e2e:headed`    | E2E in headed browser               |
 
-| Script        | Description                           |
-| ------------- | ------------------------------------- |
-| `pnpm dev`    | Starts the development server         |
-| `pnpm build`  | Builds the application for production |
-| `pnpm export` | Exports the static version of the app |
-| `pnpm start`  | Starts the production server          |
-| `pnpm lint`   | Runs ESLint to check for code issues  |
-| `pnpm format` | Formats the code using Prettier       |
+## Project Structure
 
----
-
-## Styling and Theming
-
-This project uses **TailwindCSS** for styling. The configuration is extended using the `@tailwindcss/typography` plugin, which enhances the readability of content-rich pages like blogs.
-
-Example Tailwind utility for buttons:
-
-```css
-.button {
-    @apply focus-visible:ring-accent inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary;
-}
 ```
-
----
-
-## Future Enhancements
-
-- **Search Functionality**: Add a feature to search for posts and news.
-- **User Authentication**: Enable users to log in and submit their own posts.
-- **Commenting System**: Allow discussions on posts.
-- **Integration with APIs**: Dynamically fetch news and trends from external sources.
-- **Theming**: Add light and dark theme support.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## Acknowledgments
-
-- Thanks to the **Next.js**, **React**, **TailwindCSS**, and **TypeScript** communities for their incredible tools and support.
-
----
+app/
+  [lang]/             # Localized pages (posts, auth, contact, profile, privacy-policy)
+  api/                # Route handlers (auth, contact, user)
+  actions/            # Server actions (auth)
+  sitemap.ts          # Dynamic sitemap
+  robots.ts           # Robots config
+components/
+  ui/                 # UI components (posts, news, auth, contact, profile, navigation)
+  utils/              # Helpers (getLocale)
+data/
+  posts/{en,ru}/      # Markdown blog posts
+  news/{en,ru}/       # Markdown news digests
+dictionaries/         # Translation files (en.json, ru.json)
+hooks/                # Custom hooks (useDictionary, useTheme)
+lib/                  # Core logic (posts, news, auth, db, rate-limit, reading-time, validations)
+  types/              # Shared TypeScript interfaces
+privacy-policy/       # Privacy policy content (Markdown, per locale)
+public/images/        # Static assets
+e2e/                  # Playwright E2E tests
+test/                 # Test setup
+```
