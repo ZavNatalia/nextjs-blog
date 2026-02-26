@@ -38,12 +38,7 @@ export default async function CommentsSection({
     }[] = [];
 
     try {
-        const client = await Promise.race([
-            clientPromise,
-            new Promise<never>((_, reject) =>
-                setTimeout(() => reject(new Error('MongoDB timeout')), 5000),
-            ),
-        ]);
+        const client = await clientPromise;
         const db = client.db();
         const userEmail = session?.user?.email;
         const query = userEmail

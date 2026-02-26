@@ -37,9 +37,14 @@ export async function GET(req: NextRequest) {
             headers: { 'Content-Type': 'application/json' },
         });
     } catch (error) {
-        console.error('Error in GET handler:', error);
+        const message =
+            error instanceof Error ? error.message : 'Unknown error';
+        console.error('Error in GET /api/comments:', message);
         return new Response(
-            JSON.stringify({ error: 'An internal server error occurred.' }),
+            JSON.stringify({
+                error: 'Failed to load comments. Database may be temporarily unavailable.',
+                details: message,
+            }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },
@@ -120,9 +125,14 @@ export async function POST(req: NextRequest) {
             },
         );
     } catch (error) {
-        console.error('Error in POST handler:', error);
+        const message =
+            error instanceof Error ? error.message : 'Unknown error';
+        console.error('Error in POST /api/comments:', message);
         return new Response(
-            JSON.stringify({ error: 'An internal server error occurred.' }),
+            JSON.stringify({
+                error: 'Failed to create comment. Database may be temporarily unavailable.',
+                details: message,
+            }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },

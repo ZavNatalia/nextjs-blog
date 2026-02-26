@@ -111,9 +111,14 @@ export async function PATCH(
             },
         );
     } catch (error) {
-        console.error('Error updating comment:', error);
+        const message =
+            error instanceof Error ? error.message : 'Unknown error';
+        console.error('Error in PATCH /api/comments/[id]:', message);
         return new Response(
-            JSON.stringify({ error: 'An internal server error occurred.' }),
+            JSON.stringify({
+                error: 'Failed to update comment. Database may be temporarily unavailable.',
+                details: message,
+            }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },
@@ -199,9 +204,14 @@ export async function DELETE(
             },
         );
     } catch (error) {
-        console.error('Error deleting comment:', error);
+        const message =
+            error instanceof Error ? error.message : 'Unknown error';
+        console.error('Error in DELETE /api/comments/[id]:', message);
         return new Response(
-            JSON.stringify({ error: 'An internal server error occurred.' }),
+            JSON.stringify({
+                error: 'Failed to delete comment. Database may be temporarily unavailable.',
+                details: message,
+            }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },

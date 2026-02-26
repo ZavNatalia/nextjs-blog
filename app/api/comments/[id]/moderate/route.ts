@@ -79,9 +79,14 @@ export async function PATCH(
             },
         );
     } catch (error) {
-        console.error('Error in handler:', error);
+        const message =
+            error instanceof Error ? error.message : 'Unknown error';
+        console.error('Error in PATCH /api/comments/[id]/moderate:', message);
         return new Response(
-            JSON.stringify({ error: 'An internal server error occurred.' }),
+            JSON.stringify({
+                error: 'Failed to moderate comment. Database may be temporarily unavailable.',
+                details: message,
+            }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' },
