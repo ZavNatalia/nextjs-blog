@@ -23,7 +23,7 @@ export function AccountSection({
             <h2 className="text-xl font-semibold text-foreground">
                 {dictionary.yourAccount}
             </h2>
-            <p className="text-secondary mb-3 text-base">{userEmail}</p>
+            <p className="mb-3 text-base text-secondary">{userEmail}</p>
             <button
                 onClick={() => signOut()}
                 className="button button-ghost button-md group"

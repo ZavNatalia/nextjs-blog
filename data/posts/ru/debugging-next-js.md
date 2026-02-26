@@ -142,12 +142,12 @@ curl -X GET http://localhost:3000/api/route
 3. Если API медленный, попробуй:
     - Убрать ненужные запросы.
     - Кэшировать данные — в Next.js 15 **fetch не кешируется по умолчанию**, кеширование нужно включать явно:
-      ```js
-      // Принудительное кеширование
-      fetch(url, { cache: 'force-cache' });
-      // ISR с ревалидацией каждый час
-      fetch(url, { next: { revalidate: 3600 } });
-      ```
+        ```js
+        // Принудительное кеширование
+        fetch(url, { cache: 'force-cache' });
+        // ISR с ревалидацией каждый час
+        fetch(url, { next: { revalidate: 3600 } });
+        ```
 
 #### **2. Performance (Оптимизация)**
 
@@ -325,7 +325,10 @@ export const onRequestError: Instrumentation.onRequestError = async (
     request,
     context,
 ) => {
-    console.error(`[${context.routeType}] ${request.method} ${request.path}:`, err.message);
+    console.error(
+        `[${context.routeType}] ${request.method} ${request.path}:`,
+        err.message,
+    );
 
     // Можно отправить в внешний сервис мониторинга (Sentry, Datadog и т.д.)
     await fetch('https://your-error-tracker.com/api/errors', {

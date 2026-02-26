@@ -10,7 +10,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['contact-page'];
+    const dictionary = await getDictionary(lang)['contact-page'];
     return {
         title: dictionary.contactMe,
         description: dictionary.pageDescription,
@@ -21,7 +21,7 @@ export default async function ContactPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['contact-page'];
+    const dictionary = await getDictionary(lang)['contact-page'];
     const session = await getServerSession();
     const userEmail = session?.user?.email ?? '';
 
@@ -34,7 +34,7 @@ export default async function ContactPage(props: {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <ContactForm userEmail={userEmail} dictionary={dictionary} />
             <div className="mt-2 flex max-w-xl">
-                <p className="text-secondary text-justify">
+                <p className="text-justify text-secondary">
                     {dictionary.bySubmittingMessage}&nbsp;
                     <Link
                         title={dictionary.openPrivacyPolicyPage}

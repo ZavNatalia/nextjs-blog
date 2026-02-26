@@ -13,10 +13,7 @@ export default defineConfig({
                 test: {
                     name: 'node',
                     environment: 'node',
-                    include: [
-                        'lib/**/*.test.ts',
-                        'app/api/**/*.test.ts',
-                    ],
+                    include: ['lib/**/*.test.ts', 'app/api/**/*.test.ts'],
                 },
             },
             {

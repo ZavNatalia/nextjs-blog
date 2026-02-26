@@ -63,12 +63,18 @@ describe('MainNavigation', () => {
 
     it('renders mobile menu button', () => {
         render(<MainNavigation />);
-        expect(screen.getByRole('button', { name: 'Open menu' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Open menu' }),
+        ).toBeInTheDocument();
     });
 
     it('opens mobile menu on button click', async () => {
         render(<MainNavigation />);
-        await userEvent.click(screen.getByRole('button', { name: 'Open menu' }));
-        expect(screen.getByRole('button', { name: 'Close menu' })).toBeInTheDocument();
+        await userEvent.click(
+            screen.getByRole('button', { name: 'Open menu' }),
+        );
+        expect(
+            screen.getByRole('button', { name: 'Close menu' }),
+        ).toBeInTheDocument();
     });
 });

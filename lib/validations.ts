@@ -14,5 +14,26 @@ export const contactSchema = z.object({
 
 export const changePasswordSchema = z.object({
     oldPassword: z.string().min(1, 'Old password is required.'),
-    newPassword: z.string().min(7, 'New password must be at least 7 characters.'),
+    newPassword: z
+        .string()
+        .min(7, 'New password must be at least 7 characters.'),
+});
+
+export const commentSchema = z.object({
+    postSlug: z.string().min(1, 'Post slug is required.'),
+    content: z
+        .string()
+        .min(1, 'Comment is required.')
+        .max(1000, 'Comment must not exceed 1000 characters.'),
+});
+
+export const commentEditSchema = z.object({
+    content: z
+        .string()
+        .min(1, 'Comment is required.')
+        .max(1000, 'Comment must not exceed 1000 characters.'),
+});
+
+export const commentModerateSchema = z.object({
+    status: z.enum(['approved', 'rejected']),
 });

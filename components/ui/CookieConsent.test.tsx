@@ -63,7 +63,9 @@ describe('CookieConsent', () => {
             render(<CookieConsent />);
         });
         await userEvent.click(screen.getByText('Accept'));
-        expect(localStorage.getItem('cookieConsent-test@example.com')).toBe('accepted');
+        expect(localStorage.getItem('cookieConsent-test@example.com')).toBe(
+            'accepted',
+        );
         expect(screen.queryByText('We use cookies.')).not.toBeInTheDocument();
     });
 

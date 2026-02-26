@@ -144,12 +144,12 @@ or use **Postman** / **Insomnia**.
 3. If an API request is slow, try:
     - Removing unnecessary requests.
     - Caching data — in Next.js 15, **fetch is not cached by default**, you need to opt in explicitly:
-      ```js
-      // Force caching
-      fetch(url, { cache: 'force-cache' });
-      // ISR with hourly revalidation
-      fetch(url, { next: { revalidate: 3600 } });
-      ```
+        ```js
+        // Force caching
+        fetch(url, { cache: 'force-cache' });
+        // ISR with hourly revalidation
+        fetch(url, { next: { revalidate: 3600 } });
+        ```
 
 #### **2. Performance (Optimization)**
 
@@ -327,7 +327,10 @@ export const onRequestError: Instrumentation.onRequestError = async (
     request,
     context,
 ) => {
-    console.error(`[${context.routeType}] ${request.method} ${request.path}:`, err.message);
+    console.error(
+        `[${context.routeType}] ${request.method} ${request.path}:`,
+        err.message,
+    );
 
     // You can send to an external monitoring service (Sentry, Datadog, etc.)
     await fetch('https://your-error-tracker.com/api/errors', {

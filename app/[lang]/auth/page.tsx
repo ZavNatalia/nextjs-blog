@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['auth-page'];
+    const dictionary = await getDictionary(lang)['auth-page'];
     return {
         title: dictionary.signIn,
         description: dictionary.pageDescription,
@@ -43,7 +43,7 @@ export default async function AuthPage(props: {
             <div className="card">
                 <AuthForm dictionary={authDict} />
                 <hr className="my-4 border-t border-border-100" />
-                <p className="text-secondary text-center uppercase">
+                <p className="text-center text-secondary uppercase">
                     {authDict.or}
                 </p>
                 <div className="mt-3 flex flex-col items-center gap-3">

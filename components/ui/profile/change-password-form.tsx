@@ -48,17 +48,22 @@ export default function ChangePasswordForm({
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            const data = await response.json();
-            const errorMessage =
-                data.error === 'Old password is incorrect.'
-                    ? dictionary.oldPasswordIncorrect
-                    : data.error;
+            const data = await response.json().catch(() => null);
 
             if (!response.ok) {
+                const errorMessage =
+                    data?.error === 'Old password is incorrect.'
+                        ? dictionary.oldPasswordIncorrect
+                        : data?.error;
                 setErrors({
                     oldPassword: errorMessage || dictionary.somethingWentWrong,
                 });
-                throw new Error(errorMessage || dictionary.somethingWentWrong);
+                setNotificationData({
+                    title: dictionary.error,
+                    message: errorMessage || dictionary.failedChangePassword,
+                    status: 'error',
+                });
+                return;
             }
 
             setNotificationData({
@@ -70,13 +75,9 @@ export default function ChangePasswordForm({
             resetForm();
         } catch (error) {
             const message = error instanceof Error ? error.message : '';
-            const errorMessage =
-                message === 'Old password is incorrect.'
-                    ? dictionary.oldPasswordIncorrect
-                    : message;
             setNotificationData({
                 title: dictionary.error,
-                message: errorMessage || dictionary.failedChangePassword,
+                message: message || dictionary.failedChangePassword,
                 status: 'error',
             });
         } finally {
@@ -92,7 +93,7 @@ export default function ChangePasswordForm({
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
-                    <Form className="bg-primary flex w-full max-w-xs flex-col gap-4 rounded-xl px-5 py-6 shadow-md">
+                    <Form className="flex w-full max-w-xs flex-col gap-4 rounded-xl bg-primary px-5 py-6 shadow-md">
                         <div className="relative">
                             <label
                                 htmlFor="oldPassword"
@@ -117,7 +118,7 @@ export default function ChangePasswordForm({
                             <ErrorMessage
                                 name="oldPassword"
                                 component="p"
-                                className="text-error mt-2 text-base"
+                                className="mt-2 text-base text-error"
                             />
                         </div>
 
@@ -145,7 +146,7 @@ export default function ChangePasswordForm({
                             <ErrorMessage
                                 name="newPassword"
                                 component="p"
-                                className="text-error mt-2 text-base"
+                                className="mt-2 text-base text-error"
                             />
                         </div>
 

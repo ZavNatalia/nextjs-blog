@@ -53,7 +53,10 @@ describe('PATCH /api/user/change-password', () => {
     it('returns 401 when not authenticated', async () => {
         vi.mocked(getServerSession).mockResolvedValue(null);
         const res = await PATCH(
-            makeRequest({ oldPassword: 'oldpass123', newPassword: 'newpass123' }),
+            makeRequest({
+                oldPassword: 'oldpass123',
+                newPassword: 'newpass123',
+            }),
         );
         expect(res.status).toBe(401);
         const data = await res.json();
@@ -65,7 +68,9 @@ describe('PATCH /api/user/change-password', () => {
             user: { email: 'test@test.com' },
             expires: '',
         });
-        const res = await PATCH(makeRequest({ oldPassword: '', newPassword: 'newpass123' }));
+        const res = await PATCH(
+            makeRequest({ oldPassword: '', newPassword: 'newpass123' }),
+        );
         expect(res.status).toBe(422);
     });
 
@@ -74,7 +79,9 @@ describe('PATCH /api/user/change-password', () => {
             user: { email: 'test@test.com' },
             expires: '',
         });
-        const res = await PATCH(makeRequest({ oldPassword: 'oldpass123', newPassword: 'short' }));
+        const res = await PATCH(
+            makeRequest({ oldPassword: 'oldpass123', newPassword: 'short' }),
+        );
         expect(res.status).toBe(422);
     });
 
@@ -85,7 +92,10 @@ describe('PATCH /api/user/change-password', () => {
         });
         mockFindOne.mockResolvedValue(null);
         const res = await PATCH(
-            makeRequest({ oldPassword: 'oldpass123', newPassword: 'newpass123' }),
+            makeRequest({
+                oldPassword: 'oldpass123',
+                newPassword: 'newpass123',
+            }),
         );
         expect(res.status).toBe(404);
         const data = await res.json();
@@ -97,10 +107,16 @@ describe('PATCH /api/user/change-password', () => {
             user: { email: 'test@test.com' },
             expires: '',
         });
-        mockFindOne.mockResolvedValue({ email: 'test@test.com', password: 'hashed_old' });
+        mockFindOne.mockResolvedValue({
+            email: 'test@test.com',
+            password: 'hashed_old',
+        });
         vi.mocked(verifyPassword).mockResolvedValue(false);
         const res = await PATCH(
-            makeRequest({ oldPassword: 'wrongpass', newPassword: 'newpass123' }),
+            makeRequest({
+                oldPassword: 'wrongpass',
+                newPassword: 'newpass123',
+            }),
         );
         expect(res.status).toBe(403);
         const data = await res.json();
@@ -112,11 +128,17 @@ describe('PATCH /api/user/change-password', () => {
             user: { email: 'test@test.com' },
             expires: '',
         });
-        mockFindOne.mockResolvedValue({ email: 'test@test.com', password: 'hashed_old' });
+        mockFindOne.mockResolvedValue({
+            email: 'test@test.com',
+            password: 'hashed_old',
+        });
         vi.mocked(verifyPassword).mockResolvedValue(true);
         mockUpdateOne.mockResolvedValue({ modifiedCount: 1 });
         const res = await PATCH(
-            makeRequest({ oldPassword: 'oldpass123', newPassword: 'newpass123' }),
+            makeRequest({
+                oldPassword: 'oldpass123',
+                newPassword: 'newpass123',
+            }),
         );
         expect(res.status).toBe(200);
         const data = await res.json();
@@ -130,7 +152,10 @@ describe('PATCH /api/user/change-password', () => {
         });
         mockFindOne.mockRejectedValue(new Error('DB connection failed'));
         const res = await PATCH(
-            makeRequest({ oldPassword: 'oldpass123', newPassword: 'newpass123' }),
+            makeRequest({
+                oldPassword: 'oldpass123',
+                newPassword: 'newpass123',
+            }),
         );
         expect(res.status).toBe(500);
     });

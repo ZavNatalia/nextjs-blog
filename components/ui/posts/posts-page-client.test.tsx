@@ -56,7 +56,9 @@ describe('PostsPageClient', () => {
                 lang="en"
             />,
         );
-        expect(screen.getByText('Getting Started with Next.js')).toBeInTheDocument();
+        expect(
+            screen.getByText('Getting Started with Next.js'),
+        ).toBeInTheDocument();
         expect(screen.getByText('React Hooks Deep Dive')).toBeInTheDocument();
     });
 
@@ -68,7 +70,9 @@ describe('PostsPageClient', () => {
                 lang="en"
             />,
         );
-        expect(screen.getByPlaceholderText('Search posts...')).toBeInTheDocument();
+        expect(
+            screen.getByPlaceholderText('Search posts...'),
+        ).toBeInTheDocument();
     });
 
     it('filters posts by title', () => {
@@ -82,8 +86,12 @@ describe('PostsPageClient', () => {
         const input = screen.getByPlaceholderText('Search posts...');
         fireEvent.change(input, { target: { value: 'Next.js' } });
 
-        expect(screen.getByText('Getting Started with Next.js')).toBeInTheDocument();
-        expect(screen.queryByText('React Hooks Deep Dive')).not.toBeInTheDocument();
+        expect(
+            screen.getByText('Getting Started with Next.js'),
+        ).toBeInTheDocument();
+        expect(
+            screen.queryByText('React Hooks Deep Dive'),
+        ).not.toBeInTheDocument();
     });
 
     it('filters posts by excerpt', () => {
@@ -97,7 +105,9 @@ describe('PostsPageClient', () => {
         const input = screen.getByPlaceholderText('Search posts...');
         fireEvent.change(input, { target: { value: 'custom hooks' } });
 
-        expect(screen.queryByText('Getting Started with Next.js')).not.toBeInTheDocument();
+        expect(
+            screen.queryByText('Getting Started with Next.js'),
+        ).not.toBeInTheDocument();
         expect(screen.getByText('React Hooks Deep Dive')).toBeInTheDocument();
     });
 
@@ -129,7 +139,9 @@ describe('PostsPageClient', () => {
         fireEvent.change(input, { target: { value: 'Next.js' } });
         fireEvent.change(input, { target: { value: '' } });
 
-        expect(screen.getByText('Getting Started with Next.js')).toBeInTheDocument();
+        expect(
+            screen.getByText('Getting Started with Next.js'),
+        ).toBeInTheDocument();
         expect(screen.getByText('React Hooks Deep Dive')).toBeInTheDocument();
     });
 

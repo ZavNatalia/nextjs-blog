@@ -28,10 +28,10 @@ export default function PostHeader({
             className={`${underlineStyle} relative mb-6 flex flex-col gap-3 pb-6 md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8`}
         >
             <div>
-                <h1 className="mb-1 text-xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-4xl">
+                <h1 className="mb-1 text-xl leading-snug font-bold md:mb-4 md:text-3xl lg:text-4xl">
                     {title}
                 </h1>
-                <span className="text-secondary text-base md:text-lg">
+                <span className="text-base text-secondary md:text-lg">
                     {formattedDate}
                     {readingTime && readingTimeLabel && (
                         <span>
@@ -43,7 +43,7 @@ export default function PostHeader({
             </div>
             <div className="relative h-[200px] w-[200px] flex-shrink-0 self-center md:h-[260px] md:w-[260px]">
                 {!imageLoaded && (
-                    <div className="square-skeleton bg-tertiary h-[200px] w-[200px] animate-pulse rounded-xl md:h-[260px] md:w-[260px]" />
+                    <div className="square-skeleton h-[200px] w-[200px] animate-pulse rounded-xl bg-tertiary md:h-[260px] md:w-[260px]" />
                 )}
                 <Image
                     className={`rounded-xl object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}

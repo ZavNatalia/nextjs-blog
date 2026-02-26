@@ -33,7 +33,7 @@ const eslintConfig = defineConfig([
             'jsx-a11y/label-has-associated-control': 'warn',
         },
     },
-    globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
+    globalIgnores(['.next/**', 'out/**', 'build/**', 'docs/**', 'next-env.d.ts']),
 ]);
 
 export default eslintConfig;

@@ -39,7 +39,7 @@ async function sendContactDetails(
     token: string,
     contactDetails: ContactDetails,
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
-): Promise<void> {
+): Promise<string | null> {
     const response = await fetch('/api/contact', {
         method: 'POST',
         body: JSON.stringify({ ...contactDetails, token }),
@@ -47,10 +47,11 @@ async function sendContactDetails(
             'Content-Type': 'application/json',
         },
     });
-    const data = await response.json();
+    const data = await response.json().catch(() => null);
     if (!response.ok) {
-        throw new Error(data?.error || dictionary.somethingWentWrong);
+        return data?.error || dictionary.somethingWentWrong;
     }
+    return null;
 }
 
 function InputField({
@@ -156,33 +157,34 @@ export default function ContactForm({
             }));
         };
 
+    const resetTurnstile = () => {
+        if (typeof window !== 'undefined' && window.turnstile) {
+            const el = document.getElementById('turnstile-widget');
+            if (el) {
+                window.turnstile.reset(el);
+            }
+        }
+    };
+
     const sendMessageHandler = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setRequestStatus('pending');
-        try {
-            await sendContactDetails(token, messageDetails, dictionary);
-            if (typeof window !== 'undefined' && window.turnstile) {
-                const el = document.getElementById('turnstile-widget');
-                if (el) {
-                    window.turnstile.reset(el);
-                }
-            }
-            setRequestStatus('success');
-            setMessageDetails({ email: '', name: '', message: '' });
-        } catch (error) {
-            if (typeof window !== 'undefined' && window.turnstile) {
-                const el = document.getElementById('turnstile-widget');
-                if (el) {
-                    window.turnstile.reset(el);
-                }
-            }
-            setRequestError(
-                error instanceof Error
-                    ? error.message
-                    : dictionary.somethingWentWrong,
-            );
+
+        const error = await sendContactDetails(
+            token,
+            messageDetails,
+            dictionary,
+        );
+        resetTurnstile();
+
+        if (error) {
+            setRequestError(error);
             setRequestStatus('error');
+            return;
         }
+
+        setRequestStatus('success');
+        setMessageDetails({ email: '', name: '', message: '' });
     };
 
     const notificationData =
@@ -192,7 +194,7 @@ export default function ContactForm({
 
     return (
         <section className="card max-w-2xl">
-            <h2 className="text-accent mb-6 text-center text-lg font-bold lg:text-2xl">
+            <h2 className="mb-6 text-center text-lg font-bold text-accent lg:text-2xl">
                 {dictionary.howCanIHelp}
             </h2>
             <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>

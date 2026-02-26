@@ -40,7 +40,7 @@ export async function generateMetadata(props: {
 }) {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
-    const dictionary = await getDictionary(lang as Locale)?.['common'];
+    const dictionary = await getDictionary(lang as Locale)['common'];
 
     const baseUrl = 'https://zav.me';
 

@@ -12,3 +12,16 @@ export interface IMessage {
     name: string;
     message: string;
 }
+
+export type CommentStatus = 'approved' | 'pending' | 'rejected';
+
+export interface IComment {
+    _id?: ObjectId;
+    postSlug: string;
+    authorEmail: string;
+    authorName: string;
+    content: string;
+    status: CommentStatus;
+    createdAt: Date;
+    updatedAt?: Date;
+}

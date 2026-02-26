@@ -1,6 +1,6 @@
 'use client';
 import { signOut } from 'next-auth/react';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Notification, {
     NotificationDetails,
@@ -38,10 +38,16 @@ export function DangerZoneSection({
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            const data = await response.json();
+            const data = await response.json().catch(() => null);
 
             if (!response.ok) {
-                throw new Error(data.error || dictionary.somethingWentWrong);
+                setRequestStatus('error');
+                setNotificationData({
+                    title: dictionary.error,
+                    message: data?.error || dictionary.failedDeleteAccount,
+                    status: 'error',
+                });
+                return;
             }
             setRequestStatus('success');
             setNotificationData({
@@ -64,10 +70,10 @@ export function DangerZoneSection({
 
     return (
         <div className="rounded-xl bg-error-100 p-4 shadow-md dark:bg-error-100/10">
-            <h3 className="text-error mb-3 text-xl font-semibold">
+            <h3 className="mb-3 text-xl font-semibold text-error">
                 {dictionary.dangerZone}
             </h3>
-            <p className="text-secondary text-base">
+            <p className="text-base text-secondary">
                 {dictionary.deletingIsIrreversible}
             </p>
             <button
@@ -107,10 +113,10 @@ export function DangerZoneSection({
                     onClick={() => setIsConfirmOpen(false)}
                 >
                     <div
-                        className="bg-secondary max-w-sm rounded-3xl p-6 shadow-lg"
+                        className="max-w-sm rounded-3xl bg-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h3 className="text-error text-lg font-semibold">
+                        <h3 className="text-lg font-semibold text-error">
                             {dictionary.confirmAccountDeletion}
                         </h3>
                         <p className="mt-2 text-base text-foreground">

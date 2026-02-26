@@ -18,9 +18,12 @@ vi.mock('next/link', () => ({
 
 vi.mock('next/image', () => ({
     default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
+        // eslint-disable-next-line @next/next/no-img-element
         <img alt={alt} {...props} />
     ),
 }));
+
+import type { Dictionary } from '@/get-dictionary';
 
 import { NavigationList } from './NavigationList';
 
@@ -29,10 +32,15 @@ const mockDictionary = {
     posts: 'Posts',
     contact: 'Contact',
     auth: 'Sign In',
+    profile: 'Profile',
     userProfile: 'Profile',
+    switchToLightTheme: 'Light',
+    switchToDarkTheme: 'Dark',
+    switchToRu: 'RU',
+    switchToEn: 'EN',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
-} as never;
+} as Dictionary['navigation'];
 
 describe('NavigationList', () => {
     it('renders main navigation links', () => {
@@ -83,7 +91,9 @@ describe('NavigationList', () => {
                 dictionary={mockDictionary}
             />,
         );
-        expect(screen.getByRole('link', { name: 'Profile' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('link', { name: 'Profile' }),
+        ).toBeInTheDocument();
         expect(screen.queryByText('Sign In')).not.toBeInTheDocument();
     });
 
