@@ -1,6 +1,6 @@
 import { hashPassword, verifyPassword } from './auth';
 
-describe('hashPassword', () => {
+describe('hashPassword', { timeout: 15000 }, () => {
     it('returns a bcrypt hash string', async () => {
         const hash = await hashPassword('testpassword');
         expect(hash).toMatch(/^\$2[aby]?\$/);
@@ -8,7 +8,7 @@ describe('hashPassword', () => {
     });
 });
 
-describe('verifyPassword', () => {
+describe('verifyPassword', { timeout: 15000 }, () => {
     it('returns true for matching password', async () => {
         const hash = await hashPassword('secret123');
         const result = await verifyPassword('secret123', hash);

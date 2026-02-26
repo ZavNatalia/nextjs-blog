@@ -16,6 +16,14 @@ vi.mock('next/link', () => ({
     ),
 }));
 
+vi.mock('@/hooks/useDictionary', () => ({
+    useDictionary: () => ({
+        common: {
+            blogTitle: 'Next.js Craft',
+        },
+    }),
+}));
+
 import Logo from './Logo';
 
 describe('Logo', () => {

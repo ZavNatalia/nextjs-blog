@@ -15,12 +15,16 @@ vi.mock('next-auth/react', () => ({
 
 vi.mock('@/hooks/useDictionary', () => ({
     useDictionary: () => ({
+        common: {
+            blogTitle: 'Next.js Craft',
+        },
         navigation: {
             home: 'Home',
             posts: 'Posts',
             contact: 'Contact',
             auth: 'Sign In',
             userProfile: 'Profile',
+            moderation: 'Moderation',
             openMenu: 'Open menu',
             closeMenu: 'Close menu',
             switchToEn: 'English',
