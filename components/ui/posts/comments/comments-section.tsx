@@ -7,6 +7,7 @@ import CommentItem from '@/components/ui/posts/comments/comment-item';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 import clientPromise from '@/lib/db';
+import type { CommentStatus } from '@/lib/types/mongodb';
 import { IComment } from '@/lib/types/mongodb';
 
 export default async function CommentsSection({
@@ -25,34 +26,54 @@ export default async function CommentsSection({
 
     const dict = dictionary.comments;
 
-    const client = await clientPromise;
-    const db = client.db();
-    const userEmail = session?.user?.email;
-    const query = userEmail
-        ? {
-              postSlug,
-              $or: [
-                  { status: 'approved' as const },
-                  { status: 'pending' as const, authorEmail: userEmail },
-              ],
-          }
-        : { postSlug, status: 'approved' as const };
-    const comments = await db
-        .collection<IComment>('comments')
-        .find(query)
-        .sort({ createdAt: -1 })
-        .toArray();
+    let serializedComments: {
+        _id: string;
+        postSlug: string;
+        authorEmail: string;
+        authorName: string;
+        content: string;
+        status: CommentStatus;
+        createdAt: string;
+        updatedAt?: string;
+    }[] = [];
 
-    const serializedComments = comments.map((c) => ({
-        _id: c._id!.toString(),
-        postSlug: c.postSlug,
-        authorEmail: c.authorEmail,
-        authorName: c.authorName,
-        content: c.content,
-        status: c.status,
-        createdAt: c.createdAt.toISOString(),
-        updatedAt: c.updatedAt?.toISOString(),
-    }));
+    try {
+        const client = await Promise.race([
+            clientPromise,
+            new Promise<never>((_, reject) =>
+                setTimeout(() => reject(new Error('MongoDB timeout')), 5000),
+            ),
+        ]);
+        const db = client.db();
+        const userEmail = session?.user?.email;
+        const query = userEmail
+            ? {
+                  postSlug,
+                  $or: [
+                      { status: 'approved' as const },
+                      { status: 'pending' as const, authorEmail: userEmail },
+                  ],
+              }
+            : { postSlug, status: 'approved' as const };
+        const comments = await db
+            .collection<IComment>('comments')
+            .find(query)
+            .sort({ createdAt: -1 })
+            .toArray();
+
+        serializedComments = comments.map((c) => ({
+            _id: c._id!.toString(),
+            postSlug: c.postSlug,
+            authorEmail: c.authorEmail,
+            authorName: c.authorName,
+            content: c.content,
+            status: c.status,
+            createdAt: c.createdAt.toISOString(),
+            updatedAt: c.updatedAt?.toISOString(),
+        }));
+    } catch {
+        // MongoDB unavailable — render comments section with empty list
+    }
 
     return (
         <section className="mx-auto mt-10 w-full border-t border-border-500 p-3 pt-8 md:p-4 lg:max-w-7xl lg:px-10">
