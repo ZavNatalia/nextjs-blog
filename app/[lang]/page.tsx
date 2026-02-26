@@ -11,7 +11,7 @@ export default async function HomePage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['common'];
+    const dictionary = await getDictionary(lang)['common'];
 
     return (
         <main className="page">

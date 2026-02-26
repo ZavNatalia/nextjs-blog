@@ -1,15 +1,25 @@
-import { describe, expect,it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { changePasswordSchema,contactSchema, signupSchema } from './validations';
+import {
+    changePasswordSchema,
+    contactSchema,
+    signupSchema,
+} from './validations';
 
 describe('signupSchema', () => {
     it('accepts valid input', () => {
-        const result = signupSchema.safeParse({ email: 'user@example.com', password: 'abcdefg' });
+        const result = signupSchema.safeParse({
+            email: 'user@example.com',
+            password: 'abcdefg',
+        });
         expect(result.success).toBe(true);
     });
 
     it('rejects invalid email', () => {
-        const result = signupSchema.safeParse({ email: 'not-an-email', password: 'abcdefg' });
+        const result = signupSchema.safeParse({
+            email: 'not-an-email',
+            password: 'abcdefg',
+        });
         expect(result.success).toBe(false);
         if (!result.success) {
             expect(result.error.issues[0].message).toMatch(/invalid/i);
@@ -17,7 +27,10 @@ describe('signupSchema', () => {
     });
 
     it('rejects short password', () => {
-        const result = signupSchema.safeParse({ email: 'a@b.com', password: '123' });
+        const result = signupSchema.safeParse({
+            email: 'a@b.com',
+            password: '123',
+        });
         expect(result.success).toBe(false);
     });
 

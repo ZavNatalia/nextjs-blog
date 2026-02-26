@@ -9,6 +9,7 @@ vi.mock('next/image', () => ({
         alt: string;
         onLoad?: () => void;
         [key: string]: unknown;
+        // eslint-disable-next-line @next/next/no-img-element
     }) => <img alt={alt} {...props} onLoad={onLoad} />,
 }));
 

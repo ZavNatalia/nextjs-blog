@@ -35,7 +35,7 @@ function NavListItem({
             <Link
                 href={href}
                 title={title}
-                className={`link hover:text-accent block px-2 py-2 text-lg font-medium transition-colors duration-200 md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
+                className={`link block px-2 py-2 text-lg font-medium transition-colors duration-200 hover:text-accent md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
                 onClick={onClick}
             >
                 {title}

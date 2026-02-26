@@ -1,21 +1,22 @@
-import fs from 'fs';
 import { vi } from 'vitest';
+
+const { mockReaddir, mockAccess, mockReadFile } = vi.hoisted(() => ({
+    mockReaddir: vi.fn<() => Promise<string[]>>(),
+    mockAccess: vi.fn(),
+    mockReadFile: vi.fn<() => Promise<string>>(),
+}));
 
 vi.mock('fs', () => ({
     default: {
         promises: {
-            readdir: vi.fn(),
-            access: vi.fn(),
-            readFile: vi.fn(),
+            readdir: mockReaddir,
+            access: mockAccess,
+            readFile: mockReadFile,
         },
     },
 }));
 
-const mockReaddir = vi.mocked(fs.promises.readdir);
-const mockAccess = vi.mocked(fs.promises.access);
-const mockReadFile = vi.mocked(fs.promises.readFile);
-
-import { getAllNews, getLatestNews,getNewsData, getNewsFiles } from './news';
+import { getAllNews, getLatestNews, getNewsData, getNewsFiles } from './news';
 
 const makeMd = (frontmatter: Record<string, unknown>, content = 'body') => {
     const lines = Object.entries(frontmatter).map(([k, v]) => `${k}: ${v}`);
@@ -28,7 +29,7 @@ beforeEach(() => {
 
 describe('getNewsFiles', () => {
     it('returns file list for a locale', async () => {
-        mockReaddir.mockResolvedValue(['news1.md', 'news2.md'] as never);
+        mockReaddir.mockResolvedValue(['news1.md', 'news2.md']);
         const files = await getNewsFiles('en');
         expect(files).toEqual(['news1.md', 'news2.md']);
     });
@@ -65,15 +66,25 @@ describe('getNewsData', () => {
 
 describe('getAllNews', () => {
     it('returns news sorted by date descending', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md']);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile
             .mockResolvedValueOnce(
-                makeMd({ title: 'Old', date: "'2024-01-01'", excerpt: 'old', isLatest: false }),
+                makeMd({
+                    title: 'Old',
+                    date: "'2024-01-01'",
+                    excerpt: 'old',
+                    isLatest: false,
+                }),
             )
             .mockResolvedValueOnce(
-                makeMd({ title: 'New', date: "'2025-06-01'", excerpt: 'new', isLatest: false }),
+                makeMd({
+                    title: 'New',
+                    date: "'2025-06-01'",
+                    excerpt: 'new',
+                    isLatest: false,
+                }),
             );
 
         const news = await getAllNews('en');
@@ -85,15 +96,25 @@ describe('getAllNews', () => {
 
 describe('getLatestNews', () => {
     it('returns only news with isLatest: true', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md']);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile
             .mockResolvedValueOnce(
-                makeMd({ title: 'Latest', date: "'2025-01-01'", excerpt: 'l', isLatest: true }),
+                makeMd({
+                    title: 'Latest',
+                    date: "'2025-01-01'",
+                    excerpt: 'l',
+                    isLatest: true,
+                }),
             )
             .mockResolvedValueOnce(
-                makeMd({ title: 'Older', date: "'2025-01-02'", excerpt: 'o', isLatest: false }),
+                makeMd({
+                    title: 'Older',
+                    date: "'2025-01-02'",
+                    excerpt: 'o',
+                    isLatest: false,
+                }),
             );
 
         const news = await getLatestNews('en');

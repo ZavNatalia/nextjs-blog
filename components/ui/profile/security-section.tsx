@@ -16,7 +16,7 @@ export function SecuritySection({
                 {dictionary.wantToChangeYourPassword}
             </p>
             <ChangePasswordForm dictionary={dictionary} />
-            <div className="text-secondary mt-3 flex">
+            <div className="mt-3 flex text-secondary">
                 <p>
                     {dictionary.reviewPrivacyPolicy}&nbsp;
                     <Link

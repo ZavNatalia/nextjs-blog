@@ -9,6 +9,7 @@ vi.mock('next-auth/react', () => ({
 
 vi.mock('next/image', () => ({
     default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
+        // eslint-disable-next-line @next/next/no-img-element
         <img alt={alt} {...props} />
     ),
 }));
@@ -26,22 +27,42 @@ beforeEach(() => {
 
 describe('AccountSection', () => {
     it('renders user email', () => {
-        render(<AccountSection userEmail="user@test.com" dictionary={mockDictionary} />);
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
         expect(screen.getByText('user@test.com')).toBeInTheDocument();
     });
 
     it('renders section title', () => {
-        render(<AccountSection userEmail="user@test.com" dictionary={mockDictionary} />);
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
         expect(screen.getByText('Your Account')).toBeInTheDocument();
     });
 
     it('renders avatar', () => {
-        render(<AccountSection userEmail="user@test.com" dictionary={mockDictionary} />);
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
         expect(screen.getByAltText('User avatar')).toBeInTheDocument();
     });
 
     it('calls signOut on logout click', async () => {
-        render(<AccountSection userEmail="user@test.com" dictionary={mockDictionary} />);
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
         await userEvent.click(screen.getByText('Log Out'));
         expect(mockSignOut).toHaveBeenCalledOnce();
     });

@@ -2,7 +2,7 @@ import { Db } from 'mongodb';
 import { NextRequest } from 'next/server';
 
 import clientPromise from '@/lib/db';
-import { getClientIp,rateLimit } from '@/lib/rate-limit';
+import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IMessage } from '@/lib/types/mongodb';
 import { contactSchema } from '@/lib/validations';
 

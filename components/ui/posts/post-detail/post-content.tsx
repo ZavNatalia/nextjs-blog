@@ -146,7 +146,7 @@ export default function PostContent({
         td(props) {
             return (
                 <td
-                    className="bg-primary border border-border-500 px-4 py-2"
+                    className="border border-border-500 bg-primary px-4 py-2"
                     {...props}
                 />
             );
@@ -162,7 +162,7 @@ export default function PostContent({
                 readingTime={readingTime}
                 readingTimeLabel={dictionary.minRead}
             />
-            <div className="markdown-content prose-lg dark:prose-invert lg:prose-xl">
+            <div className="markdown-content prose-lg lg:prose-xl dark:prose-invert">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={customRenderers}

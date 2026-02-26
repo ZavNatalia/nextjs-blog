@@ -17,6 +17,8 @@ vi.mock('@/components/ui/TogglePasswordButton', () => ({
     default: () => null,
 }));
 
+import type { Dictionary } from '@/get-dictionary';
+
 import AuthForm from './auth-form';
 
 const mockDictionary = {
@@ -40,19 +42,23 @@ const mockDictionary = {
     failedToLogIn: 'Failed to log in',
     accountCreated: 'Account created',
     accountCreatedYouCanLogin: 'You can now log in',
-} as never;
+} as Dictionary['auth-page'];
 
 describe('AuthForm', () => {
     it('renders login form by default', () => {
         render(<AuthForm dictionary={mockDictionary} />);
-        expect(screen.getByRole('heading', { name: 'Log In' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('heading', { name: 'Log In' }),
+        ).toBeInTheDocument();
         expect(screen.getByLabelText('Email')).toBeInTheDocument();
         expect(screen.getByLabelText('Password')).toBeInTheDocument();
     });
 
     it('does not show confirm password in login mode', () => {
         render(<AuthForm dictionary={mockDictionary} />);
-        expect(screen.queryByLabelText('Confirm password')).not.toBeInTheDocument();
+        expect(
+            screen.queryByLabelText('Confirm password'),
+        ).not.toBeInTheDocument();
     });
 
     it('switches to sign up mode', async () => {
@@ -78,7 +84,9 @@ describe('AuthForm', () => {
         await userEvent.type(passwordInput, 'short');
         await userEvent.tab();
         await waitFor(() => {
-            expect(screen.getByText('At least 7 characters')).toBeInTheDocument();
+            expect(
+                screen.getByText('At least 7 characters'),
+            ).toBeInTheDocument();
         });
     });
 });

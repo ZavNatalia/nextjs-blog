@@ -10,7 +10,9 @@ const mockDictionary = {
 describe('useDictionary', () => {
     it('returns dictionary from TranslationProvider', () => {
         const wrapper = ({ children }: { children: React.ReactNode }) => (
-            <TranslationProvider dictionary={mockDictionary}>{children}</TranslationProvider>
+            <TranslationProvider dictionary={mockDictionary}>
+                {children}
+            </TranslationProvider>
         );
 
         const { result } = renderHook(() => useDictionary(), { wrapper });

@@ -33,22 +33,18 @@ isFeatured: false
 ## **Key Differences:**
 
 1. **Module System:**
-
     - **Node.js:** Uses CommonJS with _require()_.
     - **Deno:** Uses ECMAScript modules with _import/export_.
 
 2. **TypeScript Support:**
-
     - **Node.js:** Supported via compilation or external tools.
     - **Deno:** Native TypeScript support without extra setup.
 
 3. **Security:**
-
     - **Node.js:** Full access to system resources by default.
     - **Deno:** Secure by default–explicit permissions are required for access to resources (file system, network, etc.).
 
 4. **Package Management:**
-
     - **Node.js:** Uses NPM for package management.
     - **Deno:** No centralized package manager; modules are imported via URLs.
 

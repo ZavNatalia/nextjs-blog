@@ -20,7 +20,10 @@ describe('BackToTopButton', () => {
         render(<BackToTopButton threshold={100} />);
 
         act(() => {
-            Object.defineProperty(window, 'scrollY', { value: 200, writable: true });
+            Object.defineProperty(window, 'scrollY', {
+                value: 200,
+                writable: true,
+            });
             fireEvent.scroll(window);
         });
 
@@ -28,17 +31,26 @@ describe('BackToTopButton', () => {
     });
 
     it('scrolls to top on click', async () => {
-        const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+        const scrollToSpy = vi
+            .spyOn(window, 'scrollTo')
+            .mockImplementation(() => {});
         render(<BackToTopButton threshold={100} />);
 
         act(() => {
-            Object.defineProperty(window, 'scrollY', { value: 200, writable: true });
+            Object.defineProperty(window, 'scrollY', {
+                value: 200,
+                writable: true,
+            });
             fireEvent.scroll(window);
         });
 
-        const { default: userEvent } = await import('@testing-library/user-event');
+        const { default: userEvent } =
+            await import('@testing-library/user-event');
         await userEvent.click(screen.getByTitle('Back to top'));
-        expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+        expect(scrollToSpy).toHaveBeenCalledWith({
+            top: 0,
+            behavior: 'smooth',
+        });
 
         scrollToSpy.mockRestore();
     });

@@ -7,9 +7,13 @@ vi.mock('next-auth/react', () => ({
     signIn: (...args: unknown[]) => mockSignIn(...args),
 }));
 
+import type { Dictionary } from '@/get-dictionary';
+
 import GithubSignInButton from './GithubSignInButton';
 
-const mockDictionary = { signInWith: 'Sign in with' } as never;
+const mockDictionary = {
+    signInWith: 'Sign in with',
+} as Dictionary['auth-page'];
 
 beforeEach(() => {
     vi.clearAllMocks();

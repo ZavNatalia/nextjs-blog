@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 
 import { hashPassword, verifyPassword } from '@/lib/auth';
 import clientPromise from '@/lib/db';
-import { getClientIp,rateLimit } from '@/lib/rate-limit';
+import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
 import { changePasswordSchema } from '@/lib/validations';
 

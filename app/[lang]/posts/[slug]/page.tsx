@@ -6,6 +6,7 @@ import path from 'path';
 
 import BackToTopButton from '@/components/ui/BackToTopButton';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
+import CommentsSection from '@/components/ui/posts/comments/comments-section';
 import { IPost } from '@/components/ui/posts/post-card/post-card';
 import PostContent from '@/components/ui/posts/post-detail/post-content';
 import { getDictionary } from '@/get-dictionary';
@@ -13,7 +14,6 @@ import { Locale } from '@/i18n-config';
 import { getPostData, getPostsFiles } from '@/lib/posts';
 
 export const revalidate = 3600;
-export const dynamic = 'force-static';
 
 interface PageProps {
     params: Promise<{ slug: string; lang: string }>;
@@ -90,7 +90,7 @@ export async function generateMetadata(props: PageProps) {
 export default async function Page(props: PageProps) {
     const { slug, lang } = await props.params;
     const post = await getPost(slug, lang as Locale);
-    const dictionary = await getDictionary(lang as Locale)?.['posts-page'];
+    const dictionary = await getDictionary(lang as Locale)['posts-page'];
 
     if (!post) {
         notFound();
@@ -120,6 +120,7 @@ export default async function Page(props: PageProps) {
             <h1 className="sr-only">{post.title}</h1>
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <PostContent post={post} dictionary={dictionary} />
+            <CommentsSection postSlug={slug} lang={lang as Locale} />
             <Link
                 aria-label={dictionary.goToAllPosts}
                 href="/posts"

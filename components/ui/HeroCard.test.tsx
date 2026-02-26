@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 
 vi.mock('next/image', () => ({
     default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
+        // eslint-disable-next-line @next/next/no-img-element
         <img alt={alt} {...props} />
     ),
 }));
@@ -22,13 +23,15 @@ vi.mock('next/link', () => ({
     ),
 }));
 
+import type { Dictionary } from '@/get-dictionary';
+
 import HeroCard from './HeroCard';
 
 const mockDictionary = {
     greetings: 'Welcome to my blog!',
     greetingsDescription: 'A place for web dev articles.',
     goToAllPosts: 'Go to all posts',
-} as never;
+} as Dictionary['common'];
 
 describe('HeroCard', () => {
     it('renders greeting text', () => {

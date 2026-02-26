@@ -37,20 +37,20 @@ export default function PostCard({
     return (
         <li className="h-fit w-full overflow-hidden rounded-2xl shadow-xs">
             <div className="flex justify-between bg-background-tertiary/50 px-5 py-4 lg:px-6 lg:py-5">
-                <h3 className="line-clamp-2 max-h-[4rem] text-ellipsis pr-4 text-lg font-bold text-foreground md:text-xl lg:text-2xl">
+                <h3 className="line-clamp-2 max-h-[4rem] pr-4 text-lg font-bold text-ellipsis text-foreground md:text-xl lg:text-2xl">
                     {title}
                 </h3>
-                <time className="text-secondary shrink-0 whitespace-nowrap text-base">
+                <time className="shrink-0 text-base whitespace-nowrap text-secondary">
                     {formattedDate}
                 </time>
             </div>
-            <div className="bg-secondary flex flex-col justify-between gap-4 px-5 pb-5 pt-4 shadow-md lg:px-6">
-                <p className="line-clamp-4 max-h-[6rem] text-ellipsis hyphens-auto break-words text-base text-foreground lg:line-clamp-5 lg:max-h-[8rem]">
+            <div className="flex flex-col justify-between gap-4 bg-secondary px-5 pt-4 pb-5 shadow-md lg:px-6">
+                <p className="line-clamp-4 max-h-[6rem] text-base break-words text-ellipsis hyphens-auto text-foreground lg:line-clamp-5 lg:max-h-[8rem]">
                     {excerpt}
                 </p>
                 <div className="flex items-center justify-between">
                     {readingTime && dictionary.minRead ? (
-                        <span className="text-secondary text-sm">
+                        <span className="text-sm text-secondary">
                             {readingTime} {dictionary.minRead}
                         </span>
                     ) : (

@@ -53,9 +53,7 @@ export default function PostsPageClient({
                     lang={lang}
                 />
             ) : (
-                <p className="text-secondary">
-                    {dictionary.noSearchResults}
-                </p>
+                <p className="text-secondary">{dictionary.noSearchResults}</p>
             )}
         </div>
     );
