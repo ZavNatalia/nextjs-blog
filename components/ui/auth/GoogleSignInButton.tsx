@@ -6,8 +6,10 @@ import type { getDictionary } from '@/get-dictionary';
 
 export default function GoogleSignInButton({
     dictionary,
+    callbackUrl = '/',
 }: {
     dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
+    callbackUrl?: string;
 }) {
     const buttonStyle =
         'bg-[#EEEEEE] text-[#1f1f1f] border border-[#EEEEEE] hover:bg-[#e5e5e5] ' +
@@ -15,7 +17,7 @@ export default function GoogleSignInButton({
 
     return (
         <button
-            onClick={() => signIn('google', { callbackUrl: '/' })}
+            onClick={() => signIn('google', { callbackUrl })}
             className={`flex items-center justify-center gap-[10px] rounded-[20px] px-3 py-[10px] text-sm font-medium transition ${buttonStyle}`}
         >
             <Image

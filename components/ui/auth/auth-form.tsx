@@ -27,8 +27,10 @@ export type AuthFormData = {
 
 export default function AuthForm({
     dictionary,
+    callbackUrl = '/',
 }: {
     dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
+    callbackUrl?: string;
 }) {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState(false);
@@ -79,7 +81,7 @@ export default function AuthForm({
                     return;
                 }
 
-                router.replace('/', { scroll: false });
+                router.replace(callbackUrl, { scroll: false });
             } else {
                 await createUser(values.email, values.password);
 
