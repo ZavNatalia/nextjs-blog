@@ -39,15 +39,23 @@ afterEach(() => {
 describe('DangerZoneSection', () => {
     it('renders danger zone heading and warning', () => {
         render(
-            <DangerZoneSection userEmail="user@test.com" dictionary={mockDictionary} />,
+            <DangerZoneSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
         );
         expect(screen.getByText('Danger Zone')).toBeInTheDocument();
-        expect(screen.getByText('Deleting your account is irreversible.')).toBeInTheDocument();
+        expect(
+            screen.getByText('Deleting your account is irreversible.'),
+        ).toBeInTheDocument();
     });
 
     it('opens confirmation dialog on delete click', async () => {
         render(
-            <DangerZoneSection userEmail="user@test.com" dictionary={mockDictionary} />,
+            <DangerZoneSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
         );
         await userEvent.click(screen.getByText('Delete Account'));
         expect(screen.getByText('Confirm Deletion')).toBeInTheDocument();
@@ -57,7 +65,10 @@ describe('DangerZoneSection', () => {
 
     it('closes confirmation dialog on cancel', async () => {
         render(
-            <DangerZoneSection userEmail="user@test.com" dictionary={mockDictionary} />,
+            <DangerZoneSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
         );
         await userEvent.click(screen.getByText('Delete Account'));
         await userEvent.click(screen.getByText('Cancel'));

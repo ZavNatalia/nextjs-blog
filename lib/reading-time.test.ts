@@ -15,17 +15,22 @@ describe('calculateReadingTime', () => {
     });
 
     it('strips code blocks from word count', () => {
-        const content = '```js\nconst x = 1;\nconst y = 2;\n```\n' + Array(200).fill('word').join(' ');
+        const content =
+            '```js\nconst x = 1;\nconst y = 2;\n```\n' +
+            Array(200).fill('word').join(' ');
         expect(calculateReadingTime(content)).toBe(1);
     });
 
     it('strips image markdown from word count', () => {
-        const content = '![alt text](image.png)\n' + Array(200).fill('word').join(' ');
+        const content =
+            '![alt text](image.png)\n' + Array(200).fill('word').join(' ');
         expect(calculateReadingTime(content)).toBe(1);
     });
 
     it('keeps link text but strips URLs', () => {
-        const content = '[click here](https://example.com) ' + Array(198).fill('word').join(' ');
+        const content =
+            '[click here](https://example.com) ' +
+            Array(198).fill('word').join(' ');
         expect(calculateReadingTime(content)).toBe(1);
     });
 

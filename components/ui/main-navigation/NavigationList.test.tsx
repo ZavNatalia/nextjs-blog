@@ -18,9 +18,12 @@ vi.mock('next/link', () => ({
 
 vi.mock('next/image', () => ({
     default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
+        // eslint-disable-next-line @next/next/no-img-element
         <img alt={alt} {...props} />
     ),
 }));
+
+import type { Dictionary } from '@/get-dictionary';
 
 import { NavigationList } from './NavigationList';
 
@@ -29,12 +32,25 @@ const mockDictionary = {
     posts: 'Posts',
     contact: 'Contact',
     auth: 'Sign In',
+    profile: 'Profile',
     userProfile: 'Profile',
+    moderation: 'Moderation',
+    switchToLightTheme: 'Light',
+    switchToDarkTheme: 'Dark',
+    switchToRu: 'RU',
+    switchToEn: 'EN',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
-} as never;
+} as Dictionary['navigation'];
 
 describe('NavigationList', () => {
+    beforeAll(() => {
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL = 'admin@test.com';
+    });
+    afterAll(() => {
+        delete process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+    });
+
     it('renders main navigation links', () => {
         render(
             <NavigationList
@@ -83,7 +99,9 @@ describe('NavigationList', () => {
                 dictionary={mockDictionary}
             />,
         );
-        expect(screen.getByRole('link', { name: 'Profile' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('link', { name: 'Profile' }),
+        ).toBeInTheDocument();
         expect(screen.queryByText('Sign In')).not.toBeInTheDocument();
     });
 
@@ -98,5 +116,33 @@ describe('NavigationList', () => {
         );
         const postsLink = screen.getByText('Posts').closest('a');
         expect(postsLink).toHaveClass('text-accent');
+    });
+
+    it('shows moderation link for admin user', () => {
+        render(
+            <NavigationList
+                normalizedPathname="/"
+                session={{ user: { email: 'admin@test.com' } }}
+                status="authenticated"
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(
+            screen.getByRole('link', { name: 'Moderation' }),
+        ).toBeInTheDocument();
+    });
+
+    it('does not show moderation link for non-admin user', () => {
+        render(
+            <NavigationList
+                normalizedPathname="/"
+                session={{ user: { email: 'regular@test.com' } }}
+                status="authenticated"
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(
+            screen.queryByRole('link', { name: 'Moderation' }),
+        ).not.toBeInTheDocument();
     });
 });

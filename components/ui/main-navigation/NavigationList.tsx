@@ -35,7 +35,7 @@ function NavListItem({
             <Link
                 href={href}
                 title={title}
-                className={`link hover:text-accent block px-2 py-2 text-lg font-medium transition-colors duration-200 md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
+                className={`link block px-2 py-2 text-lg font-medium transition-colors duration-200 hover:text-accent md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
                 onClick={onClick}
             >
                 {title}
@@ -88,6 +88,17 @@ export function NavigationList({
                     onClick={onClick}
                 />
             )}
+            {status === 'authenticated' &&
+                session?.user?.email ===
+                    process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                    <NavListItem
+                        key="/admin/comments"
+                        href="/admin/comments"
+                        title={dictionary['moderation']}
+                        normalizedPathname={normalizedPathname}
+                        onClick={onClick}
+                    />
+                )}
         </ul>
     );
 }

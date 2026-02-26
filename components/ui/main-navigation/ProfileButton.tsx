@@ -37,7 +37,7 @@ export default function ProfileButton({
                 title={title}
                 aria-label={title}
                 onClick={onClick}
-                className={`focus-visible:ring-accent group inline-block rounded-full px-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-0`}
+                className={`group inline-block rounded-full px-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0`}
             >
                 <div className={imageStyles}>
                     <Image

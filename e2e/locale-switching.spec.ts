@@ -8,9 +8,7 @@ test.describe('Locale switching', () => {
             page.getByRole('heading', { name: 'Building with Next.js' }),
         ).toBeVisible();
 
-        await page
-            .getByRole('button', { name: 'Switch to Russian' })
-            .click();
+        await page.getByRole('button', { name: 'Switch to Russian' }).click();
 
         await expect(page).toHaveURL(/\/ru$/);
         await expect(
@@ -44,9 +42,7 @@ test.describe('Locale switching', () => {
             page.locator('nav', { hasText: 'all posts' }),
         ).toBeVisible();
 
-        await page
-            .getByRole('button', { name: 'Switch to Russian' })
-            .click();
+        await page.getByRole('button', { name: 'Switch to Russian' }).click();
 
         await expect(page).toHaveURL(/\/ru\/posts$/);
         await expect(

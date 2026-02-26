@@ -27,8 +27,10 @@ export type AuthFormData = {
 
 export default function AuthForm({
     dictionary,
+    callbackUrl = '/',
 }: {
     dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
+    callbackUrl?: string;
 }) {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [showPassword, setShowPassword] = useState(false);
@@ -73,10 +75,13 @@ export default function AuthForm({
                 );
 
                 if (!result || !result.ok) {
-                    throw new Error(result?.error || dictionary.failedToLogIn);
+                    setErrors({
+                        password: result?.error || dictionary.failedToLogIn,
+                    });
+                    return;
                 }
 
-                router.replace('/', { scroll: false });
+                router.replace(callbackUrl, { scroll: false });
             } else {
                 await createUser(values.email, values.password);
 
@@ -91,7 +96,8 @@ export default function AuthForm({
                 }, 5000);
             }
         } catch (error) {
-            const message = error instanceof Error ? error.message : 'An error occurred';
+            const message =
+                error instanceof Error ? error.message : 'An error occurred';
             setErrors({ password: message });
         } finally {
             setSubmitting(false);
@@ -100,7 +106,7 @@ export default function AuthForm({
 
     return (
         <>
-            <h1 className="text-accent mb-6 text-center text-2xl font-bold">
+            <h1 className="mb-6 text-center text-2xl font-bold text-accent">
                 {isLogin ? dictionary.login : dictionary.signUp}
             </h1>
 
@@ -132,7 +138,7 @@ export default function AuthForm({
                                 <ErrorMessage
                                     name="email"
                                     component="p"
-                                    className="text-error mt-2 text-base"
+                                    className="mt-2 text-base text-error"
                                 />
                             </div>
 
@@ -157,7 +163,7 @@ export default function AuthForm({
                                 <ErrorMessage
                                     name="password"
                                     component="p"
-                                    className="text-error mt-2 text-base"
+                                    className="mt-2 text-base text-error"
                                 />
                             </div>
 
@@ -192,7 +198,7 @@ export default function AuthForm({
                                     <ErrorMessage
                                         name="confirmPassword"
                                         component="p"
-                                        className="text-error mt-2 text-base"
+                                        className="mt-2 text-base text-error"
                                     />
                                 </div>
                             )}

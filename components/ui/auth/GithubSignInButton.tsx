@@ -4,8 +4,10 @@ import { signIn } from 'next-auth/react';
 import type { getDictionary } from '@/get-dictionary';
 export default function GithubSignInButton({
     dictionary,
+    callbackUrl = '/',
 }: {
     dictionary: Awaited<ReturnType<typeof getDictionary>>['auth-page'];
+    callbackUrl?: string;
 }) {
     const buttonStyle =
         'bg-[#F2F2F2] text-[#1F1F1F] border border-[#F2F2F2] hover:bg-[#e5e5e5] ' +
@@ -13,7 +15,7 @@ export default function GithubSignInButton({
 
     return (
         <button
-            onClick={() => signIn('github')}
+            onClick={() => signIn('github', { callbackUrl })}
             className={`flex gap-[10px] rounded-[20px] px-3 py-[10px] text-sm font-medium transition ${buttonStyle}`}
         >
             <svg

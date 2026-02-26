@@ -19,9 +19,7 @@ test.describe('Auth page (EN)', () => {
     test('switches to sign up form', async ({ page }) => {
         await page.goto('/en/auth');
 
-        await page
-            .getByRole('button', { name: 'Create new account' })
-            .click();
+        await page.getByRole('button', { name: 'Create new account' }).click();
 
         await expect(
             page.getByRole('heading', { name: 'Sign Up' }),
@@ -32,25 +30,19 @@ test.describe('Auth page (EN)', () => {
     test('shows validation errors on empty login submit', async ({ page }) => {
         await page.goto('/en/auth');
 
-        await page
-            .getByRole('button', { name: 'Login', exact: true })
-            .click();
+        await page.getByRole('button', { name: 'Login', exact: true }).click();
 
         await expect(page.getByText('Email is required')).toBeVisible();
         await expect(page.getByText('Password is required')).toBeVisible();
     });
 
-    test('shows email validation error for invalid email', async ({
-        page,
-    }) => {
+    test('shows email validation error for invalid email', async ({ page }) => {
         await page.goto('/en/auth');
 
         await page.getByLabel('Email').fill('not-an-email');
         await page.getByLabel('Password', { exact: true }).click();
 
-        await expect(
-            page.getByText('Invalid email address'),
-        ).toBeVisible();
+        await expect(page.getByText('Invalid email address')).toBeVisible();
     });
 
     test('shows password length validation error on sign up', async ({
@@ -58,9 +50,7 @@ test.describe('Auth page (EN)', () => {
     }) => {
         await page.goto('/en/auth');
 
-        await page
-            .getByRole('button', { name: 'Create new account' })
-            .click();
+        await page.getByRole('button', { name: 'Create new account' }).click();
 
         await page.getByLabel('Email').fill('test@example.com');
         await page.getByLabel('Password', { exact: true }).fill('123');

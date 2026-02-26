@@ -43,7 +43,13 @@ const mockDictionary = { readMore: 'Read More', minRead: 'min read' };
 
 describe('PostsGrid', () => {
     it('renders all posts', () => {
-        render(<PostsGrid posts={mockPosts} dictionary={mockDictionary} lang="en" />);
+        render(
+            <PostsGrid
+                posts={mockPosts}
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
         expect(screen.getByText('First Post')).toBeInTheDocument();
         expect(screen.getByText('Second Post')).toBeInTheDocument();
     });

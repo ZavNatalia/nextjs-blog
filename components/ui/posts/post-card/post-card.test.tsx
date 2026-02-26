@@ -4,7 +4,15 @@ import type { IPost } from './post-card';
 import PostCard from './post-card';
 
 vi.mock('next/link', () => ({
-    default: ({ children, href, ...props }: { children: React.ReactNode; href: string; [key: string]: unknown }) => (
+    default: ({
+        children,
+        href,
+        ...props
+    }: {
+        children: React.ReactNode;
+        href: string;
+        [key: string]: unknown;
+    }) => (
         <a href={href} {...props}>
             {children}
         </a>
@@ -25,28 +33,42 @@ const mockDictionary = { readMore: 'Read More', minRead: 'min read' };
 
 describe('PostCard', () => {
     it('renders post title', () => {
-        render(<PostCard post={mockPost} dictionary={mockDictionary} lang="en" />);
+        render(
+            <PostCard post={mockPost} dictionary={mockDictionary} lang="en" />,
+        );
         expect(screen.getByText('My Test Post')).toBeInTheDocument();
     });
 
     it('renders formatted date', () => {
-        render(<PostCard post={mockPost} dictionary={mockDictionary} lang="en" />);
+        render(
+            <PostCard post={mockPost} dictionary={mockDictionary} lang="en" />,
+        );
         expect(screen.getByText(/Mar 15, 2025/)).toBeInTheDocument();
     });
 
     it('renders excerpt', () => {
-        render(<PostCard post={mockPost} dictionary={mockDictionary} lang="en" />);
-        expect(screen.getByText('This is a test excerpt for the post card.')).toBeInTheDocument();
+        render(
+            <PostCard post={mockPost} dictionary={mockDictionary} lang="en" />,
+        );
+        expect(
+            screen.getByText('This is a test excerpt for the post card.'),
+        ).toBeInTheDocument();
     });
 
     it('renders read more link with correct href', () => {
-        render(<PostCard post={mockPost} dictionary={mockDictionary} lang="en" />);
-        const link = screen.getByRole('link', { name: /Read More - My Test Post/i });
+        render(
+            <PostCard post={mockPost} dictionary={mockDictionary} lang="en" />,
+        );
+        const link = screen.getByRole('link', {
+            name: /Read More - My Test Post/i,
+        });
         expect(link).toHaveAttribute('href', 'posts/test-post');
     });
 
     it('renders reading time', () => {
-        render(<PostCard post={mockPost} dictionary={mockDictionary} lang="en" />);
+        render(
+            <PostCard post={mockPost} dictionary={mockDictionary} lang="en" />,
+        );
         expect(screen.getByText('5 min read')).toBeInTheDocument();
     });
 });

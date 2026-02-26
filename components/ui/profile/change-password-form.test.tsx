@@ -38,16 +38,22 @@ describe('ChangePasswordForm', () => {
         render(<ChangePasswordForm dictionary={mockDictionary} />);
         expect(screen.getByLabelText('Old Password')).toBeInTheDocument();
         expect(screen.getByLabelText('New Password')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Change Password' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Change Password' }),
+        ).toBeInTheDocument();
     });
 
     it('shows validation error for empty old password', async () => {
         render(<ChangePasswordForm dictionary={mockDictionary} />);
         const newPasswordInput = screen.getByLabelText('New Password');
         await userEvent.type(newPasswordInput, 'newpass123');
-        await userEvent.click(screen.getByRole('button', { name: 'Change Password' }));
+        await userEvent.click(
+            screen.getByRole('button', { name: 'Change Password' }),
+        );
         await waitFor(() => {
-            expect(screen.getByText('Old password is required')).toBeInTheDocument();
+            expect(
+                screen.getByText('Old password is required'),
+            ).toBeInTheDocument();
         });
     });
 
@@ -57,9 +63,13 @@ describe('ChangePasswordForm', () => {
         const newPasswordInput = screen.getByLabelText('New Password');
         await userEvent.type(oldPasswordInput, 'oldpass123');
         await userEvent.type(newPasswordInput, 'short');
-        await userEvent.click(screen.getByRole('button', { name: 'Change Password' }));
+        await userEvent.click(
+            screen.getByRole('button', { name: 'Change Password' }),
+        );
         await waitFor(() => {
-            expect(screen.getByText('At least 7 characters')).toBeInTheDocument();
+            expect(
+                screen.getByText('At least 7 characters'),
+            ).toBeInTheDocument();
         });
     });
 });

@@ -1,21 +1,27 @@
-import fs from 'fs';
 import { vi } from 'vitest';
+
+const { mockReaddir, mockAccess, mockReadFile } = vi.hoisted(() => ({
+    mockReaddir: vi.fn<() => Promise<string[]>>(),
+    mockAccess: vi.fn(),
+    mockReadFile: vi.fn<() => Promise<string>>(),
+}));
 
 vi.mock('fs', () => ({
     default: {
         promises: {
-            readdir: vi.fn(),
-            access: vi.fn(),
-            readFile: vi.fn(),
+            readdir: mockReaddir,
+            access: mockAccess,
+            readFile: mockReadFile,
         },
     },
 }));
 
-const mockReaddir = vi.mocked(fs.promises.readdir);
-const mockAccess = vi.mocked(fs.promises.access);
-const mockReadFile = vi.mocked(fs.promises.readFile);
-
-import { getAllPosts, getFeaturedPosts,getPostData, getPostsFiles } from './posts';
+import {
+    getAllPosts,
+    getFeaturedPosts,
+    getPostData,
+    getPostsFiles,
+} from './posts';
 
 const makeMd = (frontmatter: Record<string, unknown>, content = 'body') => {
     const lines = Object.entries(frontmatter).map(([k, v]) => `${k}: ${v}`);
@@ -28,7 +34,7 @@ beforeEach(() => {
 
 describe('getPostsFiles', () => {
     it('returns file list for a locale', async () => {
-        mockReaddir.mockResolvedValue(['post1.md', 'post2.md'] as never);
+        mockReaddir.mockResolvedValue(['post1.md', 'post2.md']);
         const files = await getPostsFiles('en');
         expect(files).toEqual(['post1.md', 'post2.md']);
     });
@@ -67,15 +73,25 @@ describe('getPostData', () => {
 
 describe('getAllPosts', () => {
     it('returns posts sorted by date descending', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md']);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile
             .mockResolvedValueOnce(
-                makeMd({ title: 'Old', date: "'2024-01-01'", excerpt: 'old', isFeatured: false }),
+                makeMd({
+                    title: 'Old',
+                    date: "'2024-01-01'",
+                    excerpt: 'old',
+                    isFeatured: false,
+                }),
             )
             .mockResolvedValueOnce(
-                makeMd({ title: 'New', date: "'2025-06-01'", excerpt: 'new', isFeatured: false }),
+                makeMd({
+                    title: 'New',
+                    date: "'2025-06-01'",
+                    excerpt: 'new',
+                    isFeatured: false,
+                }),
             );
 
         const posts = await getAllPosts('en');
@@ -87,15 +103,25 @@ describe('getAllPosts', () => {
 
 describe('getFeaturedPosts', () => {
     it('returns only posts with isFeatured: true', async () => {
-        mockReaddir.mockResolvedValue(['a.md', 'b.md'] as never);
+        mockReaddir.mockResolvedValue(['a.md', 'b.md']);
         mockAccess.mockResolvedValue(undefined);
 
         mockReadFile
             .mockResolvedValueOnce(
-                makeMd({ title: 'Featured', date: "'2025-01-01'", excerpt: 'f', isFeatured: true }),
+                makeMd({
+                    title: 'Featured',
+                    date: "'2025-01-01'",
+                    excerpt: 'f',
+                    isFeatured: true,
+                }),
             )
             .mockResolvedValueOnce(
-                makeMd({ title: 'Normal', date: "'2025-01-02'", excerpt: 'n', isFeatured: false }),
+                makeMd({
+                    title: 'Normal',
+                    date: "'2025-01-02'",
+                    excerpt: 'n',
+                    isFeatured: false,
+                }),
             );
 
         const posts = await getFeaturedPosts('en');

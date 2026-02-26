@@ -15,20 +15,34 @@ afterEach(() => {
 
 describe('Notification', () => {
     it('renders title and message', () => {
-        render(<Notification status="success" title="Done!" message="All good" />);
+        render(
+            <Notification status="success" title="Done!" message="All good" />,
+        );
         expect(screen.getByText('Done!')).toBeInTheDocument();
         expect(screen.getByText('All good')).toBeInTheDocument();
     });
 
     it('applies success styling', () => {
-        render(<Notification status="success" title="Done!" message="All good" />);
-        const container = screen.getByText('Done!').closest('.animate-slide-in');
+        render(
+            <Notification status="success" title="Done!" message="All good" />,
+        );
+        const container = screen
+            .getByText('Done!')
+            .closest('.animate-slide-in');
         expect(container).toHaveClass('bg-success-100');
     });
 
     it('applies error styling', () => {
-        render(<Notification status="error" title="Error!" message="Something broke" />);
-        const container = screen.getByText('Error!').closest('.animate-slide-in');
+        render(
+            <Notification
+                status="error"
+                title="Error!"
+                message="Something broke"
+            />,
+        );
+        const container = screen
+            .getByText('Error!')
+            .closest('.animate-slide-in');
         expect(container).toHaveClass('bg-error-500');
     });
 

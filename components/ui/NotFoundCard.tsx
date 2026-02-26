@@ -8,14 +8,14 @@ export default function NotFoundCard() {
     const dictionary = useDictionary()?.['not-found'];
     const { lang } = useParams();
     return (
-        <div className="bg-secondary mt-20 w-full max-w-xl rounded-2xl p-8 text-center shadow-md">
-            <h2 className="text-accent mb-4 font-mono text-5xl font-bold">
+        <div className="mt-20 w-full max-w-xl rounded-2xl bg-secondary p-8 text-center shadow-md">
+            <h2 className="mb-4 font-mono text-5xl font-bold text-accent">
                 404
             </h2>
             <p className="mb-4 text-xl text-foreground">
                 {dictionary.notFound}
             </p>
-            <p className="text-secondary mb-8">
+            <p className="mb-8 text-secondary">
                 {dictionary.weCouldNotFindPage}
             </p>
             <Link

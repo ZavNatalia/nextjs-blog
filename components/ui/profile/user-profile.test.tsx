@@ -7,6 +7,7 @@ vi.mock('next-auth/react', () => ({
 
 vi.mock('next/image', () => ({
     default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
+        // eslint-disable-next-line @next/next/no-img-element
         <img alt={alt} {...props} />
     ),
 }));
@@ -35,6 +36,8 @@ vi.mock('@/hooks/useDictionary', () => ({
         },
     }),
 }));
+
+import type { Dictionary } from '@/get-dictionary';
 
 import UserProfile from './user-profile';
 
@@ -81,23 +84,40 @@ const mockDictionary = {
         failedDeleteAccount: 'Failed.',
         somethingWentWrong: 'Error.',
     },
-} as never;
+} as Dictionary['profile-page'];
 
 describe('UserProfile', () => {
     it('renders Account section by default', () => {
-        render(<UserProfile userEmail="user@test.com" dictionary={mockDictionary} />);
+        render(
+            <UserProfile
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
         expect(screen.getByText('user@test.com')).toBeInTheDocument();
     });
 
     it('switches to Security section', async () => {
-        render(<UserProfile userEmail="user@test.com" dictionary={mockDictionary} />);
+        render(
+            <UserProfile
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
         const securityButtons = screen.getAllByText('Security');
         await userEvent.click(securityButtons[0]);
-        expect(screen.getByText('Want to change your password?')).toBeInTheDocument();
+        expect(
+            screen.getByText('Want to change your password?'),
+        ).toBeInTheDocument();
     });
 
     it('switches to Danger Zone section', async () => {
-        render(<UserProfile userEmail="user@test.com" dictionary={mockDictionary} />);
+        render(
+            <UserProfile
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
         const dangerButtons = screen.getAllByText('Danger Zone');
         await userEvent.click(dangerButtons[0]);
         expect(screen.getByText('This is irreversible.')).toBeInTheDocument();

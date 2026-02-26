@@ -47,7 +47,7 @@ export default function Notification({
                 className={`relative animate-slide-in overflow-hidden rounded-3xl px-6 py-4 shadow-lg ${getToastColors(status)}`}
             >
                 <button
-                    className="absolute right-4 top-3 transition-opacity hover:opacity-75"
+                    className="absolute top-3 right-4 transition-opacity hover:opacity-75"
                     onClick={() => {
                         setVisible(false);
                         if (onClose) onClose();
