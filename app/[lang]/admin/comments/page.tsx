@@ -39,15 +39,7 @@ export default async function ModerationPage(props: {
     }[] = [];
 
     try {
-        const client = await Promise.race([
-            clientPromise,
-            new Promise<never>((_, reject) =>
-                setTimeout(
-                    () => reject(new Error('MongoDB timeout')),
-                    5000,
-                ),
-            ),
-        ]);
+        const client = await clientPromise;
         const db = client.db();
         const comments = await db
             .collection<IComment>('comments')
