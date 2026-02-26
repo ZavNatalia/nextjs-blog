@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['posts-page'];
+    const dictionary = await getDictionary(lang)['posts-page'];
     const baseUrl = 'https://zav.me';
     const path = 'posts';
 
@@ -47,7 +47,7 @@ export default async function Posts(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['posts-page'];
+    const dictionary = await getDictionary(lang)['posts-page'];
 
     const breadcrumbs: Breadcrumb[] = [
         { title: dictionary.main, link: '/' },

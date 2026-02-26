@@ -11,6 +11,8 @@ vi.mock('react-turnstile', () => ({
     ),
 }));
 
+import type { Dictionary } from '@/get-dictionary';
+
 import ContactForm from './contact-form';
 
 const mockDictionary = {
@@ -35,9 +37,10 @@ const mockDictionary = {
     bySubmittingMessage: 'By submitting a message you agree to',
     privacyPolicy: 'Privacy Policy',
     openPrivacyPolicyPage: 'Open Privacy Policy page',
-    consentProcessingPersonalData: 'and consent to the processing of your personal data.',
+    consentProcessingPersonalData:
+        'and consent to the processing of your personal data.',
     somethingWentWrong: 'Something went wrong!',
-} as never;
+} as Dictionary['contact-page'];
 
 const mockFetch = vi.fn();
 
@@ -61,12 +64,21 @@ describe('ContactForm', () => {
         expect(screen.getByLabelText('Your Email')).toBeInTheDocument();
         expect(screen.getByLabelText('Your name')).toBeInTheDocument();
         expect(screen.getByLabelText('Your message')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Send message' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Send message' }),
+        ).toBeInTheDocument();
     });
 
     it('pre-fills email when userEmail is provided', () => {
-        render(<ContactForm userEmail="user@test.com" dictionary={mockDictionary} />);
-        expect(screen.getByLabelText('Your Email')).toHaveValue('user@test.com');
+        render(
+            <ContactForm
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(screen.getByLabelText('Your Email')).toHaveValue(
+            'user@test.com',
+        );
     });
 
     it('updates input values on typing', async () => {
@@ -87,7 +99,12 @@ describe('ContactForm', () => {
             json: async () => ({ message: 'Success' }),
         } as Response);
 
-        render(<ContactForm userEmail="test@test.com" dictionary={mockDictionary} />);
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
 
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
@@ -96,7 +113,9 @@ describe('ContactForm', () => {
 
         await waitFor(() => {
             expect(screen.getByText('Success!')).toBeInTheDocument();
-            expect(screen.getByText('Message sent successfully')).toBeInTheDocument();
+            expect(
+                screen.getByText('Message sent successfully'),
+            ).toBeInTheDocument();
         });
     });
 
@@ -107,7 +126,12 @@ describe('ContactForm', () => {
             json: async () => ({ message: 'Success' }),
         } as Response);
 
-        render(<ContactForm userEmail="test@test.com" dictionary={mockDictionary} />);
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
 
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
@@ -128,7 +152,12 @@ describe('ContactForm', () => {
             json: async () => ({ error: 'Invalid email' }),
         } as Response);
 
-        render(<ContactForm userEmail="test@test.com" dictionary={mockDictionary} />);
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
 
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
@@ -145,14 +174,21 @@ describe('ContactForm', () => {
         const user = userEvent.setup();
         mockFetch.mockReturnValue(new Promise(() => {}));
 
-        render(<ContactForm userEmail="test@test.com" dictionary={mockDictionary} />);
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
 
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
-        expect(screen.getByRole('button', { name: 'Send message' })).toBeDisabled();
+        expect(
+            screen.getByRole('button', { name: 'Send message' }),
+        ).toBeDisabled();
         expect(screen.getByText('Sending...')).toBeInTheDocument();
     });
 
@@ -167,7 +203,12 @@ describe('ContactForm', () => {
             json: async () => ({ message: 'Success' }),
         } as Response);
 
-        render(<ContactForm userEmail="test@test.com" dictionary={mockDictionary} />);
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
 
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
@@ -188,7 +229,12 @@ describe('ContactForm', () => {
             json: async () => ({ message: 'Success' }),
         } as Response);
 
-        render(<ContactForm userEmail="test@test.com" dictionary={mockDictionary} />);
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
 
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');

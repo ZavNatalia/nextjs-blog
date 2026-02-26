@@ -17,12 +17,12 @@ export default function NewsItemHeader({
         year: 'numeric',
     });
     return (
-        <header className="after:bg-accent relative mb-6 flex w-full flex-col gap-3 pb-6 after:absolute after:bottom-0 after:block after:h-2 after:w-full dark:after:bg-accent-700 md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8">
+        <header className="relative mb-6 flex w-full flex-col gap-3 pb-6 after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8 dark:after:bg-accent-700">
             <div>
-                <h2 className="mb-2 text-2xl font-bold leading-snug md:mb-4 md:text-3xl lg:text-4xl">
+                <h2 className="mb-2 text-2xl leading-snug font-bold md:mb-4 md:text-3xl lg:text-4xl">
                     {title}
                 </h2>
-                <span className="text-secondary text-base">
+                <span className="text-base text-secondary">
                     {formattedDate}
                 </span>
             </div>

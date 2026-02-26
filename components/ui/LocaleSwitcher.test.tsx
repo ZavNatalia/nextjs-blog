@@ -42,7 +42,9 @@ describe('LocaleSwitcher', () => {
 
     it('switches locale on click', async () => {
         render(<LocaleSwitcher />);
-        await userEvent.click(screen.getByRole('button', { name: 'Switch to Russian' }));
+        await userEvent.click(
+            screen.getByRole('button', { name: 'Switch to Russian' }),
+        );
         expect(mockPush).toHaveBeenCalledWith('/ru/posts');
         expect(mockRefresh).toHaveBeenCalled();
     });

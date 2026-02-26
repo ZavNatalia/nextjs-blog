@@ -7,7 +7,7 @@ export async function createUser(email: string, password: string) {
         },
     });
 
-    const data = await response.json();
+    const data = await response.json().catch(() => null);
     if (!response.ok) {
         throw new Error(data?.error || 'Something went wrong!');
     }

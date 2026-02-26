@@ -56,8 +56,6 @@ test.describe('Post detail page', () => {
     test('shows 404 for non-existent post', async ({ page }) => {
         await page.goto('/en/posts/this-post-does-not-exist');
 
-        await expect(
-            page.getByRole('heading', { name: '404' }),
-        ).toBeVisible();
+        await expect(page.getByRole('heading', { name: '404' })).toBeVisible();
     });
 });

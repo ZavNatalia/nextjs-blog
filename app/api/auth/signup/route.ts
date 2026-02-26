@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 
 import { hashPassword } from '@/lib/auth';
 import clientPromise from '@/lib/db';
-import { getClientIp,rateLimit } from '@/lib/rate-limit';
+import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
 import { signupSchema } from '@/lib/validations';
 

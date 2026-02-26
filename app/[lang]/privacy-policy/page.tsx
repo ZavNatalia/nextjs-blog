@@ -10,7 +10,7 @@ export default async function PrivacyPolicyPage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)?.['privacy-policy-page'];
+    const dictionary = await getDictionary(lang)['privacy-policy-page'];
     const privacyPolicy = getPrivacyPolicyFile(lang);
 
     const breadcrumbs: Breadcrumb[] = [
@@ -24,11 +24,9 @@ export default async function PrivacyPolicyPage(props: {
             <h2 className="mb-6 text-center text-2xl font-bold lg:text-4xl">
                 {dictionary.privacyPolicy}
             </h2>
-            <article className="bg-secondary mx-auto w-full rounded-3xl p-3 md:p-4 lg:max-w-5xl lg:p-10">
-                <div className="markdown-content prose-sm dark:prose-invert lg:prose-lg">
-                    <ReactMarkdown>
-                        {privacyPolicy?.content}
-                    </ReactMarkdown>
+            <article className="mx-auto w-full rounded-3xl bg-secondary p-3 md:p-4 lg:max-w-5xl lg:p-10">
+                <div className="markdown-content prose-sm lg:prose-lg dark:prose-invert">
+                    <ReactMarkdown>{privacyPolicy?.content}</ReactMarkdown>
                 </div>
             </article>
             <BackToTopButton />

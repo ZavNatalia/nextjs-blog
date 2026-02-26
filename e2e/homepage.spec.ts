@@ -26,7 +26,9 @@ test.describe('Homepage (EN)', () => {
     test('navigates to posts page via "All posts" link', async ({ page }) => {
         await page.goto('/en');
 
-        await page.getByRole('link', { name: 'All posts', exact: true }).click();
+        await page
+            .getByRole('link', { name: 'All posts', exact: true })
+            .click();
 
         await expect(page).toHaveURL(/\/en\/posts$/);
     });
@@ -35,9 +37,7 @@ test.describe('Homepage (EN)', () => {
         await page.goto('/en');
 
         const header = page.getByRole('banner');
-        await expect(
-            header.getByRole('link', { name: 'Posts' }),
-        ).toBeVisible();
+        await expect(header.getByRole('link', { name: 'Posts' })).toBeVisible();
         await expect(
             header.getByRole('link', { name: 'Contact' }),
         ).toBeVisible();
