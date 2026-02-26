@@ -34,6 +34,7 @@ const mockDictionary = {
     auth: 'Sign In',
     profile: 'Profile',
     userProfile: 'Profile',
+    moderation: 'Moderation',
     switchToLightTheme: 'Light',
     switchToDarkTheme: 'Dark',
     switchToRu: 'RU',
@@ -43,6 +44,13 @@ const mockDictionary = {
 } as Dictionary['navigation'];
 
 describe('NavigationList', () => {
+    beforeAll(() => {
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL = 'admin@test.com';
+    });
+    afterAll(() => {
+        delete process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+    });
+
     it('renders main navigation links', () => {
         render(
             <NavigationList
@@ -108,5 +116,33 @@ describe('NavigationList', () => {
         );
         const postsLink = screen.getByText('Posts').closest('a');
         expect(postsLink).toHaveClass('text-accent');
+    });
+
+    it('shows moderation link for admin user', () => {
+        render(
+            <NavigationList
+                normalizedPathname="/"
+                session={{ user: { email: 'admin@test.com' } }}
+                status="authenticated"
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(
+            screen.getByRole('link', { name: 'Moderation' }),
+        ).toBeInTheDocument();
+    });
+
+    it('does not show moderation link for non-admin user', () => {
+        render(
+            <NavigationList
+                normalizedPathname="/"
+                session={{ user: { email: 'regular@test.com' } }}
+                status="authenticated"
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(
+            screen.queryByRole('link', { name: 'Moderation' }),
+        ).not.toBeInTheDocument();
     });
 });

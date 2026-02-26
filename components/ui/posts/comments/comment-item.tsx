@@ -108,6 +108,11 @@ export default function CommentItem({
                     </div>
                 )}
             </div>
+            {comment.status === 'pending' && (
+                <p className="mb-2 ml-12 text-sm text-yellow-600 dark:text-yellow-400">
+                    {dictionary.awaitingModeration}
+                </p>
+            )}
             {isEditing ? (
                 <CommentEditForm
                     commentId={comment._id}

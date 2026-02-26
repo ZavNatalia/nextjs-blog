@@ -37,7 +37,8 @@
         "switchToRu": "Switch to Russian",
         "switchToEn": "Switch to English",
         "closeMenu": "Close menu",
-        "openMenu": "Open menu"
+        "openMenu": "Open menu",
+        "moderation": "Moderation"
     },
     "profile-page": {
         "pageDescription": "Manage your account settings, update your password, or delete your account permanently.",
@@ -152,6 +153,27 @@
         "error": "Error!",
         "somethingWentWrong": "Something went wrong!",
         "charactersRemaining": "characters remaining"
+    },
+    "moderation": {
+        "title": "Comment Moderation",
+        "noComments": "No comments to show",
+        "all": "All",
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "approve": "Approve",
+        "reject": "Reject",
+        "delete": "Delete",
+        "author": "Author",
+        "post": "Post",
+        "date": "Date",
+        "status": "Status",
+        "confirmDeleteTitle": "Delete comment",
+        "confirmDelete": "Are you sure you want to delete this comment?",
+        "confirmDeleteAction": "Yes, delete",
+        "cancel": "Cancel",
+        "actionSuccess": "Action completed successfully",
+        "actionError": "Something went wrong"
     },
     "contact-page": {
         "main": "main",

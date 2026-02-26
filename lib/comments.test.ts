@@ -44,4 +44,28 @@ describe('moderateContent', () => {
     it('approves short lowercase content', () => {
         expect(moderateContent('nice post')).toBe('approved');
     });
+
+    it('flags English profanity', () => {
+        expect(moderateContent('what the fuck is this')).toBe('pending');
+    });
+
+    it('flags English profanity case-insensitive', () => {
+        expect(moderateContent('Holy SHIT')).toBe('pending');
+    });
+
+    it('flags Russian profanity', () => {
+        expect(moderateContent('ты сука не прав')).toBe('pending');
+    });
+
+    it('flags Russian profanity stems', () => {
+        expect(moderateContent('какое дерьмо')).toBe('pending');
+    });
+
+    it('approves clean Russian text', () => {
+        expect(moderateContent('Отличная статья, спасибо!')).toBe('approved');
+    });
+
+    it('approves words containing profanity substrings in English', () => {
+        expect(moderateContent('classic assessment')).toBe('approved');
+    });
 });
