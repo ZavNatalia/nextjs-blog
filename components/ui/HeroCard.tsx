@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { type getDictionary } from '@/get-dictionary';
 import { type Locale } from '@/i18n-config';
@@ -12,9 +13,11 @@ export default function HeroCard({
     dictionary: Awaited<ReturnType<typeof getDictionary>>['common'];
     lang: Locale;
 }) {
+    const [imageLoaded, setImageLoaded] = useState(false);
+
     return (
-        <section className="relative w-full max-w-xl animate-fade-in overflow-hidden rounded-3xl px-2 py-4 shadow-lg">
-            {/* Background image */}
+        <section className="relative w-full max-w-xl animate-fade-in overflow-hidden rounded-3xl bg-background-secondary px-2 py-4 shadow-lg">
+            {/* Background images */}
             <Image
                 src="/images/site/hero-desktop-dark.png"
                 fill
@@ -23,6 +26,7 @@ export default function HeroCard({
                 quality={90}
                 priority
                 sizes="(max-width: 768px) 100vw, 863px"
+                onLoad={() => setImageLoaded(true)}
             />
             <Image
                 src="/images/site/hero-desktop-light.png"
@@ -32,6 +36,7 @@ export default function HeroCard({
                 quality={90}
                 priority
                 sizes="(max-width: 768px) 100vw, 863px"
+                onLoad={() => setImageLoaded(true)}
             />
 
             {/* Gradient overlay */}
@@ -51,6 +56,24 @@ export default function HeroCard({
                 >
                     {dictionary.goToAllPosts}
                 </Link>
+            </div>
+
+            {/* Skeleton overlay — visible until background image loads */}
+            <div
+                className={`absolute inset-0 bg-background-secondary transition-opacity duration-500 ${
+                    imageLoaded
+                        ? 'pointer-events-none opacity-0'
+                        : 'opacity-100'
+                }`}
+            >
+                <div className="flex flex-col items-center gap-4 px-6 py-10 sm:px-12 sm:py-14 md:max-w-[60%] md:items-start md:py-12">
+                    <div className="h-9 w-3/4 animate-pulse rounded-lg bg-foreground-muted/20 md:h-10 lg:h-12" />
+                    <div className="flex w-full max-w-md flex-col gap-2">
+                        <div className="h-5 w-full animate-pulse rounded-lg bg-foreground-muted/15 md:h-6" />
+                        <div className="h-5 w-5/6 animate-pulse rounded-lg bg-foreground-muted/15 md:h-6" />
+                    </div>
+                    <div className="mt-2 h-10 w-[160px] animate-pulse rounded-lg bg-foreground-muted/20" />
+                </div>
             </div>
         </section>
     );

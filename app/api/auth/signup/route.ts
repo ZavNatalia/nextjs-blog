@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 
 import { hashPassword } from '@/lib/auth';
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
 import { signupSchema } from '@/lib/validations';
@@ -43,8 +43,7 @@ export async function POST(request: NextRequest) {
     const { email, password } = result.data;
 
     try {
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const collection = db.collection<IUser>('users');
 
         const existingUser = await collection.findOne({ email });
