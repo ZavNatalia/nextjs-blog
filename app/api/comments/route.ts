@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 
 import { moderateContent } from '@/lib/comments';
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IComment } from '@/lib/types/mongodb';
 import { commentSchema } from '@/lib/validations';
@@ -23,8 +23,7 @@ export async function GET(req: NextRequest) {
     }
 
     try {
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const commentsCollection = db.collection<IComment>('comments');
 
         const comments = await commentsCollection
@@ -98,8 +97,7 @@ export async function POST(req: NextRequest) {
         const { postSlug, content } = result.data;
         const status = moderateContent(content);
 
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const commentsCollection = db.collection<IComment>('comments');
 
         const comment: IComment = {

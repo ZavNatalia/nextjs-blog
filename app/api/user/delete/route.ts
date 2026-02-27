@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
 
@@ -40,8 +40,7 @@ export async function DELETE(req: NextRequest) {
 
         const userEmail = session.user.email;
 
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const usersCollection = db.collection<IUser>('users');
 
         const user = await usersCollection.findOne({ email: userEmail });

@@ -4,7 +4,7 @@ import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
 import { verifyPassword } from '@/lib/auth';
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
 
@@ -60,8 +60,16 @@ const handler = NextAuth({
                     throw new Error('Missing email or password');
                 }
 
-                const client = await clientPromise;
-                const usersCollection = client.db().collection<IUser>('users');
+                let db;
+                try {
+                    db = await connectToDatabase();
+                } catch {
+                    throw new Error(
+                        'Service temporarily unavailable. Please try again later.',
+                    );
+                }
+
+                const usersCollection = db.collection<IUser>('users');
                 const user = await usersCollection.findOne({
                     email: credentials.email,
                 });
