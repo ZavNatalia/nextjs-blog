@@ -4,12 +4,10 @@ const mockFindOne = vi.fn();
 const mockUpdateOne = vi.fn();
 
 vi.mock('@/lib/db', () => ({
-    default: Promise.resolve({
-        db: () => ({
-            collection: () => ({
-                findOne: mockFindOne,
-                updateOne: mockUpdateOne,
-            }),
+    connectToDatabase: vi.fn().mockResolvedValue({
+        collection: () => ({
+            findOne: mockFindOne,
+            updateOne: mockUpdateOne,
         }),
     }),
 }));

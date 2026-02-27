@@ -6,7 +6,7 @@ import ModerationPanel from '@/components/ui/posts/comments/moderation-panel';
 import { getDictionary } from '@/get-dictionary';
 import type { Locale } from '@/i18n-config';
 import { i18n } from '@/i18n-config';
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { IComment } from '@/lib/types/mongodb';
 
 export async function generateStaticParams() {
@@ -39,8 +39,7 @@ export default async function ModerationPage(props: {
     }[] = [];
 
     try {
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const comments = await db
             .collection<IComment>('comments')
             .find({})

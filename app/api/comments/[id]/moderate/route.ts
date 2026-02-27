@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IComment } from '@/lib/types/mongodb';
 import { commentModerateSchema } from '@/lib/validations';
@@ -62,8 +62,7 @@ export async function PATCH(
     }
 
     try {
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const commentsCollection = db.collection<IComment>('comments');
 
         await commentsCollection.updateOne(

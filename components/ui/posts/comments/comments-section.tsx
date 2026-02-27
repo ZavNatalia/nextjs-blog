@@ -6,7 +6,7 @@ import CommentForm from '@/components/ui/posts/comments/comment-form';
 import CommentItem from '@/components/ui/posts/comments/comment-item';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import type { CommentStatus } from '@/lib/types/mongodb';
 import { IComment } from '@/lib/types/mongodb';
 
@@ -38,8 +38,7 @@ export default async function CommentsSection({
     }[] = [];
 
     try {
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const userEmail = session?.user?.email;
         const query = userEmail
             ? {

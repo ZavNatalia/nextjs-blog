@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 
 import { hashPassword, verifyPassword } from '@/lib/auth';
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
 import { changePasswordSchema } from '@/lib/validations';
@@ -55,8 +55,7 @@ export async function PATCH(req: NextRequest) {
     const userEmail = session.user.email;
 
     try {
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const usersCollection = db.collection<IUser>('users');
 
         const existingUser = await usersCollection.findOne({
