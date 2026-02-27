@@ -3,11 +3,9 @@ import { vi } from 'vitest';
 const mockInsertOne = vi.fn();
 
 vi.mock('@/lib/db', () => ({
-    default: Promise.resolve({
-        db: () => ({
-            collection: () => ({
-                insertOne: mockInsertOne,
-            }),
+    connectToDatabase: vi.fn().mockResolvedValue({
+        collection: () => ({
+            insertOne: mockInsertOne,
         }),
     }),
 }));

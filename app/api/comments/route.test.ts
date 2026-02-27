@@ -6,12 +6,10 @@ const mockSort = vi.fn();
 const mockToArray = vi.fn();
 
 vi.mock('@/lib/db', () => ({
-    default: Promise.resolve({
-        db: () => ({
-            collection: () => ({
-                insertOne: mockInsertOne,
-                find: mockFind,
-            }),
+    connectToDatabase: vi.fn().mockResolvedValue({
+        collection: () => ({
+            insertOne: mockInsertOne,
+            find: mockFind,
         }),
     }),
 }));

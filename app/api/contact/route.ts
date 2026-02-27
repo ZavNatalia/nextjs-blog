@@ -1,7 +1,7 @@
 import { Db } from 'mongodb';
 import { NextRequest } from 'next/server';
 
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IMessage } from '@/lib/types/mongodb';
 import { contactSchema } from '@/lib/validations';
@@ -76,8 +76,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
 
         const newMessage = await insertMessage(db, body as IMessage);
 

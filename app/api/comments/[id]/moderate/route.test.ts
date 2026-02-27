@@ -3,11 +3,9 @@ import { vi } from 'vitest';
 const mockUpdateOne = vi.fn();
 
 vi.mock('@/lib/db', () => ({
-    default: Promise.resolve({
-        db: () => ({
-            collection: () => ({
-                updateOne: mockUpdateOne,
-            }),
+    connectToDatabase: vi.fn().mockResolvedValue({
+        collection: () => ({
+            updateOne: mockUpdateOne,
         }),
     }),
 }));

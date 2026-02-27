@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 
 import { moderateContent } from '@/lib/comments';
-import clientPromise from '@/lib/db';
+import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IComment } from '@/lib/types/mongodb';
 import { commentEditSchema } from '@/lib/validations';
@@ -60,8 +60,7 @@ export async function PATCH(
         const { id } = await params;
         const { content } = result.data;
 
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const commentsCollection = db.collection<IComment>('comments');
 
         const comment = await commentsCollection.findOne({
@@ -163,8 +162,7 @@ export async function DELETE(
 
         const { id } = await params;
 
-        const client = await clientPromise;
-        const db = client.db();
+        const db = await connectToDatabase();
         const commentsCollection = db.collection<IComment>('comments');
 
         const comment = await commentsCollection.findOne({
