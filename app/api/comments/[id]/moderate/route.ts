@@ -48,6 +48,17 @@ export async function PATCH(
     }
 
     const { id } = await params;
+
+    if (!ObjectId.isValid(id)) {
+        return new Response(
+            JSON.stringify({ error: 'Invalid comment ID.' }),
+            {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+            },
+        );
+    }
+
     const data = await req.json();
     const result = commentModerateSchema.safeParse(data);
 

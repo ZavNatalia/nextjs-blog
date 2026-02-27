@@ -56,8 +56,8 @@ export default async function ModerationPage(props: {
             createdAt: c.createdAt.toISOString(),
             updatedAt: c.updatedAt?.toISOString(),
         }));
-    } catch {
-        // MongoDB unavailable — render with empty list
+    } catch (error) {
+        console.error('Failed to load comments for moderation:', error);
     }
 
     return (
