@@ -65,8 +65,8 @@ export default async function CommentsSection({
             createdAt: c.createdAt.toISOString(),
             updatedAt: c.updatedAt?.toISOString(),
         }));
-    } catch {
-        // MongoDB unavailable — render comments section with empty list
+    } catch (error) {
+        console.error('Failed to load comments for post:', postSlug, error);
     }
 
     return (

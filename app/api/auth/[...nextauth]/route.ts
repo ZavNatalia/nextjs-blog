@@ -60,7 +60,15 @@ const handler = NextAuth({
                     throw new Error('Missing email or password');
                 }
 
-                const db = await connectToDatabase();
+                let db;
+                try {
+                    db = await connectToDatabase();
+                } catch {
+                    throw new Error(
+                        'Service temporarily unavailable. Please try again later.',
+                    );
+                }
+
                 const usersCollection = db.collection<IUser>('users');
                 const user = await usersCollection.findOne({
                     email: credentials.email,
