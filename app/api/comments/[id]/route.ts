@@ -108,7 +108,7 @@ export async function PATCH(
         return jsonResponse(
             {
                 error: 'Failed to update comment. Database may be temporarily unavailable.',
-                details: message,
+
             },
             500,
         );
@@ -166,7 +166,7 @@ export async function DELETE(
         return jsonResponse(
             {
                 error: 'Failed to delete comment. Database may be temporarily unavailable.',
-                details: message,
+
             },
             500,
         );
