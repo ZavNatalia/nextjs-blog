@@ -1,6 +1,6 @@
 import { Db, MongoClient } from 'mongodb';
 
-const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@cluster0.uncch6e.mongodb.net/?retryWrites=true&w=majority&appName=nextjs-blog`;
+const connectionString = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.uncch6e.mongodb.net/?retryWrites=true&w=majority&appName=nextjs-blog`;
 
 const clientOptions = {
     connectTimeoutMS: 10000,
@@ -27,5 +27,9 @@ if (process.env.NODE_ENV === 'development') {
 
 export async function connectToDatabase(): Promise<Db> {
     await client.connect();
-    return client.db(process.env.mongodb_database);
+    const dbName =
+        process.env.NODE_ENV === 'development'
+            ? process.env.MONGODB_DATABASE_DEV
+            : process.env.MONGODB_DATABASE;
+    return client.db(dbName);
 }
