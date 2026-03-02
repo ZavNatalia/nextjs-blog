@@ -44,6 +44,7 @@ export default async function ModerationPage(props: {
             .collection<IComment>('comments')
             .find({})
             .sort({ createdAt: -1 })
+            .limit(200)
             .toArray();
 
         serializedComments = comments.map((c) => ({

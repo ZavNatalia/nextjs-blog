@@ -22,6 +22,24 @@ export async function GET(req: NextRequest) {
         );
     }
 
+    const ip = getClientIp(req);
+    const { success, retryAfterMs } = limiter.check(ip);
+
+    if (!success) {
+        return new Response(
+            JSON.stringify({
+                error: 'Too many requests. Please try again later.',
+            }),
+            {
+                status: 429,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Retry-After': String(Math.ceil(retryAfterMs / 1000)),
+                },
+            },
+        );
+    }
+
     try {
         const db = await connectToDatabase();
         const commentsCollection = db.collection<IComment>('comments');
@@ -42,7 +60,7 @@ export async function GET(req: NextRequest) {
         return new Response(
             JSON.stringify({
                 error: 'Failed to load comments. Database may be temporarily unavailable.',
-                details: message,
+
             }),
             {
                 status: 500,
@@ -129,7 +147,7 @@ export async function POST(req: NextRequest) {
         return new Response(
             JSON.stringify({
                 error: 'Failed to create comment. Database may be temporarily unavailable.',
-                details: message,
+
             }),
             {
                 status: 500,

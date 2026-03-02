@@ -95,7 +95,7 @@ export async function PATCH(
         return new Response(
             JSON.stringify({
                 error: 'Failed to moderate comment. Database may be temporarily unavailable.',
-                details: message,
+
             }),
             {
                 status: 500,
