@@ -70,7 +70,7 @@ export default function CommentItem({
         <div className="rounded-xl bg-background-secondary p-4 shadow-sm md:p-5">
             <div className="mb-3 flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-contrast dark:text-foreground">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent text-sm font-bold text-contrast dark:text-foreground">
                         {avatarLetter}
                     </div>
                     <div>

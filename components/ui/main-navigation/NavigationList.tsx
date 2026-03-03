@@ -52,7 +52,9 @@ export function NavigationList({
     onClick,
 }: {
     normalizedPathname: string;
-    session: { user?: { email?: string | null } } | null;
+    session: {
+        user?: { email?: string | null; name?: string | null };
+    } | null;
     status: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['navigation'];
     onClick?: () => void;
@@ -85,6 +87,8 @@ export function NavigationList({
                 <ProfileButton
                     title={dictionary['userProfile']}
                     normalizedPathname={normalizedPathname}
+                    userName={session?.user?.name || undefined}
+                    userEmail={session?.user?.email || undefined}
                     onClick={onClick}
                 />
             )}

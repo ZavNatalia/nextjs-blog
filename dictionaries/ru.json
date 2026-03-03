@@ -49,6 +49,18 @@
         "dangerZone": "Опасная зона",
         "accountSection": {
             "yourAccount": "Ваш профиль",
+            "name": "Отображаемое имя",
+            "namePlaceholder": "Введите ваше имя",
+            "saveChanges": "Сохранить",
+            "saving": "Сохранение...",
+            "profileUpdatedSuccessfully": "Профиль успешно обновлён!",
+            "failedUpdateProfile": "Не удалось обновить профиль.",
+            "somethingWentWrong": "Что-то пошло не так.",
+            "success": "Успешно",
+            "error": "Ошибка",
+            "nameRequired": "Имя обязательно",
+            "nameMinLength": "Имя должно содержать не менее 2 символов",
+            "nameMaxLength": "Имя не должно превышать 50 символов",
             "logout": "Выйти"
         },
         "securitySection": {

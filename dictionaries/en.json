@@ -49,6 +49,18 @@
         "dangerZone": "Danger Zone",
         "accountSection": {
             "yourAccount": "Your Account",
+            "name": "Display Name",
+            "namePlaceholder": "Enter your name",
+            "saveChanges": "Save Changes",
+            "saving": "Saving...",
+            "profileUpdatedSuccessfully": "Profile updated successfully!",
+            "failedUpdateProfile": "Failed to update profile.",
+            "somethingWentWrong": "Something went wrong.",
+            "success": "Success",
+            "error": "Error",
+            "nameRequired": "Name is required",
+            "nameMinLength": "Name must be at least 2 characters",
+            "nameMaxLength": "Name must not exceed 50 characters",
             "logout": "Log out"
         },
         "securitySection": {
