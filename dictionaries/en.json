@@ -193,7 +193,8 @@
         "deleteAllByEmail": "Delete all",
         "confirmDeleteByEmailTitle": "Delete all comments",
         "confirmDeleteByEmail": "Are you sure you want to delete all comments by",
-        "deletingComments": "Deleting..."
+        "deletingComments": "Deleting...",
+        "invalidEmailError": "Enter a valid email to delete all comments"
     },
     "contact-page": {
         "main": "main",

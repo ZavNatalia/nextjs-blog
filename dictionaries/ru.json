@@ -194,7 +194,8 @@
         "deleteAllByEmail": "Удалить все",
         "confirmDeleteByEmailTitle": "Удалить все комментарии",
         "confirmDeleteByEmail": "Вы уверены, что хотите удалить все комментарии от",
-        "deletingComments": "Удаление..."
+        "deletingComments": "Удаление...",
+        "invalidEmailError": "Введите корректный email для удаления всех комментариев"
     },
     "contact-page": {
         "contactMe": "Обратная связь",
