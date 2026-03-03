@@ -27,9 +27,11 @@ const SECTIONS: { key: string; label: SectionLabel; icon: typeof UserIcon }[] =
 
 export default function UserProfile({
     userEmail,
+    userName,
     dictionary,
 }: {
     userEmail: string;
+    userName: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['profile-page'];
 }) {
     const [activeSection, setActiveSection] = useState('Account');
@@ -86,6 +88,7 @@ export default function UserProfile({
                     {activeSection === 'Account' && (
                         <AccountSection
                             userEmail={userEmail}
+                            userName={userName}
                             dictionary={dictionary.accountSection}
                         />
                     )}

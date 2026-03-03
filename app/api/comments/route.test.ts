@@ -4,13 +4,19 @@ const mockInsertOne = vi.fn();
 const mockFind = vi.fn();
 const mockSort = vi.fn();
 const mockToArray = vi.fn();
+const mockFindOne = vi.fn();
 
 vi.mock('@/lib/db', () => ({
     connectToDatabase: vi.fn().mockResolvedValue({
-        collection: () => ({
-            insertOne: mockInsertOne,
-            find: mockFind,
-        }),
+        collection: (name: string) => {
+            if (name === 'users') {
+                return { findOne: mockFindOne };
+            }
+            return {
+                insertOne: mockInsertOne,
+                find: mockFind,
+            };
+        },
     }),
 }));
 
@@ -132,6 +138,10 @@ describe('POST /api/comments', () => {
             user: { email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
+        mockFindOne.mockResolvedValue({
+            email: 'test@test.com',
+            name: 'Test User',
+        });
         mockInsertOne.mockResolvedValue({ insertedId: 'comment123' });
 
         const res = await POST(
@@ -154,6 +164,10 @@ describe('POST /api/comments', () => {
         vi.mocked(getServerSession).mockResolvedValue({
             user: { email: 'test@test.com', name: 'Test User' },
             expires: '',
+        });
+        mockFindOne.mockResolvedValue({
+            email: 'test@test.com',
+            name: 'Test User',
         });
         mockInsertOne.mockResolvedValue({ insertedId: 'comment456' });
 

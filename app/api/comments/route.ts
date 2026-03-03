@@ -116,12 +116,17 @@ export async function POST(req: NextRequest) {
         const status = moderateContent(content);
 
         const db = await connectToDatabase();
+        const userEmail = session.user!.email!;
+        const dbUser = await db
+            .collection('users')
+            .findOne({ email: userEmail });
+
         const commentsCollection = db.collection<IComment>('comments');
 
         const comment: IComment = {
             postSlug,
-            authorEmail: session.user!.email!,
-            authorName: session.user!.name || session.user!.email!,
+            authorEmail: userEmail,
+            authorName: dbUser?.name || userEmail,
             content,
             status,
             createdAt: new Date(),

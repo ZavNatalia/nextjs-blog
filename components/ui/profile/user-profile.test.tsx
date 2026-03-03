@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 vi.mock('next-auth/react', () => ({
     signOut: vi.fn(),
+    useSession: () => ({ update: vi.fn() }),
 }));
 
 vi.mock('next/image', () => ({
@@ -47,6 +48,18 @@ const mockDictionary = {
     dangerZone: 'Danger Zone',
     accountSection: {
         yourAccount: 'Your Account',
+        name: 'Display Name',
+        namePlaceholder: 'Enter your name',
+        saveChanges: 'Save Changes',
+        saving: 'Saving...',
+        profileUpdatedSuccessfully: 'Profile updated successfully!',
+        failedUpdateProfile: 'Failed to update profile.',
+        somethingWentWrong: 'Something went wrong.',
+        success: 'Success',
+        error: 'Error',
+        nameRequired: 'Name is required',
+        nameMinLength: 'Name must be at least 2 characters',
+        nameMaxLength: 'Name must not exceed 50 characters',
         logout: 'Log Out',
     },
     securitySection: {
@@ -91,6 +104,7 @@ describe('UserProfile', () => {
         render(
             <UserProfile
                 userEmail="user@test.com"
+                userName="Test User"
                 dictionary={mockDictionary}
             />,
         );
@@ -101,6 +115,7 @@ describe('UserProfile', () => {
         render(
             <UserProfile
                 userEmail="user@test.com"
+                userName="Test User"
                 dictionary={mockDictionary}
             />,
         );
@@ -115,6 +130,7 @@ describe('UserProfile', () => {
         render(
             <UserProfile
                 userEmail="user@test.com"
+                userName="Test User"
                 dictionary={mockDictionary}
             />,
         );

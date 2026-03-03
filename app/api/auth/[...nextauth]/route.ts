@@ -14,6 +14,7 @@ declare module 'next-auth/jwt' {
     interface JWT {
         id?: string;
         email?: string;
+        name?: string;
     }
 }
 
@@ -22,6 +23,7 @@ declare module 'next-auth' {
         user: {
             id?: string;
             email?: string;
+            name?: string;
         } & DefaultSession['user'];
     }
 }
@@ -86,7 +88,11 @@ const handler = NextAuth({
                     throw new Error('Invalid email or password');
                 }
 
-                return { id: user._id.toString(), email: user.email };
+                return {
+                    id: user._id.toString(),
+                    email: user.email,
+                    name: user.name || null,
+                };
             },
         }),
         GitHubProvider({
@@ -106,10 +112,52 @@ const handler = NextAuth({
         signIn: '/auth/signin',
     },
     callbacks: {
-        async jwt({ token, user }) {
+        async signIn({ user, account }) {
+            if (
+                account?.provider &&
+                account.provider !== 'credentials' &&
+                user.email
+            ) {
+                try {
+                    const db = await connectToDatabase();
+                    await db.collection<IUser>('users').updateOne(
+                        { email: user.email },
+                        {
+                            $setOnInsert: {
+                                email: user.email,
+                                password: '',
+                            },
+                            $set: {
+                                ...(user.name && { name: user.name }),
+                            },
+                        },
+                        { upsert: true },
+                    );
+                } catch (error) {
+                    console.error('Error saving OAuth user data:', error);
+                }
+            }
+            return true;
+        },
+
+        async jwt({ token, user, trigger }) {
             if (user) {
                 token.id = user.id;
                 token.email = user.email || undefined;
+                token.name = user.name || undefined;
+            }
+            if (trigger === 'update') {
+                try {
+                    const db = await connectToDatabase();
+                    const dbUser = await db
+                        .collection<IUser>('users')
+                        .findOne({ email: token.email });
+                    if (dbUser) {
+                        token.name = dbUser.name || undefined;
+                    }
+                } catch (error) {
+                    console.error('Error refreshing token:', error);
+                }
             }
             return token;
         },
@@ -118,6 +166,7 @@ const handler = NextAuth({
             session.user = {
                 id: token.id,
                 email: token.email || undefined,
+                name: token.name || undefined,
             };
             return session;
         },

@@ -5,6 +5,7 @@ import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import UserProfile from '@/components/ui/profile/user-profile';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
+import { connectToDatabase } from '@/lib/db';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
@@ -29,6 +30,24 @@ export default async function ProfilePage(props: {
     const { lang } = await props.params;
     const dictionary = await getDictionary(lang)['profile-page'];
 
+    const userEmail =
+        session?.user?.email ||
+        dictionary.dangerZoneSection.noEmailProvided;
+
+    let userName = session?.user?.name || '';
+
+    try {
+        const db = await connectToDatabase();
+        const dbUser = await db
+            .collection('users')
+            .findOne({ email: session.user.email });
+        if (dbUser) {
+            userName = dbUser.name || userName;
+        }
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+    }
+
     const breadcrumbs: Breadcrumb[] = [
         { title: dictionary.main, link: '/' },
         { title: dictionary.profile, link: '/profile' },
@@ -39,10 +58,8 @@ export default async function ProfilePage(props: {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <UserProfile
                 dictionary={dictionary}
-                userEmail={
-                    session?.user?.email ||
-                    dictionary.dangerZoneSection.noEmailProvided
-                }
+                userEmail={userEmail}
+                userName={userName}
             />
         </main>
     );
