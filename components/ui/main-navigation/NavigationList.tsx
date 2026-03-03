@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Loader } from '@/components/ui/Loader';
+import { ModerationNavItem } from '@/components/ui/main-navigation/ModerationNavItem';
 import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
 import { getDictionary } from '@/get-dictionary';
 
@@ -95,9 +96,7 @@ export function NavigationList({
             {status === 'authenticated' &&
                 session?.user?.email ===
                     process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-                    <NavListItem
-                        key="/admin/comments"
-                        href="/admin/comments"
+                    <ModerationNavItem
                         title={dictionary['moderation']}
                         normalizedPathname={normalizedPathname}
                         onClick={onClick}

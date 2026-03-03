@@ -54,7 +54,11 @@ export default function CommentEditForm({
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2 pl-12">
-            {error && <p className="text-sm text-error-500">{error}</p>}
+            {error && (
+                <p className="text-sm text-error-500" role="alert">
+                    {error}
+                </p>
+            )}
             <textarea
                 className="input"
                 value={content}
@@ -62,9 +66,10 @@ export default function CommentEditForm({
                 required
                 maxLength={MAX_LENGTH}
                 rows={3}
+                aria-label={dictionary.writeComment}
             />
             <div className="flex items-center justify-between">
-                <p className="text-sm text-secondary">
+                <p className="text-sm text-secondary" aria-live="polite">
                     {MAX_LENGTH - content.length}{' '}
                     {dictionary.charactersRemaining}
                 </p>

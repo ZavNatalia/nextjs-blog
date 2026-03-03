@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import CommentEditForm from '@/components/ui/posts/comments/comment-edit-form';
 import { getDictionary } from '@/get-dictionary';
@@ -24,10 +24,12 @@ export default function CommentItem({
     comment,
     currentUserEmail,
     dictionary,
+    lang,
 }: {
     comment: CommentData;
     currentUserEmail: string | null;
     dictionary: CommentsDictionary;
+    lang: string;
 }) {
     const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
@@ -35,6 +37,24 @@ export default function CommentItem({
     const [isDeleting, setIsDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState('');
     const isAuthor = currentUserEmail === comment.authorEmail;
+
+    const deleteButtonRef = useRef<HTMLButtonElement>(null);
+    const cancelButtonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        if (!isConfirmOpen) return;
+        cancelButtonRef.current?.focus();
+        const handler = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsConfirmOpen(false);
+        };
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+    }, [isConfirmOpen]);
+
+    const closeDialog = () => {
+        setIsConfirmOpen(false);
+        deleteButtonRef.current?.focus();
+    };
 
     const handleDelete = async () => {
         setIsDeleting(true);
@@ -59,9 +79,17 @@ export default function CommentItem({
         }
     };
 
+    const dateFormatOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    };
+
     const formattedDate = new Date(comment.createdAt).toLocaleDateString(
-        undefined,
-        { year: 'numeric', month: 'short', day: 'numeric' },
+        lang,
+        dateFormatOptions,
     );
 
     const avatarLetter = comment.authorName.charAt(0).toUpperCase();
@@ -70,7 +98,10 @@ export default function CommentItem({
         <div className="rounded-xl bg-background-secondary p-4 shadow-sm md:p-5">
             <div className="mb-3 flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent text-sm font-bold text-contrast dark:text-foreground">
+                    <div
+                        className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent text-sm font-bold text-contrast dark:text-foreground"
+                        aria-hidden="true"
+                    >
                         {avatarLetter}
                     </div>
                     <div>
@@ -78,13 +109,25 @@ export default function CommentItem({
                             {comment.authorName}
                         </span>
                         <div className="flex items-center gap-1">
-                            <time className="text-sm text-secondary">
+                            <time
+                                className="text-sm text-secondary"
+                                dateTime={comment.createdAt}
+                            >
                                 {formattedDate}
                             </time>
                             {comment.updatedAt && (
-                                <span className="text-sm text-secondary italic">
-                                    (edited)
-                                </span>
+                                <time
+                                    className="text-sm text-secondary italic"
+                                    dateTime={comment.updatedAt}
+                                    title={new Date(
+                                        comment.updatedAt,
+                                    ).toLocaleDateString(
+                                        lang,
+                                        dateFormatOptions,
+                                    )}
+                                >
+                                    {dictionary.edited}
+                                </time>
                             )}
                         </div>
                     </div>
@@ -99,6 +142,7 @@ export default function CommentItem({
                             {dictionary.edit}
                         </button>
                         <button
+                            ref={deleteButtonRef}
                             onClick={() => setIsConfirmOpen(true)}
                             className="button button-ghost button-xs text-error-500"
                             aria-label={dictionary.delete}
@@ -129,13 +173,19 @@ export default function CommentItem({
             {isConfirmOpen && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center bg-background-tertiary/80 p-4"
-                    onClick={() => setIsConfirmOpen(false)}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby={`delete-dialog-title-${comment._id}`}
+                    onClick={closeDialog}
                 >
                     <div
                         className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h3 className="text-lg font-semibold text-error">
+                        <h3
+                            id={`delete-dialog-title-${comment._id}`}
+                            className="text-lg font-semibold text-error"
+                        >
                             {dictionary.confirmDeleteTitle}
                         </h3>
                         <p className="mt-2 text-base text-foreground">
@@ -148,8 +198,9 @@ export default function CommentItem({
                         )}
                         <div className="mt-4 flex justify-center gap-4">
                             <button
+                                ref={cancelButtonRef}
                                 className="button button-ghost button-md"
-                                onClick={() => setIsConfirmOpen(false)}
+                                onClick={closeDialog}
                             >
                                 {dictionary.cancel}
                             </button>

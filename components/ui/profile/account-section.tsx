@@ -110,7 +110,10 @@ export function AccountSection({
 
     return (
         <div className="flex flex-col items-center gap-2 p-4">
-            <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-accent-500 shadow-md dark:border-accent-700">
+            <div
+                className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-accent-500 shadow-md dark:border-accent-700"
+                aria-hidden="true"
+            >
                 <div className="flex h-full w-full items-center justify-center bg-accent-500 text-3xl font-bold text-white dark:bg-accent-700">
                     {avatarLetter}
                 </div>
@@ -142,11 +145,13 @@ export function AccountSection({
                                 id="name"
                                 placeholder={dictionary.namePlaceholder}
                                 className="input w-full"
+                                aria-describedby="name-error"
                             />
                             <ErrorMessage
                                 name="name"
                                 component="p"
                                 className="mt-2 text-base text-error"
+                                id="name-error"
                             />
                         </div>
 

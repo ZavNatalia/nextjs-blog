@@ -12,22 +12,46 @@ export default function Logo({ title }: { title: string }) {
             aria-label={title}
             className="link mr-1 px-2 py-1"
         >
-            <div className="flex items-start gap-2 font-bold">
+            <div className="flex items-center gap-2 font-bold">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="size-4 text-accent md:size-5"
+                    className="size-5 text-accent md:size-6"
+                    aria-hidden="true"
                 >
-                    <path
+                    {/* Terminal window */}
+                    <rect
+                        x="2"
+                        y="3"
+                        width="20"
+                        height="18"
+                        rx="2.5"
+                        ry="2.5"
+                    />
+                    {/* Title bar dots */}
+                    <circle cx="6" cy="6.5" r="0.75" fill="currentColor" />
+                    <circle cx="9" cy="6.5" r="0.75" fill="currentColor" />
+                    <circle cx="12" cy="6.5" r="0.75" fill="currentColor" />
+                    {/* Divider */}
+                    <line x1="2" y1="9" x2="22" y2="9" />
+                    {/* Prompt >_ */}
+                    <polyline
+                        points="6,12.5 9,14.5 6,16.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
+                    />
+                    <line
+                        x1="11"
+                        y1="16.5"
+                        x2="15"
+                        y2="16.5"
+                        strokeLinecap="round"
                     />
                 </svg>
-                <p className="font-mono text-base tracking-wider text-accent">
+                <p className="font-mono text-base tracking-wider text-accent md:text-lg">
                     {dictionary.blogTitle}
                 </p>
             </div>
