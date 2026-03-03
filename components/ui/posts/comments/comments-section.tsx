@@ -83,6 +83,7 @@ export default async function CommentsSection({
                             comment={comment}
                             currentUserEmail={session?.user?.email ?? null}
                             dictionary={dict}
+                            lang={lang}
                         />
                     ))}
                 </div>

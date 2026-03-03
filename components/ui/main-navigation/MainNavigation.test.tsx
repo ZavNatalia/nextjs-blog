@@ -16,7 +16,7 @@ vi.mock('next-auth/react', () => ({
 vi.mock('@/hooks/useDictionary', () => ({
     useDictionary: () => ({
         common: {
-            blogTitle: 'Next.js Craft',
+            blogTitle: 'The Workshop',
         },
         navigation: {
             home: 'Home',
@@ -60,7 +60,7 @@ import MainNavigation from './MainNavigation';
 describe('MainNavigation', () => {
     it('renders logo and navigation links', () => {
         render(<MainNavigation />);
-        expect(screen.getByText('Next.js Craft')).toBeInTheDocument();
+        expect(screen.getByText('The Workshop')).toBeInTheDocument();
         expect(screen.getAllByText('Posts').length).toBeGreaterThan(0);
         expect(screen.getAllByText('Contact').length).toBeGreaterThan(0);
     });

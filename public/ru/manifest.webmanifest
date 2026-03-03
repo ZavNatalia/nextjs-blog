@@ -1,7 +1,7 @@
 {
     "id": "/ru/",
-    "name": "Next.js Craft",
-    "short_name": "Next.js Craft",
+    "name": "Мастерская",
+    "short_name": "Мастерская",
     "description": "Заметки о современном фронтенде: Next .js, React Server Components и практические приёмы быстрой веб-разработки.",
     "lang": "ru",
     "start_url": "/ru/",

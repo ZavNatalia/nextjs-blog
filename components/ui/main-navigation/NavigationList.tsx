@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Loader } from '@/components/ui/Loader';
+import { ModerationNavItem } from '@/components/ui/main-navigation/ModerationNavItem';
 import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
 import { getDictionary } from '@/get-dictionary';
 
@@ -52,7 +53,9 @@ export function NavigationList({
     onClick,
 }: {
     normalizedPathname: string;
-    session: { user?: { email?: string | null } } | null;
+    session: {
+        user?: { email?: string | null; name?: string | null };
+    } | null;
     status: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['navigation'];
     onClick?: () => void;
@@ -85,15 +88,15 @@ export function NavigationList({
                 <ProfileButton
                     title={dictionary['userProfile']}
                     normalizedPathname={normalizedPathname}
+                    userName={session?.user?.name || undefined}
+                    userEmail={session?.user?.email || undefined}
                     onClick={onClick}
                 />
             )}
             {status === 'authenticated' &&
                 session?.user?.email ===
                     process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-                    <NavListItem
-                        key="/admin/comments"
-                        href="/admin/comments"
+                    <ModerationNavItem
                         title={dictionary['moderation']}
                         normalizedPathname={normalizedPathname}
                         onClick={onClick}

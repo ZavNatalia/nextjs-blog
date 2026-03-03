@@ -50,13 +50,10 @@ export async function PATCH(
     const { id } = await params;
 
     if (!ObjectId.isValid(id)) {
-        return new Response(
-            JSON.stringify({ error: 'Invalid comment ID.' }),
-            {
-                status: 400,
-                headers: { 'Content-Type': 'application/json' },
-            },
-        );
+        return new Response(JSON.stringify({ error: 'Invalid comment ID.' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 
     const data = await req.json();
@@ -95,7 +92,6 @@ export async function PATCH(
         return new Response(
             JSON.stringify({
                 error: 'Failed to moderate comment. Database may be temporarily unavailable.',
-
             }),
             {
                 status: 500,

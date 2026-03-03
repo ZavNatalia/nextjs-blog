@@ -16,13 +16,6 @@ vi.mock('next/link', () => ({
     ),
 }));
 
-vi.mock('next/image', () => ({
-    default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img alt={alt} {...props} />
-    ),
-}));
-
 import ProfileButton from './ProfileButton';
 
 describe('ProfileButton', () => {
@@ -32,9 +25,27 @@ describe('ProfileButton', () => {
         expect(link).toHaveAttribute('href', '/profile');
     });
 
-    it('renders avatar image', () => {
-        render(<ProfileButton title="Profile" normalizedPathname="/posts" />);
-        expect(screen.getByAltText('User avatar')).toBeInTheDocument();
+    it('renders name initial when name is provided', () => {
+        render(
+            <ProfileButton
+                title="Profile"
+                normalizedPathname="/posts"
+                userName="Alice"
+                userEmail="alice@test.com"
+            />,
+        );
+        expect(screen.getByText('A')).toBeInTheDocument();
+    });
+
+    it('renders email initial when no name', () => {
+        render(
+            <ProfileButton
+                title="Profile"
+                normalizedPathname="/posts"
+                userEmail="user@test.com"
+            />,
+        );
+        expect(screen.getByText('U')).toBeInTheDocument();
     });
 
     it('calls onClick when clicked', async () => {
