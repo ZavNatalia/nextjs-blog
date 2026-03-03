@@ -2,7 +2,7 @@
     "common": {
         "greetings": "Создаём с Next.js",
         "greetingsDescription": "Всё о Next.js и современной веб-разработке",
-        "blogTitle": "Next.JS Мастерство",
+        "blogTitle": "Мастерская",
         "blogDescription": "Я пишу о программировании и веб-разработке.",
         "main": "Главная",
         "allPosts": "Все посты",
@@ -49,6 +49,18 @@
         "dangerZone": "Опасная зона",
         "accountSection": {
             "yourAccount": "Ваш профиль",
+            "name": "Отображаемое имя",
+            "namePlaceholder": "Введите ваше имя",
+            "saveChanges": "Сохранить",
+            "saving": "Сохранение...",
+            "profileUpdatedSuccessfully": "Профиль успешно обновлён!",
+            "failedUpdateProfile": "Не удалось обновить профиль.",
+            "somethingWentWrong": "Что-то пошло не так.",
+            "success": "Успешно",
+            "error": "Ошибка",
+            "nameRequired": "Имя обязательно",
+            "nameMinLength": "Имя должно содержать не менее 2 символов",
+            "nameMaxLength": "Имя не должно превышать 50 символов",
             "logout": "Выйти"
         },
         "securitySection": {
@@ -153,7 +165,10 @@
         "success": "Готово!",
         "error": "Ошибка!",
         "somethingWentWrong": "Что-то пошло не так!",
-        "charactersRemaining": "символов осталось"
+        "charactersRemaining": "символов осталось",
+        "edited": "(ред.)",
+        "closeNotification": "Закрыть уведомление",
+        "closeDialog": "Закрыть"
     },
     "moderation": {
         "title": "Модерация комментариев",
@@ -174,7 +189,12 @@
         "confirmDeleteAction": "Да, удалить",
         "cancel": "Отмена",
         "actionSuccess": "Действие выполнено",
-        "actionError": "Что-то пошло не так"
+        "actionError": "Что-то пошло не так",
+        "searchByEmail": "Поиск по email...",
+        "deleteAllByEmail": "Удалить все",
+        "confirmDeleteByEmailTitle": "Удалить все комментарии",
+        "confirmDeleteByEmail": "Вы уверены, что хотите удалить все комментарии от",
+        "deletingComments": "Удаление..."
     },
     "contact-page": {
         "contactMe": "Обратная связь",

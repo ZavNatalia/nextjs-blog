@@ -19,7 +19,7 @@ vi.mock('next/link', () => ({
 vi.mock('@/hooks/useDictionary', () => ({
     useDictionary: () => ({
         common: {
-            blogTitle: 'Next.js Craft',
+            blogTitle: 'The Workshop',
         },
     }),
 }));
@@ -35,6 +35,6 @@ describe('Logo', () => {
 
     it('renders site name', () => {
         render(<Logo title="Home" />);
-        expect(screen.getByText('Next.js Craft')).toBeInTheDocument();
+        expect(screen.getByText('The Workshop')).toBeInTheDocument();
     });
 });

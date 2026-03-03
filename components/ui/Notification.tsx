@@ -42,12 +42,17 @@ export default function Notification({
     if (!notificationsRoot || !visible) return null;
 
     return createPortal(
-        <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform">
+        <div
+            className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform"
+            role="alert"
+            aria-live="assertive"
+        >
             <div
                 className={`relative animate-slide-in overflow-hidden rounded-3xl px-6 py-4 shadow-lg ${getToastColors(status)}`}
             >
                 <button
                     className="absolute top-3 right-4 transition-opacity hover:opacity-75"
+                    aria-label="Close notification"
                     onClick={() => {
                         setVisible(false);
                         if (onClose) onClose();

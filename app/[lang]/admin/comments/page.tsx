@@ -62,7 +62,7 @@ export default async function ModerationPage(props: {
     }
 
     return (
-        <main className="page">
+        <main className="page overflow-x-auto">
             <ModerationPanel
                 comments={serializedComments}
                 dictionary={dictionary}

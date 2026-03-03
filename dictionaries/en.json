@@ -2,7 +2,7 @@
     "common": {
         "greetings": "Building with Next.js",
         "greetingsDescription": "All about Next.js and modern web development",
-        "blogTitle": "Next.js Craft",
+        "blogTitle": "The Workshop",
         "blogDescription": "I post about programming and web development.",
         "main": "Main",
         "allPosts": "All posts",
@@ -49,6 +49,18 @@
         "dangerZone": "Danger Zone",
         "accountSection": {
             "yourAccount": "Your Account",
+            "name": "Display Name",
+            "namePlaceholder": "Enter your name",
+            "saveChanges": "Save Changes",
+            "saving": "Saving...",
+            "profileUpdatedSuccessfully": "Profile updated successfully!",
+            "failedUpdateProfile": "Failed to update profile.",
+            "somethingWentWrong": "Something went wrong.",
+            "success": "Success",
+            "error": "Error",
+            "nameRequired": "Name is required",
+            "nameMinLength": "Name must be at least 2 characters",
+            "nameMaxLength": "Name must not exceed 50 characters",
             "logout": "Log out"
         },
         "securitySection": {
@@ -152,7 +164,10 @@
         "success": "Success!",
         "error": "Error!",
         "somethingWentWrong": "Something went wrong!",
-        "charactersRemaining": "characters remaining"
+        "charactersRemaining": "characters remaining",
+        "edited": "(edited)",
+        "closeNotification": "Close notification",
+        "closeDialog": "Close"
     },
     "moderation": {
         "title": "Comment Moderation",
@@ -173,7 +188,12 @@
         "confirmDeleteAction": "Yes, delete",
         "cancel": "Cancel",
         "actionSuccess": "Action completed successfully",
-        "actionError": "Something went wrong"
+        "actionError": "Something went wrong",
+        "searchByEmail": "Search by email...",
+        "deleteAllByEmail": "Delete all",
+        "confirmDeleteByEmailTitle": "Delete all comments",
+        "confirmDeleteByEmail": "Are you sure you want to delete all comments by",
+        "deletingComments": "Deleting..."
     },
     "contact-page": {
         "main": "main",

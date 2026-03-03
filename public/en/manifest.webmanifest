@@ -1,7 +1,7 @@
 {
     "id": "/en/",
-    "name": "Next.js Craft",
-    "short_name": "Next.js Craft",
+    "name": "The Workshop",
+    "short_name": "The Workshop",
     "description": "Notes on modern front-end: Next.js, React Server Components, and practical techniques for fast web development.",
     "lang": "en",
     "start_url": "/en/",

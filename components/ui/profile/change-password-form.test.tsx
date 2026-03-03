@@ -15,9 +15,15 @@ vi.mock('@/hooks/useDictionary', () => ({
     }),
 }));
 
+import { getDictionary } from '@/get-dictionary';
+
 import ChangePasswordForm from './change-password-form';
 
-const mockDictionary: Record<string, string> = {
+type SecurityDictionary = Awaited<
+    ReturnType<typeof getDictionary>
+>['profile-page']['securitySection'];
+
+const mockDictionary: SecurityDictionary = {
     oldPassword: 'Old Password',
     newPassword: 'New Password',
     changePassword: 'Change Password',
@@ -31,6 +37,10 @@ const mockDictionary: Record<string, string> = {
     failedChangePassword: 'Failed.',
     somethingWentWrong: 'Error occurred.',
     oldPasswordIncorrect: 'Incorrect old password.',
+    security: 'Security',
+    wantToChangeYourPassword: 'Want to change your password?',
+    reviewPrivacyPolicy: 'Review privacy policy',
+    here: 'here',
 };
 
 describe('ChangePasswordForm', () => {

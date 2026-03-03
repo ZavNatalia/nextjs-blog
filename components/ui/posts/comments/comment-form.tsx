@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import Notification, {
     NotificationDetails,
@@ -21,6 +21,7 @@ export default function CommentForm({
     dictionary: CommentsDictionary;
 }) {
     const router = useRouter();
+    const formRef = useRef<HTMLFormElement>(null);
     const [content, setContent] = useState('');
     const [requestStatus, setRequestStatus] =
         useState<NotificationStatus | null>(null);
@@ -88,7 +89,11 @@ export default function CommentForm({
             <h3 className="mb-4 text-lg font-semibold">
                 {dictionary.writeComment}
             </h3>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-3"
+            >
                 <div>
                     <label htmlFor="comment-content" className="sr-only">
                         {dictionary.writeComment}
@@ -99,6 +104,12 @@ export default function CommentForm({
                         placeholder={dictionary.commentPlaceholder}
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
+                        onKeyDown={(e: KeyboardEvent<HTMLTextAreaElement>) => {
+                            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                                e.preventDefault();
+                                formRef.current?.requestSubmit();
+                            }
+                        }}
                         required
                         maxLength={MAX_LENGTH}
                         rows={4}

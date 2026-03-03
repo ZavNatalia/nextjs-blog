@@ -5,9 +5,15 @@ vi.mock('next-auth/react', () => ({
     signOut: vi.fn(),
 }));
 
+import { getDictionary } from '@/get-dictionary';
+
 import { DangerZoneSection } from './danger-zone-section';
 
-const mockDictionary = {
+type DangerZoneDictionary = Awaited<
+    ReturnType<typeof getDictionary>
+>['profile-page']['dangerZoneSection'];
+
+const mockDictionary: DangerZoneDictionary = {
     dangerZone: 'Danger Zone',
     deletingIsIrreversible: 'Deleting your account is irreversible.',
     deleteAccount: 'Delete Account',
@@ -21,6 +27,7 @@ const mockDictionary = {
     error: 'Error',
     accountDeletedSuccessfully: 'Account deleted.',
     failedDeleteAccount: 'Failed to delete.',
+    noEmailProvided: 'No email provided',
     somethingWentWrong: 'Something went wrong.',
 };
 
@@ -73,5 +80,45 @@ describe('DangerZoneSection', () => {
         await userEvent.click(screen.getByText('Delete Account'));
         await userEvent.click(screen.getByText('Cancel'));
         expect(screen.queryByText('Confirm Deletion')).not.toBeInTheDocument();
+    });
+
+    it('has role="dialog" and aria-modal="true" when open', async () => {
+        render(
+            <DangerZoneSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+        await userEvent.click(screen.getByText('Delete Account'));
+        const dialog = screen.getByRole('dialog');
+        expect(dialog).toHaveAttribute('aria-modal', 'true');
+        expect(dialog).toHaveAttribute(
+            'aria-labelledby',
+            'delete-account-dialog-title',
+        );
+    });
+
+    it('closes dialog on Escape key', async () => {
+        render(
+            <DangerZoneSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+        await userEvent.click(screen.getByText('Delete Account'));
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+        await userEvent.keyboard('{Escape}');
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('focuses Cancel button when dialog opens', async () => {
+        render(
+            <DangerZoneSection
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+        await userEvent.click(screen.getByText('Delete Account'));
+        expect(screen.getByText('Cancel')).toHaveFocus();
     });
 });

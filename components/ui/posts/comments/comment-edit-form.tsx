@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent, KeyboardEvent, useRef, useState } from 'react';
 
 import { getDictionary } from '@/get-dictionary';
 
@@ -21,6 +21,7 @@ export default function CommentEditForm({
     onCancel: () => void;
 }) {
     const router = useRouter();
+    const formRef = useRef<HTMLFormElement>(null);
     const [content, setContent] = useState(initialContent);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
@@ -53,18 +54,33 @@ export default function CommentEditForm({
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 pl-12">
-            {error && <p className="text-sm text-error-500">{error}</p>}
+        <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-2 pl-12"
+        >
+            {error && (
+                <p className="text-sm text-error-500" role="alert">
+                    {error}
+                </p>
+            )}
             <textarea
                 className="input"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
+                onKeyDown={(e: KeyboardEvent<HTMLTextAreaElement>) => {
+                    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                        e.preventDefault();
+                        formRef.current?.requestSubmit();
+                    }
+                }}
                 required
                 maxLength={MAX_LENGTH}
                 rows={3}
+                aria-label={dictionary.writeComment}
             />
             <div className="flex items-center justify-between">
-                <p className="text-sm text-secondary">
+                <p className="text-sm text-secondary" aria-live="polite">
                     {MAX_LENGTH - content.length}{' '}
                     {dictionary.charactersRemaining}
                 </p>

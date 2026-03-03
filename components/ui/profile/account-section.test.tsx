@@ -5,19 +5,31 @@ const mockSignOut = vi.fn();
 
 vi.mock('next-auth/react', () => ({
     signOut: () => mockSignOut(),
+    useSession: () => ({ update: vi.fn() }),
 }));
 
-vi.mock('next/image', () => ({
-    default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img alt={alt} {...props} />
-    ),
-}));
+import { getDictionary } from '@/get-dictionary';
 
 import { AccountSection } from './account-section';
 
-const mockDictionary = {
+type AccountDictionary = Awaited<
+    ReturnType<typeof getDictionary>
+>['profile-page']['accountSection'];
+
+const mockDictionary: AccountDictionary = {
     yourAccount: 'Your Account',
+    name: 'Display Name',
+    namePlaceholder: 'Enter your name',
+    saveChanges: 'Save Changes',
+    saving: 'Saving...',
+    profileUpdatedSuccessfully: 'Profile updated successfully!',
+    failedUpdateProfile: 'Failed to update profile.',
+    somethingWentWrong: 'Something went wrong.',
+    success: 'Success',
+    error: 'Error',
+    nameRequired: 'Name is required',
+    nameMinLength: 'Name must be at least 2 characters',
+    nameMaxLength: 'Name must not exceed 50 characters',
     logout: 'Log Out',
 };
 
@@ -30,6 +42,7 @@ describe('AccountSection', () => {
         render(
             <AccountSection
                 userEmail="user@test.com"
+                userName="Test User"
                 dictionary={mockDictionary}
             />,
         );
@@ -40,26 +53,40 @@ describe('AccountSection', () => {
         render(
             <AccountSection
                 userEmail="user@test.com"
+                userName="Test User"
                 dictionary={mockDictionary}
             />,
         );
         expect(screen.getByText('Your Account')).toBeInTheDocument();
     });
 
-    it('renders avatar', () => {
+    it('renders name initial when name is set', () => {
         render(
             <AccountSection
                 userEmail="user@test.com"
+                userName="Test User"
                 dictionary={mockDictionary}
             />,
         );
-        expect(screen.getByAltText('User avatar')).toBeInTheDocument();
+        expect(screen.getByText('T')).toBeInTheDocument();
+    });
+
+    it('renders email initial when no name', () => {
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                userName=""
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(screen.getByText('U')).toBeInTheDocument();
     });
 
     it('calls signOut on logout click', async () => {
         render(
             <AccountSection
                 userEmail="user@test.com"
+                userName="Test User"
                 dictionary={mockDictionary}
             />,
         );
