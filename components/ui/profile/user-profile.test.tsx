@@ -6,13 +6,6 @@ vi.mock('next-auth/react', () => ({
     useSession: () => ({ update: vi.fn() }),
 }));
 
-vi.mock('next/image', () => ({
-    default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img alt={alt} {...props} />
-    ),
-}));
-
 vi.mock('next/link', () => ({
     default: ({
         children,
@@ -43,6 +36,7 @@ import type { Dictionary } from '@/get-dictionary';
 import UserProfile from './user-profile';
 
 const mockDictionary = {
+    profile: 'Profile',
     yourAccount: 'Your Account',
     security: 'Security',
     dangerZone: 'Danger Zone',
@@ -137,5 +131,65 @@ describe('UserProfile', () => {
         const dangerButtons = screen.getAllByText('Danger Zone');
         await userEvent.click(dangerButtons[0]);
         expect(screen.getByText('This is irreversible.')).toBeInTheDocument();
+    });
+
+    it('renders tablist with role="tablist"', () => {
+        render(
+            <UserProfile
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const tablists = screen.getAllByRole('tablist');
+        expect(tablists.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('renders tabs with role="tab" and correct aria-selected', () => {
+        render(
+            <UserProfile
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const tabs = screen.getAllByRole('tab');
+        expect(tabs.length).toBeGreaterThanOrEqual(3);
+
+        const accountTabs = tabs.filter(
+            (t) => t.getAttribute('aria-selected') === 'true',
+        );
+        expect(accountTabs.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('renders tabpanel with correct aria-labelledby', () => {
+        render(
+            <UserProfile
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const panel = screen.getByRole('tabpanel');
+        expect(panel).toHaveAttribute('id', 'panel-Account');
+        expect(panel).toHaveAttribute('aria-labelledby', 'tab-Account');
+    });
+
+    it('updates aria-selected when switching tabs', async () => {
+        render(
+            <UserProfile
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const securityTabs = screen.getAllByRole('tab').filter(
+            (t) => t.textContent === 'Security',
+        );
+        await userEvent.click(securityTabs[0]);
+
+        expect(securityTabs[0]).toHaveAttribute('aria-selected', 'true');
+        const panel = screen.getByRole('tabpanel');
+        expect(panel).toHaveAttribute('id', 'panel-Security');
     });
 });

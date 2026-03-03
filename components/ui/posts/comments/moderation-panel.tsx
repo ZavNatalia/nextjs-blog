@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { mutate } from 'swr';
 
 import { getDictionary } from '@/get-dictionary';
 
@@ -79,6 +80,7 @@ export default function ModerationPanel({
                 return;
             }
 
+            mutate('/api/comments/pending-count');
             router.refresh();
         } catch {
             setError(dictionary.actionError);
@@ -103,6 +105,7 @@ export default function ModerationPanel({
             }
 
             setDeleteTarget(null);
+            mutate('/api/comments/pending-count');
             router.refresh();
         } catch {
             setError(dictionary.actionError);
@@ -122,7 +125,7 @@ export default function ModerationPanel({
                     <button
                         key={tab.key}
                         onClick={() => setFilter(tab.key)}
-                        className={`button button-xs ${
+                        className={`button button-sm ${
                             filter === tab.key ? 'button-solid' : 'button-ghost'
                         }`}
                     >
@@ -138,10 +141,12 @@ export default function ModerationPanel({
                     {filteredComments.map((comment) => {
                         const formattedDate = new Date(
                             comment.createdAt,
-                        ).toLocaleDateString(undefined, {
+                        ).toLocaleDateString(lang, {
                             year: 'numeric',
                             month: 'short',
                             day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
                         });
 
                         return (
@@ -154,10 +159,10 @@ export default function ModerationPanel({
                                         <p className="font-semibold">
                                             {comment.authorName}
                                         </p>
-                                        <p className="text-sm text-secondary">
+                                        <p className="text-base text-secondary">
                                             {comment.authorEmail}
                                         </p>
-                                        <p className="text-sm text-secondary">
+                                        <p className="text-base text-secondary">
                                             <Link
                                                 href={`/${lang}/posts/${comment.postSlug}`}
                                                 className="text-accent underline"
@@ -169,7 +174,7 @@ export default function ModerationPanel({
                                         </p>
                                     </div>
                                     <span
-                                        className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[comment.status] || ''}`}
+                                        className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${STATUS_STYLES[comment.status] || ''}`}
                                     >
                                         {comment.status}
                                     </span>
@@ -189,7 +194,7 @@ export default function ModerationPanel({
                                                 )
                                             }
                                             disabled={loadingId === comment._id}
-                                            className={`button button-xs ${loadingId === comment._id ? 'button-disabled' : 'button-solid'}`}
+                                            className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-solid'}`}
                                         >
                                             {dictionary.approve}
                                         </button>
@@ -199,7 +204,7 @@ export default function ModerationPanel({
                                             setDeleteTarget(comment._id)
                                         }
                                         disabled={loadingId === comment._id}
-                                        className={`button button-xs ${loadingId === comment._id ? 'button-disabled' : 'button-ghost'} text-error-500`}
+                                        className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-ghost'} text-error-500`}
                                     >
                                         {dictionary.delete}
                                     </button>

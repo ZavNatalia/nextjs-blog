@@ -35,6 +35,10 @@ const mockDictionary = {
     somethingWentWrong: 'Something went wrong!',
     commentPlaceholder: 'Share your thoughts...',
     charactersRemaining: 'characters remaining',
+    edited: '(edited)',
+    closeNotification: 'Close notification',
+    closeDialog: 'Close',
+    writeComment: 'Write a comment',
 } as Dictionary['comments'];
 
 const baseComment = {
@@ -54,6 +58,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail={null}
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         expect(screen.getByText('Great post!')).toBeInTheDocument();
@@ -66,6 +71,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail="other@test.com"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         expect(
@@ -82,6 +88,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail="author@test.com"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         expect(
@@ -99,6 +106,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail="author@test.com"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
 
@@ -119,6 +127,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail="author@test.com"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
 
@@ -142,6 +151,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail="author@test.com"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
 
@@ -163,6 +173,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail="author@test.com"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
 
@@ -174,7 +185,7 @@ describe('CommentItem', () => {
         expect(mockFetch).not.toHaveBeenCalled();
     });
 
-    it('shows (edited) label when comment has updatedAt', () => {
+    it('shows localized edited label from dictionary when comment has updatedAt', () => {
         render(
             <CommentItem
                 comment={{
@@ -183,6 +194,7 @@ describe('CommentItem', () => {
                 }}
                 currentUserEmail={null}
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         expect(screen.getByText('(edited)')).toBeInTheDocument();
@@ -195,6 +207,7 @@ describe('CommentItem', () => {
                 comment={baseComment}
                 currentUserEmail="author@test.com"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
 
@@ -206,5 +219,92 @@ describe('CommentItem', () => {
         expect(
             screen.queryByDisplayValue('Great post!'),
         ).not.toBeInTheDocument();
+    });
+
+    it('renders <time> with datetime attribute', () => {
+        render(
+            <CommentItem
+                comment={baseComment}
+                currentUserEmail={null}
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+        const timeEl = screen.getByText((_, el) => {
+            return el?.tagName === 'TIME' && el.getAttribute('dateTime') === baseComment.createdAt;
+        });
+        expect(timeEl).toBeInTheDocument();
+    });
+
+    it('renders edited <time> with datetime and title tooltip', () => {
+        const updatedAt = new Date('2026-01-16T14:30:00Z').toISOString();
+        render(
+            <CommentItem
+                comment={{ ...baseComment, updatedAt }}
+                currentUserEmail={null}
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+        const editedTime = screen.getByText('(edited)');
+        expect(editedTime.tagName).toBe('TIME');
+        expect(editedTime).toHaveAttribute('dateTime', updatedAt);
+        expect(editedTime).toHaveAttribute('title');
+    });
+
+    it('closes modal on Escape key', async () => {
+        const user = userEvent.setup();
+        render(
+            <CommentItem
+                comment={baseComment}
+                currentUserEmail="author@test.com"
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Delete' }));
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+        await user.keyboard('{Escape}');
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('focuses Cancel button when modal opens', async () => {
+        const user = userEvent.setup();
+        render(
+            <CommentItem
+                comment={baseComment}
+                currentUserEmail="author@test.com"
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Delete' }));
+        await waitFor(() => {
+            const cancelBtn = screen.getByText('Cancel');
+            expect(cancelBtn).toHaveFocus();
+        });
+    });
+
+    it('renders modal with role="dialog" and aria-modal', async () => {
+        const user = userEvent.setup();
+        render(
+            <CommentItem
+                comment={baseComment}
+                currentUserEmail="author@test.com"
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+
+        await user.click(screen.getByRole('button', { name: 'Delete' }));
+        const dialog = screen.getByRole('dialog');
+        expect(dialog).toHaveAttribute('aria-modal', 'true');
+        expect(dialog).toHaveAttribute(
+            'aria-labelledby',
+            `delete-dialog-title-${baseComment._id}`,
+        );
     });
 });

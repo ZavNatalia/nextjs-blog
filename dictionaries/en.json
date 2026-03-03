@@ -2,7 +2,7 @@
     "common": {
         "greetings": "Building with Next.js",
         "greetingsDescription": "All about Next.js and modern web development",
-        "blogTitle": "Next.js Craft",
+        "blogTitle": "The Workshop",
         "blogDescription": "I post about programming and web development.",
         "main": "Main",
         "allPosts": "All posts",
@@ -164,7 +164,10 @@
         "success": "Success!",
         "error": "Error!",
         "somethingWentWrong": "Something went wrong!",
-        "charactersRemaining": "characters remaining"
+        "charactersRemaining": "characters remaining",
+        "edited": "(edited)",
+        "closeNotification": "Close notification",
+        "closeDialog": "Close"
     },
     "moderation": {
         "title": "Comment Moderation",
