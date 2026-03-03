@@ -17,8 +17,13 @@ function jsonResponse(body: object, status: number) {
     });
 }
 
-async function findCommentById(id: string): Promise<
-    | { comment: IComment & { _id: ObjectId }; collection: Collection<IComment> }
+async function findCommentById(
+    id: string,
+): Promise<
+    | {
+          comment: IComment & { _id: ObjectId };
+          collection: Collection<IComment>;
+      }
     | { error: Response }
 > {
     if (!ObjectId.isValid(id)) {
@@ -68,10 +73,7 @@ export async function PATCH(
         const result = commentEditSchema.safeParse(rawBody);
 
         if (!result.success) {
-            return jsonResponse(
-                { error: result.error.issues[0].message },
-                422,
-            );
+            return jsonResponse({ error: result.error.issues[0].message }, 422);
         }
 
         const { id } = await params;
@@ -108,7 +110,6 @@ export async function PATCH(
         return jsonResponse(
             {
                 error: 'Failed to update comment. Database may be temporarily unavailable.',
-
             },
             500,
         );
@@ -166,7 +167,6 @@ export async function DELETE(
         return jsonResponse(
             {
                 error: 'Failed to delete comment. Database may be temporarily unavailable.',
-
             },
             500,
         );

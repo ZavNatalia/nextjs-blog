@@ -31,6 +31,11 @@ export function AccountSection({
     const [notificationData, setNotificationData] =
         useState<NotificationDetails | null>(null);
 
+    const localizedMessages: Record<string, string> = {
+        'Name must be at least 2 characters.': dictionary.nameMinLength,
+        'Name must not exceed 50 characters.': dictionary.nameMaxLength,
+    };
+
     const validate = (values: ProfileFormData) => {
         try {
             updateProfileSchema.parse(values);
@@ -38,21 +43,12 @@ export function AccountSection({
         } catch (err) {
             if (err instanceof ZodError) {
                 const errors: Record<string, string> = {};
-                const messageMap: Record<string, string> = {
-                    'Name must be at least 2 characters.':
-                        dictionary.nameMinLength,
-                    'Name must not exceed 50 characters.':
-                        dictionary.nameMaxLength,
-                };
                 for (const issue of err.issues) {
                     const field = issue.path[0] as string;
                     if (!errors[field]) {
                         errors[field] =
-                            messageMap[issue.message] || issue.message;
+                            localizedMessages[issue.message] || issue.message;
                     }
-                }
-                if (!values.name.trim()) {
-                    errors.name = dictionary.nameRequired;
                 }
                 return errors;
             }

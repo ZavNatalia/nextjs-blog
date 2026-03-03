@@ -28,10 +28,7 @@ export async function GET(req: NextRequest) {
 
     const session = await getServerSession();
 
-    if (
-        !session ||
-        session.user?.email !== process.env.ADMIN_EMAIL
-    ) {
+    if (!session || session.user?.email !== process.env.ADMIN_EMAIL) {
         return new Response(JSON.stringify({ error: 'Forbidden' }), {
             status: 403,
             headers: { 'Content-Type': 'application/json' },

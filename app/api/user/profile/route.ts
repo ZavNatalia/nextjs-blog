@@ -82,13 +82,10 @@ export async function PATCH(req: NextRequest) {
             .updateOne({ email: userEmail }, { $set: { name } });
 
         if (updateResult.matchedCount === 0) {
-            return new Response(
-                JSON.stringify({ error: 'User not found.' }),
-                {
-                    status: 404,
-                    headers: { 'Content-Type': 'application/json' },
-                },
-            );
+            return new Response(JSON.stringify({ error: 'User not found.' }), {
+                status: 404,
+                headers: { 'Content-Type': 'application/json' },
+            });
         }
 
         await db

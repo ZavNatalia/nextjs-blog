@@ -29,17 +29,17 @@ export default function UserProfile({
     userEmail,
     userName,
     dictionary,
+    lang,
 }: {
     userEmail: string;
     userName: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['profile-page'];
+    lang: string;
 }) {
     const [activeSection, setActiveSection] = useState('Account');
 
     const handleTabKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-        const currentIndex = SECTIONS.findIndex(
-            (s) => s.key === activeSection,
-        );
+        const currentIndex = SECTIONS.findIndex((s) => s.key === activeSection);
         let nextIndex = currentIndex;
 
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -47,8 +47,7 @@ export default function UserProfile({
             nextIndex = (currentIndex + 1) % SECTIONS.length;
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
             e.preventDefault();
-            nextIndex =
-                (currentIndex - 1 + SECTIONS.length) % SECTIONS.length;
+            nextIndex = (currentIndex - 1 + SECTIONS.length) % SECTIONS.length;
         } else {
             return;
         }
@@ -149,6 +148,7 @@ export default function UserProfile({
                     {activeSection === 'Security' && (
                         <SecuritySection
                             dictionary={dictionary.securitySection}
+                            lang={lang}
                         />
                     )}
                     {activeSection === 'DangerZone' && (

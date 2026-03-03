@@ -1,34 +1,59 @@
 'use client';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import React, { useState } from 'react';
-import * as Yup from 'yup';
+import { ZodError } from 'zod';
 
 import Notification, {
     NotificationDetails,
 } from '@/components/ui/Notification';
 import TogglePasswordButton from '@/components/ui/TogglePasswordButton';
+import { getDictionary } from '@/get-dictionary';
+import { changePasswordSchema } from '@/lib/validations';
 
 export type ChangePasswordFormData = {
     oldPassword: string;
     newPassword: string;
 };
 
+type SecurityDictionary = Awaited<
+    ReturnType<typeof getDictionary>
+>['profile-page']['securitySection'];
+
 export default function ChangePasswordForm({
     dictionary,
 }: {
-    dictionary: Record<string, string>;
+    dictionary: SecurityDictionary;
 }) {
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [notificationData, setNotificationData] =
         useState<NotificationDetails | null>(null);
 
-    const validationSchema = Yup.object({
-        oldPassword: Yup.string().required(dictionary.oldPasswordRequired),
-        newPassword: Yup.string()
-            .min(7, dictionary.atLeast7Characters)
-            .required(dictionary.newPasswordRequired),
-    });
+    const localizedMessages: Record<string, string> = {
+        'Old password is required.': dictionary.oldPasswordRequired,
+        'New password must be at least 7 characters.':
+            dictionary.atLeast7Characters,
+    };
+
+    const validate = (values: ChangePasswordFormData) => {
+        try {
+            changePasswordSchema.parse(values);
+            return {};
+        } catch (err) {
+            if (err instanceof ZodError) {
+                const errors: Record<string, string> = {};
+                for (const issue of err.issues) {
+                    const field = issue.path[0] as string;
+                    if (!errors[field]) {
+                        errors[field] =
+                            localizedMessages[issue.message] || issue.message;
+                    }
+                }
+                return errors;
+            }
+            return {};
+        }
+    };
 
     const handleSubmit = async (
         values: ChangePasswordFormData,
@@ -89,7 +114,7 @@ export default function ChangePasswordForm({
         <>
             <Formik<ChangePasswordFormData>
                 initialValues={{ oldPassword: '', newPassword: '' }}
-                validationSchema={validationSchema}
+                validate={validate}
                 onSubmit={handleSubmit}
             >
                 {({ isSubmitting, values }) => (
@@ -106,6 +131,7 @@ export default function ChangePasswordForm({
                                 name="oldPassword"
                                 id="oldPassword"
                                 className="input"
+                                aria-describedby="old-password-error"
                             />
                             <TogglePasswordButton
                                 visible={values.oldPassword.length > 0}
@@ -119,6 +145,7 @@ export default function ChangePasswordForm({
                                 name="oldPassword"
                                 component="p"
                                 className="mt-2 text-base text-error"
+                                id="old-password-error"
                             />
                         </div>
 
@@ -134,6 +161,7 @@ export default function ChangePasswordForm({
                                 name="newPassword"
                                 id="newPassword"
                                 className="input w-full"
+                                aria-describedby="new-password-error"
                             />
                             <TogglePasswordButton
                                 visible={values.newPassword.length > 0}
@@ -147,6 +175,7 @@ export default function ChangePasswordForm({
                                 name="newPassword"
                                 component="p"
                                 className="mt-2 text-base text-error"
+                                id="new-password-error"
                             />
                         </div>
 

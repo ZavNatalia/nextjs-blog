@@ -231,7 +231,10 @@ describe('CommentItem', () => {
             />,
         );
         const timeEl = screen.getByText((_, el) => {
-            return el?.tagName === 'TIME' && el.getAttribute('dateTime') === baseComment.createdAt;
+            return (
+                el?.tagName === 'TIME' &&
+                el.getAttribute('dateTime') === baseComment.createdAt
+            );
         });
         expect(timeEl).toBeInTheDocument();
     });
