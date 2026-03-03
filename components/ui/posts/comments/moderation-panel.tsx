@@ -46,11 +46,20 @@ export default function ModerationPanel({
     const [loadingId, setLoadingId] = useState<string | null>(null);
     const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
     const [error, setError] = useState('');
+    const [searchEmail, setSearchEmail] = useState('');
+    const [deleteByEmail, setDeleteByEmail] = useState<string | null>(null);
+    const [bulkDeleting, setBulkDeleting] = useState(false);
 
-    const filteredComments =
+    const statusFiltered =
         filter === 'all'
             ? comments
             : comments.filter((c) => c.status === filter);
+
+    const filteredComments = searchEmail
+        ? statusFiltered.filter((c) =>
+              c.authorEmail.toLowerCase().includes(searchEmail.toLowerCase()),
+          )
+        : statusFiltered;
 
     const counts = {
         all: comments.length,
@@ -89,6 +98,34 @@ export default function ModerationPanel({
         }
     };
 
+    const handleDeleteByEmail = async () => {
+        if (!deleteByEmail) return;
+        setBulkDeleting(true);
+        setError('');
+        try {
+            const response = await fetch('/api/comments/by-email', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: deleteByEmail }),
+            });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => null);
+                setError(data?.error || dictionary.actionError);
+                return;
+            }
+
+            setDeleteByEmail(null);
+            setSearchEmail('');
+            mutate('/api/comments/pending-count');
+            router.refresh();
+        } catch {
+            setError(dictionary.actionError);
+        } finally {
+            setBulkDeleting(false);
+        }
+    };
+
     const handleDelete = async () => {
         if (!deleteTarget) return;
         setLoadingId(deleteTarget);
@@ -119,6 +156,24 @@ export default function ModerationPanel({
             <h1 className="mb-6 text-2xl font-bold">{dictionary.title}</h1>
 
             {error && <p className="mb-4 text-sm text-error-500">{error}</p>}
+
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+                <input
+                    type="text"
+                    value={searchEmail}
+                    onChange={(e) => setSearchEmail(e.target.value)}
+                    placeholder={dictionary.searchByEmail}
+                    className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+                {searchEmail && filteredComments.length > 0 && (
+                    <button
+                        className="button button-sm button-danger"
+                        onClick={() => setDeleteByEmail(searchEmail.trim())}
+                    >
+                        {dictionary.deleteAllByEmail} ({filteredComments.length})
+                    </button>
+                )}
+            </div>
 
             <div className="mb-6 flex flex-wrap gap-2">
                 {tabs.map((tab) => (
@@ -245,6 +300,43 @@ export default function ModerationPanel({
                                 onClick={handleDelete}
                             >
                                 {dictionary.confirmDeleteAction}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {deleteByEmail && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-background-tertiary/80 p-4"
+                    onClick={() => setDeleteByEmail(null)}
+                >
+                    <div
+                        className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h3 className="text-lg font-semibold text-error">
+                            {dictionary.confirmDeleteByEmailTitle}
+                        </h3>
+                        <p className="mt-2 text-base text-foreground">
+                            {dictionary.confirmDeleteByEmail}{' '}
+                            <strong>{deleteByEmail}</strong>?
+                        </p>
+                        <div className="mt-4 flex justify-center gap-4">
+                            <button
+                                className="button button-ghost button-md"
+                                onClick={() => setDeleteByEmail(null)}
+                            >
+                                {dictionary.cancel}
+                            </button>
+                            <button
+                                className={`button button-md ${bulkDeleting ? 'button-disabled' : 'button-danger'}`}
+                                disabled={bulkDeleting}
+                                onClick={handleDeleteByEmail}
+                            >
+                                {bulkDeleting
+                                    ? dictionary.deletingComments
+                                    : dictionary.confirmDeleteAction}
                             </button>
                         </div>
                     </div>

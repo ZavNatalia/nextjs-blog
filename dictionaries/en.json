@@ -188,7 +188,12 @@
         "confirmDeleteAction": "Yes, delete",
         "cancel": "Cancel",
         "actionSuccess": "Action completed successfully",
-        "actionError": "Something went wrong"
+        "actionError": "Something went wrong",
+        "searchByEmail": "Search by email...",
+        "deleteAllByEmail": "Delete all",
+        "confirmDeleteByEmailTitle": "Delete all comments",
+        "confirmDeleteByEmail": "Are you sure you want to delete all comments by",
+        "deletingComments": "Deleting..."
     },
     "contact-page": {
         "main": "main",
