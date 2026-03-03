@@ -38,6 +38,10 @@ export const commentModerateSchema = z.object({
     status: z.enum(['approved', 'rejected']),
 });
 
+export const deleteByEmailSchema = z.object({
+    email: z.string().email('Invalid email address.'),
+});
+
 export const updateProfileSchema = z.object({
     name: z
         .string()

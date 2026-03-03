@@ -56,6 +56,12 @@ const mockDictionary = {
     cancel: 'Cancel',
     actionSuccess: 'Action completed successfully',
     actionError: 'Something went wrong',
+    searchByEmail: 'Search by email...',
+    deleteAllByEmail: 'Delete all',
+    confirmDeleteByEmailTitle: 'Delete all comments',
+    confirmDeleteByEmail:
+        'Are you sure you want to delete all comments by',
+    deletingComments: 'Deleting...',
 } as Dictionary['moderation'];
 
 const mockComments = [
@@ -235,6 +241,84 @@ describe('ModerationPanel', () => {
             expect(mockFetch).toHaveBeenCalledWith(
                 '/api/comments/1',
                 expect.objectContaining({ method: 'DELETE' }),
+            );
+        });
+    });
+
+    it('filters comments by email search input', async () => {
+        const user = userEvent.setup();
+        render(
+            <ModerationPanel
+                comments={mockComments}
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+
+        const searchInput = screen.getByPlaceholderText('Search by email...');
+        await user.type(searchInput, 'user2');
+
+        expect(screen.getByText('Approved comment')).toBeInTheDocument();
+        expect(
+            screen.queryByText('Pending comment'),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByText('Rejected comment'),
+        ).not.toBeInTheDocument();
+    });
+
+    it('shows Delete all button with count when search has results', async () => {
+        const user = userEvent.setup();
+        render(
+            <ModerationPanel
+                comments={mockComments}
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+
+        const searchInput = screen.getByPlaceholderText('Search by email...');
+        await user.type(searchInput, 'user@test.com');
+
+        expect(screen.getByText('Delete all (1)')).toBeInTheDocument();
+    });
+
+    it('opens bulk delete modal and calls by-email API on confirm', async () => {
+        const user = userEvent.setup();
+        mockFetch.mockResolvedValue({
+            ok: true,
+            json: async () => ({ deletedCount: 1 }),
+        });
+
+        render(
+            <ModerationPanel
+                comments={mockComments}
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+
+        const searchInput = screen.getByPlaceholderText('Search by email...');
+        await user.type(searchInput, 'user@test.com');
+        await user.click(screen.getByText('Delete all (1)'));
+
+        expect(screen.getByText('Delete all comments')).toBeInTheDocument();
+        expect(
+            screen.getByText(
+                /Are you sure you want to delete all comments by/,
+            ),
+        ).toBeInTheDocument();
+
+        await user.click(screen.getByText('Yes, delete'));
+
+        await waitFor(() => {
+            expect(mockFetch).toHaveBeenCalledWith(
+                '/api/comments/by-email',
+                expect.objectContaining({
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: 'user@test.com' }),
+                }),
             );
         });
     });

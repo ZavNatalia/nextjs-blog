@@ -189,7 +189,12 @@
         "confirmDeleteAction": "Да, удалить",
         "cancel": "Отмена",
         "actionSuccess": "Действие выполнено",
-        "actionError": "Что-то пошло не так"
+        "actionError": "Что-то пошло не так",
+        "searchByEmail": "Поиск по email...",
+        "deleteAllByEmail": "Удалить все",
+        "confirmDeleteByEmailTitle": "Удалить все комментарии",
+        "confirmDeleteByEmail": "Вы уверены, что хотите удалить все комментарии от",
+        "deletingComments": "Удаление..."
     },
     "contact-page": {
         "contactMe": "Обратная связь",
