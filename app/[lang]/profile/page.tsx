@@ -21,18 +21,16 @@ export async function generateMetadata(props: {
 export default async function ProfilePage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
+    const { lang } = await props.params;
     const session = await getServerSession();
 
     if (!session) {
-        redirect('/auth');
+        redirect(`/${lang}/auth`);
     }
-
-    const { lang } = await props.params;
     const dictionary = await getDictionary(lang)['profile-page'];
 
     const userEmail =
-        session?.user?.email ||
-        dictionary.dangerZoneSection.noEmailProvided;
+        session?.user?.email || dictionary.dangerZoneSection.noEmailProvided;
 
     let userName = session?.user?.name || '';
 
@@ -49,8 +47,8 @@ export default async function ProfilePage(props: {
     }
 
     const breadcrumbs: Breadcrumb[] = [
-        { title: dictionary.main, link: '/' },
-        { title: dictionary.profile, link: '/profile' },
+        { title: dictionary.main, link: `/${lang}` },
+        { title: dictionary.profile, link: `/${lang}/profile` },
     ];
 
     return (
@@ -60,6 +58,7 @@ export default async function ProfilePage(props: {
                 dictionary={dictionary}
                 userEmail={userEmail}
                 userName={userName}
+                lang={lang}
             />
         </main>
     );

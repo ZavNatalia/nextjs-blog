@@ -115,7 +115,7 @@ export default function ModerationPanel({
     };
 
     return (
-        <div>
+        <div className="min-w-[700px]">
             <h1 className="mb-6 text-2xl font-bold">{dictionary.title}</h1>
 
             {error && <p className="mb-4 text-sm text-error-500">{error}</p>}
@@ -139,79 +139,81 @@ export default function ModerationPanel({
             ) : (
                 <div className="space-y-4">
                     {filteredComments.map((comment) => {
-                        const formattedDate = new Date(
-                            comment.createdAt,
-                        ).toLocaleDateString(lang, {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                        });
+                            const formattedDate = new Date(
+                                comment.createdAt,
+                            ).toLocaleDateString(lang, {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            });
 
-                        return (
-                            <div
-                                key={comment._id}
-                                className="rounded-xl bg-background-secondary p-4 shadow-sm"
-                            >
-                                <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
-                                    <div className="min-w-0">
-                                        <p className="font-semibold">
-                                            {comment.authorName}
-                                        </p>
-                                        <p className="text-base text-secondary">
-                                            {comment.authorEmail}
-                                        </p>
-                                        <p className="text-base text-secondary">
-                                            <Link
-                                                href={`/${lang}/posts/${comment.postSlug}`}
-                                                className="text-accent underline"
-                                            >
-                                                {comment.postSlug}
-                                            </Link>
-                                            {' · '}
-                                            <time>{formattedDate}</time>
-                                        </p>
+                            return (
+                                <div
+                                    key={comment._id}
+                                    className="rounded-xl bg-background-secondary p-4 shadow-sm"
+                                >
+                                    <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
+                                        <div className="min-w-0">
+                                            <p className="font-semibold">
+                                                {comment.authorName}
+                                            </p>
+                                            <p className="text-base text-secondary">
+                                                {comment.authorEmail}
+                                            </p>
+                                            <p className="text-base text-secondary">
+                                                <Link
+                                                    href={`/${lang}/posts/${comment.postSlug}`}
+                                                    className="text-accent underline"
+                                                >
+                                                    {comment.postSlug}
+                                                </Link>
+                                                {' · '}
+                                                <time>{formattedDate}</time>
+                                            </p>
+                                        </div>
+                                        <span
+                                            className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${STATUS_STYLES[comment.status] || ''}`}
+                                        >
+                                            {comment.status}
+                                        </span>
                                     </div>
-                                    <span
-                                        className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${STATUS_STYLES[comment.status] || ''}`}
-                                    >
-                                        {comment.status}
-                                    </span>
-                                </div>
 
-                                <p className="mb-3 whitespace-pre-wrap text-foreground">
-                                    {comment.content}
-                                </p>
+                                    <p className="mb-3 whitespace-pre-wrap text-foreground">
+                                        {comment.content}
+                                    </p>
 
-                                <div className="flex gap-2">
-                                    {comment.status !== 'approved' && (
+                                    <div className="flex gap-2">
+                                        {comment.status !== 'approved' && (
+                                            <button
+                                                onClick={() =>
+                                                    handleModerate(
+                                                        comment._id,
+                                                        'approved',
+                                                    )
+                                                }
+                                                disabled={
+                                                    loadingId === comment._id
+                                                }
+                                                className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-solid'}`}
+                                            >
+                                                {dictionary.approve}
+                                            </button>
+                                        )}
                                         <button
                                             onClick={() =>
-                                                handleModerate(
-                                                    comment._id,
-                                                    'approved',
-                                                )
+                                                setDeleteTarget(comment._id)
                                             }
                                             disabled={loadingId === comment._id}
-                                            className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-solid'}`}
+                                            className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-ghost'} text-error-500`}
                                         >
-                                            {dictionary.approve}
+                                            {dictionary.delete}
                                         </button>
-                                    )}
-                                    <button
-                                        onClick={() =>
-                                            setDeleteTarget(comment._id)
-                                        }
-                                        disabled={loadingId === comment._id}
-                                        className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-ghost'} text-error-500`}
-                                    >
-                                        {dictionary.delete}
-                                    </button>
+                                    </div>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
                 </div>
             )}
 

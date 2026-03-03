@@ -1,11 +1,18 @@
 import Link from 'next/link';
 
 import ChangePasswordForm from '@/components/ui/profile/change-password-form';
+import { getDictionary } from '@/get-dictionary';
+
+type SecurityDictionary = Awaited<
+    ReturnType<typeof getDictionary>
+>['profile-page']['securitySection'];
 
 export function SecuritySection({
     dictionary,
+    lang,
 }: {
-    dictionary: Record<string, string>;
+    dictionary: SecurityDictionary;
+    lang: string;
 }) {
     return (
         <div className="flex flex-col items-center p-4 md:items-start">
@@ -20,7 +27,7 @@ export function SecuritySection({
                 <p>
                     {dictionary.reviewPrivacyPolicy}&nbsp;
                     <Link
-                        href="/privacy-policy"
+                        href={`/${lang}/privacy-policy`}
                         className="link text-blue-700 hover:underline dark:text-blue-400"
                     >
                         {dictionary.here}

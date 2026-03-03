@@ -60,7 +60,6 @@ export async function GET(req: NextRequest) {
         return new Response(
             JSON.stringify({
                 error: 'Failed to load comments. Database may be temporarily unavailable.',
-
             }),
             {
                 status: 500,
@@ -152,7 +151,6 @@ export async function POST(req: NextRequest) {
         return new Response(
             JSON.stringify({
                 error: 'Failed to create comment. Database may be temporarily unavailable.',
-
             }),
             {
                 status: 500,

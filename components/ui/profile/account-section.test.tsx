@@ -8,9 +8,15 @@ vi.mock('next-auth/react', () => ({
     useSession: () => ({ update: vi.fn() }),
 }));
 
+import { getDictionary } from '@/get-dictionary';
+
 import { AccountSection } from './account-section';
 
-const mockDictionary = {
+type AccountDictionary = Awaited<
+    ReturnType<typeof getDictionary>
+>['profile-page']['accountSection'];
+
+const mockDictionary: AccountDictionary = {
     yourAccount: 'Your Account',
     name: 'Display Name',
     namePlaceholder: 'Enter your name',

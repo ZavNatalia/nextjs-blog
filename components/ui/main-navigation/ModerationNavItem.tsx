@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 
-const fetcher = (url: string) => fetch(url).then((r) => r.ok ? r.json() : null);
+const fetcher = (url: string) =>
+    fetch(url).then((r) => (r.ok ? r.json() : null));
 
 export function ModerationNavItem({
     title,

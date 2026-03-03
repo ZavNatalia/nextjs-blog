@@ -1,24 +1,51 @@
 'use client';
 import { signOut } from 'next-auth/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Notification, {
     NotificationDetails,
     NotificationStatus,
 } from '@/components/ui/Notification';
+import { getDictionary } from '@/get-dictionary';
+
+type DangerZoneDictionary = Awaited<
+    ReturnType<typeof getDictionary>
+>['profile-page']['dangerZoneSection'];
 
 export function DangerZoneSection({
     userEmail,
     dictionary,
 }: {
     userEmail: string;
-    dictionary: Record<string, string>;
+    dictionary: DangerZoneDictionary;
 }) {
     const [notificationData, setNotificationData] =
         useState<NotificationDetails | null>(null);
     const [requestStatus, setRequestStatus] =
         useState<NotificationStatus | null>(null);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const deleteButtonRef = useRef<HTMLButtonElement>(null);
+    const cancelButtonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        if (!isConfirmOpen) return;
+        const handler = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') closeDialog();
+        };
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+    }, [isConfirmOpen]);
+
+    useEffect(() => {
+        if (isConfirmOpen) {
+            cancelButtonRef.current?.focus();
+        }
+    }, [isConfirmOpen]);
+
+    const closeDialog = () => {
+        setIsConfirmOpen(false);
+        deleteButtonRef.current?.focus();
+    };
 
     useEffect(() => {
         if (requestStatus === 'success') {
@@ -64,7 +91,7 @@ export function DangerZoneSection({
                 status: 'error',
             });
         } finally {
-            setIsConfirmOpen(false);
+            closeDialog();
         }
     };
 
@@ -77,6 +104,7 @@ export function DangerZoneSection({
                 {dictionary.deletingIsIrreversible}
             </p>
             <button
+                ref={deleteButtonRef}
                 disabled={
                     requestStatus === 'pending' || requestStatus === 'success'
                 }
@@ -110,13 +138,19 @@ export function DangerZoneSection({
             {isConfirmOpen && (
                 <div
                     className="fixed inset-0 flex items-center justify-center bg-background-tertiary/80 p-4"
-                    onClick={() => setIsConfirmOpen(false)}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="delete-account-dialog-title"
+                    onClick={closeDialog}
                 >
                     <div
                         className="max-w-sm rounded-3xl bg-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h3 className="text-lg font-semibold text-error">
+                        <h3
+                            id="delete-account-dialog-title"
+                            className="text-lg font-semibold text-error"
+                        >
                             {dictionary.confirmAccountDeletion}
                         </h3>
                         <p className="mt-2 text-base text-foreground">
@@ -129,8 +163,9 @@ export function DangerZoneSection({
                         </p>
                         <div className="mt-4 flex justify-center gap-4">
                             <button
+                                ref={cancelButtonRef}
                                 className="button button-ghost button-md"
-                                onClick={() => setIsConfirmOpen(false)}
+                                onClick={closeDialog}
                             >
                                 {dictionary.cancel}
                             </button>

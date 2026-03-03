@@ -89,6 +89,7 @@ const mockDictionary = {
         error: 'Error',
         accountDeletedSuccessfully: 'Deleted.',
         failedDeleteAccount: 'Failed.',
+        noEmailProvided: 'No email provided',
         somethingWentWrong: 'Error.',
     },
 } as Dictionary['profile-page'];
@@ -100,6 +101,7 @@ describe('UserProfile', () => {
                 userEmail="user@test.com"
                 userName="Test User"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         expect(screen.getByText('user@test.com')).toBeInTheDocument();
@@ -111,6 +113,7 @@ describe('UserProfile', () => {
                 userEmail="user@test.com"
                 userName="Test User"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         const securityButtons = screen.getAllByText('Security');
@@ -126,6 +129,7 @@ describe('UserProfile', () => {
                 userEmail="user@test.com"
                 userName="Test User"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         const dangerButtons = screen.getAllByText('Danger Zone');
@@ -139,6 +143,7 @@ describe('UserProfile', () => {
                 userEmail="user@test.com"
                 userName="Test User"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         const tablists = screen.getAllByRole('tablist');
@@ -151,6 +156,7 @@ describe('UserProfile', () => {
                 userEmail="user@test.com"
                 userName="Test User"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         const tabs = screen.getAllByRole('tab');
@@ -168,6 +174,7 @@ describe('UserProfile', () => {
                 userEmail="user@test.com"
                 userName="Test User"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
         const panel = screen.getByRole('tabpanel');
@@ -181,11 +188,12 @@ describe('UserProfile', () => {
                 userEmail="user@test.com"
                 userName="Test User"
                 dictionary={mockDictionary}
+                lang="en"
             />,
         );
-        const securityTabs = screen.getAllByRole('tab').filter(
-            (t) => t.textContent === 'Security',
-        );
+        const securityTabs = screen
+            .getAllByRole('tab')
+            .filter((t) => t.textContent === 'Security');
         await userEvent.click(securityTabs[0]);
 
         expect(securityTabs[0]).toHaveAttribute('aria-selected', 'true');
