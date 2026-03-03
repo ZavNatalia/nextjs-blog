@@ -49,6 +49,7 @@ export default function ModerationPanel({
     const [searchEmail, setSearchEmail] = useState('');
     const [deleteByEmail, setDeleteByEmail] = useState<string | null>(null);
     const [bulkDeleting, setBulkDeleting] = useState(false);
+    const [searchEmailError, setSearchEmailError] = useState('');
 
     const statusFiltered =
         filter === 'all'
@@ -152,26 +153,49 @@ export default function ModerationPanel({
     };
 
     return (
-        <div className="min-w-[700px]">
+        <div className="w-full max-w-5xl">
             <h1 className="mb-6 text-2xl font-bold">{dictionary.title}</h1>
 
             {error && <p className="mb-4 text-sm text-error-500">{error}</p>}
 
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-                <input
-                    type="text"
-                    value={searchEmail}
-                    onChange={(e) => setSearchEmail(e.target.value)}
-                    placeholder={dictionary.searchByEmail}
-                    className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-                {searchEmail && filteredComments.length > 0 && (
-                    <button
-                        className="button button-sm button-danger"
-                        onClick={() => setDeleteByEmail(searchEmail.trim())}
-                    >
-                        {dictionary.deleteAllByEmail} ({filteredComments.length})
-                    </button>
+            <div className="mb-4">
+                <div className="flex flex-wrap items-center gap-2">
+                    <input
+                        type="text"
+                        value={searchEmail}
+                        onChange={(e) => {
+                            setSearchEmail(e.target.value);
+                            setSearchEmailError('');
+                        }}
+                        placeholder={dictionary.searchByEmail}
+                        className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent"
+                    />
+                    {searchEmail && filteredComments.length > 0 && (
+                        <button
+                            className="button button-sm button-danger"
+                            onClick={() => {
+                                const trimmed = searchEmail.trim();
+                                if (
+                                    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)
+                                ) {
+                                    setSearchEmailError(
+                                        dictionary.invalidEmailError,
+                                    );
+                                    return;
+                                }
+                                setSearchEmailError('');
+                                setDeleteByEmail(trimmed);
+                            }}
+                        >
+                            {dictionary.deleteAllByEmail} (
+                            {filteredComments.length})
+                        </button>
+                    )}
+                </div>
+                {searchEmailError && (
+                    <p className="mt-1 text-sm text-error-500">
+                        {searchEmailError}
+                    </p>
                 )}
             </div>
 

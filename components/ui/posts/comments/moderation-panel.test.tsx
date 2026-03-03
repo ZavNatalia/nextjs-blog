@@ -62,6 +62,7 @@ const mockDictionary = {
     confirmDeleteByEmail:
         'Are you sure you want to delete all comments by',
     deletingComments: 'Deleting...',
+    invalidEmailError: 'Enter a valid email to delete all comments',
 } as Dictionary['moderation'];
 
 const mockComments = [
@@ -281,6 +282,29 @@ describe('ModerationPanel', () => {
         await user.type(searchInput, 'user@test.com');
 
         expect(screen.getByText('Delete all (1)')).toBeInTheDocument();
+    });
+
+    it('shows validation error when Delete all is clicked with invalid email', async () => {
+        const user = userEvent.setup();
+        render(
+            <ModerationPanel
+                comments={mockComments}
+                dictionary={mockDictionary}
+                lang="en"
+            />,
+        );
+
+        const searchInput = screen.getByPlaceholderText('Search by email...');
+        await user.type(searchInput, 'user');
+
+        await user.click(screen.getByText('Delete all (3)'));
+
+        expect(
+            screen.getByText('Enter a valid email to delete all comments'),
+        ).toBeInTheDocument();
+        expect(
+            screen.queryByText('Delete all comments'),
+        ).not.toBeInTheDocument();
     });
 
     it('opens bulk delete modal and calls by-email API on confirm', async () => {
