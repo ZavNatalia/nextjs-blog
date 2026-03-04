@@ -90,7 +90,7 @@ export async function generateMetadata(props: PageProps) {
 export default async function Page(props: PageProps) {
     const { slug, lang } = await props.params;
     const post = await getPost(slug, lang as Locale);
-    const dictionary = await getDictionary(lang as Locale)['posts-page'];
+    const dictionary = getDictionary(lang as Locale)['posts-page'];
 
     if (!post) {
         notFound();

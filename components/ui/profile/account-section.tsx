@@ -1,9 +1,8 @@
 'use client';
 
-import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { signOut, useSession } from 'next-auth/react';
 import React, { useState } from 'react';
-import { ZodError } from 'zod';
 
 import Notification, {
     NotificationDetails,
@@ -31,37 +30,28 @@ export function AccountSection({
     const [notificationData, setNotificationData] =
         useState<NotificationDetails | null>(null);
 
-    const localizedMessages: Record<string, string> = {
-        'Name must be at least 2 characters.': dictionary.nameMinLength,
-        'Name must not exceed 50 characters.': dictionary.nameMaxLength,
-    };
-
     const validate = (values: ProfileFormData) => {
-        try {
-            updateProfileSchema.parse(values);
-            return {};
-        } catch (err) {
-            if (err instanceof ZodError) {
-                const errors: Record<string, string> = {};
-                for (const issue of err.issues) {
-                    const field = issue.path[0] as string;
-                    if (!errors[field]) {
-                        errors[field] =
-                            localizedMessages[issue.message] || issue.message;
-                    }
-                }
-                return errors;
+        const result = updateProfileSchema.safeParse(values);
+        if (result.success) return {};
+
+        const errors: Record<string, string> = {};
+        for (const issue of result.error.issues) {
+            const field = issue.path[0] as string;
+            if (errors[field]) continue;
+
+            if (issue.code === 'too_small') {
+                errors[field] = dictionary.nameMinLength;
+            } else if (issue.code === 'too_big') {
+                errors[field] = dictionary.nameMaxLength;
+            } else {
+                errors[field] = issue.message;
             }
-            return {};
         }
+        return errors;
     };
 
-    const handleSubmit = async (
-        values: ProfileFormData,
-        { setSubmitting }: FormikHelpers<ProfileFormData>,
-    ) => {
+    const handleSubmit = async (values: ProfileFormData) => {
         setNotificationData(null);
-        setSubmitting(true);
 
         try {
             const response = await fetch('/api/user/profile', {
@@ -95,8 +85,6 @@ export function AccountSection({
                 message: dictionary.somethingWentWrong,
                 status: 'error',
             });
-        } finally {
-            setSubmitting(false);
         }
     };
 
@@ -126,7 +114,7 @@ export function AccountSection({
                 validate={validate}
                 onSubmit={handleSubmit}
             >
-                {({ isSubmitting }) => (
+                {({ isSubmitting, dirty }) => (
                     <Form className="flex w-full max-w-xs flex-col gap-4 rounded-xl bg-primary px-5 py-6 shadow-md">
                         <div>
                             <label
@@ -153,7 +141,7 @@ export function AccountSection({
 
                         <button
                             type="submit"
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || !dirty}
                             className={`button button-solid button-md w-full ${
                                 isSubmitting ? 'cursor-wait' : ''
                             }`}
