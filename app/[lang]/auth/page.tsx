@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)['auth-page'];
+    const dictionary = getDictionary(lang)['auth-page'];
     return {
         title: dictionary.signIn,
         description: dictionary.pageDescription,
@@ -35,7 +35,7 @@ export default async function AuthPage(props: {
         props.searchParams,
     ]);
     const callbackUrl = searchParams.callbackUrl || '/';
-    const dictionary = await getDictionary(lang);
+    const dictionary = getDictionary(lang);
     const authDict = dictionary['auth-page'];
 
     const breadcrumbs: Breadcrumb[] = [

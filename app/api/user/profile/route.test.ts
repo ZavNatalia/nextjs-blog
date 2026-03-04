@@ -18,10 +18,14 @@ vi.mock('next-auth', () => ({
     getServerSession: vi.fn(),
 }));
 
+const mockCheck = vi.fn().mockReturnValue({
+    success: true,
+    remaining: 10,
+    retryAfterMs: 0,
+});
+
 vi.mock('@/lib/rate-limit', () => ({
-    rateLimit: () => ({
-        check: () => ({ success: true, remaining: 10, retryAfterMs: 0 }),
-    }),
+    rateLimit: () => ({ check: (...args: unknown[]) => mockCheck(...args) }),
     getClientIp: () => '127.0.0.1',
 }));
 
@@ -114,5 +118,43 @@ describe('PATCH /api/user/profile', () => {
         mockUsersUpdateOne.mockRejectedValue(new Error('DB connection failed'));
         const res = await PATCH(makeRequest({ name: 'Test User' }));
         expect(res.status).toBe(500);
+    });
+
+    it('returns 429 when rate limited', async () => {
+        mockCheck.mockReturnValueOnce({
+            success: false,
+            remaining: 0,
+            retryAfterMs: 5000,
+        });
+        const res = await PATCH(makeRequest({ name: 'Test' }));
+        expect(res.status).toBe(429);
+        expect(res.headers.get('Retry-After')).toBe('5');
+    });
+
+    it('returns 400 for invalid JSON body', async () => {
+        vi.mocked(getServerSession).mockResolvedValue({
+            user: { email: 'test@test.com' },
+            expires: '',
+        });
+        const req = new NextRequest('http://localhost:3000/api/user/profile', {
+            method: 'PATCH',
+            body: 'not json',
+            headers: { 'Content-Type': 'application/json' },
+        });
+        const res = await PATCH(req);
+        expect(res.status).toBe(400);
+        const data = await res.json();
+        expect(data.error).toMatch(/invalid request body/i);
+    });
+
+    it('returns 401 when session has no email', async () => {
+        vi.mocked(getServerSession).mockResolvedValue({
+            user: { email: null },
+            expires: '',
+        });
+        const res = await PATCH(makeRequest({ name: 'Test' }));
+        expect(res.status).toBe(401);
+        const data = await res.json();
+        expect(data.error).toMatch(/no email/i);
     });
 });

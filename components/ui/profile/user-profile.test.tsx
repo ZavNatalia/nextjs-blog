@@ -55,6 +55,7 @@ const mockDictionary = {
         nameMinLength: 'Name must be at least 2 characters',
         nameMaxLength: 'Name must not exceed 50 characters',
         logout: 'Log Out',
+        noEmailProvided: 'No email provided',
     },
     securitySection: {
         security: 'Security',
