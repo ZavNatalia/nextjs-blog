@@ -1,12 +1,20 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const mockSignOut = vi.fn();
+const mockUpdate = vi.fn();
+const mockFetch = vi.fn();
 
 vi.mock('next-auth/react', () => ({
     signOut: () => mockSignOut(),
-    useSession: () => ({ update: vi.fn() }),
+    useSession: () => ({ update: mockUpdate }),
 }));
+
+beforeEach(() => {
+    vi.stubGlobal('fetch', mockFetch);
+    mockFetch.mockReset();
+    mockUpdate.mockReset();
+});
 
 import { getDictionary } from '@/get-dictionary';
 
@@ -31,9 +39,17 @@ const mockDictionary: AccountDictionary = {
     nameMinLength: 'Name must be at least 2 characters',
     nameMaxLength: 'Name must not exceed 50 characters',
     logout: 'Log Out',
+    noEmailProvided: 'No email provided',
 };
 
-beforeEach(() => {
+beforeAll(() => {
+    const notificationsRoot = document.createElement('div');
+    notificationsRoot.id = 'notifications';
+    document.body.appendChild(notificationsRoot);
+});
+
+afterEach(() => {
+    vi.unstubAllGlobals();
     vi.clearAllMocks();
 });
 
@@ -92,5 +108,120 @@ describe('AccountSection', () => {
         );
         await userEvent.click(screen.getByText('Log Out'));
         expect(mockSignOut).toHaveBeenCalledOnce();
+    });
+
+    it('disables save button when name is unchanged', () => {
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const saveButton = screen.getByRole('button', {
+            name: 'Save Changes',
+        });
+        expect(saveButton).toBeDisabled();
+    });
+
+    it('enables save button when name is changed', async () => {
+        const user = userEvent.setup();
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const input = screen.getByPlaceholderText('Enter your name');
+        await user.clear(input);
+        await user.type(input, 'New Name');
+
+        const saveButton = screen.getByRole('button', {
+            name: 'Save Changes',
+        });
+        expect(saveButton).toBeEnabled();
+    });
+
+    it('shows validation error for short name', async () => {
+        const user = userEvent.setup();
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const input = screen.getByPlaceholderText('Enter your name');
+        await user.clear(input);
+        await user.type(input, 'A');
+
+        const saveButton = screen.getByRole('button', {
+            name: 'Save Changes',
+        });
+        await user.click(saveButton);
+
+        await waitFor(() => {
+            expect(
+                screen.getByText('Name must be at least 2 characters'),
+            ).toBeInTheDocument();
+        });
+        expect(mockFetch).not.toHaveBeenCalled();
+    });
+
+    it('shows success notification after successful submit', async () => {
+        const user = userEvent.setup();
+        mockFetch.mockResolvedValue({
+            ok: true,
+            json: async () => ({ message: 'Profile updated successfully.' }),
+        });
+
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const input = screen.getByPlaceholderText('Enter your name');
+        await user.clear(input);
+        await user.type(input, 'New Name');
+        await user.click(
+            screen.getByRole('button', { name: 'Save Changes' }),
+        );
+
+        await waitFor(() => {
+            expect(
+                screen.getByText('Profile updated successfully!'),
+            ).toBeInTheDocument();
+        });
+    });
+
+    it('shows error notification on failed submit', async () => {
+        const user = userEvent.setup();
+        mockFetch.mockResolvedValue({
+            ok: false,
+            json: async () => ({ error: 'User not found.' }),
+        });
+
+        render(
+            <AccountSection
+                userEmail="user@test.com"
+                userName="Test User"
+                dictionary={mockDictionary}
+            />,
+        );
+        const input = screen.getByPlaceholderText('Enter your name');
+        await user.clear(input);
+        await user.type(input, 'New Name');
+        await user.click(
+            screen.getByRole('button', { name: 'Save Changes' }),
+        );
+
+        await waitFor(() => {
+            expect(
+                screen.getByText('User not found.'),
+            ).toBeInTheDocument();
+        });
     });
 });
