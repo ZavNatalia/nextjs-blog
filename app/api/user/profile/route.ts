@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
+import { IUser } from '@/lib/types/mongodb';
 import { updateProfileSchema } from '@/lib/validations';
 
 const limiter = rateLimit({ maxRequests: 10, windowMs: 15 * 60 * 1000 });
@@ -78,7 +79,7 @@ export async function PATCH(req: NextRequest) {
         const db = await connectToDatabase();
 
         const updateResult = await db
-            .collection('users')
+            .collection<IUser>('users')
             .updateOne({ email: userEmail }, { $set: { name } });
 
         if (updateResult.matchedCount === 0) {

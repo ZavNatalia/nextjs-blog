@@ -6,6 +6,7 @@ import UserProfile from '@/components/ui/profile/user-profile';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 import { connectToDatabase } from '@/lib/db';
+import { IUser } from '@/lib/types/mongodb';
 
 export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
@@ -37,7 +38,7 @@ export default async function ProfilePage(props: {
     try {
         const db = await connectToDatabase();
         const dbUser = await db
-            .collection('users')
+            .collection<IUser>('users')
             .findOne({ email: session.user.email });
         if (dbUser) {
             userName = dbUser.name || userName;

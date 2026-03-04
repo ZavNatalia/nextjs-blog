@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { moderateContent } from '@/lib/comments';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
-import { IComment } from '@/lib/types/mongodb';
+import { IComment, IUser } from '@/lib/types/mongodb';
 import { commentSchema } from '@/lib/validations';
 
 const limiter = rateLimit({ maxRequests: 10, windowMs: 15 * 60 * 1000 });
@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
         const db = await connectToDatabase();
         const userEmail = session.user!.email!;
         const dbUser = await db
-            .collection('users')
+            .collection<IUser>('users')
             .findOne({ email: userEmail });
 
         const commentsCollection = db.collection<IComment>('comments');
