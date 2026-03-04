@@ -9,7 +9,7 @@ import { i18n, type Locale } from '@/i18n-config';
 
 import { Providers } from './providers';
 
-export const openSans = localFont({
+const openSans = localFont({
     src: [
         {
             path: '../../public/fonts/Open_Sans/static/OpenSans-Regular.ttf',
@@ -40,7 +40,7 @@ export async function generateMetadata(props: {
 }) {
     const { lang } = await props.params;
     const manifestPath = `/${lang}/manifest.webmanifest`;
-    const dictionary = await getDictionary(lang as Locale)['common'];
+    const dictionary = getDictionary(lang as Locale)['common'];
 
     const baseUrl = 'https://zav.me';
 
@@ -91,7 +91,7 @@ export default async function RootLayout(props: {
     params: Promise<{ lang: string }>;
 }) {
     const params = await props.params;
-    const dictionary = await getDictionary(params.lang as Locale);
+    const dictionary = getDictionary(params.lang as Locale);
     const session = await getServerSession();
 
     return (

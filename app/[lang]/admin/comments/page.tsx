@@ -25,7 +25,7 @@ export default async function ModerationPage(props: {
     }
 
     const { lang } = await props.params;
-    const dictionary = (await getDictionary(lang as Locale))['moderation'];
+    const dictionary = getDictionary(lang as Locale)['moderation'];
 
     let serializedComments: {
         _id: string;
