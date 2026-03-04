@@ -126,8 +126,6 @@ const handler = NextAuth({
                             $setOnInsert: {
                                 email: user.email,
                                 password: '',
-                            },
-                            $set: {
                                 ...(user.name && { name: user.name }),
                             },
                         },
@@ -135,6 +133,7 @@ const handler = NextAuth({
                     );
                 } catch (error) {
                     console.error('Error saving OAuth user data:', error);
+                    return false;
                 }
             }
             return true;

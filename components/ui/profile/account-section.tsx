@@ -61,7 +61,6 @@ export function AccountSection({
         { setSubmitting }: FormikHelpers<ProfileFormData>,
     ) => {
         setNotificationData(null);
-        setSubmitting(true);
 
         try {
             const response = await fetch('/api/user/profile', {
@@ -126,7 +125,7 @@ export function AccountSection({
                 validate={validate}
                 onSubmit={handleSubmit}
             >
-                {({ isSubmitting }) => (
+                {({ isSubmitting, dirty }) => (
                     <Form className="flex w-full max-w-xs flex-col gap-4 rounded-xl bg-primary px-5 py-6 shadow-md">
                         <div>
                             <label
@@ -153,7 +152,7 @@ export function AccountSection({
 
                         <button
                             type="submit"
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || !dirty}
                             className={`button button-solid button-md w-full ${
                                 isSubmitting ? 'cursor-wait' : ''
                             }`}
