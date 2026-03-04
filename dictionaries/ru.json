@@ -38,7 +38,8 @@
         "switchToEn": "Выбрать английский язык",
         "closeMenu": "Закрыть меню",
         "openMenu": "Открыть меню",
-        "moderation": "Модерация"
+        "moderation": "Модерация",
+        "messages": "Сообщения"
     },
     "profile-page": {
         "pageDescription": "Управляйте настройками аккаунта, обновляйте пароль или безвозвратно удаляйте аккаунт.",
@@ -197,6 +198,30 @@
         "confirmDeleteByEmail": "Вы уверены, что хотите удалить все комментарии от",
         "deletingComments": "Удаление...",
         "invalidEmailError": "Введите корректный email для удаления всех комментариев"
+    },
+    "messages": {
+        "title": "Сообщения",
+        "noMessages": "Сообщений нет",
+        "all": "Все",
+        "unread": "Непрочитанные",
+        "read": "Прочитанные",
+        "markAsRead": "Прочитано",
+        "reply": "Ответить",
+        "delete": "Удалить",
+        "from": "От",
+        "date": "Дата",
+        "confirmDeleteTitle": "Удаление сообщения",
+        "confirmDelete": "Вы уверены, что хотите удалить это сообщение?",
+        "confirmDeleteAction": "Да, удалить",
+        "cancel": "Отмена",
+        "actionSuccess": "Действие выполнено",
+        "actionError": "Что-то пошло не так",
+        "searchByEmail": "Поиск по email...",
+        "deleteAllByEmail": "Удалить все",
+        "confirmDeleteByEmailTitle": "Удалить все сообщения",
+        "confirmDeleteByEmail": "Вы уверены, что хотите удалить все сообщения от",
+        "deletingMessages": "Удаление...",
+        "invalidEmailError": "Введите корректный email для удаления всех сообщений"
     },
     "contact-page": {
         "contactMe": "Обратная связь",
