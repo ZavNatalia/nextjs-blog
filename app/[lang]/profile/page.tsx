@@ -12,7 +12,7 @@ export async function generateMetadata(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const dictionary = await getDictionary(lang)['profile-page'];
+    const dictionary = getDictionary(lang)['profile-page'];
     return {
         title: dictionary.profile,
         description: dictionary.pageDescription,
@@ -28,7 +28,7 @@ export default async function ProfilePage(props: {
     if (!session) {
         redirect(`/${lang}/auth`);
     }
-    const dictionary = await getDictionary(lang)['profile-page'];
+    const dictionary = getDictionary(lang)['profile-page'];
 
     const userEmail =
         session?.user?.email || dictionary.dangerZoneSection.noEmailProvided;
