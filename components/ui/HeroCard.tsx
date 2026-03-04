@@ -23,7 +23,7 @@ export default function HeroCard({
                 fill
                 alt=""
                 className="hidden object-cover dark:block"
-                quality={90}
+                quality={75}
                 priority
                 sizes="(max-width: 768px) 100vw, 863px"
                 onLoad={() => setImageLoaded(true)}
@@ -33,7 +33,7 @@ export default function HeroCard({
                 fill
                 alt=""
                 className="block object-cover dark:hidden"
-                quality={90}
+                quality={75}
                 priority
                 sizes="(max-width: 768px) 100vw, 863px"
                 onLoad={() => setImageLoaded(true)}
