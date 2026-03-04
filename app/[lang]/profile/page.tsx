@@ -31,7 +31,7 @@ export default async function ProfilePage(props: {
     const dictionary = getDictionary(lang)['profile-page'];
 
     const userEmail =
-        session?.user?.email || dictionary.dangerZoneSection.noEmailProvided;
+        session?.user?.email || dictionary.accountSection.noEmailProvided;
 
     let userName = session?.user?.name || '';
 

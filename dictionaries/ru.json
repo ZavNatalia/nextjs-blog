@@ -61,7 +61,8 @@
             "nameRequired": "Имя обязательно",
             "nameMinLength": "Имя должно содержать не менее 2 символов",
             "nameMaxLength": "Имя не должно превышать 50 символов",
-            "logout": "Выйти"
+            "logout": "Выйти",
+            "noEmailProvided": "Email отсутствует"
         },
         "securitySection": {
             "security": "Безопасность",
