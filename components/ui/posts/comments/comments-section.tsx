@@ -19,12 +19,8 @@ export default async function CommentsSection({
 }) {
     await connection();
 
-    const [session, dictionary] = await Promise.all([
-        getServerSession(),
-        Promise.resolve(getDictionary(lang)),
-    ]);
-
-    const dict = dictionary.comments;
+    const session = await getServerSession();
+    const dict = getDictionary(lang).comments;
 
     let serializedComments: {
         _id: string;
