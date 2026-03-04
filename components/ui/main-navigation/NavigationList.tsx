@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Loader } from '@/components/ui/Loader';
+import { MessagesNavItem } from '@/components/ui/main-navigation/MessagesNavItem';
 import { ModerationNavItem } from '@/components/ui/main-navigation/ModerationNavItem';
 import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
 import { getDictionary } from '@/get-dictionary';
@@ -96,11 +97,18 @@ export function NavigationList({
             {status === 'authenticated' &&
                 session?.user?.email ===
                     process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-                    <ModerationNavItem
-                        title={dictionary['moderation']}
-                        normalizedPathname={normalizedPathname}
-                        onClick={onClick}
-                    />
+                    <>
+                        <ModerationNavItem
+                            title={dictionary['moderation']}
+                            normalizedPathname={normalizedPathname}
+                            onClick={onClick}
+                        />
+                        <MessagesNavItem
+                            title={dictionary['messages']}
+                            normalizedPathname={normalizedPathname}
+                            onClick={onClick}
+                        />
+                    </>
                 )}
         </ul>
     );

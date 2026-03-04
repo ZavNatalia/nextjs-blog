@@ -9,9 +9,14 @@ import { contactSchema } from '@/lib/validations';
 const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
 
 async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
+    const fullMessage: IMessage = {
+        ...message,
+        createdAt: new Date(),
+        status: 'unread',
+    };
     const collection = db.collection<IMessage>('messages');
-    const result = await collection.insertOne(message);
-    return { ...message, _id: result.insertedId };
+    const result = await collection.insertOne(fullMessage);
+    return { ...fullMessage, _id: result.insertedId };
 }
 
 export async function POST(req: NextRequest) {

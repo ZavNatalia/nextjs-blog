@@ -7,11 +7,15 @@ export interface IUser {
     name?: string;
 }
 
+export type MessageStatus = 'unread' | 'read';
+
 export interface IMessage {
     _id?: ObjectId;
     email: string;
     name: string;
     message: string;
+    createdAt: Date;
+    status: MessageStatus;
 }
 
 export type CommentStatus = 'approved' | 'pending' | 'rejected';
