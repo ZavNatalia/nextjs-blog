@@ -1,7 +1,6 @@
 import './globals.css';
 
 import localFont from 'next/font/local';
-import { getServerSession } from 'next-auth';
 import { ReactNode } from 'react';
 
 import { getDictionary } from '@/get-dictionary';
@@ -92,12 +91,11 @@ export default async function RootLayout(props: {
 }) {
     const params = await props.params;
     const dictionary = getDictionary(params.lang as Locale);
-    const session = await getServerSession();
 
     return (
         <html suppressHydrationWarning lang={params.lang}>
             <body className={openSans.className}>
-                <Providers dictionary={dictionary} session={session}>
+                <Providers dictionary={dictionary}>
                     {props.children}
                 </Providers>
             </body>

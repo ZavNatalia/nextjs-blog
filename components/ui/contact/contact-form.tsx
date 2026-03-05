@@ -123,16 +123,18 @@ const getNotificationData = (
 };
 
 export default function ContactForm({
-    userEmail,
+    userEmail = '',
+    userName = '',
     dictionary,
 }: {
-    userEmail: string;
+    userEmail?: string;
+    userName?: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'];
 }) {
     const [token, setToken] = useState('');
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: userEmail,
-        name: '',
+        name: userName,
         message: '',
     });
     const [requestStatus, setRequestStatus] =

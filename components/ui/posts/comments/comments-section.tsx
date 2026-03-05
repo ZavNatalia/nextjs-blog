@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { connection } from 'next/server';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import CommentForm from '@/components/ui/posts/comments/comment-form';
 import CommentItem from '@/components/ui/posts/comments/comment-item';
 import { getDictionary } from '@/get-dictionary';
@@ -19,7 +19,7 @@ export default async function CommentsSection({
 }) {
     await connection();
 
-    const session = await getServerSession();
+    const session = await auth();
     const dict = getDictionary(lang).comments;
 
     let serializedComments: {

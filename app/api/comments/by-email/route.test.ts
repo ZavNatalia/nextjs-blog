@@ -10,8 +10,8 @@ vi.mock('@/lib/db', () => ({
     }),
 }));
 
-vi.mock('next-auth', () => ({
-    getServerSession: vi.fn(),
+vi.mock('@/auth', () => ({
+    auth: vi.fn(),
 }));
 
 vi.mock('@/lib/rate-limit', () => ({
@@ -22,7 +22,8 @@ vi.mock('@/lib/rate-limit', () => ({
 }));
 
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
+
+import { auth } from '@/auth';
 
 import { DELETE } from './route';
 
@@ -44,7 +45,7 @@ beforeEach(() => {
 
 describe('DELETE /api/comments/by-email', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(getServerSession).mockResolvedValue(null);
+        vi.mocked(auth).mockResolvedValue(null);
         const res = await DELETE(makeRequest({ email: 'spam@test.com' }));
         expect(res.status).toBe(401);
         const data = await res.json();
@@ -52,7 +53,7 @@ describe('DELETE /api/comments/by-email', () => {
     });
 
     it('returns 403 when user is not admin', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'user@test.com' },
             expires: '',
         });
@@ -63,7 +64,7 @@ describe('DELETE /api/comments/by-email', () => {
     });
 
     it('returns 422 for invalid email', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'admin@test.com' },
             expires: '',
         });
@@ -72,7 +73,7 @@ describe('DELETE /api/comments/by-email', () => {
     });
 
     it('returns 200 with deletedCount on success', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'admin@test.com' },
             expires: '',
         });

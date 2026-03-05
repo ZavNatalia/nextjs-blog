@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import UserProfile from '@/components/ui/profile/user-profile';
 import { getDictionary } from '@/get-dictionary';
@@ -23,7 +23,7 @@ export default async function ProfilePage(props: {
     params: Promise<{ lang: Locale }>;
 }) {
     const { lang } = await props.params;
-    const session = await getServerSession();
+    const session = await auth();
 
     if (!session) {
         redirect(`/${lang}/auth`);

@@ -10,8 +10,8 @@ vi.mock('@/lib/db', () => ({
     }),
 }));
 
-vi.mock('next-auth', () => ({
-    getServerSession: vi.fn(),
+vi.mock('@/auth', () => ({
+    auth: vi.fn(),
 }));
 
 vi.mock('@/lib/rate-limit', () => ({
@@ -22,7 +22,8 @@ vi.mock('@/lib/rate-limit', () => ({
 }));
 
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
+
+import { auth } from '@/auth';
 
 import { PATCH } from './route';
 
@@ -46,7 +47,7 @@ beforeEach(() => {
 
 describe('PATCH /api/comments/[id]/moderate', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(getServerSession).mockResolvedValue(null);
+        vi.mocked(auth).mockResolvedValue(null);
         const res = await PATCH(makeRequest({ status: 'approved' }), {
             params: mockParams,
         });
@@ -56,7 +57,7 @@ describe('PATCH /api/comments/[id]/moderate', () => {
     });
 
     it('returns 403 when user is not admin', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'user@test.com' },
             expires: '',
         });
@@ -69,7 +70,7 @@ describe('PATCH /api/comments/[id]/moderate', () => {
     });
 
     it('returns 422 for invalid status', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'admin@test.com' },
             expires: '',
         });
@@ -80,7 +81,7 @@ describe('PATCH /api/comments/[id]/moderate', () => {
     });
 
     it('returns 200 on successful moderation', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'admin@test.com' },
             expires: '',
         });

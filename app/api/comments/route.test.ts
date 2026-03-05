@@ -20,8 +20,8 @@ vi.mock('@/lib/db', () => ({
     }),
 }));
 
-vi.mock('next-auth', () => ({
-    getServerSession: vi.fn(),
+vi.mock('@/auth', () => ({
+    auth: vi.fn(),
 }));
 
 vi.mock('@/lib/rate-limit', () => ({
@@ -32,7 +32,8 @@ vi.mock('@/lib/rate-limit', () => ({
 }));
 
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
+
+import { auth } from '@/auth';
 
 import { GET, POST } from './route';
 
@@ -98,7 +99,7 @@ describe('GET /api/comments', () => {
 
 describe('POST /api/comments', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(getServerSession).mockResolvedValue(null);
+        vi.mocked(auth).mockResolvedValue(null);
 
         const res = await POST(
             makePostRequest({ postSlug: 'test-post', content: 'Nice!' }),
@@ -109,7 +110,7 @@ describe('POST /api/comments', () => {
     });
 
     it('returns 422 for empty content', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
@@ -121,7 +122,7 @@ describe('POST /api/comments', () => {
     });
 
     it('returns 422 for content exceeding 1000 chars', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
@@ -134,7 +135,7 @@ describe('POST /api/comments', () => {
     });
 
     it('returns 201 on successful creation', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
@@ -161,7 +162,7 @@ describe('POST /api/comments', () => {
     });
 
     it('sets status to pending for content with URLs', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com', name: 'Test User' },
             expires: '',
         });

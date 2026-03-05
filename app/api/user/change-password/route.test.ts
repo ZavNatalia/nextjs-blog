@@ -12,8 +12,8 @@ vi.mock('@/lib/db', () => ({
     }),
 }));
 
-vi.mock('next-auth', () => ({
-    getServerSession: vi.fn(),
+vi.mock('@/auth', () => ({
+    auth: vi.fn(),
 }));
 
 vi.mock('@/lib/auth', () => ({
@@ -29,8 +29,8 @@ vi.mock('@/lib/rate-limit', () => ({
 }));
 
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import { verifyPassword } from '@/lib/auth';
 
 import { PATCH } from './route';
@@ -49,7 +49,7 @@ beforeEach(() => {
 
 describe('PATCH /api/user/change-password', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(getServerSession).mockResolvedValue(null);
+        vi.mocked(auth).mockResolvedValue(null);
         const res = await PATCH(
             makeRequest({
                 oldPassword: 'oldpass123',
@@ -62,7 +62,7 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 422 for missing old password', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com' },
             expires: '',
         });
@@ -73,7 +73,7 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 422 for short new password', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com' },
             expires: '',
         });
@@ -84,7 +84,7 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 404 when user not found', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'ghost@test.com' },
             expires: '',
         });
@@ -101,7 +101,7 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 403 when old password is incorrect', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com' },
             expires: '',
         });
@@ -122,7 +122,7 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 200 on successful password change', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com' },
             expires: '',
         });
@@ -144,7 +144,7 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 500 on database error', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'test@test.com' },
             expires: '',
         });
