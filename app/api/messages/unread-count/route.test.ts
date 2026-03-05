@@ -10,8 +10,8 @@ vi.mock('@/lib/db', () => ({
     }),
 }));
 
-vi.mock('next-auth', () => ({
-    getServerSession: vi.fn(),
+vi.mock('@/auth', () => ({
+    auth: vi.fn(),
 }));
 
 vi.mock('@/lib/rate-limit', () => ({
@@ -22,7 +22,8 @@ vi.mock('@/lib/rate-limit', () => ({
 }));
 
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
+
+import { auth } from '@/auth';
 
 import { GET } from './route';
 
@@ -40,7 +41,7 @@ beforeEach(() => {
 
 describe('GET /api/messages/unread-count', () => {
     it('returns 403 when user is not admin', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'user@test.com' },
             expires: '',
         });
@@ -53,7 +54,7 @@ describe('GET /api/messages/unread-count', () => {
     });
 
     it('returns 200 with count', async () => {
-        vi.mocked(getServerSession).mockResolvedValue({
+        vi.mocked(auth).mockResolvedValue({
             user: { email: 'admin@test.com' },
             expires: '',
         });

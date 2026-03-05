@@ -1,7 +1,7 @@
 import { Collection, ObjectId } from 'mongodb';
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import { moderateContent } from '@/lib/comments';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
@@ -64,7 +64,7 @@ export async function PATCH(
     }
 
     try {
-        const session = await getServerSession();
+        const session = await auth();
         if (!session || !session.user?.email) {
             return jsonResponse({ error: 'Not authenticated.' }, 401);
         }
@@ -139,7 +139,7 @@ export async function DELETE(
     }
 
     try {
-        const session = await getServerSession();
+        const session = await auth();
         if (!session || !session.user?.email) {
             return jsonResponse({ error: 'Not authenticated.' }, 401);
         }

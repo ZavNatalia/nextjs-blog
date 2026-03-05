@@ -60,7 +60,7 @@ afterEach(() => {
 
 describe('ContactForm', () => {
     it('renders all form fields', () => {
-        render(<ContactForm userEmail="" dictionary={mockDictionary} />);
+        render(<ContactForm dictionary={mockDictionary} />);
         expect(screen.getByLabelText('Your Email')).toBeInTheDocument();
         expect(screen.getByLabelText('Your name')).toBeInTheDocument();
         expect(screen.getByLabelText('Your message')).toBeInTheDocument();
@@ -71,19 +71,23 @@ describe('ContactForm', () => {
 
     it('pre-fills email when userEmail is provided', () => {
         render(
-            <ContactForm
-                userEmail="user@test.com"
-                dictionary={mockDictionary}
-            />,
+            <ContactForm userEmail="user@test.com" dictionary={mockDictionary} />,
         );
         expect(screen.getByLabelText('Your Email')).toHaveValue(
             'user@test.com',
         );
     });
 
+    it('pre-fills name when userName is provided', () => {
+        render(
+            <ContactForm userName="John Doe" dictionary={mockDictionary} />,
+        );
+        expect(screen.getByLabelText('Your name')).toHaveValue('John Doe');
+    });
+
     it('updates input values on typing', async () => {
         const user = userEvent.setup();
-        render(<ContactForm userEmail="" dictionary={mockDictionary} />);
+        render(<ContactForm dictionary={mockDictionary} />);
 
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');

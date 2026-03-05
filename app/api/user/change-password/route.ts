@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import { hashPassword, verifyPassword } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
@@ -28,7 +28,7 @@ export async function PATCH(req: NextRequest) {
         );
     }
 
-    const session = await getServerSession();
+    const session = await auth();
 
     if (!session) {
         return new Response(JSON.stringify({ error: 'Not authenticated!' }), {

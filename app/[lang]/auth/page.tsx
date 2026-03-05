@@ -1,7 +1,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import AuthForm from '@/components/ui/auth/auth-form';
 import GoogleSignInButton from '@/components/ui/auth/GoogleSignInButton';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
@@ -23,7 +23,7 @@ export default async function AuthPage(props: {
     params: Promise<{ lang: Locale }>;
     searchParams: Promise<{ callbackUrl?: string }>;
 }) {
-    const session = await getServerSession();
+    const session = await auth();
 
     if (session) {
         revalidatePath('/');

@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IComment } from '@/lib/types/mongodb';
@@ -31,7 +31,7 @@ export async function PATCH(
         );
     }
 
-    const session = await getServerSession();
+    const session = await auth();
 
     if (!session) {
         return new Response(JSON.stringify({ error: 'Not authenticated!' }), {

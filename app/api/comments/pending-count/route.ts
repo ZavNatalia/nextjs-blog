@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
 
+import { auth } from '@/auth';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IComment } from '@/lib/types/mongodb';
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
         );
     }
 
-    const session = await getServerSession();
+    const session = await auth();
 
     if (!session || session.user?.email !== process.env.ADMIN_EMAIL) {
         return new Response(JSON.stringify({ error: 'Forbidden' }), {
