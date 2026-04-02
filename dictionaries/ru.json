@@ -126,7 +126,7 @@
         "submitSignUp": "Зарегистрироваться",
         "accountCreated": "Аккаунт создан!",
         "accountCreatedYouCanLogin": "Ваш аккаунт успешно создан. Теперь вы можете войти в систему.",
-        "failedToLogIn": "Не удалось войти",
+        "failedToLogIn": "Неверный email или пароль. Проверьте данные и попробуйте снова.",
         "sending": "Отправка...",
 
         "signInWith": "Войти через",

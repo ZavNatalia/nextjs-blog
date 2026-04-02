@@ -74,9 +74,9 @@ export default function AuthForm({
                     },
                 );
 
-                if (!result || !result.ok) {
+                if (!result || result.error) {
                     setErrors({
-                        password: result?.error || dictionary.failedToLogIn,
+                        password: dictionary.failedToLogIn,
                     });
                     return;
                 }

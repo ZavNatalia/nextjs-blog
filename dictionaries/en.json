@@ -126,7 +126,7 @@
         "submitSignUp": "Sign Up",
         "accountCreated": "Account Created!",
         "accountCreatedYouCanLogin": "Your account has been successfully created. You can now log in.",
-        "failedToLogIn": "Failed to log in",
+        "failedToLogIn": "Invalid email or password. Please check your credentials and try again.",
         "sending": "Sending...",
         "signInWith": "Sign in with",
         "or": "Or"
