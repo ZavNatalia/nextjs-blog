@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { auth } from '@/auth';
@@ -26,7 +25,6 @@ export default async function AuthPage(props: {
     const session = await auth();
 
     if (session) {
-        revalidatePath('/');
         redirect('/');
     }
 
