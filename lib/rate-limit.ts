@@ -65,16 +65,48 @@ export function rateLimit(config: RateLimitConfig) {
     };
 }
 
+/**
+ * Extracts client IP from trusted proxy headers.
+ *
+ * Priority:
+ * 1. x-real-ip — set by Nginx/Vercel, not spoofable behind a reverse proxy
+ * 2. x-forwarded-for — last entry before our proxy is the most trustworthy;
+ *    we take the rightmost non-private IP to resist spoofing
+ * 3. Fallback to 'unknown' (still rate-limited as a single bucket)
+ */
 export function getClientIp(req: NextRequest): string {
-    const forwarded = req.headers.get('x-forwarded-for');
-    if (forwarded) {
-        return forwarded.split(',')[0].trim();
-    }
-
     const realIp = req.headers.get('x-real-ip');
     if (realIp) {
         return realIp.trim();
     }
 
+    const forwarded = req.headers.get('x-forwarded-for');
+    if (forwarded) {
+        const ips = forwarded.split(',').map((ip) => ip.trim());
+        // Rightmost IP is appended by the trusted proxy closest to us
+        for (let i = ips.length - 1; i >= 0; i--) {
+            if (ips[i] && !isPrivateIp(ips[i])) {
+                return ips[i];
+            }
+        }
+        return ips[ips.length - 1];
+    }
+
     return 'unknown';
+}
+
+function isPrivateIp(ip: string): boolean {
+    return (
+        ip.startsWith('10.') ||
+        ip.startsWith('172.16.') ||
+        ip.startsWith('172.17.') ||
+        ip.startsWith('172.18.') ||
+        ip.startsWith('172.19.') ||
+        ip.startsWith('172.2') ||
+        ip.startsWith('172.30.') ||
+        ip.startsWith('172.31.') ||
+        ip.startsWith('192.168.') ||
+        ip.startsWith('127.') ||
+        ip === '::1'
+    );
 }

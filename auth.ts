@@ -34,11 +34,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials, request) {
-                const forwarded =
-                    request?.headers?.get('x-forwarded-for') ?? '';
-                const ip = forwarded
-                    ? forwarded.split(',')[0].trim()
-                    : 'unknown';
+                const ip =
+                    request?.headers?.get('x-real-ip')?.trim() ||
+                    request?.headers
+                        ?.get('x-forwarded-for')
+                        ?.split(',')
+                        .pop()
+                        ?.trim() ||
+                    'unknown';
 
                 const { success } = loginLimiter.check(ip);
                 if (!success) {
