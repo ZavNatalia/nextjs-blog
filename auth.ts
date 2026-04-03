@@ -3,7 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 
-import { verifyPassword } from '@/lib/auth';
+import { isAdmin, verifyPassword } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
@@ -17,6 +17,7 @@ declare module 'next-auth' {
             email?: string;
             name?: string;
             image?: string | null;
+            isAdmin?: boolean;
         };
     }
 }
@@ -142,6 +143,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 token.id = user.id;
                 token.email = user.email || undefined;
                 token.name = user.name || undefined;
+                token.isAdmin = isAdmin(user.email);
             }
             if (trigger === 'update') {
                 try {
@@ -164,6 +166,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 session.user.id = (token.id as string) ?? '';
                 session.user.email = (token.email as string) ?? '';
                 session.user.name = (token.name as string) ?? '';
+                session.user.isAdmin = (token.isAdmin as boolean) ?? false;
             }
             return session;
         },

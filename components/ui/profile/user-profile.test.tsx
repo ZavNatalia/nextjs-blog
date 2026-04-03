@@ -65,7 +65,7 @@ const mockDictionary = {
         changePassword: 'Change Password',
         oldPasswordRequired: 'Required',
         newPasswordRequired: 'Required',
-        atLeast7Characters: 'At least 7 characters',
+        atLeast8Characters: 'At least 8 characters',
         sending: 'Sending...',
         success: 'Success',
         error: 'Error',

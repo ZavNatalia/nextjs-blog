@@ -44,7 +44,7 @@ export default function AuthForm({
             .email(dictionary.invalidEmailAddress)
             .required(dictionary.emailRequired),
         password: Yup.string()
-            .min(7, dictionary.atLeast7Characters)
+            .min(8, dictionary.atLeast8Characters)
             .required(dictionary.passwordRequired),
         confirmPassword: Yup.string()
             .oneOf(

@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { isAdmin } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IComment } from '@/lib/types/mongodb';
@@ -40,7 +41,7 @@ export async function PATCH(
         });
     }
 
-    if (session.user?.email !== process.env.ADMIN_EMAIL) {
+    if (!isAdmin(session.user?.email)) {
         return new Response(JSON.stringify({ error: 'Forbidden.' }), {
             status: 403,
             headers: { 'Content-Type': 'application/json' },

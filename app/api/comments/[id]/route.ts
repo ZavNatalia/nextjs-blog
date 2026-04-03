@@ -2,6 +2,7 @@ import { Collection, ObjectId } from 'mongodb';
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { isAdmin } from '@/lib/auth';
 import { moderateContent } from '@/lib/comments';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
@@ -149,8 +150,7 @@ export async function DELETE(
         const found = await findCommentById(id);
         if ('error' in found) return found.error;
 
-        const isAdmin = session.user.email === process.env.ADMIN_EMAIL;
-        if (found.comment.authorEmail !== session.user.email && !isAdmin) {
+        if (found.comment.authorEmail !== session.user.email && !isAdmin(session.user.email)) {
             return jsonResponse(
                 { error: 'Not authorized to delete this comment.' },
                 403,

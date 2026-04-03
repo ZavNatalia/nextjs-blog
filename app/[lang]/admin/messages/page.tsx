@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { connection } from 'next/server';
 
 import { auth } from '@/auth';
+import { isAdmin } from '@/lib/auth';
 import MessagesPanel from '@/components/ui/messages/messages-panel';
 import { getDictionary } from '@/get-dictionary';
 import type { Locale } from '@/i18n-config';
@@ -20,7 +21,7 @@ export default async function MessagesPage(props: {
 
     const session = await auth();
 
-    if (!session || session.user?.email !== process.env.ADMIN_EMAIL) {
+    if (!session || !isAdmin(session.user?.email)) {
         redirect('/');
     }
 

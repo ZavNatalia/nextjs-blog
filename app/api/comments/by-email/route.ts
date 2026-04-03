@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { isAdmin } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IComment } from '@/lib/types/mongodb';
@@ -40,7 +41,7 @@ export async function DELETE(req: NextRequest) {
             return jsonResponse({ error: 'Not authenticated.' }, 401);
         }
 
-        if (session.user.email !== process.env.ADMIN_EMAIL) {
+        if (!isAdmin(session.user.email)) {
             return jsonResponse({ error: 'Forbidden.' }, 403);
         }
 
