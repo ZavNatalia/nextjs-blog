@@ -55,6 +55,14 @@ export async function POST(req: NextRequest) {
         const { token, ...body } = result.data;
 
         const secretKey = process.env.TURNSTILE_SECRET_KEY;
+        if (!secretKey) {
+            console.error('TURNSTILE_SECRET_KEY is not configured');
+            return new Response(
+                JSON.stringify({ error: 'Service misconfigured.' }),
+                { status: 500, headers: { 'Content-Type': 'application/json' } },
+            );
+        }
+
         const verifyRes = await fetch(
             'https://challenges.cloudflare.com/turnstile/v0/siteverify',
             {
