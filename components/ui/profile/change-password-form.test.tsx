@@ -78,7 +78,7 @@ describe('ChangePasswordForm', () => {
         );
         await waitFor(() => {
             expect(
-                screen.getByText('At least 7 characters'),
+                screen.getByText('At least 8 characters'),
             ).toBeInTheDocument();
         });
     });

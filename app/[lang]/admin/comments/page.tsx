@@ -2,11 +2,11 @@ import { redirect } from 'next/navigation';
 import { connection } from 'next/server';
 
 import { auth } from '@/auth';
-import { isAdmin } from '@/lib/auth';
 import ModerationPanel from '@/components/ui/posts/comments/moderation-panel';
 import { getDictionary } from '@/get-dictionary';
 import type { Locale } from '@/i18n-config';
 import { i18n } from '@/i18n-config';
+import { isAdmin } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { IComment } from '@/lib/types/mongodb';
 

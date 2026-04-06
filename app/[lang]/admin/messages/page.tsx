@@ -2,11 +2,11 @@ import { redirect } from 'next/navigation';
 import { connection } from 'next/server';
 
 import { auth } from '@/auth';
-import { isAdmin } from '@/lib/auth';
 import MessagesPanel from '@/components/ui/messages/messages-panel';
 import { getDictionary } from '@/get-dictionary';
 import type { Locale } from '@/i18n-config';
 import { i18n } from '@/i18n-config';
+import { isAdmin } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { IMessage } from '@/lib/types/mongodb';
 
