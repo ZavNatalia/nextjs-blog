@@ -53,7 +53,7 @@ describe('PATCH /api/user/change-password', () => {
         const res = await PATCH(
             makeRequest({
                 oldPassword: 'oldpass123',
-                newPassword: 'newpass123',
+                newPassword: 'Newpass123',
             }),
         );
         expect(res.status).toBe(401);
@@ -67,7 +67,7 @@ describe('PATCH /api/user/change-password', () => {
             expires: '',
         });
         const res = await PATCH(
-            makeRequest({ oldPassword: '', newPassword: 'newpass123' }),
+            makeRequest({ oldPassword: '', newPassword: 'Newpass123' }),
         );
         expect(res.status).toBe(422);
     });
@@ -92,7 +92,7 @@ describe('PATCH /api/user/change-password', () => {
         const res = await PATCH(
             makeRequest({
                 oldPassword: 'oldpass123',
-                newPassword: 'newpass123',
+                newPassword: 'Newpass123',
             }),
         );
         expect(res.status).toBe(404);
@@ -113,7 +113,7 @@ describe('PATCH /api/user/change-password', () => {
         const res = await PATCH(
             makeRequest({
                 oldPassword: 'wrongpass',
-                newPassword: 'newpass123',
+                newPassword: 'Newpass123',
             }),
         );
         expect(res.status).toBe(403);
@@ -135,7 +135,7 @@ describe('PATCH /api/user/change-password', () => {
         const res = await PATCH(
             makeRequest({
                 oldPassword: 'oldpass123',
-                newPassword: 'newpass123',
+                newPassword: 'Newpass123',
             }),
         );
         expect(res.status).toBe(200);
@@ -152,7 +152,7 @@ describe('PATCH /api/user/change-password', () => {
         const res = await PATCH(
             makeRequest({
                 oldPassword: 'oldpass123',
-                newPassword: 'newpass123',
+                newPassword: 'Newpass123',
             }),
         );
         expect(res.status).toBe(500);

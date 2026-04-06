@@ -10,7 +10,7 @@ describe('signupSchema', () => {
     it('accepts valid input', () => {
         const result = signupSchema.safeParse({
             email: 'user@example.com',
-            password: 'abcdefg',
+            password: 'Abcdefg1',
         });
         expect(result.success).toBe(true);
     });
@@ -18,7 +18,7 @@ describe('signupSchema', () => {
     it('rejects invalid email', () => {
         const result = signupSchema.safeParse({
             email: 'not-an-email',
-            password: 'abcdefg',
+            password: 'Abcdefg1',
         });
         expect(result.success).toBe(false);
         if (!result.success) {
@@ -99,7 +99,7 @@ describe('changePasswordSchema', () => {
     it('accepts valid input', () => {
         const result = changePasswordSchema.safeParse({
             oldPassword: 'oldpass',
-            newPassword: 'newpass7',
+            newPassword: 'Newpass7x',
         });
         expect(result.success).toBe(true);
     });
@@ -107,7 +107,7 @@ describe('changePasswordSchema', () => {
     it('rejects empty old password', () => {
         const result = changePasswordSchema.safeParse({
             oldPassword: '',
-            newPassword: 'newpass7',
+            newPassword: 'Newpass7x',
         });
         expect(result.success).toBe(false);
     });
@@ -119,7 +119,7 @@ describe('changePasswordSchema', () => {
         });
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toMatch(/7 characters/i);
+            expect(result.error.issues[0].message).toMatch(/8 characters/i);
         }
     });
 });

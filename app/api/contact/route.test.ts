@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { afterEach, vi } from 'vitest';
 
 const mockInsertOne = vi.fn();
 
@@ -27,6 +27,11 @@ function makeRequest(body: Record<string, unknown>) {
 
 beforeEach(() => {
     vi.clearAllMocks();
+    process.env.TURNSTILE_SECRET_KEY = 'test-secret-key';
+});
+
+afterEach(() => {
+    delete process.env.TURNSTILE_SECRET_KEY;
 });
 
 describe('POST /api/contact', () => {

@@ -70,12 +70,12 @@ describe('rateLimit', () => {
 });
 
 describe('getClientIp', () => {
-    it('extracts IP from x-forwarded-for header', () => {
+    it('extracts rightmost public IP from x-forwarded-for header', () => {
         const req = new NextRequest('http://localhost/api/test', {
             headers: { 'x-forwarded-for': '203.0.113.50, 70.41.3.18' },
         });
 
-        expect(getClientIp(req)).toBe('203.0.113.50');
+        expect(getClientIp(req)).toBe('70.41.3.18');
     });
 
     it('extracts IP from x-real-ip header', () => {
@@ -92,7 +92,7 @@ describe('getClientIp', () => {
         expect(getClientIp(req)).toBe('unknown');
     });
 
-    it('prefers x-forwarded-for over x-real-ip', () => {
+    it('prefers x-real-ip over x-forwarded-for', () => {
         const req = new NextRequest('http://localhost/api/test', {
             headers: {
                 'x-forwarded-for': '10.0.0.1',
@@ -100,6 +100,6 @@ describe('getClientIp', () => {
             },
         });
 
-        expect(getClientIp(req)).toBe('10.0.0.1');
+        expect(getClientIp(req)).toBe('10.0.0.2');
     });
 });
