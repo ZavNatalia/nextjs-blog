@@ -57,7 +57,7 @@ test.describe('Auth page (EN)', () => {
         await page.getByLabel('Confirm Password').click();
 
         await expect(
-            page.getByText('Password must be at least 7 characters'),
+            page.getByText('Password must be at least 8 characters'),
         ).toBeVisible();
     });
 });

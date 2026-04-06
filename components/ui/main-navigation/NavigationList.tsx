@@ -55,7 +55,11 @@ export function NavigationList({
 }: {
     normalizedPathname: string;
     session: {
-        user?: { email?: string | null; name?: string | null };
+        user?: {
+            email?: string | null;
+            name?: string | null;
+            isAdmin?: boolean;
+        };
     } | null;
     status: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['navigation'];
@@ -94,9 +98,7 @@ export function NavigationList({
                     onClick={onClick}
                 />
             )}
-            {status === 'authenticated' &&
-                session?.user?.email ===
-                    process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+            {status === 'authenticated' && session?.user?.isAdmin && (
                     <>
                         <ModerationNavItem
                             title={dictionary['moderation']}

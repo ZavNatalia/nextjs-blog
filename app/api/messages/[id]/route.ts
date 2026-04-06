@@ -2,6 +2,7 @@ import { Collection, ObjectId } from 'mongodb';
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { isAdmin } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { IMessage } from '@/lib/types/mongodb';
@@ -67,7 +68,7 @@ export async function PATCH(
             return jsonResponse({ error: 'Not authenticated.' }, 401);
         }
 
-        if (session.user.email !== process.env.ADMIN_EMAIL) {
+        if (!isAdmin(session.user.email)) {
             return jsonResponse({ error: 'Forbidden.' }, 403);
         }
 
@@ -126,7 +127,7 @@ export async function DELETE(
             return jsonResponse({ error: 'Not authenticated.' }, 401);
         }
 
-        if (session.user.email !== process.env.ADMIN_EMAIL) {
+        if (!isAdmin(session.user.email)) {
             return jsonResponse({ error: 'Forbidden.' }, 403);
         }
 

@@ -35,7 +35,7 @@ beforeEach(() => {
 describe('POST /api/auth/signup', () => {
     it('returns 422 for invalid email', async () => {
         const res = await POST(
-            makeRequest({ email: 'bademail', password: 'password123' }),
+            makeRequest({ email: 'bademail', password: 'Password123' }),
         );
         expect(res.status).toBe(422);
         const data = await res.json();
@@ -52,7 +52,7 @@ describe('POST /api/auth/signup', () => {
     it('returns 422 for duplicate email', async () => {
         mockFindOne.mockResolvedValue({ email: 'a@b.com' });
         const res = await POST(
-            makeRequest({ email: 'a@b.com', password: 'password123' }),
+            makeRequest({ email: 'a@b.com', password: 'Password123' }),
         );
         expect(res.status).toBe(422);
         const data = await res.json();
@@ -63,7 +63,7 @@ describe('POST /api/auth/signup', () => {
         mockFindOne.mockResolvedValue(null);
         mockInsertOne.mockResolvedValue({ insertedId: 'abc123' });
         const res = await POST(
-            makeRequest({ email: 'new@user.com', password: 'password123' }),
+            makeRequest({ email: 'new@user.com', password: 'Password123' }),
         );
         expect(res.status).toBe(201);
         const data = await res.json();
@@ -73,7 +73,7 @@ describe('POST /api/auth/signup', () => {
     it('returns 500 on database error', async () => {
         mockFindOne.mockRejectedValue(new Error('DB connection failed'));
         const res = await POST(
-            makeRequest({ email: 'a@b.com', password: 'password123' }),
+            makeRequest({ email: 'a@b.com', password: 'Password123' }),
         );
         expect(res.status).toBe(500);
     });

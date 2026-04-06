@@ -31,8 +31,13 @@ export default function ChangePasswordForm({
 
     const localizedMessages: Record<string, string> = {
         'Old password is required.': dictionary.oldPasswordRequired,
-        'New password must be at least 7 characters.':
-            dictionary.atLeast7Characters,
+        'New password must be at least 8 characters.':
+            dictionary.atLeast8Characters,
+        'Password must contain a lowercase letter.':
+            dictionary.atLeast8Characters,
+        'Password must contain an uppercase letter.':
+            dictionary.atLeast8Characters,
+        'Password must contain a number.': dictionary.atLeast8Characters,
     };
 
     const validate = (values: ChangePasswordFormData) => {

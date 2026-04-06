@@ -44,12 +44,6 @@ const mockDictionary = {
 } as Dictionary['navigation'];
 
 describe('NavigationList', () => {
-    beforeAll(() => {
-        process.env.NEXT_PUBLIC_ADMIN_EMAIL = 'admin@test.com';
-    });
-    afterAll(() => {
-        delete process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-    });
 
     it('renders main navigation links', () => {
         render(
@@ -122,7 +116,7 @@ describe('NavigationList', () => {
         render(
             <NavigationList
                 normalizedPathname="/"
-                session={{ user: { email: 'admin@test.com' } }}
+                session={{ user: { email: 'admin@test.com', isAdmin: true } }}
                 status="authenticated"
                 dictionary={mockDictionary}
             />,

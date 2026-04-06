@@ -3,7 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 
-import { verifyPassword } from '@/lib/auth';
+import { isAdmin, verifyPassword } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { rateLimit } from '@/lib/rate-limit';
 import { IUser } from '@/lib/types/mongodb';
@@ -17,6 +17,7 @@ declare module 'next-auth' {
             email?: string;
             name?: string;
             image?: string | null;
+            isAdmin?: boolean;
         };
     }
 }
@@ -34,11 +35,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials, request) {
-                const forwarded =
-                    request?.headers?.get('x-forwarded-for') ?? '';
-                const ip = forwarded
-                    ? forwarded.split(',')[0].trim()
-                    : 'unknown';
+                const ip =
+                    request?.headers?.get('x-real-ip')?.trim() ||
+                    request?.headers
+                        ?.get('x-forwarded-for')
+                        ?.split(',')
+                        .pop()
+                        ?.trim() ||
+                    'unknown';
 
                 const { success } = loginLimiter.check(ip);
                 if (!success) {
@@ -97,6 +101,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     ],
     session: {
         strategy: 'jwt',
+        maxAge: 24 * 60 * 60, // 24 hours
     },
     pages: {
         signIn: '/auth/signin',
@@ -104,6 +109,12 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     cookies: {
         sessionToken: {
             name: 'next-auth.session-token',
+            options: {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax' as const,
+                path: '/',
+            },
         },
     },
     callbacks: {
@@ -139,6 +150,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 token.id = user.id;
                 token.email = user.email || undefined;
                 token.name = user.name || undefined;
+                token.isAdmin = isAdmin(user.email);
             }
             if (trigger === 'update') {
                 try {
@@ -161,6 +173,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 session.user.id = (token.id as string) ?? '';
                 session.user.email = (token.email as string) ?? '';
                 session.user.name = (token.name as string) ?? '';
+                session.user.isAdmin = (token.isAdmin as boolean) ?? false;
             }
             return session;
         },

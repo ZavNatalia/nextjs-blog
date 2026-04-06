@@ -29,7 +29,7 @@ const mockDictionary: SecurityDictionary = {
     changePassword: 'Change Password',
     oldPasswordRequired: 'Old password is required',
     newPasswordRequired: 'New password is required',
-    atLeast7Characters: 'At least 7 characters',
+    atLeast8Characters: 'At least 8 characters',
     sending: 'Sending...',
     success: 'Success',
     error: 'Error',
@@ -78,7 +78,7 @@ describe('ChangePasswordForm', () => {
         );
         await waitFor(() => {
             expect(
-                screen.getByText('At least 7 characters'),
+                screen.getByText('At least 8 characters'),
             ).toBeInTheDocument();
         });
     });

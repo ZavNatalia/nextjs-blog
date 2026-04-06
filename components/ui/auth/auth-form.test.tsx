@@ -26,7 +26,7 @@ const mockDictionary = {
     signUp: 'Sign Up',
     invalidEmailAddress: 'Invalid email',
     emailRequired: 'Email required',
-    atLeast7Characters: 'At least 7 characters',
+    atLeast8Characters: 'At least 8 characters',
     passwordRequired: 'Password required',
     passwordsMustMatch: 'Passwords must match',
     pleaseConfirmPassword: 'Please confirm password',
@@ -85,7 +85,7 @@ describe('AuthForm', () => {
         await userEvent.tab();
         await waitFor(() => {
             expect(
-                screen.getByText('At least 7 characters'),
+                screen.getByText('At least 8 characters'),
             ).toBeInTheDocument();
         });
     });

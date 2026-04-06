@@ -6,6 +6,7 @@ import ModerationPanel from '@/components/ui/posts/comments/moderation-panel';
 import { getDictionary } from '@/get-dictionary';
 import type { Locale } from '@/i18n-config';
 import { i18n } from '@/i18n-config';
+import { isAdmin } from '@/lib/auth';
 import { connectToDatabase } from '@/lib/db';
 import { IComment } from '@/lib/types/mongodb';
 
@@ -20,7 +21,7 @@ export default async function ModerationPage(props: {
 
     const session = await auth();
 
-    if (!session || session.user?.email !== process.env.ADMIN_EMAIL) {
+    if (!session || !isAdmin(session.user?.email)) {
         redirect('/');
     }
 
