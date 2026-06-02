@@ -246,6 +246,15 @@
         "consentLabelPrefix": "Нажимая кнопку «Отправить», я даю согласие на обработку персональных данных и соглашаюсь с условиями",
         "consentPrivacyPolicyLink": "Политики конфиденциальности",
         "consentRequired": "Необходимо согласие на обработку персональных данных",
+        "errorInvalidEmail": "Некорректный адрес электронной почты.",
+        "errorEmailTooLong": "Email не должен превышать 254 символа.",
+        "errorNameRequired": "Пожалуйста, укажите имя.",
+        "errorNameTooLong": "Имя не должно превышать 100 символов.",
+        "errorMessageRequired": "Пожалуйста, введите сообщение.",
+        "errorMessageTooLong": "Сообщение не должно превышать 5000 символов.",
+        "errorCaptchaRequired": "Пожалуйста, подтвердите, что вы не робот.",
+        "errorCaptchaFailed": "Проверка капчи не пройдена. Попробуйте ещё раз.",
+        "errorTooManyRequests": "Слишком много запросов. Попробуйте позже.",
         "somethingWentWrong": "Что-то пошло не так!"
     },
     "not-found": {

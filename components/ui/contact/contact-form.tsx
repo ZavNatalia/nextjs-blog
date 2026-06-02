@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import Turnstile from 'react-turnstile';
 
 import Notification, {
@@ -34,7 +34,36 @@ type InputFieldProps = {
     placeholder: string;
     required?: boolean;
     rows?: number;
+    maxLength?: number;
 };
+
+// The API returns hardcoded English messages (Zod / route errors). Map the
+// known ones to localized dictionary strings; fall back to a generic message
+// for anything unexpected (e.g. 500s).
+function localizeContactError(
+    serverError: string | undefined,
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
+): string {
+    const messages: Record<string, string> = {
+        'Invalid email address.': dictionary.errorInvalidEmail,
+        'Email must not exceed 254 characters.': dictionary.errorEmailTooLong,
+        'Name is required.': dictionary.errorNameRequired,
+        'Name must not exceed 100 characters.': dictionary.errorNameTooLong,
+        'Message is required.': dictionary.errorMessageRequired,
+        'Message must not exceed 5000 characters.':
+            dictionary.errorMessageTooLong,
+        'Captcha token is required.': dictionary.errorCaptchaRequired,
+        'Captcha verification failed': dictionary.errorCaptchaFailed,
+        'Consent to the processing of personal data is required.':
+            dictionary.consentRequired,
+        'Too many requests. Please try again later.':
+            dictionary.errorTooManyRequests,
+    };
+
+    return (
+        (serverError && messages[serverError]) || dictionary.somethingWentWrong
+    );
+}
 
 async function sendContactDetails(
     token: string,
@@ -51,7 +80,7 @@ async function sendContactDetails(
     });
     const data = await response.json().catch(() => null);
     if (!response.ok) {
-        return data?.error || dictionary.somethingWentWrong;
+        return localizeContactError(data?.error, dictionary);
     }
     return null;
 }
@@ -65,6 +94,7 @@ function InputField({
     placeholder,
     required = false,
     rows,
+    maxLength,
 }: InputFieldProps) {
     const InputComponent = rows ? 'textarea' : 'input';
     return (
@@ -81,6 +111,7 @@ function InputField({
                 value={value}
                 onChange={onChange}
                 rows={rows}
+                maxLength={maxLength}
             />
         </div>
     );
@@ -171,7 +202,9 @@ export default function ContactForm({
         }
     };
 
-    const sendMessageHandler = async (event: FormEvent<HTMLFormElement>) => {
+    const sendMessageHandler = async (
+        event: SyntheticEvent<HTMLFormElement>,
+    ) => {
         event.preventDefault();
         setRequestStatus('pending');
 
@@ -214,6 +247,7 @@ export default function ContactForm({
                         onChange={handleInputChange('email')}
                         placeholder="your@example.com"
                         required
+                        maxLength={254}
                     />
                     <InputField
                         id="name"
@@ -223,6 +257,7 @@ export default function ContactForm({
                         onChange={handleInputChange('name')}
                         placeholder={dictionary.enterYourName}
                         required
+                        maxLength={100}
                     />
                 </div>
                 <InputField
@@ -234,6 +269,7 @@ export default function ContactForm({
                     placeholder={dictionary.enterYourMessage}
                     required
                     rows={5}
+                    maxLength={5000}
                 />
                 <div className="h-16.5">
                     <Turnstile

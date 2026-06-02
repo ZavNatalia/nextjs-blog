@@ -39,6 +39,15 @@ const mockDictionary = {
         'By clicking the «Send» button, I consent to the processing of my personal data and agree to the terms of the',
     consentPrivacyPolicyLink: 'Privacy Policy',
     consentRequired: 'Consent to the processing of personal data is required',
+    errorInvalidEmail: 'Invalid email address.',
+    errorEmailTooLong: 'Email must not exceed 254 characters.',
+    errorNameRequired: 'Please enter your name.',
+    errorNameTooLong: 'Name must not exceed 100 characters.',
+    errorMessageRequired: 'Please enter a message.',
+    errorMessageTooLong: 'Message must not exceed 5000 characters.',
+    errorCaptchaRequired: 'Please confirm that you are not a robot.',
+    errorCaptchaFailed: 'Captcha verification failed. Please try again.',
+    errorTooManyRequests: 'Too many requests. Please try again later.',
     somethingWentWrong: 'Something went wrong!',
 } as Dictionary['contact-page'];
 
@@ -151,11 +160,11 @@ describe('ContactForm', () => {
         });
     });
 
-    it('shows error notification on failed submit', async () => {
+    it('shows a localized error notification on failed submit', async () => {
         const user = userEvent.setup();
         mockFetch.mockResolvedValue({
             ok: false,
-            json: async () => ({ error: 'Invalid email' }),
+            json: async () => ({ error: 'Captcha token is required.' }),
         } as Response);
 
         render(
@@ -173,7 +182,35 @@ describe('ContactForm', () => {
 
         await waitFor(() => {
             expect(screen.getByText('Error!')).toBeInTheDocument();
-            expect(screen.getByText('Invalid email')).toBeInTheDocument();
+            // raw server string is mapped to the localized dictionary message
+            expect(
+                screen.getByText('Please confirm that you are not a robot.'),
+            ).toBeInTheDocument();
+        });
+    });
+
+    it('falls back to a generic message for unknown server errors', async () => {
+        const user = userEvent.setup();
+        mockFetch.mockResolvedValue({
+            ok: false,
+            json: async () => ({ error: 'Some unexpected server failure' }),
+        } as Response);
+
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        await user.type(screen.getByLabelText('Your message'), 'Hello');
+        await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('button', { name: 'Send message' }));
+
+        await waitFor(() => {
+            expect(screen.getByText('Something went wrong!')).toBeInTheDocument();
         });
     });
 

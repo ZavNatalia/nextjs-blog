@@ -122,6 +122,58 @@ describe('contactSchema', () => {
         });
         expect(result.success).toBe(false);
     });
+
+    it('rejects whitespace-only name', () => {
+        const result = contactSchema.safeParse({
+            email: 'a@b.com',
+            name: '   ',
+            message: 'Hello!',
+            token: 'abc123',
+            consent: true,
+        });
+        expect(result.success).toBe(false);
+    });
+
+    it('rejects a message that is too long', () => {
+        const result = contactSchema.safeParse({
+            email: 'a@b.com',
+            name: 'Jane',
+            message: 'a'.repeat(5001),
+            token: 'abc123',
+            consent: true,
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+            expect(result.error.issues[0].message).toMatch(/exceed/i);
+        }
+    });
+
+    it('rejects a name that is too long', () => {
+        const result = contactSchema.safeParse({
+            email: 'a@b.com',
+            name: 'a'.repeat(101),
+            message: 'Hello!',
+            token: 'abc123',
+            consent: true,
+        });
+        expect(result.success).toBe(false);
+    });
+
+    it('trims surrounding whitespace from fields', () => {
+        const result = contactSchema.safeParse({
+            email: '  user@example.com  ',
+            name: '  Jane  ',
+            message: '  Hello!  ',
+            token: 'abc123',
+            consent: true,
+        });
+        expect(result.success).toBe(true);
+        if (result.success) {
+            expect(result.data.email).toBe('user@example.com');
+            expect(result.data.name).toBe('Jane');
+            expect(result.data.message).toBe('Hello!');
+        }
+    });
 });
 
 describe('changePasswordSchema', () => {

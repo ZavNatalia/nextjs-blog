@@ -11,9 +11,21 @@ export const signupSchema = z.object({
 });
 
 export const contactSchema = z.object({
-    email: z.string().email('Invalid email address.'),
-    name: z.string().min(1, 'Name is required.'),
-    message: z.string().min(1, 'Message is required.'),
+    email: z
+        .string()
+        .trim()
+        .email('Invalid email address.')
+        .max(254, 'Email must not exceed 254 characters.'),
+    name: z
+        .string()
+        .trim()
+        .min(1, 'Name is required.')
+        .max(100, 'Name must not exceed 100 characters.'),
+    message: z
+        .string()
+        .trim()
+        .min(1, 'Message is required.')
+        .max(5000, 'Message must not exceed 5000 characters.'),
     token: z.string().min(1, 'Captcha token is required.'),
     consent: z.literal(true, {
         error: 'Consent to the processing of personal data is required.',

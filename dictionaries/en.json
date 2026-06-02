@@ -245,6 +245,15 @@
         "consentLabelPrefix": "By clicking the «Send» button, I consent to the processing of my personal data and agree to the terms of the",
         "consentPrivacyPolicyLink": "Privacy Policy",
         "consentRequired": "Consent to the processing of personal data is required",
+        "errorInvalidEmail": "Invalid email address.",
+        "errorEmailTooLong": "Email must not exceed 254 characters.",
+        "errorNameRequired": "Please enter your name.",
+        "errorNameTooLong": "Name must not exceed 100 characters.",
+        "errorMessageRequired": "Please enter a message.",
+        "errorMessageTooLong": "Message must not exceed 5000 characters.",
+        "errorCaptchaRequired": "Please confirm that you are not a robot.",
+        "errorCaptchaFailed": "Captcha verification failed. Please try again.",
+        "errorTooManyRequests": "Too many requests. Please try again later.",
         "somethingWentWrong": "Something went wrong!"
     },
     "not-found": {
