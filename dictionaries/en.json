@@ -241,10 +241,10 @@
         "messageSentSuccessfully": "Message sent successfully",
         "error": "Error!",
         "errorOccurred": "An error occurred",
-        "bySubmittingMessage": "By submitting a message through the contact form, you confirm that you have read our",
-        "privacyPolicy": "Privacy Policy",
         "openPrivacyPolicyPage": "Open Privacy Policy page",
-        "consentProcessingPersonalData": "and consent to the processing of your personal data in accordance with the stated terms.",
+        "consentLabelPrefix": "By clicking the «Send» button, I consent to the processing of my personal data and agree to the terms of the",
+        "consentPrivacyPolicyLink": "Privacy Policy",
+        "consentRequired": "Consent to the processing of personal data is required",
         "somethingWentWrong": "Something went wrong!"
     },
     "not-found": {

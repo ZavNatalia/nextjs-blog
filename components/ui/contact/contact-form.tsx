@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Turnstile from 'react-turnstile';
 
@@ -38,11 +39,12 @@ type InputFieldProps = {
 async function sendContactDetails(
     token: string,
     contactDetails: ContactDetails,
+    consent: boolean,
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
 ): Promise<string | null> {
     const response = await fetch('/api/contact', {
         method: 'POST',
-        body: JSON.stringify({ ...contactDetails, token }),
+        body: JSON.stringify({ ...contactDetails, token, consent }),
         headers: {
             'Content-Type': 'application/json',
         },
@@ -140,6 +142,7 @@ export default function ContactForm({
     const [requestStatus, setRequestStatus] =
         useState<NotificationStatus | null>(null);
     const [requestError, setRequestError] = useState<string | null>(null);
+    const [consent, setConsent] = useState(false);
 
     useEffect(() => {
         if (requestStatus === 'success' || requestStatus === 'error') {
@@ -175,6 +178,7 @@ export default function ContactForm({
         const error = await sendContactDetails(
             token,
             messageDetails,
+            consent,
             dictionary,
         );
         resetTurnstile();
@@ -187,6 +191,7 @@ export default function ContactForm({
 
         setRequestStatus('success');
         setMessageDetails({ email: '', name: '', message: '' });
+        setConsent(false);
     };
 
     const notificationData =
@@ -230,7 +235,7 @@ export default function ContactForm({
                     required
                     rows={5}
                 />
-                <div className="h-[66px]">
+                <div className="h-16.5">
                     <Turnstile
                         sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
                         onVerify={(token) => setToken(token)}
@@ -239,10 +244,36 @@ export default function ContactForm({
                     />
                 </div>
 
+                <div className="flex items-start gap-2">
+                    <input
+                        id="consent"
+                        type="checkbox"
+                        className="accent-accent mt-1 size-4 shrink-0 cursor-pointer"
+                        checked={consent}
+                        onChange={(event) => setConsent(event.target.checked)}
+                        required
+                    />
+                    <label
+                        htmlFor="consent"
+                        className="cursor-pointer text-sm text-secondary"
+                    >
+                        {dictionary.consentLabelPrefix}&nbsp;
+                        <Link
+                            title={dictionary.openPrivacyPolicyPage}
+                            aria-label={dictionary.openPrivacyPolicyPage}
+                            href="/privacy-policy"
+                            className="link text-blue-700 hover:underline dark:text-blue-400"
+                        >
+                            {dictionary.consentPrivacyPolicyLink}
+                        </Link>
+                        .
+                    </label>
+                </div>
+
                 <button
                     aria-label={dictionary.sendMessage}
                     title={dictionary.sendMessage}
-                    disabled={requestStatus === 'pending'}
+                    disabled={requestStatus === 'pending' || !consent}
                     type="submit"
                     className="button button-solid button-md self-center"
                 >

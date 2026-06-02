@@ -34,11 +34,11 @@ const mockDictionary = {
     messageSentSuccessfully: 'Message sent successfully',
     error: 'Error!',
     errorOccurred: 'An error occurred',
-    bySubmittingMessage: 'By submitting a message you agree to',
-    privacyPolicy: 'Privacy Policy',
     openPrivacyPolicyPage: 'Open Privacy Policy page',
-    consentProcessingPersonalData:
-        'and consent to the processing of your personal data.',
+    consentLabelPrefix:
+        'By clicking the «Send» button, I consent to the processing of my personal data and agree to the terms of the',
+    consentPrivacyPolicyLink: 'Privacy Policy',
+    consentRequired: 'Consent to the processing of personal data is required',
     somethingWentWrong: 'Something went wrong!',
 } as Dictionary['contact-page'];
 
@@ -113,6 +113,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -140,6 +141,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -166,6 +168,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -188,6 +191,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         expect(
@@ -217,6 +221,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -243,6 +248,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -258,7 +264,33 @@ describe('ContactForm', () => {
                 email: 'test@test.com',
                 name: 'John',
                 message: 'Hello',
+                consent: true,
             });
         });
+    });
+
+    it('disables submit button until consent is given', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        await user.type(screen.getByLabelText('Your message'), 'Hello');
+        await user.click(screen.getByTestId('turnstile'));
+
+        expect(
+            screen.getByRole('button', { name: 'Send message' }),
+        ).toBeDisabled();
+
+        await user.click(screen.getByRole('checkbox'));
+
+        expect(
+            screen.getByRole('button', { name: 'Send message' }),
+        ).toBeEnabled();
     });
 });

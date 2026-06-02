@@ -15,6 +15,9 @@ export const contactSchema = z.object({
     name: z.string().min(1, 'Name is required.'),
     message: z.string().min(1, 'Message is required.'),
     token: z.string().min(1, 'Captcha token is required.'),
+    consent: z.literal(true, {
+        error: 'Consent to the processing of personal data is required.',
+    }),
 });
 
 export const changePasswordSchema = z.object({

@@ -47,6 +47,7 @@ describe('contactSchema', () => {
             name: 'Jane',
             message: 'Hello!',
             token: 'abc123',
+            consent: true,
         });
         expect(result.success).toBe(true);
     });
@@ -57,6 +58,7 @@ describe('contactSchema', () => {
             name: 'Jane',
             message: 'Hello!',
             token: 'abc123',
+            consent: true,
         });
         expect(result.success).toBe(false);
         if (!result.success) {
@@ -70,6 +72,7 @@ describe('contactSchema', () => {
             name: '',
             message: 'Hello!',
             token: 'abc123',
+            consent: true,
         });
         expect(result.success).toBe(false);
     });
@@ -80,6 +83,7 @@ describe('contactSchema', () => {
             name: 'Jane',
             message: '',
             token: 'abc123',
+            consent: true,
         });
         expect(result.success).toBe(false);
     });
@@ -90,6 +94,31 @@ describe('contactSchema', () => {
             name: 'Jane',
             message: 'Hello!',
             token: '',
+            consent: true,
+        });
+        expect(result.success).toBe(false);
+    });
+
+    it('rejects missing consent', () => {
+        const result = contactSchema.safeParse({
+            email: 'a@b.com',
+            name: 'Jane',
+            message: 'Hello!',
+            token: 'abc123',
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+            expect(result.error.issues[0].message).toMatch(/consent/i);
+        }
+    });
+
+    it('rejects consent that is not true', () => {
+        const result = contactSchema.safeParse({
+            email: 'a@b.com',
+            name: 'Jane',
+            message: 'Hello!',
+            token: 'abc123',
+            consent: false,
         });
         expect(result.success).toBe(false);
     });

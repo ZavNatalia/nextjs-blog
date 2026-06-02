@@ -11,6 +11,7 @@ const limiter = rateLimit({ maxRequests: 5, windowMs: 15 * 60 * 1000 });
 async function insertMessage(db: Db, message: IMessage): Promise<IMessage> {
     const fullMessage: IMessage = {
         ...message,
+        consentAt: new Date(),
         createdAt: new Date(),
         status: 'unread',
     };

@@ -46,11 +46,30 @@ describe('POST /api/contact', () => {
                 email: 'a@b.com',
                 name: 'Test',
                 message: 'Hello',
+                consent: true,
             }),
         );
         expect(res.status).toBe(400);
         const data = await res.json();
         expect(data.error).toMatch(/captcha/i);
+    });
+
+    it('returns 400 when consent is missing', async () => {
+        mockFetch.mockResolvedValue({
+            json: async () => ({ success: true }),
+        });
+
+        const res = await POST(
+            makeRequest({
+                token: 'valid-token',
+                email: 'user@example.com',
+                name: 'Jane',
+                message: 'Hello there!',
+            }),
+        );
+        expect(res.status).toBe(400);
+        const data = await res.json();
+        expect(data.error).toMatch(/consent/i);
     });
 
     it('returns 400 for invalid message data', async () => {
@@ -81,10 +100,14 @@ describe('POST /api/contact', () => {
                 email: 'user@example.com',
                 name: 'Jane',
                 message: 'Hello there!',
+                consent: true,
             }),
         );
         expect(res.status).toBe(201);
         const data = await res.json();
         expect(data.message).toMatch(/success/i);
+        expect(mockInsertOne).toHaveBeenCalledWith(
+            expect.objectContaining({ consent: true }),
+        );
     });
 });
