@@ -35,6 +35,7 @@ type InputFieldProps = {
     required?: boolean;
     rows?: number;
     maxLength?: number;
+    error?: string;
 };
 
 // The API returns hardcoded English messages (Zod / route errors). Map the
@@ -95,6 +96,7 @@ function InputField({
     required = false,
     rows,
     maxLength,
+    error,
 }: InputFieldProps) {
     const InputComponent = rows ? 'textarea' : 'input';
     return (
@@ -105,14 +107,25 @@ function InputField({
             <InputComponent
                 id={id}
                 type={type}
-                className="input"
+                className={`input ${error ? 'border-error-500 ring-2 ring-error-500' : ''}`}
                 placeholder={placeholder}
                 required={required}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${id}-error` : undefined}
                 value={value}
                 onChange={onChange}
                 rows={rows}
                 maxLength={maxLength}
             />
+            {error ? (
+                <p
+                    id={`${id}-error`}
+                    role="alert"
+                    className="mt-1 text-sm text-error-500"
+                >
+                    {error}
+                </p>
+            ) : null}
         </div>
     );
 }
@@ -175,6 +188,9 @@ export default function ContactForm({
     const [requestError, setRequestError] = useState<string | null>(null);
     const [consent, setConsent] = useState(false);
     const [showConsentHint, setShowConsentHint] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<
+        Partial<Record<keyof ContactDetails, string>>
+    >({});
 
     useEffect(() => {
         if (requestStatus === 'success' || requestStatus === 'error') {
@@ -192,7 +208,33 @@ export default function ContactForm({
                 ...prev,
                 [field]: event.target.value,
             }));
+            setFieldErrors((prev) => {
+                if (!prev[field]) {
+                    return prev;
+                }
+                const next = { ...prev };
+                delete next[field];
+                return next;
+            });
         };
+
+    const validateFields = () => {
+        const errors: Partial<Record<keyof ContactDetails, string>> = {};
+        const email = messageDetails.email.trim();
+        const name = messageDetails.name.trim();
+        const message = messageDetails.message.trim();
+
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errors.email = dictionary.errorInvalidEmail;
+        }
+        if (!name) {
+            errors.name = dictionary.errorNameRequired;
+        }
+        if (!message) {
+            errors.message = dictionary.errorMessageRequired;
+        }
+        return errors;
+    };
 
     const resetTurnstile = () => {
         if (typeof window !== 'undefined' && window.turnstile) {
@@ -207,6 +249,25 @@ export default function ContactForm({
         event: SyntheticEvent<HTMLFormElement>,
     ) => {
         event.preventDefault();
+
+        if (!consent) {
+            setShowConsentHint(true);
+            document.getElementById('consent')?.focus();
+            return;
+        }
+
+        const errors = validateFields();
+        if (Object.keys(errors).length > 0) {
+            setFieldErrors(errors);
+            const firstInvalid = (
+                ['email', 'name', 'message'] as const
+            ).find((field) => errors[field]);
+            if (firstInvalid) {
+                document.getElementById(firstInvalid)?.focus();
+            }
+            return;
+        }
+        setFieldErrors({});
         setRequestStatus('pending');
 
         const error = await sendContactDetails(
@@ -239,7 +300,11 @@ export default function ContactForm({
             <h2 className="mb-6 text-center text-lg font-bold text-accent lg:text-2xl">
                 {dictionary.howCanIHelp}
             </h2>
-            <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
+            <form
+                noValidate
+                className="flex flex-col gap-3"
+                onSubmit={sendMessageHandler}
+            >
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField
                         id="email"
@@ -250,6 +315,7 @@ export default function ContactForm({
                         placeholder="your@example.com"
                         required
                         maxLength={254}
+                        error={fieldErrors.email}
                     />
                     <InputField
                         id="name"
@@ -260,6 +326,7 @@ export default function ContactForm({
                         placeholder={dictionary.enterYourName}
                         required
                         maxLength={100}
+                        error={fieldErrors.name}
                     />
                 </div>
                 <InputField
@@ -272,6 +339,7 @@ export default function ContactForm({
                     required
                     rows={5}
                     maxLength={5000}
+                    error={fieldErrors.message}
                 />
                 <div className="h-16.5">
                     <Turnstile

@@ -5,7 +5,11 @@ const mockReset = vi.fn();
 
 vi.mock('react-turnstile', () => ({
     default: ({ onVerify }: { onVerify: (token: string) => void }) => (
-        <button data-testid="turnstile" onClick={() => onVerify('test-token')}>
+        <button
+            type="button"
+            data-testid="turnstile"
+            onClick={() => onVerify('test-token')}
+        >
             Verify
         </button>
     ),
@@ -304,6 +308,29 @@ describe('ContactForm', () => {
                 consent: true,
             });
         });
+    });
+
+    it('shows field validation errors instead of submitting when fields are empty', async () => {
+        const user = userEvent.setup();
+
+        render(<ContactForm dictionary={mockDictionary} />);
+
+        // Give consent so the button is enabled, but leave the fields empty.
+        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('button', { name: 'Send message' }));
+
+        // The request is not sent...
+        expect(mockFetch).not.toHaveBeenCalled();
+        // ...and a localized hint is shown for each empty field.
+        expect(screen.getByText('Invalid email address.')).toBeInTheDocument();
+        expect(screen.getByText('Please enter your name.')).toBeInTheDocument();
+        expect(screen.getByText('Please enter a message.')).toBeInTheDocument();
+
+        // Typing into a field clears its error.
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        expect(
+            screen.queryByText('Please enter your name.'),
+        ).not.toBeInTheDocument();
     });
 
     it('shows a consent hint when trying to submit without consent', async () => {
