@@ -5,7 +5,11 @@ const mockReset = vi.fn();
 
 vi.mock('react-turnstile', () => ({
     default: ({ onVerify }: { onVerify: (token: string) => void }) => (
-        <button data-testid="turnstile" onClick={() => onVerify('test-token')}>
+        <button
+            type="button"
+            data-testid="turnstile"
+            onClick={() => onVerify('test-token')}
+        >
             Verify
         </button>
     ),
@@ -34,11 +38,20 @@ const mockDictionary = {
     messageSentSuccessfully: 'Message sent successfully',
     error: 'Error!',
     errorOccurred: 'An error occurred',
-    bySubmittingMessage: 'By submitting a message you agree to',
-    privacyPolicy: 'Privacy Policy',
     openPrivacyPolicyPage: 'Open Privacy Policy page',
-    consentProcessingPersonalData:
-        'and consent to the processing of your personal data.',
+    consentLabelPrefix:
+        'By clicking the «Send» button, I consent to the processing of my personal data and agree to the terms of the',
+    consentPrivacyPolicyLink: 'Privacy Policy',
+    consentRequired: 'Consent to the processing of personal data is required',
+    errorInvalidEmail: 'Invalid email address.',
+    errorEmailTooLong: 'Email must not exceed 254 characters.',
+    errorNameRequired: 'Please enter your name.',
+    errorNameTooLong: 'Name must not exceed 100 characters.',
+    errorMessageRequired: 'Please enter a message.',
+    errorMessageTooLong: 'Message must not exceed 5000 characters.',
+    errorCaptchaRequired: 'Please confirm that you are not a robot.',
+    errorCaptchaFailed: 'Captcha verification failed. Please try again.',
+    errorTooManyRequests: 'Too many requests. Please try again later.',
     somethingWentWrong: 'Something went wrong!',
 } as Dictionary['contact-page'];
 
@@ -113,6 +126,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -140,6 +154,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -149,11 +164,11 @@ describe('ContactForm', () => {
         });
     });
 
-    it('shows error notification on failed submit', async () => {
+    it('shows a localized error notification on failed submit', async () => {
         const user = userEvent.setup();
         mockFetch.mockResolvedValue({
             ok: false,
-            json: async () => ({ error: 'Invalid email' }),
+            json: async () => ({ error: 'Captcha token is required.' }),
         } as Response);
 
         render(
@@ -166,11 +181,40 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
             expect(screen.getByText('Error!')).toBeInTheDocument();
-            expect(screen.getByText('Invalid email')).toBeInTheDocument();
+            // raw server string is mapped to the localized dictionary message
+            expect(
+                screen.getByText('Please confirm that you are not a robot.'),
+            ).toBeInTheDocument();
+        });
+    });
+
+    it('falls back to a generic message for unknown server errors', async () => {
+        const user = userEvent.setup();
+        mockFetch.mockResolvedValue({
+            ok: false,
+            json: async () => ({ error: 'Some unexpected server failure' }),
+        } as Response);
+
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        await user.type(screen.getByLabelText('Your message'), 'Hello');
+        await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('button', { name: 'Send message' }));
+
+        await waitFor(() => {
+            expect(screen.getByText('Something went wrong!')).toBeInTheDocument();
         });
     });
 
@@ -188,6 +232,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         expect(
@@ -217,6 +262,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -243,6 +289,7 @@ describe('ContactForm', () => {
         await user.type(screen.getByLabelText('Your name'), 'John');
         await user.type(screen.getByLabelText('Your message'), 'Hello');
         await user.click(screen.getByTestId('turnstile'));
+        await user.click(screen.getByRole('checkbox'));
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
@@ -258,7 +305,85 @@ describe('ContactForm', () => {
                 email: 'test@test.com',
                 name: 'John',
                 message: 'Hello',
+                consent: true,
             });
         });
+    });
+
+    it('shows field validation errors instead of submitting when fields are empty', async () => {
+        const user = userEvent.setup();
+
+        render(<ContactForm dictionary={mockDictionary} />);
+
+        // Give consent so the button is enabled, but leave the fields empty.
+        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('button', { name: 'Send message' }));
+
+        // The request is not sent...
+        expect(mockFetch).not.toHaveBeenCalled();
+        // ...and a localized hint is shown for each empty field.
+        expect(screen.getByText('Invalid email address.')).toBeInTheDocument();
+        expect(screen.getByText('Please enter your name.')).toBeInTheDocument();
+        expect(screen.getByText('Please enter a message.')).toBeInTheDocument();
+
+        // Typing into a field clears its error.
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        expect(
+            screen.queryByText('Please enter your name.'),
+        ).not.toBeInTheDocument();
+    });
+
+    it('shows a consent hint when trying to submit without consent', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        await user.type(screen.getByLabelText('Your message'), 'Hello');
+
+        // No hint before the user interacts with the disabled button.
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+
+        // The button is disabled, so the click is captured by its wrapper.
+        const button = screen.getByRole('button', { name: 'Send message' });
+        await user.click(button.parentElement as HTMLElement);
+
+        expect(screen.getByRole('alert')).toHaveTextContent(
+            'Consent to the processing of personal data is required',
+        );
+
+        // Giving consent clears the hint.
+        await user.click(screen.getByRole('checkbox'));
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
+
+    it('disables submit button until consent is given', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        await user.type(screen.getByLabelText('Your message'), 'Hello');
+        await user.click(screen.getByTestId('turnstile'));
+
+        expect(
+            screen.getByRole('button', { name: 'Send message' }),
+        ).toBeDisabled();
+
+        await user.click(screen.getByRole('checkbox'));
+
+        expect(
+            screen.getByRole('button', { name: 'Send message' }),
+        ).toBeEnabled();
     });
 });

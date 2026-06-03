@@ -1,5 +1,6 @@
 'use client';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import Turnstile from 'react-turnstile';
 
 import Notification, {
@@ -33,23 +34,54 @@ type InputFieldProps = {
     placeholder: string;
     required?: boolean;
     rows?: number;
+    maxLength?: number;
+    error?: string;
 };
+
+// The API returns hardcoded English messages (Zod / route errors). Map the
+// known ones to localized dictionary strings; fall back to a generic message
+// for anything unexpected (e.g. 500s).
+function localizeContactError(
+    serverError: string | undefined,
+    dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
+): string {
+    const messages: Record<string, string> = {
+        'Invalid email address.': dictionary.errorInvalidEmail,
+        'Email must not exceed 254 characters.': dictionary.errorEmailTooLong,
+        'Name is required.': dictionary.errorNameRequired,
+        'Name must not exceed 100 characters.': dictionary.errorNameTooLong,
+        'Message is required.': dictionary.errorMessageRequired,
+        'Message must not exceed 5000 characters.':
+            dictionary.errorMessageTooLong,
+        'Captcha token is required.': dictionary.errorCaptchaRequired,
+        'Captcha verification failed': dictionary.errorCaptchaFailed,
+        'Consent to the processing of personal data is required.':
+            dictionary.consentRequired,
+        'Too many requests. Please try again later.':
+            dictionary.errorTooManyRequests,
+    };
+
+    return (
+        (serverError && messages[serverError]) || dictionary.somethingWentWrong
+    );
+}
 
 async function sendContactDetails(
     token: string,
     contactDetails: ContactDetails,
+    consent: boolean,
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'],
 ): Promise<string | null> {
     const response = await fetch('/api/contact', {
         method: 'POST',
-        body: JSON.stringify({ ...contactDetails, token }),
+        body: JSON.stringify({ ...contactDetails, token, consent }),
         headers: {
             'Content-Type': 'application/json',
         },
     });
     const data = await response.json().catch(() => null);
     if (!response.ok) {
-        return data?.error || dictionary.somethingWentWrong;
+        return localizeContactError(data?.error, dictionary);
     }
     return null;
 }
@@ -63,6 +95,8 @@ function InputField({
     placeholder,
     required = false,
     rows,
+    maxLength,
+    error,
 }: InputFieldProps) {
     const InputComponent = rows ? 'textarea' : 'input';
     return (
@@ -73,13 +107,25 @@ function InputField({
             <InputComponent
                 id={id}
                 type={type}
-                className="input"
+                className={`input ${error ? 'border-error-500 ring-2 ring-error-500' : ''}`}
                 placeholder={placeholder}
                 required={required}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${id}-error` : undefined}
                 value={value}
                 onChange={onChange}
                 rows={rows}
+                maxLength={maxLength}
             />
+            {error ? (
+                <p
+                    id={`${id}-error`}
+                    role="alert"
+                    className="mt-1 text-sm text-error-500"
+                >
+                    {error}
+                </p>
+            ) : null}
         </div>
     );
 }
@@ -140,6 +186,11 @@ export default function ContactForm({
     const [requestStatus, setRequestStatus] =
         useState<NotificationStatus | null>(null);
     const [requestError, setRequestError] = useState<string | null>(null);
+    const [consent, setConsent] = useState(false);
+    const [showConsentHint, setShowConsentHint] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<
+        Partial<Record<keyof ContactDetails, string>>
+    >({});
 
     useEffect(() => {
         if (requestStatus === 'success' || requestStatus === 'error') {
@@ -157,7 +208,33 @@ export default function ContactForm({
                 ...prev,
                 [field]: event.target.value,
             }));
+            setFieldErrors((prev) => {
+                if (!prev[field]) {
+                    return prev;
+                }
+                const next = { ...prev };
+                delete next[field];
+                return next;
+            });
         };
+
+    const validateFields = () => {
+        const errors: Partial<Record<keyof ContactDetails, string>> = {};
+        const email = messageDetails.email.trim();
+        const name = messageDetails.name.trim();
+        const message = messageDetails.message.trim();
+
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errors.email = dictionary.errorInvalidEmail;
+        }
+        if (!name) {
+            errors.name = dictionary.errorNameRequired;
+        }
+        if (!message) {
+            errors.message = dictionary.errorMessageRequired;
+        }
+        return errors;
+    };
 
     const resetTurnstile = () => {
         if (typeof window !== 'undefined' && window.turnstile) {
@@ -168,13 +245,35 @@ export default function ContactForm({
         }
     };
 
-    const sendMessageHandler = async (event: FormEvent<HTMLFormElement>) => {
+    const sendMessageHandler = async (
+        event: SyntheticEvent<HTMLFormElement>,
+    ) => {
         event.preventDefault();
+
+        if (!consent) {
+            setShowConsentHint(true);
+            document.getElementById('consent')?.focus();
+            return;
+        }
+
+        const errors = validateFields();
+        if (Object.keys(errors).length > 0) {
+            setFieldErrors(errors);
+            const firstInvalid = (
+                ['email', 'name', 'message'] as const
+            ).find((field) => errors[field]);
+            if (firstInvalid) {
+                document.getElementById(firstInvalid)?.focus();
+            }
+            return;
+        }
+        setFieldErrors({});
         setRequestStatus('pending');
 
         const error = await sendContactDetails(
             token,
             messageDetails,
+            consent,
             dictionary,
         );
         resetTurnstile();
@@ -187,6 +286,8 @@ export default function ContactForm({
 
         setRequestStatus('success');
         setMessageDetails({ email: '', name: '', message: '' });
+        setConsent(false);
+        setShowConsentHint(false);
     };
 
     const notificationData =
@@ -199,7 +300,11 @@ export default function ContactForm({
             <h2 className="mb-6 text-center text-lg font-bold text-accent lg:text-2xl">
                 {dictionary.howCanIHelp}
             </h2>
-            <form className="flex flex-col gap-3" onSubmit={sendMessageHandler}>
+            <form
+                noValidate
+                className="flex flex-col gap-3"
+                onSubmit={sendMessageHandler}
+            >
                 <div className="flex flex-col gap-3 lg:flex-row">
                     <InputField
                         id="email"
@@ -209,6 +314,8 @@ export default function ContactForm({
                         onChange={handleInputChange('email')}
                         placeholder="your@example.com"
                         required
+                        maxLength={254}
+                        error={fieldErrors.email}
                     />
                     <InputField
                         id="name"
@@ -218,6 +325,8 @@ export default function ContactForm({
                         onChange={handleInputChange('name')}
                         placeholder={dictionary.enterYourName}
                         required
+                        maxLength={100}
+                        error={fieldErrors.name}
                     />
                 </div>
                 <InputField
@@ -229,8 +338,10 @@ export default function ContactForm({
                     placeholder={dictionary.enterYourMessage}
                     required
                     rows={5}
+                    maxLength={5000}
+                    error={fieldErrors.message}
                 />
-                <div className="h-[66px]">
+                <div className="h-16.5">
                     <Turnstile
                         sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
                         onVerify={(token) => setToken(token)}
@@ -239,13 +350,73 @@ export default function ContactForm({
                     />
                 </div>
 
-                <button
-                    aria-label={dictionary.sendMessage}
-                    title={dictionary.sendMessage}
-                    disabled={requestStatus === 'pending'}
-                    type="submit"
-                    className="button button-solid button-md self-center"
+                <div className="flex items-start gap-2">
+                    <input
+                        id="consent"
+                        type="checkbox"
+                        aria-describedby={
+                            showConsentHint ? 'consent-hint' : undefined
+                        }
+                        className={`mt-1 size-4 shrink-0 cursor-pointer accent-accent-500 ${
+                            showConsentHint
+                                ? 'rounded-xs ring-2 ring-error-500 ring-offset-2 ring-offset-background-primary'
+                                : ''
+                        }`}
+                        checked={consent}
+                        onChange={(event) => {
+                            setConsent(event.target.checked);
+                            if (event.target.checked) {
+                                setShowConsentHint(false);
+                            }
+                        }}
+                        required
+                    />
+                    <label
+                        htmlFor="consent"
+                        className="cursor-pointer text-sm text-secondary"
+                    >
+                        {dictionary.consentLabelPrefix}&nbsp;
+                        <Link
+                            title={dictionary.openPrivacyPolicyPage}
+                            aria-label={dictionary.openPrivacyPolicyPage}
+                            href="/privacy-policy"
+                            className="link text-blue-700 hover:underline dark:text-blue-400"
+                        >
+                            {dictionary.consentPrivacyPolicyLink}
+                        </Link>
+                        .
+                    </label>
+                </div>
+
+                {showConsentHint ? (
+                    <p
+                        id="consent-hint"
+                        role="alert"
+                        className="text-sm text-error-500"
+                    >
+                        {dictionary.consentRequired}
+                    </p>
+                ) : null}
+
+                {/* The button is genuinely `disabled`, so it cannot receive
+                    clicks. The wrapper captures the click attempt to surface a
+                    hint (`pointer-events-none` lets the event reach it). */}
+                <div
+                    className="flex justify-center"
+                    onClick={() => {
+                        if (!consent) {
+                            setShowConsentHint(true);
+                            document.getElementById('consent')?.focus();
+                        }
+                    }}
                 >
+                    <button
+                        aria-label={dictionary.sendMessage}
+                        title={dictionary.sendMessage}
+                        disabled={requestStatus === 'pending' || !consent}
+                        type="submit"
+                        className="button button-solid button-md disabled:pointer-events-none"
+                    >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -264,7 +435,8 @@ export default function ContactForm({
                     {requestStatus === 'pending'
                         ? dictionary.sending
                         : dictionary.sendMessage}
-                </button>
+                    </button>
+                </div>
             </form>
             {notificationData && requestStatus !== 'pending' ? (
                 <Notification {...notificationData} />

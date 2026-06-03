@@ -14,6 +14,8 @@ export interface IMessage {
     email: string;
     name: string;
     message: string;
+    consent: boolean;
+    consentAt?: Date;
     createdAt: Date;
     status: MessageStatus;
 }

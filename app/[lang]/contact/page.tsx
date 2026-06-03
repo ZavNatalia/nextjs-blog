@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { auth } from '@/auth';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import ContactForm from '@/components/ui/contact/contact-form';
@@ -58,20 +56,6 @@ export default async function ContactPage(props: {
                     userName={userName}
                     dictionary={dictionary}
                 />
-            <div className="mt-2 flex max-w-xl">
-                <p className="text-justify text-secondary">
-                    {dictionary.bySubmittingMessage}&nbsp;
-                    <Link
-                        title={dictionary.openPrivacyPolicyPage}
-                        aria-label={dictionary.openPrivacyPolicyPage}
-                        href="/privacy-policy"
-                        className="link text-blue-700 hover:underline dark:text-blue-400"
-                    >
-                        {dictionary.privacyPolicy}
-                    </Link>
-                    &nbsp;{dictionary.consentProcessingPersonalData}
-                </p>
-            </div>
         </main>
     );
 }
