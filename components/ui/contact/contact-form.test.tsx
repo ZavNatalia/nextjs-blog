@@ -306,6 +306,35 @@ describe('ContactForm', () => {
         });
     });
 
+    it('shows a consent hint when trying to submit without consent', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <ContactForm
+                userEmail="test@test.com"
+                dictionary={mockDictionary}
+            />,
+        );
+
+        await user.type(screen.getByLabelText('Your name'), 'John');
+        await user.type(screen.getByLabelText('Your message'), 'Hello');
+
+        // No hint before the user interacts with the disabled button.
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+
+        // The button is disabled, so the click is captured by its wrapper.
+        const button = screen.getByRole('button', { name: 'Send message' });
+        await user.click(button.parentElement as HTMLElement);
+
+        expect(screen.getByRole('alert')).toHaveTextContent(
+            'Consent to the processing of personal data is required',
+        );
+
+        // Giving consent clears the hint.
+        await user.click(screen.getByRole('checkbox'));
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
+
     it('disables submit button until consent is given', async () => {
         const user = userEvent.setup();
 

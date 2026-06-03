@@ -174,6 +174,7 @@ export default function ContactForm({
         useState<NotificationStatus | null>(null);
     const [requestError, setRequestError] = useState<string | null>(null);
     const [consent, setConsent] = useState(false);
+    const [showConsentHint, setShowConsentHint] = useState(false);
 
     useEffect(() => {
         if (requestStatus === 'success' || requestStatus === 'error') {
@@ -225,6 +226,7 @@ export default function ContactForm({
         setRequestStatus('success');
         setMessageDetails({ email: '', name: '', message: '' });
         setConsent(false);
+        setShowConsentHint(false);
     };
 
     const notificationData =
@@ -284,9 +286,21 @@ export default function ContactForm({
                     <input
                         id="consent"
                         type="checkbox"
-                        className="accent-accent mt-1 size-4 shrink-0 cursor-pointer"
+                        aria-describedby={
+                            showConsentHint ? 'consent-hint' : undefined
+                        }
+                        className={`mt-1 size-4 shrink-0 cursor-pointer accent-accent-500 ${
+                            showConsentHint
+                                ? 'rounded-xs ring-2 ring-error-500 ring-offset-2 ring-offset-background-primary'
+                                : ''
+                        }`}
                         checked={consent}
-                        onChange={(event) => setConsent(event.target.checked)}
+                        onChange={(event) => {
+                            setConsent(event.target.checked);
+                            if (event.target.checked) {
+                                setShowConsentHint(false);
+                            }
+                        }}
                         required
                     />
                     <label
@@ -306,13 +320,35 @@ export default function ContactForm({
                     </label>
                 </div>
 
-                <button
-                    aria-label={dictionary.sendMessage}
-                    title={dictionary.sendMessage}
-                    disabled={requestStatus === 'pending' || !consent}
-                    type="submit"
-                    className="button button-solid button-md self-center"
+                {showConsentHint ? (
+                    <p
+                        id="consent-hint"
+                        role="alert"
+                        className="text-sm text-error-500"
+                    >
+                        {dictionary.consentRequired}
+                    </p>
+                ) : null}
+
+                {/* The button is genuinely `disabled`, so it cannot receive
+                    clicks. The wrapper captures the click attempt to surface a
+                    hint (`pointer-events-none` lets the event reach it). */}
+                <div
+                    className="flex justify-center"
+                    onClick={() => {
+                        if (!consent) {
+                            setShowConsentHint(true);
+                            document.getElementById('consent')?.focus();
+                        }
+                    }}
                 >
+                    <button
+                        aria-label={dictionary.sendMessage}
+                        title={dictionary.sendMessage}
+                        disabled={requestStatus === 'pending' || !consent}
+                        type="submit"
+                        className="button button-solid button-md disabled:pointer-events-none"
+                    >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -331,7 +367,8 @@ export default function ContactForm({
                     {requestStatus === 'pending'
                         ? dictionary.sending
                         : dictionary.sendMessage}
-                </button>
+                    </button>
+                </div>
             </form>
             {notificationData && requestStatus !== 'pending' ? (
                 <Notification {...notificationData} />
