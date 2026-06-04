@@ -144,7 +144,7 @@ export function DangerZoneSection({
                     onClick={closeDialog}
                 >
                     <div
-                        className="max-w-sm rounded-3xl bg-secondary p-6 shadow-lg"
+                        className="max-w-sm rounded-2xl bg-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3

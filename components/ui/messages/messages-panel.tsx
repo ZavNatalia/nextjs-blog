@@ -6,9 +6,7 @@ import { mutate } from 'swr';
 
 import { getDictionary } from '@/get-dictionary';
 
-type MessagesDictionary = Awaited<
-    ReturnType<typeof getDictionary>
->['messages'];
+type MessagesDictionary = Awaited<ReturnType<typeof getDictionary>>['messages'];
 
 type FilterStatus = 'all' | 'unread' | 'read';
 
@@ -177,7 +175,7 @@ export default function MessagesPanel({
                         }}
                         placeholder={dictionary.searchByEmail}
                         aria-label={dictionary.searchByEmail}
-                        className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent"
+                        className="border-border bg-background flex-1 rounded-lg border px-3 py-2 text-sm text-foreground placeholder:text-secondary focus:ring-2 focus:ring-accent focus:outline-none"
                     />
                     {searchEmail && filteredMessages.length > 0 && (
                         <button
@@ -259,7 +257,9 @@ export default function MessagesPanel({
                                     <span
                                         className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${STATUS_STYLES[msg.status] || ''}`}
                                     >
-                                        {dictionary[msg.status as FilterStatus] ?? msg.status}
+                                        {dictionary[
+                                            msg.status as FilterStatus
+                                        ] ?? msg.status}
                                     </span>
                                 </div>
 
@@ -288,9 +288,7 @@ export default function MessagesPanel({
                                         {dictionary.reply}
                                     </a>
                                     <button
-                                        onClick={() =>
-                                            setDeleteTarget(msg._id)
-                                        }
+                                        onClick={() => setDeleteTarget(msg._id)}
                                         disabled={loadingId === msg._id}
                                         className={`button button-sm ${loadingId === msg._id ? 'button-disabled' : 'button-ghost'} text-error-500`}
                                     >
@@ -312,7 +310,7 @@ export default function MessagesPanel({
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="delete-dialog-title"
-                        className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
+                        className="max-w-sm rounded-2xl bg-background-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3
@@ -352,7 +350,7 @@ export default function MessagesPanel({
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="bulk-delete-dialog-title"
-                        className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
+                        className="max-w-sm rounded-2xl bg-background-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3

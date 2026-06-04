@@ -37,7 +37,7 @@ function NavListItem({
             <Link
                 href={href}
                 title={title}
-                className={`link block px-2 py-2 text-lg font-medium transition-colors duration-200 hover:text-accent md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
+                className={`link block px-2 py-2 text-base font-medium transition-colors duration-200 hover:text-accent md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
                 onClick={onClick}
             >
                 {title}
@@ -66,7 +66,7 @@ export function NavigationList({
     onClick?: () => void;
 }) {
     return (
-        <ul className="flex flex-col items-center gap-4 md:flex-row md:gap-3">
+        <ul className="flex flex-col items-center gap-4 md:flex-row md:gap-2">
             {NAVIGATION_ITEMS.map(({ href, label }) => (
                 <NavListItem
                     key={href}
@@ -77,7 +77,7 @@ export function NavigationList({
                 />
             ))}
             {status === 'loading' && (
-                <Loader size={40} borderWidth={2} paddings={'p-2'} />
+                <Loader size={32} borderWidth={2} paddings={'p-2'} />
             )}
 
             {!session && status !== 'loading' && (
@@ -99,19 +99,19 @@ export function NavigationList({
                 />
             )}
             {status === 'authenticated' && session?.user?.isAdmin && (
-                    <>
-                        <ModerationNavItem
-                            title={dictionary['moderation']}
-                            normalizedPathname={normalizedPathname}
-                            onClick={onClick}
-                        />
-                        <MessagesNavItem
-                            title={dictionary['messages']}
-                            normalizedPathname={normalizedPathname}
-                            onClick={onClick}
-                        />
-                    </>
-                )}
+                <>
+                    <ModerationNavItem
+                        title={dictionary['moderation']}
+                        normalizedPathname={normalizedPathname}
+                        onClick={onClick}
+                    />
+                    <MessagesNavItem
+                        title={dictionary['messages']}
+                        normalizedPathname={normalizedPathname}
+                        onClick={onClick}
+                    />
+                </>
+            )}
         </ul>
     );
 }

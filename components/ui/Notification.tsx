@@ -48,7 +48,7 @@ export default function Notification({
             aria-live="assertive"
         >
             <div
-                className={`relative animate-slide-in overflow-hidden rounded-3xl px-6 py-4 shadow-lg ${getToastColors(status)}`}
+                className={`relative animate-slide-in overflow-hidden rounded-2xl px-6 py-4 shadow-lg ${getToastColors(status)}`}
             >
                 <button
                     className="absolute top-3 right-4 transition-opacity hover:opacity-75"

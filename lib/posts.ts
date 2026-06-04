@@ -48,5 +48,5 @@ export async function getAllPosts(lang: Locale): Promise<IPost[]> {
 
 export async function getFeaturedPosts(lang: Locale) {
     const allPosts = await getAllPosts(lang);
-    return allPosts.filter((post) => post.isFeatured);
+    return allPosts.filter((post) => post.isFeatured).slice(0, 3);
 }

@@ -18,7 +18,7 @@ export default function ProfileButton({
 }: ProfileButtonProps) {
     const isActive = normalizedPathname === '/profile';
     const imageStyles = clsx(
-        'relative h-12 w-12 md:h-10 md:w-10 rounded-full bg-primary shadow-md overflow-hidden border-2 transition-colors duration-600',
+        'relative h-12 w-12 md:h-9 md:w-9 rounded-full bg-primary shadow-md overflow-hidden border-2 transition-colors duration-600',
         isActive
             ? 'border-accent-500'
             : 'border-border-500 hover:bg-accent hover:border-accent-500',
@@ -29,7 +29,7 @@ export default function ProfileButton({
         : (userEmail || '?').charAt(0).toUpperCase();
 
     return (
-        <li>
+        <li className="flex">
             <Link
                 href="/profile"
                 title={title}

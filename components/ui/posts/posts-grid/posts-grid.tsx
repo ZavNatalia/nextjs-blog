@@ -11,7 +11,7 @@ export default function PostsGrid({
     lang: Locale;
 }) {
     return (
-        <ul className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <ul className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
             {posts?.map((post) => (
                 <PostCard
                     post={post}
