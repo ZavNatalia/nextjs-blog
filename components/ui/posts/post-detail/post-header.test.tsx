@@ -1,63 +1,16 @@
 import { render, screen } from '@testing-library/react';
 
-vi.mock('next/image', () => ({
-    default: ({
-        alt,
-        onLoad,
-        ...props
-    }: {
-        alt: string;
-        onLoad?: () => void;
-        [key: string]: unknown;
-        // eslint-disable-next-line @next/next/no-img-element
-    }) => <img alt={alt} {...props} onLoad={onLoad} />,
-}));
-
 import PostHeader from './post-header';
 
 describe('PostHeader', () => {
     it('renders title', () => {
-        render(
-            <PostHeader
-                title="My Post Title"
-                date="2025-03-15"
-                imagePath="/images/posts/test/cover.png"
-            />,
-        );
+        render(<PostHeader title="My Post Title" date="2025-03-15" />);
         expect(screen.getByText('My Post Title')).toBeInTheDocument();
     });
 
     it('renders formatted date', () => {
-        render(
-            <PostHeader
-                title="My Post Title"
-                date="2025-03-15"
-                imagePath="/images/posts/test/cover.png"
-            />,
-        );
+        render(<PostHeader title="My Post Title" date="2025-03-15" />);
         expect(screen.getByText(/March 15, 2025/)).toBeInTheDocument();
-    });
-
-    it('renders image with alt text', () => {
-        render(
-            <PostHeader
-                title="My Post Title"
-                date="2025-03-15"
-                imagePath="/images/posts/test/cover.png"
-            />,
-        );
-        expect(screen.getByAltText('My Post Title')).toBeInTheDocument();
-    });
-
-    it('shows loading skeleton initially', () => {
-        const { container } = render(
-            <PostHeader
-                title="My Post Title"
-                date="2025-03-15"
-                imagePath="/images/posts/test/cover.png"
-            />,
-        );
-        expect(container.querySelector('.square-skeleton')).toBeInTheDocument();
     });
 
     it('renders reading time when provided', () => {
@@ -65,7 +18,6 @@ describe('PostHeader', () => {
             <PostHeader
                 title="My Post Title"
                 date="2025-03-15"
-                imagePath="/images/posts/test/cover.png"
                 readingTime={5}
                 readingTimeLabel="min read"
             />,
@@ -74,13 +26,7 @@ describe('PostHeader', () => {
     });
 
     it('does not render reading time when not provided', () => {
-        render(
-            <PostHeader
-                title="My Post Title"
-                date="2025-03-15"
-                imagePath="/images/posts/test/cover.png"
-            />,
-        );
+        render(<PostHeader title="My Post Title" date="2025-03-15" />);
         expect(screen.queryByText(/min read/)).not.toBeInTheDocument();
     });
 });

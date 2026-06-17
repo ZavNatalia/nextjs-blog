@@ -27,7 +27,6 @@ const mockPosts: IPost[] = [
         date: '2025-03-15',
         excerpt: 'First excerpt',
         isFeatured: true,
-        image: 'first.png',
     },
     {
         slug: 'second-post',
@@ -35,7 +34,6 @@ const mockPosts: IPost[] = [
         date: '2025-03-16',
         excerpt: 'Second excerpt',
         isFeatured: false,
-        image: 'second.png',
     },
 ];
 

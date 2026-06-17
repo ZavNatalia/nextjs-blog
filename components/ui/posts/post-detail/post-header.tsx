@@ -1,21 +1,14 @@
-import Image from 'next/image';
-import { useState } from 'react';
-
 export default function PostHeader({
     title,
     date,
-    imagePath,
     readingTime,
     readingTimeLabel,
 }: {
     title: string;
     date: string;
-    imagePath: string;
     readingTime?: number;
     readingTimeLabel?: string;
 }) {
-    const [imageLoaded, setImageLoaded] = useState(false);
-
     const formattedDate = new Date(date).toLocaleDateString('en-US', {
         day: 'numeric',
         month: 'long',
@@ -25,36 +18,20 @@ export default function PostHeader({
         'after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent';
     return (
         <header
-            className={`${underlineStyle} relative mb-6 flex flex-col gap-3 pb-6 md:mb-10 md:flex-row md:justify-between md:gap-10 md:pb-8`}
+            className={`${underlineStyle} relative mb-6 flex flex-col gap-1 pb-6 md:mb-10 md:gap-4 md:pb-8`}
         >
-            <div>
-                <h1 className="mb-1 text-xl leading-snug font-bold md:mb-4 md:text-3xl lg:text-4xl">
-                    {title}
-                </h1>
-                <span className="text-base text-secondary md:text-lg">
-                    {formattedDate}
-                    {readingTime && readingTimeLabel && (
-                        <span>
-                            {' '}
-                            · {readingTime} {readingTimeLabel}
-                        </span>
-                    )}
-                </span>
-            </div>
-            <div className="relative h-[200px] w-[200px] flex-shrink-0 self-center md:h-[260px] md:w-[260px]">
-                {!imageLoaded && (
-                    <div className="square-skeleton h-[200px] w-[200px] animate-pulse rounded-xl bg-tertiary md:h-[260px] md:w-[260px]" />
+            <h1 className="text-xl leading-snug font-bold md:text-3xl lg:text-4xl">
+                {title}
+            </h1>
+            <span className="text-base text-secondary md:text-lg">
+                {formattedDate}
+                {readingTime && readingTimeLabel && (
+                    <span>
+                        {' '}
+                        · {readingTime} {readingTimeLabel}
+                    </span>
                 )}
-                <Image
-                    className={`rounded-xl object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                    src={imagePath}
-                    alt={title}
-                    fill
-                    sizes="260px"
-                    priority
-                    onLoad={() => setImageLoaded(true)}
-                />
-            </div>
+            </span>
         </header>
     );
 }

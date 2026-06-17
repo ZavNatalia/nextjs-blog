@@ -168,7 +168,7 @@ export default function ModerationPanel({
                             setSearchEmailError('');
                         }}
                         placeholder={dictionary.searchByEmail}
-                        className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent"
+                        className="border-border bg-background flex-1 rounded-lg border px-3 py-2 text-sm text-foreground placeholder:text-secondary focus:ring-2 focus:ring-accent focus:outline-none"
                     />
                     {searchEmail && filteredComments.length > 0 && (
                         <button
@@ -218,81 +218,79 @@ export default function ModerationPanel({
             ) : (
                 <div className="space-y-4">
                     {filteredComments.map((comment) => {
-                            const formattedDate = new Date(
-                                comment.createdAt,
-                            ).toLocaleDateString(lang, {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            });
+                        const formattedDate = new Date(
+                            comment.createdAt,
+                        ).toLocaleDateString(lang, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                        });
 
-                            return (
-                                <div
-                                    key={comment._id}
-                                    className="rounded-xl bg-background-secondary p-4 shadow-sm"
-                                >
-                                    <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
-                                        <div className="min-w-0">
-                                            <p className="font-semibold">
-                                                {comment.authorName}
-                                            </p>
-                                            <p className="text-base text-secondary">
-                                                {comment.authorEmail}
-                                            </p>
-                                            <p className="text-base text-secondary">
-                                                <Link
-                                                    href={`/${lang}/posts/${comment.postSlug}`}
-                                                    className="text-accent underline"
-                                                >
-                                                    {comment.postSlug}
-                                                </Link>
-                                                {' · '}
-                                                <time>{formattedDate}</time>
-                                            </p>
-                                        </div>
-                                        <span
-                                            className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${STATUS_STYLES[comment.status] || ''}`}
-                                        >
-                                            {comment.status}
-                                        </span>
-                                    </div>
-
-                                    <p className="mb-3 whitespace-pre-wrap text-foreground">
-                                        {comment.content}
-                                    </p>
-
-                                    <div className="flex gap-2">
-                                        {comment.status !== 'approved' && (
-                                            <button
-                                                onClick={() =>
-                                                    handleModerate(
-                                                        comment._id,
-                                                        'approved',
-                                                    )
-                                                }
-                                                disabled={
-                                                    loadingId === comment._id
-                                                }
-                                                className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-solid'}`}
+                        return (
+                            <div
+                                key={comment._id}
+                                className="rounded-xl bg-background-secondary p-4 shadow-sm"
+                            >
+                                <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
+                                    <div className="min-w-0">
+                                        <p className="font-semibold">
+                                            {comment.authorName}
+                                        </p>
+                                        <p className="text-base text-secondary">
+                                            {comment.authorEmail}
+                                        </p>
+                                        <p className="text-base text-secondary">
+                                            <Link
+                                                href={`/${lang}/posts/${comment.postSlug}`}
+                                                className="text-accent underline"
                                             >
-                                                {dictionary.approve}
-                                            </button>
-                                        )}
+                                                {comment.postSlug}
+                                            </Link>
+                                            {' · '}
+                                            <time>{formattedDate}</time>
+                                        </p>
+                                    </div>
+                                    <span
+                                        className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${STATUS_STYLES[comment.status] || ''}`}
+                                    >
+                                        {comment.status}
+                                    </span>
+                                </div>
+
+                                <p className="mb-3 whitespace-pre-wrap text-foreground">
+                                    {comment.content}
+                                </p>
+
+                                <div className="flex gap-2">
+                                    {comment.status !== 'approved' && (
                                         <button
                                             onClick={() =>
-                                                setDeleteTarget(comment._id)
+                                                handleModerate(
+                                                    comment._id,
+                                                    'approved',
+                                                )
                                             }
                                             disabled={loadingId === comment._id}
-                                            className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-ghost'} text-error-500`}
+                                            className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-solid'}`}
                                         >
-                                            {dictionary.delete}
+                                            {dictionary.approve}
                                         </button>
-                                    </div>
+                                    )}
+                                    <button
+                                        onClick={() =>
+                                            setDeleteTarget(comment._id)
+                                        }
+                                        disabled={loadingId === comment._id}
+                                        className={`button button-sm ${loadingId === comment._id ? 'button-disabled' : 'button-ghost'} text-error-500`}
+                                    >
+                                        {dictionary.delete}
+                                    </button>
                                 </div>
-                            );
-                        })}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
 
@@ -302,7 +300,7 @@ export default function ModerationPanel({
                     onClick={() => setDeleteTarget(null)}
                 >
                     <div
-                        className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
+                        className="max-w-sm rounded-2xl bg-background-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3 className="text-lg font-semibold text-error">
@@ -336,7 +334,7 @@ export default function ModerationPanel({
                     onClick={() => setDeleteByEmail(null)}
                 >
                     <div
-                        className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
+                        className="max-w-sm rounded-2xl bg-background-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3 className="text-lg font-semibold text-error">

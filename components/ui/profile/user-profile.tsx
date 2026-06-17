@@ -82,7 +82,7 @@ export default function UserProfile({
                         aria-controls={`panel-${key}`}
                         tabIndex={activeSection === key ? 0 : -1}
                         className={clsx(
-                            'flex flex-col items-center rounded-lg p-2 transition-all duration-300',
+                            'flex flex-col items-center rounded-lg p-2 transition-all duration-200',
                             activeSection === key
                                 ? 'bg-primary text-foreground shadow-lg'
                                 : 'text-secondary hover:bg-primary hover:text-foreground',
@@ -90,7 +90,7 @@ export default function UserProfile({
                         onClick={() => setActiveSection(key)}
                     >
                         <Icon
-                            className={`mb-2 h-6 w-6 transition-all duration-300 ${activeSection === key ? 'text-accent' : 'text-foreground'}`}
+                            className={`mb-2 h-6 w-6 transition-all duration-200 ${activeSection === key ? 'text-accent' : 'text-foreground'}`}
                         />
                         <span className="text-sm">{dictionary[label]}</span>
                     </button>

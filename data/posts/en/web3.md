@@ -1,7 +1,6 @@
 ---
 title: 'What is Web3?'
 date: '2024-09-11'
-image: 'web3.webp'
 excerpt: 'Web3 is a broad term for technologies like blockchain that decentralize ownership and data management on the Internet.'
 isFeatured: false
 ---

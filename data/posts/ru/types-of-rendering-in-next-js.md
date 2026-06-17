@@ -1,7 +1,6 @@
 ---
 title: 'Виды рендеринга в Next.js'
 date: '2025-12-25'
-image: 'types-of-rendering-in-next-js.png'
 excerpt: 'Основные методы рендеринга в Next.js 15 – SSG, SSR, ISR, CSR – с примерами, их влиянием на SEO и возможностями стриминга через React Server Components.'
 isFeatured: true
 ---

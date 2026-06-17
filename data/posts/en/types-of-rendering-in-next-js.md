@@ -1,7 +1,6 @@
 ---
 title: 'Rendering Methods in Next.js'
 date: '2025-12-25'
-image: 'types-of-rendering-in-next-js.png'
 excerpt: 'Core rendering methods in Next.js 15 – SSG, SSR, ISR, CSR – with examples, SEO impact, and streaming capabilities through React Server Components.'
 isFeatured: true
 ---

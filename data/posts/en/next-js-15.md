@@ -1,7 +1,6 @@
 ---
 title: 'Next.js 15'
 date: '2024-10-21'
-image: 'next-js-15.webp'
 excerpt: 'Next.js 15 is officially stable and ready for production use. This release builds on updates from RC1 and RC2.'
 isFeatured: false
 ---

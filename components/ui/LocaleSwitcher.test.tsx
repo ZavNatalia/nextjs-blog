@@ -37,7 +37,7 @@ describe('LocaleSwitcher', () => {
     it('highlights active locale', () => {
         render(<LocaleSwitcher />);
         const enButton = screen.getByText('EN');
-        expect(enButton).toHaveClass('bg-background-tertiary');
+        expect(enButton).toHaveClass('text-accent');
     });
 
     it('switches locale on click', async () => {

@@ -25,7 +25,6 @@ const mockPost: IPost = {
     date: '2025-03-15',
     excerpt: 'This is a test excerpt for the post card.',
     isFeatured: true,
-    image: 'test.png',
     readingTime: 5,
 };
 

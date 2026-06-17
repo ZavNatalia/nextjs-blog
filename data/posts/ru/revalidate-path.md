@@ -1,7 +1,6 @@
 ---
 title: 'revalidatePath в Next.js'
 date: '2026-01-20'
-image: 'revalidate-path.jpeg'
 excerpt: 'Практическое руководство по revalidatePath в Next.js: как правильно инвалидировать кэш после мутаций данных, различия между type: "page" и type: "layout", и использование в Server Functions.'
 isFeatured: true
 ---

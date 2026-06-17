@@ -1,7 +1,6 @@
 ---
 title: 'Debugging in Next.js'
 date: '2026-02-23'
-image: 'debugging-next-js.webp'
 excerpt: 'Debugging Code in Next.js involves console logs, developer tools, API debugging, performance profiling, and error analysis.'
 isFeatured: false
 ---

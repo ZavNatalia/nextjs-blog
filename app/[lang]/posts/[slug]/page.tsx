@@ -56,8 +56,8 @@ export async function generateMetadata(props: PageProps) {
     if (!post) return { title: 'Post Not Found' };
     const alternatesLanguages = await getAvailableLanguages(slug);
 
-    const imageUrl = `https://zav.me/images/posts/${slug}/${post.image}`;
     const baseUrl = `https://zav.me`;
+    const imageUrl = `${baseUrl}/images/site/hero-desktop-dark.png`;
 
     return {
         title: post.title,
@@ -110,7 +110,7 @@ export default async function Page(props: PageProps) {
         '@type': 'BlogPosting',
         headline: post.title,
         description: post.excerpt,
-        image: `https://zav.me/images/posts/${post.slug}/${post.image}`,
+        image: `https://zav.me/images/site/hero-desktop-dark.png`,
         datePublished: post.date,
         mainEntityOfPage: `https://zav.me/${lang}/posts/${post.slug}`,
     };

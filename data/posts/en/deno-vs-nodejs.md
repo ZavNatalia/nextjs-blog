@@ -1,7 +1,6 @@
 ---
 title: 'Deno vs Node.js'
 date: '2024-10-07'
-image: 'deno-vs-nodejs.webp'
 excerpt: 'Node.js and Deno are two platforms for running JavaScript and TypeScript outside the browser, but they have several differences in design and architecture.'
 isFeatured: false
 ---
@@ -27,8 +26,6 @@ isFeatured: false
     - **TypeScript Support:** Native TypeScript support is built-in, eliminating the need for additional tools or compilation.
     - **Package Management:** Deno does not use a centralized repository like NPM. Instead, modules are imported directly from URLs, such as GitHub or other sources.
     - **Compatibility:** Deno provides built-in APIs that align with standard Web APIs, making it more compatible with modern frontend development.
-
-![A 3D illustration focusing on Deno](deno.webp)
 
 ## **Key Differences:**
 

@@ -179,7 +179,7 @@ export default function CommentItem({
                     onClick={closeDialog}
                 >
                     <div
-                        className="max-w-sm rounded-3xl bg-background-secondary p-6 shadow-lg"
+                        className="max-w-sm rounded-2xl bg-background-secondary p-6 shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3

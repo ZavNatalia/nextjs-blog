@@ -12,11 +12,11 @@ export default function Logo({ title }: { title: string }) {
             aria-label={title}
             className="link mr-1 px-2 py-1"
         >
-            <div className="flex items-center gap-2 font-bold">
+            <div className="flex items-start gap-2 font-bold">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 26 26"
                     strokeWidth="1.5"
                     stroke="currentColor"
                     className="size-5 text-accent md:size-6"

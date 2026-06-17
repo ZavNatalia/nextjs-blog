@@ -1,7 +1,6 @@
 ---
 title: 'revalidatePath in Next.js'
 date: '2026-01-20'
-image: 'revalidate-path.jpeg'
 excerpt: 'A practical guide to revalidatePath in Next.js: how to properly invalidate cache after data mutations, differences between type: "page" and type: "layout", and usage in Server Functions.'
 isFeatured: true
 ---
