@@ -29,10 +29,9 @@ export default function PostContent({
     post: IPost;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['posts-page'];
 }) {
-    const { title, date, slug, image, content, readingTime } = post;
+    const { title, date, slug, content, readingTime } = post;
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
     const { resolvedTheme } = useTheme();
-    const imagePath = `/images/posts/${slug}/${image}`;
 
     useEffect(() => {
         if (copiedCode) {
@@ -158,7 +157,6 @@ export default function PostContent({
             <PostHeader
                 title={title}
                 date={date}
-                imagePath={imagePath}
                 readingTime={readingTime}
                 readingTimeLabel={dictionary.minRead}
             />

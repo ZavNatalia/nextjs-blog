@@ -1,7 +1,6 @@
 ---
 title: 'Next.js 15.2'
 date: '2025-03-06'
-image: 'next-js-15-2.webp'
 excerpt: 'Next.js 15.2 включает обновления для отладки ошибок, метаданных, Turbopack и других аспектов'
 isFeatured: true
 ---

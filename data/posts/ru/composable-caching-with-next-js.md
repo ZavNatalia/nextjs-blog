@@ -1,7 +1,6 @@
 ---
 title: 'Компонуемое кэширование (Composable Caching)'
 date: '2025-01-31'
-image: 'composable-caching-with-next-js.webp'
 excerpt: 'Next.js представил Composable Caching – новый подход к кэшированию, который упрощает управление кэшем на разных уровнях приложения, от данных до компонентов и страниц.'
 isFeatured: false
 ---
