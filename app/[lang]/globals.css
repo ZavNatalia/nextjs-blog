@@ -360,11 +360,7 @@ body {
     }
 
     .markdown-content h3 {
-        @apply mt-5 mb-2 italic;
-    }
-
-    .markdown-content h4 {
-        @apply mt-3 mb-1;
+        @apply italic;
     }
 
     .markdown-content a {

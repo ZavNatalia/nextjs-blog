@@ -124,7 +124,7 @@ export default async function Page(props: PageProps) {
             <Link
                 aria-label={dictionary.goToAllPosts}
                 href="/posts"
-                className="button button-solid button-md"
+                className="button button-ghost button-md"
             >
                 {dictionary.goToAllPosts}
             </Link>

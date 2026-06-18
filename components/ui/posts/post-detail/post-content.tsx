@@ -153,14 +153,14 @@ export default function PostContent({
     };
 
     return (
-        <article className="mx-auto w-full rounded-2xl p-3 md:p-4 lg:max-w-7xl lg:p-10">
+        <article className="mx-auto w-full rounded-2xl p-3 md:p-4 lg:max-w-7xl lg:p-8">
             <PostHeader
                 title={title}
                 date={date}
                 readingTime={readingTime}
                 readingTimeLabel={dictionary.minRead}
             />
-            <div className="markdown-content prose-lg lg:prose-xl dark:prose-invert">
+            <div className="markdown-content prose-base lg:prose-lg dark:prose-invert">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={customRenderers}

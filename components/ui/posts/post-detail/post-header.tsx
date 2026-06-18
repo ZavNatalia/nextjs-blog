@@ -15,15 +15,15 @@ export default function PostHeader({
         year: 'numeric',
     });
     const underlineStyle =
-        'after:absolute after:bottom-0 after:block after:h-2 after:w-full after:bg-accent';
+        'after:absolute after:bottom-0 after:block after:h-1 after:w-full after:bg-accent';
     return (
         <header
-            className={`${underlineStyle} relative mb-6 flex flex-col gap-1 pb-6 md:mb-10 md:gap-4 md:pb-8`}
+            className={`${underlineStyle} relative mb-6 flex flex-col gap-1 pb-6 md:gap-2`}
         >
-            <h1 className="text-xl leading-snug font-bold md:text-3xl lg:text-4xl">
+            <h1 className="text-xl leading-snug font-bold md:text-3xl">
                 {title}
             </h1>
-            <span className="text-base text-secondary md:text-lg">
+            <span className="text-sm text-secondary md:text-base">
                 {formattedDate}
                 {readingTime && readingTimeLabel && (
                     <span>
