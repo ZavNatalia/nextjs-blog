@@ -12,7 +12,6 @@
     --color-background-tertiary: var(--c-bg-tertiary);
 
     --color-foreground: var(--c-fg-base);
-    --color-foreground-accent: var(--c-fg-accent);
     --color-foreground-secondary: var(--c-fg-secondary);
     --color-foreground-muted: var(--c-fg-muted);
     --color-foreground-contrast: var(--c-fg-contrast);
@@ -25,10 +24,6 @@
     --color-border-500: var(--c-border-500);
     --color-border-700: var(--c-border-700);
 
-    --color-muted-100: var(--c-muted-100);
-    --color-muted-500: var(--c-muted-500);
-    --color-muted-700: var(--c-muted-700);
-
     --color-error-100: var(--c-error-100);
     --color-error-500: var(--c-error-500);
     --color-error-700: var(--c-error-700);
@@ -36,14 +31,6 @@
     --color-success-100: var(--c-success-100);
     --color-success-500: var(--c-success-500);
     --color-success-700: var(--c-success-700);
-
-    --color-warning-100: var(--c-warning-100);
-    --color-warning-500: var(--c-warning-500);
-    --color-warning-700: var(--c-warning-700);
-
-    --color-info-100: var(--c-info-100);
-    --color-info-500: var(--c-info-500);
-    --color-info-700: var(--c-info-700);
 
     --animate-slide-in: slide-in 0.2s ease-out;
     --animate-slide-out: slide-out 2s linear forwards;
@@ -110,9 +97,7 @@
     --c-border-500: rgb(203, 213, 225);
     --c-border-700: rgb(148, 163, 184);
 
-    --c-muted-100: rgb(241, 245, 249);
     --c-muted-500: rgb(107, 114, 128);
-    --c-muted-700: rgb(71, 85, 105);
 
     --c-error-100: rgb(254, 232, 232);
     --c-error-500: rgb(239, 68, 68);
@@ -121,14 +106,6 @@
     --c-success-100: rgb(170, 220, 187);
     --c-success-500: rgb(34, 197, 94);
     --c-success-700: rgb(22, 101, 52);
-
-    --c-warning-100: rgb(255, 251, 235);
-    --c-warning-500: rgb(251, 191, 36);
-    --c-warning-700: rgb(202, 138, 4);
-
-    --c-info-100: rgb(219, 234, 254);
-    --c-info-500: rgb(59, 130, 246);
-    --c-info-700: rgb(30, 64, 175);
 }
 
 .dark {
@@ -151,9 +128,7 @@
     --c-border-500: rgb(71, 85, 105);
     --c-border-700: rgb(30, 41, 59);
 
-    --c-muted-100: rgb(30, 41, 59);
     --c-muted-500: rgb(169, 178, 191);
-    --c-muted-700: rgb(71, 85, 105);
 
     --c-error-100: rgb(199, 130, 130);
     --c-error-500: rgb(207, 36, 36);
@@ -162,14 +137,6 @@
     --c-success-100: rgb(220, 252, 231);
     --c-success-500: rgb(34, 197, 94);
     --c-success-700: rgb(22, 101, 52);
-
-    --c-warning-100: rgb(255, 251, 235);
-    --c-warning-500: rgb(251, 191, 36);
-    --c-warning-700: rgb(202, 138, 4);
-
-    --c-info-100: rgb(219, 234, 254);
-    --c-info-500: rgb(59, 130, 246);
-    --c-info-700: rgb(30, 64, 175);
 }
 
 /* ========= BASE STYLES ========= */

@@ -45,16 +45,16 @@ export default async function AuthPage(props: {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <div className="card">
                 <AuthForm dictionary={authDict} callbackUrl={callbackUrl} />
-                <hr className="my-4 border-t border-border-100" />
-                <p className="text-center text-secondary uppercase">
-                    {authDict.or}
-                </p>
-                <div className="mt-3 flex flex-col items-center gap-3">
-                    <GoogleSignInButton
-                        dictionary={authDict}
-                        callbackUrl={callbackUrl}
-                    />
-                </div>
+                {/*<hr className="my-4 border-t border-border-100" />*/}
+                {/*<p className="text-center text-secondary uppercase">*/}
+                {/*    {authDict.or}*/}
+                {/*</p>*/}
+                {/*<div className="mt-3 flex flex-col items-center gap-3">*/}
+                {/*    <GoogleSignInButton*/}
+                {/*        dictionary={authDict}*/}
+                {/*        callbackUrl={callbackUrl}*/}
+                {/*    />*/}
+                {/*</div>*/}
             </div>
         </main>
     );
