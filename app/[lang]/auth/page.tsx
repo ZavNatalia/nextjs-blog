@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation';
 
 import { auth } from '@/auth';
 import AuthForm from '@/components/ui/auth/auth-form';
-import GoogleSignInButton from '@/components/ui/auth/GoogleSignInButton';
 import Breadcrumbs, { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';

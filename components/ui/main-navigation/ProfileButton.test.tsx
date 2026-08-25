@@ -19,16 +19,23 @@ vi.mock('next/link', () => ({
 import ProfileButton from './ProfileButton';
 
 describe('ProfileButton', () => {
-    it('renders link to profile page', () => {
-        render(<ProfileButton title="Profile" normalizedPathname="/posts" />);
+    it('renders link to the localized profile page', () => {
+        render(
+            <ProfileButton
+                title="Profile"
+                locale="ru"
+                normalizedPathname="/posts"
+            />,
+        );
         const link = screen.getByRole('link', { name: 'Profile' });
-        expect(link).toHaveAttribute('href', '/profile');
+        expect(link).toHaveAttribute('href', '/ru/profile');
     });
 
     it('renders name initial when name is provided', () => {
         render(
             <ProfileButton
                 title="Profile"
+                locale="ru"
                 normalizedPathname="/posts"
                 userName="Alice"
                 userEmail="alice@test.com"
@@ -41,6 +48,7 @@ describe('ProfileButton', () => {
         render(
             <ProfileButton
                 title="Profile"
+                locale="ru"
                 normalizedPathname="/posts"
                 userEmail="user@test.com"
             />,
@@ -55,6 +63,7 @@ describe('ProfileButton', () => {
         render(
             <ProfileButton
                 title="Profile"
+                locale="ru"
                 normalizedPathname="/posts"
                 onClick={onClick}
             />,

@@ -5,6 +5,7 @@ import React from 'react';
 import PostsGrid from '@/components/ui/posts/posts-grid/posts-grid';
 import type { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
+import { localePath } from '@/lib/locale-path';
 import { getFeaturedPosts } from '@/lib/posts';
 
 export const dynamic = 'force-static';
@@ -55,7 +56,7 @@ export default async function FeaturedPosts({
             />
 
             <Link
-                href="/posts"
+                href={localePath(lang, '/posts')}
                 className="button button-solid button-md"
                 aria-label={dictionary.allPosts}
             >

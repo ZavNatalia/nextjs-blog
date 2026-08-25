@@ -1,8 +1,12 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 
+import type { Locale } from '@/i18n-config';
+import { localePath } from '@/lib/locale-path';
+
 interface ProfileButtonProps {
     title: string;
+    locale: Locale;
     normalizedPathname: string;
     userName?: string;
     userEmail?: string;
@@ -11,6 +15,7 @@ interface ProfileButtonProps {
 
 export default function ProfileButton({
     title,
+    locale,
     normalizedPathname,
     userName,
     userEmail,
@@ -31,7 +36,7 @@ export default function ProfileButton({
     return (
         <li className="flex">
             <Link
-                href="/profile"
+                href={localePath(locale, '/profile')}
                 title={title}
                 aria-label={title}
                 onClick={onClick}

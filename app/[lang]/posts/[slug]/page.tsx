@@ -11,6 +11,7 @@ import { IPost } from '@/components/ui/posts/post-card/post-card';
 import PostContent from '@/components/ui/posts/post-detail/post-content';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
+import { localePath } from '@/lib/locale-path';
 import { getPostData, getPostsFiles } from '@/lib/posts';
 
 export const revalidate = 3600;
@@ -27,16 +28,25 @@ async function getPost(slug: string, lang: Locale): Promise<IPost | null> {
 }
 async function getAvailableLanguages(
     slug: string,
-): Promise<Partial<Record<Locale, string>>> {
+): Promise<Record<string, string>> {
     const langs: Locale[] = ['en', 'ru'];
-    const result: Partial<Record<Locale, string>> = {};
+    const result: Record<string, string> = {};
 
     langs.forEach((lang) => {
-        const filePath = path.join(process.cwd(), `posts/${lang}/${slug}.md`);
+        const filePath = path.join(
+            process.cwd(),
+            `data/posts/${lang}/${slug}.md`,
+        );
         if (fs.existsSync(filePath)) {
             result[lang] = `https://zav.me/${lang}/posts/${slug}`;
         }
     });
+
+    // The locale-less URL only resolves to a real page when the post exists in
+    // more than one language; otherwise it can redirect a reader to a 404.
+    if (Object.keys(result).length > 1) {
+        result['x-default'] = `https://zav.me/posts/${slug}`;
+    }
 
     return result;
 }
@@ -123,7 +133,7 @@ export default async function Page(props: PageProps) {
             <CommentsSection postSlug={slug} lang={lang as Locale} />
             <Link
                 aria-label={dictionary.goToAllPosts}
-                href="/posts"
+                href={localePath(lang as Locale, '/posts')}
                 className="button button-ghost button-md"
             >
                 {dictionary.goToAllPosts}

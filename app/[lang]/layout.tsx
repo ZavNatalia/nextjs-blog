@@ -76,10 +76,18 @@ export async function generateMetadata(props: {
             languages: {
                 en: `${baseUrl}/en`,
                 ru: `${baseUrl}/ru`,
+                // The locale-less URL picks a language from the request, which
+                // is what x-default is meant to point at.
+                'x-default': baseUrl,
             },
         },
     };
 }
+
+// Without this, an unknown first segment (e.g. a path excluded from the proxy
+// matcher) reaches this layout as `lang` and blows up in the data layer with a
+// 500 instead of rendering a 404.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
     return i18n.locales.map((locale) => ({ lang: locale }));
@@ -90,12 +98,13 @@ export default async function RootLayout(props: {
     params: Promise<{ lang: string }>;
 }) {
     const params = await props.params;
-    const dictionary = getDictionary(params.lang as Locale);
+    const locale = params.lang as Locale;
+    const dictionary = getDictionary(locale);
 
     return (
-        <html suppressHydrationWarning lang={params.lang}>
+        <html suppressHydrationWarning lang={locale}>
             <body className={openSans.className}>
-                <Providers dictionary={dictionary}>
+                <Providers dictionary={dictionary} locale={locale}>
                     {props.children}
                 </Providers>
             </body>

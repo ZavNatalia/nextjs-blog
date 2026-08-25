@@ -11,8 +11,24 @@ const COOKIE_OPTIONS = {
     maxAge: 60 * 60 * 24 * 365,
     httpOnly: true,
     secure: true,
-    sameSite: 'strict' as const,
+    // lax, not strict: a strict cookie is not sent when the user arrives from
+    // an external site (search results, messengers), which is exactly when the
+    // stored preference has to be honored.
+    sameSite: 'lax' as const,
 };
+
+/**
+ * Only a document navigation may store the locale.
+ *
+ * <Link> prefetches pages in the background, including pages of the locale the
+ * user has just left; letting those write the cookie would roll the stored
+ * locale back. Next strips its own RSC headers before this runs, so the accept
+ * header is the only way to tell a document request from a client-side one —
+ * which is why LocaleSwitcher navigates the document instead of routing.
+ */
+function isDocumentRequest(request: NextRequest): boolean {
+    return request.headers.get('accept')?.includes('text/html') ?? false;
+}
 
 function getLocale(request: NextRequest): string {
     const langCookie = request.cookies.get(COOKIE_NAME)?.value;
@@ -25,10 +41,20 @@ function getLocale(request: NextRequest): string {
     const negotiatorHeaders: Record<string, string> = {};
     request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
+    // Negotiator yields '*' when accept-language is missing or a wildcard, and
+    // matchLocale throws a RangeError on any tag Intl cannot canonicalise —
+    // which would turn a plain request for `/` into a 500.
     const languages = new Negotiator({
         headers: negotiatorHeaders,
-    }).languages();
-    return matchLocale(languages, locales, i18n.defaultLocale);
+    })
+        .languages()
+        .filter((language) => language !== '*');
+
+    try {
+        return matchLocale(languages, locales, i18n.defaultLocale);
+    } catch {
+        return i18n.defaultLocale;
+    }
 }
 
 export function proxy(request: NextRequest) {
@@ -44,24 +70,32 @@ export function proxy(request: NextRequest) {
             pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
     );
 
+    const storedLocale = request.cookies.get(COOKIE_NAME)?.value;
+
     if (!localeInPath) {
         const locale = getLocale(request);
         const response = NextResponse.redirect(
             new URL(`/${locale}${pathname}`, request.url),
         );
 
-        response.cookies.set(COOKIE_NAME, locale, COOKIE_OPTIONS);
+        if (isDocumentRequest(request) && storedLocale !== locale) {
+            response.cookies.set(COOKIE_NAME, locale, COOKIE_OPTIONS);
+        }
         return response;
     }
 
     const currentLocale = pathname.split('/')[1];
-    if (locales.includes(currentLocale)) {
-        const response = NextResponse.next();
+    const response = NextResponse.next();
+
+    if (
+        locales.includes(currentLocale) &&
+        isDocumentRequest(request) &&
+        storedLocale !== currentLocale
+    ) {
         response.cookies.set(COOKIE_NAME, currentLocale, COOKIE_OPTIONS);
-        return response;
     }
 
-    return NextResponse.next();
+    return response;
 }
 
 export const config = {

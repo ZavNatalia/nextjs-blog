@@ -33,6 +33,7 @@ vi.mock('@/hooks/useDictionary', () => ({
             switchToLightTheme: 'Light theme',
         },
     }),
+    useLocale: () => 'en',
 }));
 
 vi.mock('next/link', () => ({
@@ -80,5 +81,13 @@ describe('MainNavigation', () => {
         expect(
             screen.getByRole('button', { name: 'Close menu' }),
         ).toBeInTheDocument();
+    });
+
+    it('prefixes navigation links with the active locale', () => {
+        render(<MainNavigation />);
+        const postsLinks = screen.getAllByRole('link', { name: 'Posts' });
+        postsLinks.forEach((link) =>
+            expect(link).toHaveAttribute('href', '/en/posts'),
+        );
     });
 });

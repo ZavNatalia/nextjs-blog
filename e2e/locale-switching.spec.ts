@@ -49,4 +49,27 @@ test.describe('Locale switching', () => {
             page.locator('nav', { hasText: 'все посты' }),
         ).toBeVisible();
     });
+
+    test('keeps the chosen locale when navigating via the header menu', async ({
+        page,
+    }) => {
+        await page.goto('/en');
+
+        await page.getByRole('button', { name: 'Switch to Russian' }).click();
+        await expect(page).toHaveURL(/\/ru$/);
+
+        const postsLink = page
+            .getByRole('navigation')
+            .getByRole('link', { name: 'Посты', exact: true })
+            .first();
+        await expect(postsLink).toHaveAttribute('href', '/ru/posts');
+
+        await postsLink.click();
+
+        await expect(page).toHaveURL(/\/ru\/posts$/);
+        await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
+        await expect(
+            page.getByRole('button', { name: 'Выбрать английский язык' }),
+        ).toBeVisible();
+    });
 });

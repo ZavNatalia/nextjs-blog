@@ -5,6 +5,8 @@ import { MessagesNavItem } from '@/components/ui/main-navigation/MessagesNavItem
 import { ModerationNavItem } from '@/components/ui/main-navigation/ModerationNavItem';
 import ProfileButton from '@/components/ui/main-navigation/ProfileButton';
 import { getDictionary } from '@/get-dictionary';
+import type { Locale } from '@/i18n-config';
+import { localePath } from '@/lib/locale-path';
 
 type NavLabel = 'home' | 'posts' | 'contact';
 
@@ -21,11 +23,13 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 
 function NavListItem({
     href,
+    locale,
     title,
     normalizedPathname,
     onClick,
 }: {
     href: string;
+    locale: Locale;
     title: string;
     normalizedPathname: string;
     onClick?: () => void;
@@ -35,7 +39,7 @@ function NavListItem({
     return (
         <li key={href}>
             <Link
-                href={href}
+                href={localePath(locale, href)}
                 title={title}
                 className={`link block px-2 py-2 text-base font-medium transition-colors duration-200 hover:text-accent md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
                 onClick={onClick}
@@ -47,12 +51,14 @@ function NavListItem({
 }
 
 export function NavigationList({
+    locale,
     normalizedPathname,
     session,
     status,
     dictionary,
     onClick,
 }: {
+    locale: Locale;
     normalizedPathname: string;
     session: {
         user?: {
@@ -71,6 +77,7 @@ export function NavigationList({
                 <NavListItem
                     key={href}
                     href={href}
+                    locale={locale}
                     title={dictionary[label]}
                     normalizedPathname={normalizedPathname}
                     onClick={onClick}
@@ -84,6 +91,7 @@ export function NavigationList({
                 <NavListItem
                     key="/auth"
                     href="/auth"
+                    locale={locale}
                     title={dictionary['auth']}
                     normalizedPathname={normalizedPathname}
                     onClick={onClick}
@@ -91,6 +99,7 @@ export function NavigationList({
             )}
             {status === 'authenticated' && (
                 <ProfileButton
+                    locale={locale}
                     title={dictionary['userProfile']}
                     normalizedPathname={normalizedPathname}
                     userName={session?.user?.name || undefined}
@@ -101,11 +110,13 @@ export function NavigationList({
             {status === 'authenticated' && session?.user?.isAdmin && (
                 <>
                     <ModerationNavItem
+                        locale={locale}
                         title={dictionary['moderation']}
                         normalizedPathname={normalizedPathname}
                         onClick={onClick}
                     />
                     <MessagesNavItem
+                        locale={locale}
                         title={dictionary['messages']}
                         normalizedPathname={normalizedPathname}
                         onClick={onClick}

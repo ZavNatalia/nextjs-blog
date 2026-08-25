@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { useDictionary } from '@/hooks/useDictionary';
 import { i18n } from '@/i18n-config';
@@ -8,14 +8,14 @@ import { i18n } from '@/i18n-config';
 const locales: string[] = [...i18n.locales];
 
 export default function LocaleSwitcher() {
-    const router = useRouter();
     const pathname = usePathname();
     const dictionary = useDictionary()?.['navigation'];
 
+    // A document navigation, not a router push: proxy.ts stores the chosen
+    // locale in a cookie, and it only trusts document requests to do that.
     const switchLocale = (locale: string) => {
         const newPath = pathname.replace(/^\/(en|ru)/, `/${locale}`);
-        router.push(newPath);
-        router.refresh();
+        window.location.assign(newPath);
     };
 
     const renderSwitchButton = (locale: string) => {

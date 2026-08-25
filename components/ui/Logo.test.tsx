@@ -22,15 +22,16 @@ vi.mock('@/hooks/useDictionary', () => ({
             blogTitle: 'The Workshop',
         },
     }),
+    useLocale: () => 'ru',
 }));
 
 import Logo from './Logo';
 
 describe('Logo', () => {
-    it('renders link to home page', () => {
+    it('renders link to the localized home page', () => {
         render(<Logo title="Home" />);
         const link = screen.getByRole('link', { name: 'Home' });
-        expect(link).toHaveAttribute('href', '/');
+        expect(link).toHaveAttribute('href', '/ru');
     });
 
     it('renders site name', () => {
