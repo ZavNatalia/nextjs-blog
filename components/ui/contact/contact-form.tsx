@@ -8,6 +8,8 @@ import Notification, {
     NotificationStatus,
 } from '@/components/ui/Notification';
 import { getDictionary } from '@/get-dictionary';
+import { useLocale } from '@/hooks/useDictionary';
+import { localePath } from '@/lib/locale-path';
 
 declare global {
     interface Window {
@@ -177,6 +179,7 @@ export default function ContactForm({
     userName?: string;
     dictionary: Awaited<ReturnType<typeof getDictionary>>['contact-page'];
 }) {
+    const locale = useLocale();
     const [token, setToken] = useState('');
     const [messageDetails, setMessageDetails] = useState<ContactDetails>({
         email: userEmail,
@@ -379,7 +382,7 @@ export default function ContactForm({
                         <Link
                             title={dictionary.openPrivacyPolicyPage}
                             aria-label={dictionary.openPrivacyPolicyPage}
-                            href="/privacy-policy"
+                            href={localePath(locale, '/privacy-policy')}
                             className="link text-blue-700 hover:underline dark:text-blue-400"
                         >
                             {dictionary.consentPrivacyPolicyLink}

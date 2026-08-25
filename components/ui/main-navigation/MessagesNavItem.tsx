@@ -3,15 +3,20 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 
+import type { Locale } from '@/i18n-config';
+import { localePath } from '@/lib/locale-path';
+
 const fetcher = (url: string) =>
     fetch(url).then((r) => (r.ok ? r.json() : null));
 
 export function MessagesNavItem({
     title,
+    locale,
     normalizedPathname,
     onClick,
 }: {
     title: string;
+    locale: Locale;
     normalizedPathname: string;
     onClick?: () => void;
 }) {
@@ -28,7 +33,7 @@ export function MessagesNavItem({
     return (
         <li>
             <Link
-                href="/admin/messages"
+                href={localePath(locale, '/admin/messages')}
                 title={title}
                 className={`link relative block px-2 py-2 text-lg font-medium transition-colors duration-200 hover:text-accent md:py-1 ${isActive ? 'text-accent' : 'text-foreground'}`}
                 onClick={onClick}

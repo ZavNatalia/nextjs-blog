@@ -15,6 +15,10 @@ vi.mock('react-turnstile', () => ({
     ),
 }));
 
+vi.mock('@/hooks/useDictionary', () => ({
+    useLocale: () => 'ru',
+}));
+
 import type { Dictionary } from '@/get-dictionary';
 
 import ContactForm from './contact-form';
@@ -84,7 +88,10 @@ describe('ContactForm', () => {
 
     it('pre-fills email when userEmail is provided', () => {
         render(
-            <ContactForm userEmail="user@test.com" dictionary={mockDictionary} />,
+            <ContactForm
+                userEmail="user@test.com"
+                dictionary={mockDictionary}
+            />,
         );
         expect(screen.getByLabelText('Your Email')).toHaveValue(
             'user@test.com',
@@ -92,9 +99,7 @@ describe('ContactForm', () => {
     });
 
     it('pre-fills name when userName is provided', () => {
-        render(
-            <ContactForm userName="John Doe" dictionary={mockDictionary} />,
-        );
+        render(<ContactForm userName="John Doe" dictionary={mockDictionary} />);
         expect(screen.getByLabelText('Your name')).toHaveValue('John Doe');
     });
 
@@ -214,7 +219,9 @@ describe('ContactForm', () => {
         await user.click(screen.getByRole('button', { name: 'Send message' }));
 
         await waitFor(() => {
-            expect(screen.getByText('Something went wrong!')).toBeInTheDocument();
+            expect(
+                screen.getByText('Something went wrong!'),
+            ).toBeInTheDocument();
         });
     });
 
@@ -385,5 +392,14 @@ describe('ContactForm', () => {
         expect(
             screen.getByRole('button', { name: 'Send message' }),
         ).toBeEnabled();
+    });
+
+    it('renders localized link to privacy policy', () => {
+        render(<ContactForm dictionary={mockDictionary} />);
+        expect(
+            screen.getByRole('link', {
+                name: mockDictionary.openPrivacyPolicyPage,
+            }),
+        ).toHaveAttribute('href', '/ru/privacy-policy');
     });
 });

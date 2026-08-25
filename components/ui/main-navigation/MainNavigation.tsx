@@ -9,12 +9,13 @@ import Logo from '@/components/ui/Logo';
 import { MobileMenuButton } from '@/components/ui/main-navigation/MobileMenuButton';
 import { NavigationControls } from '@/components/ui/main-navigation/NavigationControls';
 import { NavigationList } from '@/components/ui/main-navigation/NavigationList';
-import { useDictionary } from '@/hooks/useDictionary';
+import { useDictionary, useLocale } from '@/hooks/useDictionary';
 
 export default function MainNavigation() {
     const { data: session, status } = useSession();
     const [open, setOpen] = useState(false);
     const dict = useDictionary()?.navigation;
+    const locale = useLocale();
     const pathname = usePathname();
     const normalized = pathname.replace(/^\/(en|ru)/, '').split('?')[0] || '/';
 
@@ -24,6 +25,7 @@ export default function MainNavigation() {
     const toggle = () => setOpen((v) => !v);
 
     const listProps = {
+        locale,
         normalizedPathname: normalized,
         session,
         status,

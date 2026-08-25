@@ -1,13 +1,15 @@
 import Link from 'next/link';
 
-import { useDictionary } from '@/hooks/useDictionary';
+import { useDictionary, useLocale } from '@/hooks/useDictionary';
+import { localePath } from '@/lib/locale-path';
 
 export default function Logo({ title }: { title: string }) {
     const dictionary = useDictionary()?.['common'];
+    const locale = useLocale();
 
     return (
         <Link
-            href="/"
+            href={localePath(locale, '/')}
             title={title}
             aria-label={title}
             className="link mr-1 px-2 py-1"

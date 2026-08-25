@@ -90,12 +90,13 @@ export default async function RootLayout(props: {
     params: Promise<{ lang: string }>;
 }) {
     const params = await props.params;
-    const dictionary = getDictionary(params.lang as Locale);
+    const locale = params.lang as Locale;
+    const dictionary = getDictionary(locale);
 
     return (
-        <html suppressHydrationWarning lang={params.lang}>
+        <html suppressHydrationWarning lang={locale}>
             <body className={openSans.className}>
-                <Providers dictionary={dictionary}>
+                <Providers dictionary={dictionary} locale={locale}>
                     {props.children}
                 </Providers>
             </body>

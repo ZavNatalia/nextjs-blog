@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
-import { useDictionary } from '@/hooks/useDictionary';
+import { useDictionary, useLocale } from '@/hooks/useDictionary';
+import { localePath } from '@/lib/locale-path';
 
 export default function CookieConsent() {
     const { data: session, status } = useSession();
     const privacyDict = useDictionary()?.['privacy-policy-page'];
+    const locale = useLocale();
     const userId = session?.user?.email || 'guest';
 
     const [isVisible, setIsVisible] = useState(false);
@@ -34,7 +36,7 @@ export default function CookieConsent() {
             <p className="text-base">
                 {privacyDict.weUseCookies}&nbsp;
                 <Link
-                    href="/privacy-policy"
+                    href={localePath(locale, '/privacy-policy')}
                     className="text-blue-700 hover:underline dark:text-blue-400"
                 >
                     {privacyDict.ourPrivacyPolicy}

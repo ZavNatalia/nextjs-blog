@@ -35,6 +35,7 @@ const mockDictionary = {
     profile: 'Profile',
     userProfile: 'Profile',
     moderation: 'Moderation',
+    messages: 'Messages',
     switchToLightTheme: 'Light',
     switchToDarkTheme: 'Dark',
     switchToRu: 'RU',
@@ -44,10 +45,10 @@ const mockDictionary = {
 } as Dictionary['navigation'];
 
 describe('NavigationList', () => {
-
     it('renders main navigation links', () => {
         render(
             <NavigationList
+                locale="ru"
                 normalizedPathname="/"
                 session={null}
                 status="unauthenticated"
@@ -62,6 +63,7 @@ describe('NavigationList', () => {
     it('shows auth link when no session', () => {
         render(
             <NavigationList
+                locale="ru"
                 normalizedPathname="/"
                 session={null}
                 status="unauthenticated"
@@ -74,6 +76,7 @@ describe('NavigationList', () => {
     it('shows loader when status is loading', () => {
         const { container } = render(
             <NavigationList
+                locale="ru"
                 normalizedPathname="/"
                 session={null}
                 status="loading"
@@ -87,6 +90,7 @@ describe('NavigationList', () => {
     it('shows profile button when authenticated', () => {
         render(
             <NavigationList
+                locale="ru"
                 normalizedPathname="/"
                 session={{ user: { email: 'test@test.com' } }}
                 status="authenticated"
@@ -102,6 +106,7 @@ describe('NavigationList', () => {
     it('highlights active link', () => {
         render(
             <NavigationList
+                locale="ru"
                 normalizedPathname="/posts"
                 session={null}
                 status="unauthenticated"
@@ -115,6 +120,7 @@ describe('NavigationList', () => {
     it('shows moderation link for admin user', () => {
         render(
             <NavigationList
+                locale="ru"
                 normalizedPathname="/"
                 session={{ user: { email: 'admin@test.com', isAdmin: true } }}
                 status="authenticated"
@@ -129,6 +135,7 @@ describe('NavigationList', () => {
     it('does not show moderation link for non-admin user', () => {
         render(
             <NavigationList
+                locale="ru"
                 normalizedPathname="/"
                 session={{ user: { email: 'regular@test.com' } }}
                 status="authenticated"
@@ -138,5 +145,55 @@ describe('NavigationList', () => {
         expect(
             screen.queryByRole('link', { name: 'Moderation' }),
         ).not.toBeInTheDocument();
+    });
+    it('prefixes navigation links with the active locale', () => {
+        render(
+            <NavigationList
+                locale="ru"
+                normalizedPathname="/"
+                session={null}
+                status="unauthenticated"
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(screen.getByText('Home').closest('a')).toHaveAttribute(
+            'href',
+            '/ru',
+        );
+        expect(screen.getByText('Posts').closest('a')).toHaveAttribute(
+            'href',
+            '/ru/posts',
+        );
+        expect(screen.getByText('Contact').closest('a')).toHaveAttribute(
+            'href',
+            '/ru/contact',
+        );
+        expect(screen.getByText('Sign In').closest('a')).toHaveAttribute(
+            'href',
+            '/ru/auth',
+        );
+    });
+
+    it('prefixes profile and admin links with the active locale', () => {
+        render(
+            <NavigationList
+                locale="ru"
+                normalizedPathname="/"
+                session={{ user: { email: 'admin@test.com', isAdmin: true } }}
+                status="authenticated"
+                dictionary={mockDictionary}
+            />,
+        );
+        expect(screen.getByRole('link', { name: 'Profile' })).toHaveAttribute(
+            'href',
+            '/ru/profile',
+        );
+        expect(
+            screen.getByRole('link', { name: 'Moderation' }),
+        ).toHaveAttribute('href', '/ru/admin/comments');
+        expect(screen.getByRole('link', { name: 'Messages' })).toHaveAttribute(
+            'href',
+            '/ru/admin/messages',
+        );
     });
 });

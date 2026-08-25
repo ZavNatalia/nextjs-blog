@@ -11,6 +11,7 @@ import { IPost } from '@/components/ui/posts/post-card/post-card';
 import PostContent from '@/components/ui/posts/post-detail/post-content';
 import { getDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
+import { localePath } from '@/lib/locale-path';
 import { getPostData, getPostsFiles } from '@/lib/posts';
 
 export const revalidate = 3600;
@@ -123,7 +124,7 @@ export default async function Page(props: PageProps) {
             <CommentsSection postSlug={slug} lang={lang as Locale} />
             <Link
                 aria-label={dictionary.goToAllPosts}
-                href="/posts"
+                href={localePath(lang as Locale, '/posts')}
                 className="button button-ghost button-md"
             >
                 {dictionary.goToAllPosts}

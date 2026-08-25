@@ -32,6 +32,7 @@ vi.mock('@/hooks/useDictionary', () => ({
             ok: 'Accept',
         },
     }),
+    useLocale: () => 'ru',
 }));
 
 import CookieConsent from './CookieConsent';
@@ -69,11 +70,11 @@ describe('CookieConsent', () => {
         expect(screen.queryByText('We use cookies.')).not.toBeInTheDocument();
     });
 
-    it('renders link to privacy policy', async () => {
+    it('renders localized link to privacy policy', async () => {
         await act(async () => {
             render(<CookieConsent />);
         });
         const link = screen.getByRole('link', { name: 'Privacy Policy' });
-        expect(link).toHaveAttribute('href', '/privacy-policy');
+        expect(link).toHaveAttribute('href', '/ru/privacy-policy');
     });
 });
