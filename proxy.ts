@@ -41,10 +41,20 @@ function getLocale(request: NextRequest): string {
     const negotiatorHeaders: Record<string, string> = {};
     request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
+    // Negotiator yields '*' when accept-language is missing or a wildcard, and
+    // matchLocale throws a RangeError on any tag Intl cannot canonicalise —
+    // which would turn a plain request for `/` into a 500.
     const languages = new Negotiator({
         headers: negotiatorHeaders,
-    }).languages();
-    return matchLocale(languages, locales, i18n.defaultLocale);
+    })
+        .languages()
+        .filter((language) => language !== '*');
+
+    try {
+        return matchLocale(languages, locales, i18n.defaultLocale);
+    } catch {
+        return i18n.defaultLocale;
+    }
 }
 
 export function proxy(request: NextRequest) {

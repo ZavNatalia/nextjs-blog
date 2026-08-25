@@ -8,12 +8,18 @@ import { config, proxy } from './proxy';
  */
 function request(
     path: string,
-    { cookie, rsc }: { cookie?: string; rsc?: boolean } = {},
+    {
+        cookie,
+        rsc,
+        acceptLanguage = 'en-US,en;q=0.9',
+    }: { cookie?: string; rsc?: boolean; acceptLanguage?: string | null } = {},
 ) {
     const headers = new Headers({
-        'accept-language': 'en-US,en;q=0.9',
         accept: rsc ? '*/*' : 'text/html,application/xhtml+xml',
     });
+    if (acceptLanguage !== null) {
+        headers.set('accept-language', acceptLanguage);
+    }
     if (cookie) headers.set('cookie', `locale=${cookie}`);
     return new NextRequest(`https://zav.me${path}`, { headers });
 }
@@ -40,6 +46,38 @@ describe('proxy', () => {
         it('does not touch the cookie on client-side requests', () => {
             const response = proxy(request('/posts', { rsc: true }));
             expect(setCookie(response)).toBe('');
+        });
+
+        it('falls back to the default locale without an accept-language header', () => {
+            const response = proxy(request('/posts', { acceptLanguage: null }));
+            expect(response.headers.get('location')).toBe(
+                'https://zav.me/en/posts',
+            );
+        });
+
+        it('falls back to the default locale for a wildcard accept-language', () => {
+            const response = proxy(request('/posts', { acceptLanguage: '*' }));
+            expect(response.headers.get('location')).toBe(
+                'https://zav.me/en/posts',
+            );
+        });
+
+        it('ignores a wildcard among real languages', () => {
+            const response = proxy(
+                request('/posts', { acceptLanguage: '*, ru;q=0.9' }),
+            );
+            expect(response.headers.get('location')).toBe(
+                'https://zav.me/ru/posts',
+            );
+        });
+
+        it('falls back to the default locale for a malformed accept-language', () => {
+            const response = proxy(
+                request('/posts', { acceptLanguage: 'en_US' }),
+            );
+            expect(response.headers.get('location')).toBe(
+                'https://zav.me/en/posts',
+            );
         });
     });
 

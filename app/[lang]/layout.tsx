@@ -84,6 +84,11 @@ export async function generateMetadata(props: {
     };
 }
 
+// Without this, an unknown first segment (e.g. a path excluded from the proxy
+// matcher) reaches this layout as `lang` and blows up in the data layer with a
+// 500 instead of rendering a 404.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
     return i18n.locales.map((locale) => ({ lang: locale }));
 }
