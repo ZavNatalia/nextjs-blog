@@ -24,6 +24,7 @@ export async function generateMetadata(props: {
             languages: {
                 en: `${baseUrl}/en/${path}`,
                 ru: `${baseUrl}/ru/${path}`,
+                'x-default': `${baseUrl}/${path}`,
             },
         },
     };

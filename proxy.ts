@@ -11,7 +11,10 @@ const COOKIE_OPTIONS = {
     maxAge: 60 * 60 * 24 * 365,
     httpOnly: true,
     secure: true,
-    sameSite: 'strict' as const,
+    // lax, not strict: a strict cookie is not sent when the user arrives from
+    // an external site (search results, messengers), which is exactly when the
+    // stored preference has to be honored.
+    sameSite: 'lax' as const,
 };
 
 /**

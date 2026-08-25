@@ -28,16 +28,25 @@ async function getPost(slug: string, lang: Locale): Promise<IPost | null> {
 }
 async function getAvailableLanguages(
     slug: string,
-): Promise<Partial<Record<Locale, string>>> {
+): Promise<Record<string, string>> {
     const langs: Locale[] = ['en', 'ru'];
-    const result: Partial<Record<Locale, string>> = {};
+    const result: Record<string, string> = {};
 
     langs.forEach((lang) => {
-        const filePath = path.join(process.cwd(), `posts/${lang}/${slug}.md`);
+        const filePath = path.join(
+            process.cwd(),
+            `data/posts/${lang}/${slug}.md`,
+        );
         if (fs.existsSync(filePath)) {
             result[lang] = `https://zav.me/${lang}/posts/${slug}`;
         }
     });
+
+    // The locale-less URL only resolves to a real page when the post exists in
+    // more than one language; otherwise it can redirect a reader to a 404.
+    if (Object.keys(result).length > 1) {
+        result['x-default'] = `https://zav.me/posts/${slug}`;
+    }
 
     return result;
 }

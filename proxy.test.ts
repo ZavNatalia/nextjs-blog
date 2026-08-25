@@ -49,6 +49,11 @@ describe('proxy', () => {
             expect(setCookie(response)).toContain('locale=ru');
         });
 
+        it('stores the locale with SameSite=Lax so it survives external entry', () => {
+            const response = proxy(request('/ru/posts', { cookie: 'en' }));
+            expect(setCookie(response)).toContain('SameSite=lax');
+        });
+
         it('does not rewrite the cookie when it already matches', () => {
             const response = proxy(request('/ru/posts', { cookie: 'ru' }));
             expect(setCookie(response)).toBe('');

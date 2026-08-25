@@ -76,6 +76,9 @@ export async function generateMetadata(props: {
             languages: {
                 en: `${baseUrl}/en`,
                 ru: `${baseUrl}/ru`,
+                // The locale-less URL picks a language from the request, which
+                // is what x-default is meant to point at.
+                'x-default': baseUrl,
             },
         },
     };

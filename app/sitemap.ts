@@ -15,9 +15,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'weekly' as const,
         priority: 0.7,
         alternates: {
-            languages: Object.fromEntries(
-                locales.map((l) => [l, `${BASE_URL}/${l}`]),
-            ),
+            languages: {
+                ...Object.fromEntries(
+                    locales.map((l) => [l, `${BASE_URL}/${l}`]),
+                ),
+                'x-default': BASE_URL,
+            },
         },
     }));
 
@@ -31,12 +34,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     changeFrequency: 'weekly' as const,
                     priority: 0.7,
                     alternates: {
-                        languages: Object.fromEntries(
-                            locales.map((l) => [
-                                l,
-                                `${BASE_URL}/${l}/posts/${post.slug}`,
-                            ]),
-                        ),
+                        languages: {
+                            ...Object.fromEntries(
+                                locales.map((l) => [
+                                    l,
+                                    `${BASE_URL}/${l}/posts/${post.slug}`,
+                                ]),
+                            ),
+                            'x-default': `${BASE_URL}/posts/${post.slug}`,
+                        },
                     },
                 }));
             }),
@@ -53,12 +59,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     changeFrequency: 'weekly' as const,
                     priority: 0.7,
                     alternates: {
-                        languages: Object.fromEntries(
-                            locales.map((l) => [
-                                l,
-                                `${BASE_URL}/${l}/news/${item.slug}`,
-                            ]),
-                        ),
+                        languages: {
+                            ...Object.fromEntries(
+                                locales.map((l) => [
+                                    l,
+                                    `${BASE_URL}/${l}/news/${item.slug}`,
+                                ]),
+                            ),
+                            'x-default': `${BASE_URL}/news/${item.slug}`,
+                        },
                     },
                 }));
             }),
