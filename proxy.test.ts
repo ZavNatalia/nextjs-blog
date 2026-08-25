@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 
-import { proxy } from './proxy';
+import { config, proxy } from './proxy';
 
 /**
  * Next strips its RSC headers before proxy runs, so the accept header is the
@@ -64,6 +64,27 @@ describe('proxy', () => {
                 request('/en/posts', { cookie: 'ru', rsc: true }),
             );
             expect(setCookie(response)).toBe('');
+        });
+    });
+
+    describe('matcher', () => {
+        const matches = (pathname: string) =>
+            new RegExp(`^${config.matcher[0]}$`).test(pathname);
+
+        it('runs for app pages', () => {
+            expect(matches('/')).toBe(true);
+            expect(matches('/ru/posts')).toBe(true);
+        });
+
+        it('skips sitemap and robots so they are served as-is', () => {
+            expect(matches('/sitemap.xml')).toBe(false);
+            expect(matches('/robots.txt')).toBe(false);
+        });
+
+        it('skips api, assets and internals', () => {
+            expect(matches('/api/comments')).toBe(false);
+            expect(matches('/images/site/hero.png')).toBe(false);
+            expect(matches('/_next/static/chunk.js')).toBe(false);
         });
     });
 });
