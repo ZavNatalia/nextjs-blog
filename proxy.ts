@@ -14,6 +14,19 @@ const COOKIE_OPTIONS = {
     sameSite: 'strict' as const,
 };
 
+/**
+ * Only a document navigation may store the locale.
+ *
+ * <Link> prefetches pages in the background, including pages of the locale the
+ * user has just left; letting those write the cookie would roll the stored
+ * locale back. Next strips its own RSC headers before this runs, so the accept
+ * header is the only way to tell a document request from a client-side one —
+ * which is why LocaleSwitcher navigates the document instead of routing.
+ */
+function isDocumentRequest(request: NextRequest): boolean {
+    return request.headers.get('accept')?.includes('text/html') ?? false;
+}
+
 function getLocale(request: NextRequest): string {
     const langCookie = request.cookies.get(COOKIE_NAME)?.value;
     const locales: string[] = [...i18n.locales];
@@ -44,24 +57,32 @@ export function proxy(request: NextRequest) {
             pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
     );
 
+    const storedLocale = request.cookies.get(COOKIE_NAME)?.value;
+
     if (!localeInPath) {
         const locale = getLocale(request);
         const response = NextResponse.redirect(
             new URL(`/${locale}${pathname}`, request.url),
         );
 
-        response.cookies.set(COOKIE_NAME, locale, COOKIE_OPTIONS);
+        if (isDocumentRequest(request) && storedLocale !== locale) {
+            response.cookies.set(COOKIE_NAME, locale, COOKIE_OPTIONS);
+        }
         return response;
     }
 
     const currentLocale = pathname.split('/')[1];
-    if (locales.includes(currentLocale)) {
-        const response = NextResponse.next();
+    const response = NextResponse.next();
+
+    if (
+        locales.includes(currentLocale) &&
+        isDocumentRequest(request) &&
+        storedLocale !== currentLocale
+    ) {
         response.cookies.set(COOKIE_NAME, currentLocale, COOKIE_OPTIONS);
-        return response;
     }
 
-    return NextResponse.next();
+    return response;
 }
 
 export const config = {

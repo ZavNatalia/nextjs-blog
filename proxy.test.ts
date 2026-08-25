@@ -1,0 +1,64 @@
+import { NextRequest } from 'next/server';
+
+import { proxy } from './proxy';
+
+/**
+ * Next strips its RSC headers before proxy runs, so the accept header is the
+ * only thing that separates a document navigation from a client-side one.
+ */
+function request(
+    path: string,
+    { cookie, rsc }: { cookie?: string; rsc?: boolean } = {},
+) {
+    const headers = new Headers({
+        'accept-language': 'en-US,en;q=0.9',
+        accept: rsc ? '*/*' : 'text/html,application/xhtml+xml',
+    });
+    if (cookie) headers.set('cookie', `locale=${cookie}`);
+    return new NextRequest(`https://zav.me${path}`, { headers });
+}
+
+const setCookie = (response: Response) =>
+    response.headers.get('set-cookie') ?? '';
+
+describe('proxy', () => {
+    describe('paths without a locale', () => {
+        it('redirects to the locale from the cookie', () => {
+            const response = proxy(request('/posts', { cookie: 'ru' }));
+            expect(response.headers.get('location')).toBe(
+                'https://zav.me/ru/posts',
+            );
+        });
+
+        it('falls back to the Accept-Language header without a cookie', () => {
+            const response = proxy(request('/posts'));
+            expect(response.headers.get('location')).toBe(
+                'https://zav.me/en/posts',
+            );
+        });
+
+        it('does not touch the cookie on client-side requests', () => {
+            const response = proxy(request('/posts', { rsc: true }));
+            expect(setCookie(response)).toBe('');
+        });
+    });
+
+    describe('paths with a locale', () => {
+        it('stores the locale of the requested page', () => {
+            const response = proxy(request('/ru/posts', { cookie: 'en' }));
+            expect(setCookie(response)).toContain('locale=ru');
+        });
+
+        it('does not rewrite the cookie when it already matches', () => {
+            const response = proxy(request('/ru/posts', { cookie: 'ru' }));
+            expect(setCookie(response)).toBe('');
+        });
+
+        it('does not touch the cookie on client-side requests', () => {
+            const response = proxy(
+                request('/en/posts', { cookie: 'ru', rsc: true }),
+            );
+            expect(setCookie(response)).toBe('');
+        });
+    });
+});

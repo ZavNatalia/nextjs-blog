@@ -13,7 +13,11 @@ export default defineConfig({
                 test: {
                     name: 'node',
                     environment: 'node',
-                    include: ['lib/**/*.test.ts', 'app/api/**/*.test.ts'],
+                    include: [
+                        'lib/**/*.test.ts',
+                        'app/api/**/*.test.ts',
+                        'proxy.test.ts',
+                    ],
                 },
             },
             {
@@ -27,6 +31,7 @@ export default defineConfig({
                         'e2e',
                         'lib/**/*.test.ts',
                         'app/api/**/*.test.ts',
+                        'proxy.test.ts',
                     ],
                 },
             },

@@ -1,14 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-const mockPush = vi.fn();
-const mockRefresh = vi.fn();
+const mockAssign = vi.fn();
 
 vi.mock('next/navigation', () => ({
-    useRouter: () => ({
-        push: mockPush,
-        refresh: mockRefresh,
-    }),
     usePathname: () => '/en/posts',
 }));
 
@@ -25,6 +20,10 @@ import LocaleSwitcher from './LocaleSwitcher';
 
 beforeEach(() => {
     vi.clearAllMocks();
+    Object.defineProperty(window, 'location', {
+        configurable: true,
+        value: { assign: mockAssign },
+    });
 });
 
 describe('LocaleSwitcher', () => {
@@ -40,12 +39,11 @@ describe('LocaleSwitcher', () => {
         expect(enButton).toHaveClass('text-accent');
     });
 
-    it('switches locale on click', async () => {
+    it('switches locale with a full document navigation', async () => {
         render(<LocaleSwitcher />);
         await userEvent.click(
             screen.getByRole('button', { name: 'Switch to Russian' }),
         );
-        expect(mockPush).toHaveBeenCalledWith('/ru/posts');
-        expect(mockRefresh).toHaveBeenCalled();
+        expect(mockAssign).toHaveBeenCalledWith('/ru/posts');
     });
 });
