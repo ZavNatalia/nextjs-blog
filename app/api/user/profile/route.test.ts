@@ -32,6 +32,7 @@ vi.mock('@/lib/rate-limit', () => ({
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { PATCH } from './route';
 
@@ -49,7 +50,7 @@ beforeEach(() => {
 
 describe('PATCH /api/user/profile', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
         const res = await PATCH(makeRequest({ name: 'Test' }));
         expect(res.status).toBe(401);
         const data = await res.json();
@@ -57,8 +58,8 @@ describe('PATCH /api/user/profile', () => {
     });
 
     it('returns 422 for name too short (1 char)', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         const res = await PATCH(makeRequest({ name: 'A' }));
@@ -68,8 +69,8 @@ describe('PATCH /api/user/profile', () => {
     });
 
     it('returns 422 for name too long (51 chars)', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         const res = await PATCH(makeRequest({ name: 'A'.repeat(51) }));
@@ -79,8 +80,8 @@ describe('PATCH /api/user/profile', () => {
     });
 
     it('returns 200 with valid name', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockUsersUpdateOne.mockResolvedValue({ matchedCount: 1 });
@@ -100,8 +101,8 @@ describe('PATCH /api/user/profile', () => {
     });
 
     it('returns 404 when user not found', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'ghost@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'ghost-id', email: 'ghost@test.com' },
             expires: '',
         });
         mockUsersUpdateOne.mockResolvedValue({ matchedCount: 0 });
@@ -112,8 +113,8 @@ describe('PATCH /api/user/profile', () => {
     });
 
     it('returns 500 on database error', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockUsersUpdateOne.mockRejectedValue(new Error('DB connection failed'));
@@ -133,8 +134,8 @@ describe('PATCH /api/user/profile', () => {
     });
 
     it('returns 400 for invalid JSON body', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         const req = new NextRequest('http://localhost:3000/api/user/profile', {
@@ -149,8 +150,8 @@ describe('PATCH /api/user/profile', () => {
     });
 
     it('returns 401 when session has no email', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: null },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id' },
             expires: '',
         });
         const res = await PATCH(makeRequest({ name: 'Test' }));

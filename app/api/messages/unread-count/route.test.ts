@@ -24,6 +24,7 @@ vi.mock('@/lib/rate-limit', () => ({
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { GET } from './route';
 
@@ -41,8 +42,8 @@ beforeEach(() => {
 
 describe('GET /api/messages/unread-count', () => {
     it('returns 403 when user is not admin', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'user@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'user@test.com' },
             expires: '',
         });
 
@@ -54,8 +55,8 @@ describe('GET /api/messages/unread-count', () => {
     });
 
     it('returns 200 with count', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
         mockCountDocuments.mockResolvedValue(3);

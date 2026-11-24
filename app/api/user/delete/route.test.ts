@@ -26,6 +26,7 @@ vi.mock('@/lib/rate-limit', () => ({
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { DELETE } from './route';
 
@@ -41,7 +42,7 @@ beforeEach(() => {
 
 describe('DELETE /api/user/delete', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
         const res = await DELETE(makeRequest());
         expect(res.status).toBe(401);
         const data = await res.json();
@@ -49,8 +50,8 @@ describe('DELETE /api/user/delete', () => {
     });
 
     it('returns 401 when session has no email', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { name: 'Test' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', name: 'Test' },
             expires: '',
         });
         const res = await DELETE(makeRequest());
@@ -58,8 +59,8 @@ describe('DELETE /api/user/delete', () => {
     });
 
     it('returns 404 when user not found in database', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'ghost@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'ghost-id', email: 'ghost@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue(null);
@@ -70,8 +71,8 @@ describe('DELETE /api/user/delete', () => {
     });
 
     it('returns 500 when delete operation fails', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({ email: 'test@test.com' });
@@ -83,8 +84,8 @@ describe('DELETE /api/user/delete', () => {
     });
 
     it('returns 200 on successful account deletion', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({ email: 'test@test.com' });
@@ -96,8 +97,8 @@ describe('DELETE /api/user/delete', () => {
     });
 
     it('returns 500 on database error', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockFindOne.mockRejectedValue(new Error('DB connection failed'));
