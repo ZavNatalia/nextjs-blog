@@ -34,6 +34,7 @@ vi.mock('@/lib/rate-limit', () => ({
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { GET, POST } from './route';
 
@@ -99,7 +100,7 @@ describe('GET /api/comments', () => {
 
 describe('POST /api/comments', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
 
         const res = await POST(
             makePostRequest({ postSlug: 'test-post', content: 'Nice!' }),
@@ -110,8 +111,8 @@ describe('POST /api/comments', () => {
     });
 
     it('returns 422 for empty content', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com', name: 'Test User' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
 
@@ -122,8 +123,8 @@ describe('POST /api/comments', () => {
     });
 
     it('returns 422 for content exceeding 1000 chars', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com', name: 'Test User' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
 
@@ -135,8 +136,8 @@ describe('POST /api/comments', () => {
     });
 
     it('returns 201 on successful creation', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com', name: 'Test User' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({
@@ -162,8 +163,8 @@ describe('POST /api/comments', () => {
     });
 
     it('sets status to pending for content with URLs', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com', name: 'Test User' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com', name: 'Test User' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({

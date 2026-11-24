@@ -24,6 +24,7 @@ vi.mock('@/lib/rate-limit', () => ({
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { PATCH } from './route';
 
@@ -47,7 +48,7 @@ beforeEach(() => {
 
 describe('PATCH /api/comments/[id]/moderate', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
         const res = await PATCH(makeRequest({ status: 'approved' }), {
             params: mockParams,
         });
@@ -57,8 +58,8 @@ describe('PATCH /api/comments/[id]/moderate', () => {
     });
 
     it('returns 403 when user is not admin', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'user@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'user@test.com' },
             expires: '',
         });
         const res = await PATCH(makeRequest({ status: 'approved' }), {
@@ -70,8 +71,8 @@ describe('PATCH /api/comments/[id]/moderate', () => {
     });
 
     it('returns 422 for invalid status', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
         const res = await PATCH(makeRequest({ status: 'invalid' }), {
@@ -81,8 +82,8 @@ describe('PATCH /api/comments/[id]/moderate', () => {
     });
 
     it('returns 200 on successful moderation', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
         mockUpdateOne.mockResolvedValue({ modifiedCount: 1 });

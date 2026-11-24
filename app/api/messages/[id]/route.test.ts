@@ -28,6 +28,7 @@ vi.mock('@/lib/rate-limit', () => ({
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { DELETE, PATCH } from './route';
 
@@ -52,7 +53,7 @@ beforeEach(() => {
 
 describe('PATCH /api/messages/[id]', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
 
         const res = await PATCH(makePatchRequest(), makeParams('abc123'));
 
@@ -62,8 +63,8 @@ describe('PATCH /api/messages/[id]', () => {
     });
 
     it('returns 403 when user is not admin', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'user@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'user@test.com' },
             expires: '',
         });
 
@@ -78,8 +79,8 @@ describe('PATCH /api/messages/[id]', () => {
     });
 
     it('returns 400 for invalid ObjectId', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
 
@@ -91,8 +92,8 @@ describe('PATCH /api/messages/[id]', () => {
     });
 
     it('returns 200 on successful mark as read', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({
@@ -116,7 +117,7 @@ describe('PATCH /api/messages/[id]', () => {
 
 describe('DELETE /api/messages/[id]', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
 
         const res = await DELETE(makeDeleteRequest(), makeParams('abc123'));
 
@@ -126,8 +127,8 @@ describe('DELETE /api/messages/[id]', () => {
     });
 
     it('returns 403 when user is not admin', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'user@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'user@test.com' },
             expires: '',
         });
 
@@ -142,8 +143,8 @@ describe('DELETE /api/messages/[id]', () => {
     });
 
     it('returns 200 on successful delete', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({

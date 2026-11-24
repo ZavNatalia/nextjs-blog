@@ -1,6 +1,6 @@
 'use client';
 import { signOut } from 'next-auth/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import Notification, {
     NotificationDetails,
@@ -27,6 +27,11 @@ export function DangerZoneSection({
     const deleteButtonRef = useRef<HTMLButtonElement>(null);
     const cancelButtonRef = useRef<HTMLButtonElement>(null);
 
+    const closeDialog = useCallback(() => {
+        setIsConfirmOpen(false);
+        deleteButtonRef.current?.focus();
+    }, []);
+
     useEffect(() => {
         if (!isConfirmOpen) return;
         const handler = (e: KeyboardEvent) => {
@@ -34,18 +39,13 @@ export function DangerZoneSection({
         };
         document.addEventListener('keydown', handler);
         return () => document.removeEventListener('keydown', handler);
-    }, [isConfirmOpen]);
+    }, [closeDialog, isConfirmOpen]);
 
     useEffect(() => {
         if (isConfirmOpen) {
             cancelButtonRef.current?.focus();
         }
     }, [isConfirmOpen]);
-
-    const closeDialog = () => {
-        setIsConfirmOpen(false);
-        deleteButtonRef.current?.focus();
-    };
 
     useEffect(() => {
         if (requestStatus === 'success') {

@@ -24,6 +24,7 @@ vi.mock('@/lib/rate-limit', () => ({
 import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { DELETE } from './route';
 
@@ -45,7 +46,7 @@ beforeEach(() => {
 
 describe('DELETE /api/messages/by-email', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
         const res = await DELETE(makeRequest({ email: 'spam@test.com' }));
         expect(res.status).toBe(401);
         const data = await res.json();
@@ -53,8 +54,8 @@ describe('DELETE /api/messages/by-email', () => {
     });
 
     it('returns 422 for invalid email', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
         const res = await DELETE(makeRequest({ email: 'not-an-email' }));
@@ -62,8 +63,8 @@ describe('DELETE /api/messages/by-email', () => {
     });
 
     it('returns 200 with deletedCount on success', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'admin@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'admin-id', email: 'admin@test.com' },
             expires: '',
         });
         mockDeleteMany.mockResolvedValue({ deletedCount: 3 });

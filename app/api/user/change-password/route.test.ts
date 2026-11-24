@@ -32,6 +32,7 @@ import { NextRequest } from 'next/server';
 
 import { auth } from '@/auth';
 import { verifyPassword } from '@/lib/auth';
+import { mockSessionAuth } from '@/test/mock-session-auth';
 
 import { PATCH } from './route';
 
@@ -49,7 +50,7 @@ beforeEach(() => {
 
 describe('PATCH /api/user/change-password', () => {
     it('returns 401 when not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        mockSessionAuth(auth).mockResolvedValue(null);
         const res = await PATCH(
             makeRequest({
                 oldPassword: 'oldpass123',
@@ -62,8 +63,8 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 422 for missing old password', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         const res = await PATCH(
@@ -73,8 +74,8 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 422 for short new password', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         const res = await PATCH(
@@ -84,8 +85,8 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 404 when user not found', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'ghost@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'ghost-id', email: 'ghost@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue(null);
@@ -101,8 +102,8 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 403 when old password is incorrect', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({
@@ -122,8 +123,8 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 200 on successful password change', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockFindOne.mockResolvedValue({
@@ -144,8 +145,8 @@ describe('PATCH /api/user/change-password', () => {
     });
 
     it('returns 500 on database error', async () => {
-        vi.mocked(auth).mockResolvedValue({
-            user: { email: 'test@test.com' },
+        mockSessionAuth(auth).mockResolvedValue({
+            user: { id: 'user-id', email: 'test@test.com' },
             expires: '',
         });
         mockFindOne.mockRejectedValue(new Error('DB connection failed'));
